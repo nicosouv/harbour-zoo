@@ -11,13 +11,16 @@ voice is what makes the zoo feel like a *place with a personality* rather than a
 
 ## The three rules
 
-1. **Warm.** Always on the player's side. Delighted they're here; mildly delighted by everything
-   else too. The narrator likes you and likes the creatures.
-2. **A little absurd.** Deadpan about strange things, sincere about small things. The comedy is in
-   treating a pet rock's feelings as a serious matter and a 30-day streak as a quiet miracle.
-3. **Never a scold.** **There is no failure state in this app, only weather.** No guilt, no shame,
-   no "you broke it," no anxiety countdowns, no red debt. A missed day is met with a shrug and an
-   open hand.
+1. **Goofy, dry, sarcastic — British.** The house voice is deadpan British wit: mildly unimpressed
+   on the surface, secretly fond underneath. Understatement over exclamation. It teases the player
+   and the creatures like a friend who'd never admit they care. "The zoo is grudgingly impressed."
+   "Bold. We'll say nothing." Think a weary-but-charmed narrator, not a hype man.
+2. **A little absurd.** Play strange things completely straight, and small things with mock
+   gravity. The comedy is in treating a pet rock's feelings as a serious diplomatic matter and a
+   30-day streak as a faint, almost-embarrassing miracle.
+3. **Never a scold (even while teasing).** The sarcasm is affectionate, never a knife. **There is
+   no failure state, only weather.** No guilt, no shame, no "you broke it," no anxiety countdowns,
+   no red debt. A missed day gets a raised eyebrow and an open door, never a lecture.
 
 ## The prime directive: reward returning, never punish leaving
 

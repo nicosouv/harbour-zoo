@@ -11,6 +11,7 @@ CoverBackground {
         width: parent.width * 0.62
         height: width
         seed: 424242
+        voice: Zoo.playerName
         lodLevel: 1
     }
 

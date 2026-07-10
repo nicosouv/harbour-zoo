@@ -18,6 +18,19 @@ Page {
 
             PageHeader { title: qsTr("Settings") }
 
+            // --- You -------------------------------------------------------------------------
+            SectionHeader { text: qsTr("You") }
+
+            TextField {
+                width: parent.width
+                label: qsTr("Your name (so the creatures can shout it)")
+                placeholderText: qsTr("Optional. They'll manage either way.")
+                text: Zoo.playerName
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: focus = false
+                onTextChanged: if (text !== Zoo.playerName) Zoo.playerName = text
+            }
+
             // --- Reminders ---------------------------------------------------------------------
             SectionHeader { text: qsTr("Reminders") }
 

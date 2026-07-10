@@ -36,6 +36,7 @@ Page {
                 height: width
                 seed: page.seed
                 rarity: page.rarity
+                voice: Zoo.playerName
                 lodLevel: 0
             }
 

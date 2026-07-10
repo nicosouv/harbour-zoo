@@ -11,6 +11,11 @@ Specimen {
     readonly property color creamColor: "#F6EFDD"
     readonly property color pupilColor: "#1A1C26"
 
+    // A name to occasionally shout in a speech bubble. Empty => a goofy noise instead.
+    property string voice: ""
+    readonly property var _shouts: ["Oi.", "hello", "BLEP", "mate", "...why", "hm.", "oh good, you",
+        "brilliant", "sup", "we meet again"]
+
     // The genome — a pure function of (seed, rarity). Rebinds when either changes.
     property var g: buildGenome(seed, rarity)
 
@@ -94,10 +99,22 @@ Specimen {
         var sat = (rarity === "common") ? range(0.14, 0.24) : range(0.35, 0.70);
         var lig = range(0.16, 0.26);
 
+        // Eye shape genes — eyes are NOT necessarily round. aspect >1 = wide/sleepy, <1 = tall;
+        // corner 0.5 = fully round/pill, lower = boxy/almond; tilt slants them; pupils vary too.
+        var eyeAspect = range(0.72, 1.7);
+        var eyeCorner = range(0.16, 0.5);
+        var eyeTilt = Math.floor(range(0, 24));
+
         return {
             lobes: lobes,
             eyes: eyes,
+            eyeAspect: eyeAspect,
+            eyeCorner: eyeCorner,
+            eyeTilt: eyeTilt,
+            mirrorTilt: (r() < 0.85),          // usually the pair slants symmetrically
             pupilRatio: range(0.34, 0.46),
+            pupilAspect: range(0.62, 1.18),
+            pupilCorner: range(0.30, 0.5),
             blinkMs: Math.floor(range(2600, 6000)),
             wobbleAmp: range(0.010, 0.026),
             wobbleFreq: range(3.0, 7.0),
@@ -117,6 +134,18 @@ Specimen {
         root.persist(m);
         if (m.pokes % 50 === 0)
             puffAnim.restart(); // secret: every 50 pokes it burps
+        else if (Math.random() < 0.5)
+            shout();            // poking it is rude; it may comment
+    }
+
+    // Occasional goofy outburst — shouts the player's name, or a noise if there isn't one.
+    function shout() {
+        if (root.lodLevel >= 2)
+            return;
+        bubble.say = (root.voice && root.voice.length > 0)
+                     ? root.voice.toUpperCase() + "!"
+                     : root._shouts[Math.floor(Math.random() * root._shouts.length)];
+        bubbleAnim.restart();
     }
 
     // ---- Drawing ----------------------------------------------------------------------------
@@ -191,36 +220,46 @@ Specimen {
                 }"
         }
 
-        // Eyes: the soul. Track the finger, blink, widen on poke.
+        // Eyes: the soul. Shaped by the genome (not necessarily round): aspect, roundedness and
+        // tilt vary. They track the finger, blink, and widen on poke.
         Repeater {
             model: g.eyes
             delegate: Item {
                 id: eye
                 property var e: modelData
-                property real fullSize: field.width * e.s
-                width: fullSize
-                height: fullSize * root.eyeOpen
-                x: field.width * (0.5 + e.x) - fullSize / 2
-                y: field.height * (0.5 + e.y) - height / 2
+                property real base: field.width * e.s
+                property real ew: base * g.eyeAspect          // eye width
+                property real eh: base / g.eyeAspect           // eye height (tall/short = not round)
+                width: ew
+                height: eh
+                x: field.width * (0.5 + e.x) - ew / 2
+                y: field.height * (0.5 + e.y) - eh / 2
+                // slant: pair mirrors around the centre eye; a single/centre eye stays level
+                rotation: g.eyeTilt * (g.mirrorTilt ? (e.x < 0 ? -1 : (e.x > 0 ? 1 : 0)) : 1)
+                transformOrigin: Item.Center
 
-                Rectangle { // white
-                    anchors.fill: parent
-                    radius: Math.min(width, height) / 2
+                Rectangle { // white — blink squashes height only
+                    width: eye.ew
+                    height: eye.eh * root.eyeOpen
+                    anchors.centerIn: parent
+                    radius: Math.min(width, height) * g.eyeCorner
                     color: root.creamColor
                 }
-                Rectangle { // pupil
+                Rectangle { // pupil — shaped, gaze-tracking
                     id: pupil
-                    width: eye.fullSize * g.pupilRatio
-                    height: width
-                    radius: width / 2
+                    property real pw: Math.min(eye.ew, eye.eh) * g.pupilRatio
+                    width: pw * g.pupilAspect
+                    height: pw / g.pupilAspect
+                    radius: Math.min(width, height) * g.pupilCorner
                     color: root.pupilColor
                     visible: root.eyeOpen > 0.35
-                    x: eye.fullSize * 0.5 - width / 2 + root.gazeX * eye.fullSize * 0.16
-                    y: eye.fullSize * 0.5 - height / 2 + root.gazeY * eye.fullSize * 0.16
+                    x: eye.ew * 0.5 - width / 2 + root.gazeX * eye.ew * 0.16
+                    y: eye.eh * 0.5 - height / 2 + root.gazeY * eye.eh * 0.16
                     Rectangle { // catch-light
-                        width: parent.width * 0.28; height: width; radius: width / 2
+                        width: parent.width * 0.30; height: parent.height * 0.30
+                        radius: Math.min(width, height) / 2
                         color: root.creamColor
-                        x: parent.width * 0.20; y: parent.height * 0.16
+                        x: parent.width * 0.18; y: parent.height * 0.16
                     }
                 }
             }
@@ -288,5 +327,55 @@ Specimen {
         running: root.lodLevel < 2
         repeat: true
         onTriggered: blinkAnim.restart()
+    }
+
+    // Speech bubble (sits just over the blob's head so it doesn't overrun the layout).
+    Rectangle {
+        id: bubble
+        property string say: ""
+        color: root.creamColor
+        radius: height * 0.34
+        width: bubbleLabel.implicitWidth + field.width * 0.14
+        height: bubbleLabel.implicitHeight + field.width * 0.07
+        x: field.x + field.width * 0.5 - width / 2
+        y: field.y - height * 0.5
+        opacity: 0
+        scale: 0.6
+        transformOrigin: Item.Bottom
+
+        Text {
+            id: bubbleLabel
+            anchors.centerIn: parent
+            text: bubble.say
+            color: root.pupilColor
+            font.pixelSize: Math.max(11, field.width * 0.11)
+            font.bold: true
+        }
+        Rectangle { // little tail
+            width: field.width * 0.06; height: width
+            color: root.creamColor
+            rotation: 45
+            x: bubble.width * 0.5 - width / 2
+            y: bubble.height - height / 2
+        }
+    }
+    SequentialAnimation {
+        id: bubbleAnim
+        ParallelAnimation {
+            NumberAnimation { target: bubble; property: "opacity"; to: 1.0; duration: 160 }
+            NumberAnimation { target: bubble; property: "scale"; to: 1.0; duration: 240
+                easing.type: Easing.OutBack; easing.overshoot: 3.0 }
+        }
+        PauseAnimation { duration: 1500 }
+        ParallelAnimation {
+            NumberAnimation { target: bubble; property: "opacity"; to: 0.0; duration: 260 }
+            NumberAnimation { target: bubble; property: "scale"; to: 0.6; duration: 260 }
+        }
+    }
+    Timer { // random-ish outbursts
+        interval: 6000 + Math.abs(root.seed % 9000)
+        running: root.lodLevel < 2
+        repeat: true
+        onTriggered: shout()
     }
 }
