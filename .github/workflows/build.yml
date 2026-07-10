@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  SAILFISH_RELEASE: '5.1.0.11'
+  SAILFISH_RELEASE: '4.5.0.18'
 
 jobs:
   unit-tests:
@@ -21,7 +21,7 @@ jobs:
       - name: Install Qt
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends qtbase5-dev qtbase5-dev-tools qt5-qmake make g++
+          sudo apt-get install -y --no-install-recommends qtbase5-dev qtbase5-dev-tools qt5-qmake libqt5sql5-sqlite make g++
 
       - name: Build tests
         run: |

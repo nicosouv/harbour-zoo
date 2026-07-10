@@ -48,12 +48,12 @@ export PATH=/usr/lib/qt5/bin:$PATH
 cd tests && qmake tests.pro && make -j2 && ./tst_zoo
 
 # App RPM via SDK
-sfdk config target=SailfishOS-5.1.0.11-armv7hl
+sfdk config target=SailfishOS-4.5.0.18-armv7hl
 sfdk build
 
 # App RPM via Docker (no SDK)
 docker run --rm -it -v $(pwd):/home/sailfish/src -w /home/sailfish/src \
-  coderus/sailfishos-platform-sdk:5.1.0.11 mb2 -t SailfishOS-5.1.0.11-armv7hl build
+  coderus/sailfishos-platform-sdk:4.5.0.18 mb2 -t SailfishOS-4.5.0.18-armv7hl build
 ```
 
 ## Release

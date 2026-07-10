@@ -39,7 +39,7 @@ inject the clock and the install-salt; never call wall-clock time or system RNG 
 ## App build with the Sailfish SDK (local)
 
 ```bash
-sfdk config target=SailfishOS-5.1.0.11-armv7hl
+sfdk config target=SailfishOS-4.5.0.18-armv7hl
 sfdk build
 sfdk emulator start
 sfdk deploy --manual          # emulator
@@ -53,18 +53,30 @@ sfdk deploy
 ```bash
 docker run --rm -it \
   -v $(pwd):/home/sailfish/src -w /home/sailfish/src \
-  coderus/sailfishos-platform-sdk:5.1.0.11 \
-  mb2 -t SailfishOS-5.1.0.11-armv7hl build
+  coderus/sailfishos-platform-sdk:4.5.0.18 \
+  mb2 -t SailfishOS-4.5.0.18-armv7hl build
 # RPMs land in RPMS/
 ```
 
-## Target SFOS release
+## Target SFOS release / build baseline
 
-Current target: **Sailfish OS 5.1.0.11 "Pispala"** (the 5.1 series). This is the string used by
-`sfdk`, the coderus Docker image tag, and the CI `SAILFISH_RELEASE`. When a newer 5.1.0.x ships,
-bump it in one place per surface: both `.github/workflows/*.yml`, this skill, and `CLAUDE.md`. If a
-CI build fails at the "Build RPM" step with a release/image-not-found error, the pinned version
-isn't published for `R1tschY/sailfish-build-rpm` yet — drop to the latest one that is.
+CI builds against **Sailfish OS 4.5.0.18** (`SAILFISH_RELEASE` in both workflows). This is
+deliberate and matches the sibling harbour apps (sailcat, mer-meeting): **building against an older
+baseline gives the widest device coverage** — an RPM built on 4.5.0.18 installs and runs on
+everything up to and including 5.1. Newer devices are covered; older ones aren't excluded.
+
+The `R1tschY/sailfish-build-rpm` action can only use SDK images it has published to
+`ghcr.io/r1tschy/sailfishos-platform-sdk` — currently up to **5.0.0.62** (there is **no** 5.1.0.x
+image, which is why pinning 5.1.0.11 failed to pull). To see what's available:
+
+```bash
+token=$(curl -s "https://ghcr.io/token?scope=repository:r1tschy/sailfishos-platform-sdk:pull" | python3 -c "import sys,json;print(json.load(sys.stdin)['token'])")
+curl -s -H "Authorization: Bearer $token" https://ghcr.io/v2/r1tschy/sailfishos-platform-sdk/tags/list
+```
+
+If you must bump the baseline, pick a release that appears in that list and update it in both
+`.github/workflows/*.yml` (and the local commands below). Local `sfdk`/emulator work can use any
+target you have installed — it's independent of the CI baseline.
 
 ## Harbour cleanliness (non-negotiable for v1)
 

@@ -36,12 +36,12 @@ The vision lives in [`docs/`](docs/):
 
 ## Build
 
-Requires the Sailfish OS SDK (`sfdk`) or the platform SDK Docker image. Target: Sailfish OS
-5.1.0.11 "Pispala".
+Requires the Sailfish OS SDK (`sfdk`) or the platform SDK Docker image. CI builds against the
+4.5.0.18 baseline for the widest device coverage (the RPM still runs on 5.1 devices).
 
 ```bash
 # App RPM (SDK)
-sfdk config target=SailfishOS-5.1.0.11-armv7hl
+sfdk config target=SailfishOS-4.5.0.18-armv7hl
 sfdk build
 
 # Engine unit tests on plain desktop Qt5 (no device needed)
