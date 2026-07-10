@@ -14,8 +14,8 @@ Page {
         contentHeight: content.height + Theme.paddingLarge
 
         PullDownMenu {
+            MenuItem { text: qsTr("Settings"); onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml")) }
             MenuItem { text: qsTr("Meet a blob"); onClicked: openBlob(Zoo.newSeed()) }
-            MenuItem { text: qsTr("About"); enabled: false }
         }
 
         Column {

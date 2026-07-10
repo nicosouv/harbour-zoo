@@ -11,6 +11,7 @@ namespace zoo {
 
 ZooController::ZooController(QObject* parent)
     : QObject(parent)
+    , m_settings(QLatin1String(AppId::kOrganization), QLatin1String(AppId::kApplication))
 {
     // Store lives under the app's writable data location.
     const QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
@@ -34,6 +35,28 @@ ZooController::ZooController(QObject* parent)
 int ZooController::eventCount() const
 {
     return m_store.eventCount();
+}
+
+QString ZooController::appVersion() const
+{
+#ifdef APP_VERSION
+    return QStringLiteral(APP_VERSION);
+#else
+    return QStringLiteral("dev");
+#endif
+}
+
+bool ZooController::reminderEnabled() const
+{
+    return m_settings.value(QStringLiteral("reminderEnabled"), false).toBool();
+}
+
+void ZooController::setReminderEnabled(bool on)
+{
+    if (on == reminderEnabled())
+        return;
+    m_settings.setValue(QStringLiteral("reminderEnabled"), on);
+    emit reminderEnabledChanged();
 }
 
 void ZooController::appendNow(const QString& type, const QString& payload)
