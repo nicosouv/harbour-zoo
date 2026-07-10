@@ -5,3 +5,11 @@ Icon=harbour-zoo
 Exec=harbour-zoo
 Name=Zoo
 Comment=A small, strange, living zoo
+
+[X-Sailjail]
+# Offline-first: no Internet, no camera, no gallery/media access. The app only touches its own
+# private sandbox dirs (SQLite DB + QSettings), which need no permission. Revisit if a future
+# feature needs one (e.g. the optional reminder posts notifications, which the base profile allows).
+Permissions=
+OrganizationName=harbour-zoo
+ApplicationName=harbour-zoo
