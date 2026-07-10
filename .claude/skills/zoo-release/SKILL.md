@@ -36,8 +36,8 @@ git push origin vX.Y.Z
 3. Injects the version into `rpm/harbour-zoo.spec`.
 4. Creates a GitHub Release with the RPMs attached and an auto changelog from commits.
 
-`.github/workflows/pr-build.yml` on PRs/`main` pushes runs the tests + an armv7hl build check
-(no release). Keep both green.
+`.github/workflows/pr-build.yml` on PRs/`main` pushes runs the tests + a build check across all
+three arches (armv7hl, aarch64, i486), no release. Keep both green.
 
 ## Release checklist
 
