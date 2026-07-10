@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "kind": "name",
+  "_comment": "Specimen names, picked deterministically by seed and cached at mint (spec 5.6). StaticFlavorProvider default pool. The Curator names things like a slightly unwell museum.",
+  "pool": [
+    "Sir Reginald Ooze", "The Understudy", "Gerald, Probably", "Small Cousin",
+    "The Committee", "Beans", "Vice President of Wobbling", "The Local Legend",
+    "Mostly Harmless", "The Second-Best", "Custodian of Nothing", "Little Emergency",
+    "The Optimist", "Nap Enthusiast", "The Retired Sea Captain", "Uncertain Todd",
+    "The Understated", "Grand Duke of the Shelf", "The Damp One", "Professor Squish",
+    "The Intern", "Old Reliable", "The Mystery Guest", "Chairperson of Vibes",
+    "The Quiet Achiever", "Blob Ross", "The Escapee (Returned)", "Modest Steve",
+    "The Night Manager", "Ambassador of Fidget", "The Well-Meaning", "Two-Thirds Wizard"
+  ]
+}

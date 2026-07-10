@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "_comment": "Data-driven unlock rules (spec 5.5). Evaluated against the projection after every event; each grant is one-time (granted_rules guard). v1 ships these two. Adding a secret is a JSON entry, not code.",
+  "rules": [
+    {
+      "id": "night_owl",
+      "predicate": { "type": "completed_between_hours", "from": 2, "to": 4 },
+      "grant": { "specimen": "pet_rock" },
+      "note": "Only the sleepless get rocks. It's a whole thing."
+    },
+    {
+      "id": "persistent",
+      "predicate": { "type": "streak_at_least", "value": 7 },
+      "grant": { "specimen": "bauhaus_garden" },
+      "note": "Seven days. The garden noticed you first."
+    }
+  ]
+}

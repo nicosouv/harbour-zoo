@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "_comment": "Catalog entries for SpecimenRegistry (spec 5.4). 'rarities' = which rolls can mint this specimen. 'flavor' = flavor kinds requested and cached into state_json at mint. 'grantOnly' entries are never rolled; only granted by UnlockRules.",
+  "specimens": [
+    {
+      "id": "blob",
+      "kind": "procedural",
+      "qml": "BlobSpecimen.qml",
+      "name": "Blob",
+      "rarities": ["common", "uncommon", "rare", "mythic"],
+      "flavor": ["name", "proverb"]
+    },
+    {
+      "id": "pet_rock",
+      "kind": "authored",
+      "qml": "PetRock.qml",
+      "name": "Pet Rock",
+      "rarities": ["common"],
+      "grantOnly": true,
+      "flavor": ["name", "proverb"]
+    },
+    {
+      "id": "useless_machine",
+      "kind": "authored",
+      "qml": "UselessMachine.qml",
+      "name": "Useless Machine",
+      "rarities": ["uncommon"],
+      "flavor": ["name"]
+    },
+    {
+      "id": "bauhaus_garden",
+      "kind": "authored",
+      "qml": "BauhausGarden.qml",
+      "name": "Bauhaus Garden",
+      "rarities": ["rare"],
+      "grantOnly": true,
+      "flavor": ["name", "proverb"]
+    },
+    {
+      "id": "desk_fan",
+      "kind": "authored",
+      "qml": "DeskFan.qml",
+      "name": "Desk Fan",
+      "rarities": ["common"],
+      "flavor": ["name"]
+    }
+  ],
+  "rarityWeights": { "common": 64, "uncommon": 26, "rare": 9, "mythic": 1 },
+  "pity": { "guaranteeRareAfter": 8 }
+}
