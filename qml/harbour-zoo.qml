@@ -1,5 +1,6 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import Nemo.Notifications 1.0
 import "pages"
 import "cover"
 
@@ -51,5 +52,18 @@ ApplicationWindow {
             anchors.fill: parent
             onClicked: pageStack.push(Qt.resolvedUrl("pages/TodayPage.qml"))
         }
+    }
+
+    // Ring/buzz when a Pomodoro finishes. The "timer" category carries the system's sound + haptic.
+    Notification {
+        id: focusDone
+        appName: "Zoo"
+        category: "x-nemo.timer"
+        summary: qsTr("Focus done")
+        body: qsTr("Time's up. Well done, allegedly.")
+    }
+    Connections {
+        target: Zoo
+        onFocusFinished: focusDone.publish()
     }
 }

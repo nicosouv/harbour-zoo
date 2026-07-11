@@ -171,22 +171,23 @@ Page {
                     menu: ContextMenu { MenuItem { text: qsTr("Remove"); onClicked: Zoo.removeHabit(modelData.id) } }
                 }
             }
-            Row {
+            Column {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 spacing: Theme.paddingSmall
                 TextField {
-                    id: habitField; width: parent.width - habitTargetBtn.width - habitAdd.width - 2 * Theme.paddingSmall
+                    id: habitField; width: parent.width
                     placeholderText: qsTr("New habit (+5 🍞)")
+                    label: qsTr("New habit")
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: addHabit()
                 }
-                Button {
-                    id: habitTargetBtn
-                    anchors.verticalCenter: habitField.verticalCenter
-                    text: "×" + page.habitTarget
-                    onClicked: page.habitTarget = page.habitTarget >= 8 ? 1 : page.habitTarget + 1
+                Row {
+                    spacing: Theme.paddingMedium
+                    Button {
+                        text: qsTr("×%1 per day").arg(page.habitTarget)
+                        onClicked: page.habitTarget = page.habitTarget >= 8 ? 1 : page.habitTarget + 1
+                    }
+                    Button { text: qsTr("Add"); onClicked: addHabit() }
                 }
-                IconButton { id: habitAdd; anchors.verticalCenter: habitField.verticalCenter
-                             icon.source: "image://theme/icon-m-add"; onClicked: addHabit() }
             }
 
             // --- Quests ------------------------------------------------------------------------
@@ -201,9 +202,10 @@ Page {
                 model: Zoo.quests
                 delegate: ListItem {
                     width: content.width; contentHeight: Theme.itemSizeSmall
+                    onClicked: { page.celebrate(doneEmoji); Zoo.completeQuest(modelData.id) }
                     Column {
                         anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin
-                                  right: doneBtn.left; rightMargin: Theme.paddingMedium; verticalCenter: parent.verticalCenter }
+                                  right: doneEmoji.left; rightMargin: Theme.paddingMedium; verticalCenter: parent.verticalCenter }
                         Label { width: parent.width; text: modelData.name; truncationMode: TruncationMode.Fade }
                         Label {
                             visible: modelData.due.length > 0
@@ -212,11 +214,11 @@ Page {
                             color: modelData.overdue ? Theme.secondaryHighlightColor : Theme.secondaryColor
                         }
                     }
-                    Button {
-                        id: doneBtn
+                    // Tap the row (or this) to complete. No button; just a satisfying tick.
+                    Label {
+                        id: doneEmoji
                         anchors { right: parent.right; rightMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
-                        text: qsTr("Done")
-                        onClicked: { page.celebrate(doneBtn); Zoo.completeQuest(modelData.id) }
+                        text: "⬜"; font.pixelSize: Theme.fontSizeLarge
                     }
                     menu: ContextMenu { MenuItem { text: qsTr("Bin it"); onClicked: Zoo.removeQuest(modelData.id) } }
                 }

@@ -13,6 +13,11 @@ Specimen {
     property string voice: ""
     readonly property var _words: ["blep", "boing", "oi", "hm", "meep", "wot", "hello", "?!",
         "...", "nyoom", "ok", "ee", "hi", "brb", "oof", "mrr"]
+    // Weary, sarcastic remarks about existence, muttered when two blobs bump.
+    readonly property var _quips: ["excuse you", "we meet again", "personal space?", "oh, it's you",
+        "living the dream", "another day, another shuffle", "thrilling", "peak existence, this",
+        "watch it", "cosy", "hello again, apparently", "delightful", "can't wait to do this forever",
+        "mind the paint", "such is life"]
 
     // "" or "mix" => style comes from the seed; a specific style id forces every blob to it.
     property string styleOverride: ""
@@ -167,6 +172,14 @@ Specimen {
         bubbleAnim.restart();
         speakTimer.interval = 3000 + Math.floor(Math.random() * 8000);
     }
+    // Bumped into a neighbour: a small hop and a sarcastic remark about life.
+    function react() {
+        if (root.lodLevel >= 2) return;
+        hopAnim.restart();
+        bubble.say = root._quips[Math.floor(Math.random() * root._quips.length)];
+        bubbleAnim.restart();
+    }
+
     function poke() {
         hopAnim.restart();
         wideAnim.restart();

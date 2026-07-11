@@ -26,6 +26,7 @@ class ZooController : public QObject
     Q_PROPERTY(bool onboarded READ onboarded WRITE setOnboarded NOTIFY onboardedChanged)
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged) // "" = system
     Q_PROPERTY(QString blobStyle READ blobStyle WRITE setBlobStyle NOTIFY blobStyleChanged) // "mix" or a style id
+    Q_PROPERTY(qreal blobScale READ blobScale WRITE setBlobScale NOTIFY blobScaleChanged)   // size multiplier
 
     Q_PROPERTY(int crumbs READ crumbs NOTIFY stateChanged)
     Q_PROPERTY(int hatchCost READ hatchCost CONSTANT)
@@ -78,6 +79,12 @@ public:
 
     QString blobStyle() const;
     void setBlobStyle(const QString& style);
+
+    qreal blobScale() const;
+    void setBlobScale(qreal s);
+
+    // Grant a one-time crumb reward for a hidden easter egg. Returns true if newly claimed.
+    Q_INVOKABLE bool claimEasterEgg(const QString& id, int crumbs);
 
     bool focusRunning() const { return m_focusRunning; }
     int focusRemaining() const { return m_focusRemaining; }
@@ -138,6 +145,7 @@ signals:
     void onboardedChanged();
     void languageChanged();
     void blobStyleChanged();
+    void blobScaleChanged();
     void focusChanged();
     void focusFinished(int minutes);   // for a celebratory UI moment (confetti)
     void hatched(int seed, const QString& rarity);   // for a celebratory UI moment

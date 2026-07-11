@@ -193,6 +193,26 @@ QString ZooController::blobStyle() const
 void ZooController::setBlobStyle(const QString& style)
 { if (style == blobStyle()) return; m_settings.setValue(QStringLiteral("blobStyle"), style); emit blobStyleChanged(); }
 
+qreal ZooController::blobScale() const
+{ return m_settings.value(QStringLiteral("blobScale"), 1.0).toReal(); }
+void ZooController::setBlobScale(qreal s)
+{
+    if (s < 0.5) s = 0.5; if (s > 2.0) s = 2.0;
+    if (qFuzzyCompare(s, blobScale())) return;
+    m_settings.setValue(QStringLiteral("blobScale"), s);
+    emit blobScaleChanged();
+}
+
+bool ZooController::claimEasterEgg(const QString& id, int crumbs)
+{
+    const QString key = QStringLiteral("egg/") + id;
+    if (m_settings.value(key, false).toBool()) return false;
+    m_settings.setValue(key, true);
+    award(crumbs, QStringLiteral("egg:") + id);
+    emit stateChanged();
+    return true;
+}
+
 // ---- Economy --------------------------------------------------------------------------------
 int ZooController::crumbs() const
 { return m_settings.value(QStringLiteral("crumbs"), 0).toInt(); }

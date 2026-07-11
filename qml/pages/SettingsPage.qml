@@ -82,6 +82,22 @@ Page {
                 }
                 onCurrentIndexChanged: { var c = codes[currentIndex]; if (c !== Zoo.blobStyle) Zoo.blobStyle = c }
             }
+            ComboBox {
+                property var sizes: [0.7, 1.0, 1.3, 1.6]
+                label: qsTr("Blob size")
+                currentIndex: {
+                    var best = 1, bd = 99
+                    for (var i = 0; i < sizes.length; i++) { var d = Math.abs(sizes[i] - Zoo.blobScale); if (d < bd) { bd = d; best = i } }
+                    return best
+                }
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("Small") }
+                    MenuItem { text: qsTr("Medium") }
+                    MenuItem { text: qsTr("Large") }
+                    MenuItem { text: qsTr("Enormous") }
+                }
+                onCurrentIndexChanged: { var s = sizes[currentIndex]; if (s !== Zoo.blobScale) Zoo.blobScale = s }
+            }
 
             // --- Reminders ---------------------------------------------------------------------
             SectionHeader { text: qsTr("Reminders") }

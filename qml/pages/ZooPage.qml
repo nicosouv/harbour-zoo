@@ -17,6 +17,17 @@ Page {
         return "✦";
     }
 
+    // Hidden easter eggs: tap something `threshold` times for a one-time crumb reward.
+    property var _eggTaps: ({})
+    function tapEgg(id, threshold, crumbs) {
+        var n = (_eggTaps[id] || 0) + 1
+        _eggTaps[id] = n
+        if (n >= threshold) {
+            _eggTaps[id] = 0
+            if (Zoo.claimEasterEgg(id, crumbs)) confetti.fireAt(page.width / 2, page.height * 0.5)
+        }
+    }
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: content.height + Theme.paddingLarge
@@ -56,6 +67,13 @@ Page {
                             anchors.verticalCenter: parent.verticalCenter }
                     Image { source: "image://theme/icon-m-right"; anchors.verticalCenter: parent.verticalCenter }
                 }
+            }
+
+            // Prominent link to the useful loop.
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Today's tasks")
+                onClicked: pageStack.push(Qt.resolvedUrl("TodayPage.qml"))
             }
 
             Label {
@@ -109,14 +127,17 @@ Page {
                 }
 
                 Repeater {
+                    id: roamers
                     model: Zoo.ownedBlobs
                     delegate: Item {
                         id: roamer
-                        property real blobSize: biome.width / 7
+                        property real blobSize: (biome.width / 7) * Zoo.blobScale
                         property int  dur: 4000
                         width: blobSize; height: blobSize
-                        function rx() { return Math.random() * (biome.width - blobSize) }
-                        function ry() { return biome.height * 0.34 + Math.random() * (biome.height * 0.60 - blobSize) }
+                        function rx() { return Math.random() * Math.max(1, biome.width - blobSize) }
+                        function ry() { return biome.height * 0.34 + Math.random() * Math.max(1, biome.height * 0.60 - blobSize) }
+                        function clampx(v) { return Math.max(0, Math.min(biome.width - blobSize, v)) }
+                        function clampy(v) { return Math.max(biome.height * 0.30, Math.min(biome.height * 0.62, v)) }
                         Component.onCompleted: { x = rx(); y = ry() }
                         Behavior on x { NumberAnimation { duration: roamer.dur; easing.type: Easing.InOutSine } }
                         Behavior on y { NumberAnimation { duration: roamer.dur; easing.type: Easing.InOutSine } }
@@ -124,7 +145,17 @@ Page {
                             interval: 2600 + Math.random() * 4000; running: true; repeat: true
                             onTriggered: { roamer.dur = 4000 + Math.random() * 5000; roamer.x = roamer.rx(); roamer.y = roamer.ry() }
                         }
+                        // Shoved away from another blob it bumped into.
+                        function shove(ox, oy) {
+                            var dx = x - ox, dy = y - oy
+                            var d = Math.sqrt(dx * dx + dy * dy) || 1
+                            roamer.dur = 420
+                            x = clampx(x + dx / d * blobSize * 0.7)
+                            y = clampy(y + dy / d * blobSize * 0.7)
+                        }
+                        function react() { blob.react() }
                         BlobSpecimen {
+                            id: blob
                             anchors.fill: parent
                             seed: modelData.seed; rarity: modelData.rarity
                             voice: Zoo.playerName; styleOverride: Zoo.blobStyle; lodLevel: 1
@@ -136,15 +167,39 @@ Page {
                         }
                     }
                 }
+
+                // Cheap "physics": when two blobs get too close they shove apart and (sometimes)
+                // exchange a weary remark about existence.
+                Timer {
+                    interval: 380; running: Zoo.ownedBlobs.length > 1; repeat: true
+                    onTriggered: {
+                        var n = roamers.count
+                        for (var i = 0; i < n; i++) {
+                            var a = roamers.itemAt(i); if (!a) continue
+                            for (var j = i + 1; j < n; j++) {
+                                var b = roamers.itemAt(j); if (!b) continue
+                                var dx = (a.x + a.blobSize / 2) - (b.x + b.blobSize / 2)
+                                var dy = (a.y + a.blobSize / 2) - (b.y + b.blobSize / 2)
+                                var dist = Math.sqrt(dx * dx + dy * dy)
+                                if (dist < (a.blobSize + b.blobSize) * 0.45) {
+                                    a.shove(b.x, b.y); b.shove(a.x, a.y)
+                                    if (Math.random() < 0.25) { a.react(); b.react() }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             // The quiet part. Small, secondary, easy to skim past — until one day it isn't.
+            // (Secretly: tap it seven times for a little something.)
             Label {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 visible: Zoo.reflection.length > 0
                 wrapMode: Text.Wrap; text: Zoo.reflection
                 color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
                 font.italic: true
+                MouseArea { anchors.fill: parent; onClicked: page.tapEgg("reflection", 7, 77) }
             }
 
             Button {
@@ -167,7 +222,7 @@ Page {
                 }
             }
 
-            // Fun fact of the day.
+            // Fun fact of the day. (Tap it twenty times if you're the sort of person who does that.)
             Rectangle {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 height: factCol.height + 2 * Theme.paddingMedium
@@ -178,10 +233,13 @@ Page {
                     Label { text: qsTr("Fun fact, allegedly"); color: Theme.highlightColor; font.pixelSize: Theme.fontSizeExtraSmall }
                     Label { width: parent.width; wrapMode: Text.Wrap; text: Zoo.funFact; color: Theme.primaryColor; font.pixelSize: Theme.fontSizeSmall }
                 }
+                MouseArea { anchors.fill: parent; onClicked: page.tapEgg("funfact", 20, 200) }
             }
         }
         VerticalScrollDecorator {}
     }
+
+    ConfettiBurst { id: confetti }
 
     Connections {
         target: Zoo
