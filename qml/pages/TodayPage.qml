@@ -83,12 +83,17 @@ Page {
                 width: parent.width; spacing: Theme.paddingSmall
 
                 Row {
-                    x: Theme.horizontalPageMargin; spacing: Theme.paddingMedium
+                    id: presetRow
+                    x: Theme.horizontalPageMargin
+                    width: parent.width - 2 * Theme.horizontalPageMargin
+                    spacing: Theme.paddingSmall
                     visible: !Zoo.focusRunning
                     Repeater {
-                        model: [5, 15, 25]
+                        model: [5, 15, 25, 45]
                         delegate: Button {
+                            width: (presetRow.width - 3 * Theme.paddingSmall) / 4
                             text: modelData + "m"
+                            color: page.focusMin === modelData ? Theme.highlightColor : Theme.primaryColor
                             onClicked: page.focusMin = modelData
                         }
                     }
