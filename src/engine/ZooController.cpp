@@ -129,12 +129,58 @@ QString ZooController::todayChallenge() const
 QString ZooController::todayChallengeStatus() const
 { return m_settings.value(QStringLiteral("challenge/") + localDate(), QStringLiteral("issued")).toString(); }
 
+// ---- Gamification ---------------------------------------------------------------------------
+int ZooController::deeds() const
+{ return m_settings.value(QStringLiteral("deeds"), 0).toInt(); }
+
+int ZooController::streak() const
+{ return m_settings.value(QStringLiteral("streak"), 0).toInt(); }
+
+int ZooController::keeperLevel() const
+{
+    static const int kThresholds[] = { 0, 3, 8, 16, 30, 50, 80 };
+    const int d = deeds();
+    int lvl = 0;
+    for (int i = 0; i < int(sizeof(kThresholds) / sizeof(kThresholds[0])); ++i)
+        if (d >= kThresholds[i]) lvl = i;
+    return lvl;
+}
+
+QString ZooController::keeperTitle() const
+{
+    static const char* const kTitles[] = {
+        "Volunteer", "Junior Keeper", "Keeper", "Head Keeper", "Curator", "Director",
+        "Legendary Director"
+    };
+    return QString::fromUtf8(kTitles[keeperLevel()]);
+}
+
+int ZooController::habitsKeptToday() const
+{ return readArrayConst(m_settings, QStringLiteral("habitlog/") + localDate()).size(); }
+
+void ZooController::recordDeed()
+{
+    m_settings.setValue(QStringLiteral("deeds"), deeds() + 1);
+
+    const QString today = localDate();
+    const QString last = m_settings.value(QStringLiteral("lastActiveDate")).toString();
+    if (last != today) {
+        const QDate td = QDate::fromString(today, QStringLiteral("yyyy-MM-dd"));
+        const QString yesterday = td.isValid()
+            ? td.addDays(-1).toString(QStringLiteral("yyyy-MM-dd")) : QString();
+        const int st = m_settings.value(QStringLiteral("streak"), 0).toInt();
+        m_settings.setValue(QStringLiteral("streak"), (last == yesterday) ? st + 1 : 1);
+        m_settings.setValue(QStringLiteral("lastActiveDate"), today);
+    }
+}
+
 void ZooController::completeChallenge()
 {
     if (todayChallengeStatus() == QLatin1String("completed")) return;
     m_settings.setValue(QStringLiteral("challenge/") + localDate(), QStringLiteral("completed"));
     appendNow(QStringLiteral("challenge_completed"), QStringLiteral("{\"date\":\"%1\"}").arg(localDate()));
     award(15, QStringLiteral("challenge"));
+    recordDeed();
     checkMilestones();
     emit stateChanged();
 }
@@ -196,6 +242,7 @@ void ZooController::logHabit(const QString& id)
     appendNow(QStringLiteral("habit_logged"),
               QStringLiteral("{\"habit_id\":\"%1\",\"date\":\"%2\"}").arg(id).arg(localDate()));
     award(5, QStringLiteral("habit"));
+    recordDeed();
     checkMilestones();
     emit stateChanged();
 }
@@ -240,6 +287,7 @@ void ZooController::completeQuest(const QString& id)
     writeArray(m_settings, QStringLiteral("quests"), defs);
     appendNow(QStringLiteral("quest_completed"), QStringLiteral("{\"quest_id\":\"%1\"}").arg(id));
     award(20, QStringLiteral("quest"));   // quests are worth more than a habit check-in
+    recordDeed();
     checkMilestones();
     emit stateChanged();
 }

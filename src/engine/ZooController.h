@@ -31,6 +31,13 @@ class ZooController : public QObject
     Q_PROPERTY(QString todayChallenge READ todayChallenge NOTIFY stateChanged)
     Q_PROPERTY(QString todayChallengeStatus READ todayChallengeStatus NOTIFY stateChanged)
 
+    // Gamification / status.
+    Q_PROPERTY(int deeds READ deeds NOTIFY stateChanged)              // lifetime useful actions
+    Q_PROPERTY(int streak READ streak NOTIFY stateChanged)           // consecutive active days
+    Q_PROPERTY(int keeperLevel READ keeperLevel NOTIFY stateChanged)
+    Q_PROPERTY(QString keeperTitle READ keeperTitle NOTIFY stateChanged)
+    Q_PROPERTY(int habitsKeptToday READ habitsKeptToday NOTIFY stateChanged)
+
     Q_PROPERTY(QVariantList habits READ habits NOTIFY stateChanged)       // { id, name, doneToday }
     Q_PROPERTY(QVariantList quests READ quests NOTIFY stateChanged)       // { id, name, due, overdue }
     Q_PROPERTY(QVariantList ownedBlobs READ ownedBlobs NOTIFY stateChanged)   // { id, seed, rarity }
@@ -57,6 +64,11 @@ public:
 
     QString todayChallenge() const;
     QString todayChallengeStatus() const;
+    int deeds() const;
+    int streak() const;
+    int keeperLevel() const;
+    QString keeperTitle() const;
+    int habitsKeptToday() const;
     QVariantList habits() const;
     QVariantList quests() const;
     QVariantList ownedBlobs() const;
@@ -94,6 +106,7 @@ private:
     bool spend(int amount, const QString& reason);   // false if unaffordable
     void grantDecoration(const QString& id);
     void checkMilestones();
+    void recordDeed();                                // bump lifetime deeds + active-day streak
     QString localDate() const;
 
     SystemClock m_clock;
