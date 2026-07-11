@@ -30,6 +30,7 @@ DISTFILES += qml/harbour-zoo.qml \
     qml/pages/ZooPage.qml \
     qml/pages/ShopPage.qml \
     qml/pages/KeeperPage.qml \
+    qml/components/ConfettiBurst.qml \
     qml/specimens/Specimen.qml \
     qml/specimens/BlobSpecimen.qml \
     rpm/harbour-zoo.spec \

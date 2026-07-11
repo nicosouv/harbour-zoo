@@ -43,6 +43,55 @@ static const Deco kShop[] = {
 };
 static const int kShopCount = int(sizeof(kShop) / sizeof(kShop[0]));
 
+// Goofy "fact of the day" pool (dry, British, entirely unverified).
+static const char* const kFacts[] = {
+    "A group of blobs is called a 'mild concern'.",
+    "No blob has ever finished a to-do list. They find it aspirational.",
+    "The average blob blinks four times before deciding you're fine.",
+    "Every blob believes it is slightly larger than it actually is.",
+    "Blobs hop to think. They think rarely.",
+    "A blob's favourite colour is 'the grey one'.",
+    "Statistically, you are someone's favourite. The blobs took a vote.",
+    "Blobs do not dream. They simply buffer.",
+    "It is considered rude to count a blob's pixels aloud.",
+    "Blobs are 90% vibes and 10% structural concern.",
+    "The oldest known blob is three weeks old and unbearably smug.",
+    "Crumbs aren't currency anywhere reputable. Here, they're everything.",
+    "Blobs experience Tuesdays more intensely than other creatures.",
+    "The word 'blep' predates language. Probably."
+};
+static const int kFactCount = int(sizeof(kFacts) / sizeof(kFacts[0]));
+
+static const char* const kPhraseLow[] = {
+    "You've done precisely nothing today. Magnificent restraint.",
+    "A blank slate. The blobs are pretending not to notice.",
+    "Nothing yet. Bold. We admire the commitment to leisure."
+};
+static const char* const kPhraseMid[] = {
+    "A start. The blobs are cautiously optimistic.",
+    "Some progress. Steady on, hero.",
+    "Not bad. The zoo noticed and will deny it later."
+};
+static const char* const kPhraseHigh[] = {
+    "Look at you. Insufferable, honestly.",
+    "Fully productive. The blobs are a little intimidated.",
+    "All done. Please leave some ambition for tomorrow."
+};
+
+struct Badge { const char* id; const char* name; const char* desc; const char* emoji; };
+static const Badge kBadges[] = {
+    { "first_blob", "Hatchling",          "Hatch your first blob.",   "🥚" },
+    { "menagerie",  "Menagerie",          "Five residents.",          "🐾" },
+    { "streak3",    "Consistent-ish",     "A 3-day streak.",          "🔥" },
+    { "streak7",    "Regular",            "A 7-day streak.",          "🔥" },
+    { "habitual",   "Creature of Habit",  "Ten habit check-ins.",     "📋" },
+    { "questgiver", "Quest Cleared",      "Finish five quests.",      "🗺️" },
+    { "collector",  "Interior Decorator", "Own three objects.",       "🪴" },
+    { "mythic",     "Impossible Colour",  "Hatch a mythic blob.",     "✨" },
+    { "night_owl",  "Small Hours",        "A challenge before 5am.",  "🦉" }
+};
+static const int kBadgeCount = int(sizeof(kBadges) / sizeof(kBadges[0]));
+
 // ---------------------------------------------------------------------------------------------
 ZooController::ZooController(QObject* parent)
     : QObject(parent)
@@ -161,6 +210,9 @@ int ZooController::habitsKeptToday() const
 void ZooController::recordDeed()
 {
     m_settings.setValue(QStringLiteral("deeds"), deeds() + 1);
+    // Per-day count for the activity graph.
+    const QString dayKey = QStringLiteral("deedday/") + localDate();
+    m_settings.setValue(dayKey, m_settings.value(dayKey, 0).toInt() + 1);
 
     const QString today = localDate();
     const QString last = m_settings.value(QStringLiteral("lastActiveDate")).toString();
@@ -174,11 +226,78 @@ void ZooController::recordDeed()
     }
 }
 
+QString ZooController::funFact() const
+{
+    const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    const qint64 ord = d.isValid() ? d.toJulianDay() : 0;
+    return QString::fromUtf8(kFacts[((ord % kFactCount) + kFactCount) % kFactCount]);
+}
+
+QString ZooController::statusPhrase() const
+{
+    const int score = (todayChallengeStatus() == QLatin1String("completed") ? 1 : 0)
+                    + habitsKeptToday();
+    const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    const int pick = int((d.isValid() ? d.toJulianDay() : 0) % 3);
+    if (score <= 0) return QString::fromUtf8(kPhraseLow[pick]);
+    if (score <= 2) return QString::fromUtf8(kPhraseMid[pick]);
+    return QString::fromUtf8(kPhraseHigh[pick]);
+}
+
+QVariantList ZooController::badges() const
+{
+    const int blobs = readArrayConst(m_settings, QStringLiteral("blobs")).size();
+    const int deco  = readArrayConst(m_settings, QStringLiteral("decorations")).size();
+    const int st    = streak();
+    const int hab   = m_settings.value(QStringLiteral("habitLogTotal"), 0).toInt();
+    const int quests= m_settings.value(QStringLiteral("questCompletedTotal"), 0).toInt();
+    const bool myth = m_settings.value(QStringLiteral("mythicSeen"), false).toBool();
+    const bool owl  = m_settings.value(QStringLiteral("nightOwl"), false).toBool();
+
+    QVariantList out;
+    for (int i = 0; i < kBadgeCount; ++i) {
+        const QString id = QString::fromUtf8(kBadges[i].id);
+        bool earned = false;
+        if (id == QLatin1String("first_blob")) earned = blobs >= 1;
+        else if (id == QLatin1String("menagerie")) earned = blobs >= 5;
+        else if (id == QLatin1String("streak3")) earned = st >= 3;
+        else if (id == QLatin1String("streak7")) earned = st >= 7;
+        else if (id == QLatin1String("habitual")) earned = hab >= 10;
+        else if (id == QLatin1String("questgiver")) earned = quests >= 5;
+        else if (id == QLatin1String("collector")) earned = deco >= 3;
+        else if (id == QLatin1String("mythic")) earned = myth;
+        else if (id == QLatin1String("night_owl")) earned = owl;
+
+        QVariantMap m;
+        m.insert(QStringLiteral("id"), id);
+        m.insert(QStringLiteral("name"), QString::fromUtf8(kBadges[i].name));
+        m.insert(QStringLiteral("desc"), QString::fromUtf8(kBadges[i].desc));
+        m.insert(QStringLiteral("emoji"), QString::fromUtf8(kBadges[i].emoji));
+        m.insert(QStringLiteral("earned"), earned);
+        out.append(m);
+    }
+    return out;
+}
+
+QVariantList ZooController::activity7() const
+{
+    QVariantList out;
+    const QDate today = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    if (!today.isValid()) { for (int i = 0; i < 7; ++i) out.append(0); return out; }
+    for (int i = 6; i >= 0; --i) {
+        const QString day = today.addDays(-i).toString(QStringLiteral("yyyy-MM-dd"));
+        out.append(m_settings.value(QStringLiteral("deedday/") + day, 0).toInt());
+    }
+    return out;
+}
+
 void ZooController::completeChallenge()
 {
     if (todayChallengeStatus() == QLatin1String("completed")) return;
     m_settings.setValue(QStringLiteral("challenge/") + localDate(), QStringLiteral("completed"));
     appendNow(QStringLiteral("challenge_completed"), QStringLiteral("{\"date\":\"%1\"}").arg(localDate()));
+    if (m_clock.localHour() < 5)
+        m_settings.setValue(QStringLiteral("nightOwl"), true);   // badge flag
     award(15, QStringLiteral("challenge"));
     recordDeed();
     checkMilestones();
@@ -205,6 +324,8 @@ QVariantList ZooController::habits() const
         m.insert(QStringLiteral("id"), id);
         m.insert(QStringLiteral("name"), o.value(QStringLiteral("name")).toString());
         m.insert(QStringLiteral("doneToday"), doneToday.contains(QJsonValue(id)));
+        m.insert(QStringLiteral("lastDone"),
+                 m_settings.value(QStringLiteral("habitLast/") + id).toString());
         out.append(m);
     }
     return out;
@@ -239,6 +360,7 @@ void ZooController::logHabit(const QString& id)
     writeArray(m_settings, key, done);
     m_settings.setValue(QStringLiteral("habitLogTotal"),
                         m_settings.value(QStringLiteral("habitLogTotal"), 0).toInt() + 1);
+    m_settings.setValue(QStringLiteral("habitLast/") + id, localDate());
     appendNow(QStringLiteral("habit_logged"),
               QStringLiteral("{\"habit_id\":\"%1\",\"date\":\"%2\"}").arg(id).arg(localDate()));
     award(5, QStringLiteral("habit"));
@@ -286,6 +408,8 @@ void ZooController::completeQuest(const QString& id)
     if (!found) return;
     writeArray(m_settings, QStringLiteral("quests"), defs);
     appendNow(QStringLiteral("quest_completed"), QStringLiteral("{\"quest_id\":\"%1\"}").arg(id));
+    m_settings.setValue(QStringLiteral("questCompletedTotal"),
+                        m_settings.value(QStringLiteral("questCompletedTotal"), 0).toInt() + 1);
     award(20, QStringLiteral("quest"));   // quests are worth more than a habit check-in
     recordDeed();
     checkMilestones();
@@ -329,6 +453,8 @@ void ZooController::hatchBlob()
                                  : QStringLiteral("common");
     const int seed = static_cast<int>(r.next() & 0x7FFFFFFF);
     const QString id = QString::number(QDateTime::currentMSecsSinceEpoch());
+    if (rarity == QLatin1String("mythic"))
+        m_settings.setValue(QStringLiteral("mythicSeen"), true);   // badge flag
 
     QJsonObject o;
     o.insert(QStringLiteral("id"), id);

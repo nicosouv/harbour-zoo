@@ -15,7 +15,7 @@ ApplicationWindow {
     readonly property color zooField2: "#E1A42C"
     readonly property color zooTeal:   "#2A9D8F"
 
-    initialPage: Component { TodayPage { } }
+    initialPage: Component { ZooPage { } }
     cover: Component { CoverPage { } }
     allowedOrientations: defaultAllowedOrientations
 }

@@ -37,6 +37,10 @@ class ZooController : public QObject
     Q_PROPERTY(int keeperLevel READ keeperLevel NOTIFY stateChanged)
     Q_PROPERTY(QString keeperTitle READ keeperTitle NOTIFY stateChanged)
     Q_PROPERTY(int habitsKeptToday READ habitsKeptToday NOTIFY stateChanged)
+    Q_PROPERTY(QString funFact READ funFact NOTIFY stateChanged)         // goofy fact of the day
+    Q_PROPERTY(QString statusPhrase READ statusPhrase NOTIFY stateChanged) // adapts to today's effort
+    Q_PROPERTY(QVariantList badges READ badges NOTIFY stateChanged)      // { id, name, desc, emoji, earned }
+    Q_PROPERTY(QVariantList activity7 READ activity7 NOTIFY stateChanged) // last 7 days of deed counts
 
     Q_PROPERTY(QVariantList habits READ habits NOTIFY stateChanged)       // { id, name, doneToday }
     Q_PROPERTY(QVariantList quests READ quests NOTIFY stateChanged)       // { id, name, due, overdue }
@@ -69,6 +73,10 @@ public:
     int keeperLevel() const;
     QString keeperTitle() const;
     int habitsKeptToday() const;
+    QString funFact() const;
+    QString statusPhrase() const;
+    QVariantList badges() const;
+    QVariantList activity7() const;
     QVariantList habits() const;
     QVariantList quests() const;
     QVariantList ownedBlobs() const;

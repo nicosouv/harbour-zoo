@@ -1,11 +1,12 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 
-// The "how am I doing" screen. Light: your Keeper rank and a handful of goofy stats. No walls of
-// text, no shaming numbers — just a glance at how you've been playing.
+// "How am I doing" — rank, a small activity graph, quick stats, and badges earned by playing.
 Page {
     id: page
     allowedOrientations: Orientation.All
+
+    function maxOf(arr) { var m = 1; for (var i = 0; i < arr.length; i++) if (arr[i] > m) m = arr[i]; return m; }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -19,27 +20,43 @@ Page {
             PageHeader { title: qsTr("Keeper") }
 
             Column {
+                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                Label { text: Zoo.keeperTitle; color: Theme.highlightColor; font.pixelSize: Theme.fontSizeExtraLarge }
+                Label { text: qsTr("Level %1 · %2 useful things done").arg(Zoo.keeperLevel).arg(Zoo.deeds)
+                        color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall }
+            }
+
+            // --- Last 7 days activity graph ---------------------------------------------------
+            SectionHeader { text: qsTr("Last 7 days") }
+            Row {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                Label {
-                    text: Zoo.keeperTitle
-                    color: Theme.highlightColor
-                    font.pixelSize: Theme.fontSizeExtraLarge
-                }
-                Label {
-                    text: qsTr("Level %1 · %2 useful things done").arg(Zoo.keeperLevel).arg(Zoo.deeds)
-                    color: Theme.secondaryColor
-                    font.pixelSize: Theme.fontSizeExtraSmall
+                height: Theme.itemSizeLarge
+                spacing: Theme.paddingSmall
+                Repeater {
+                    model: Zoo.activity7
+                    delegate: Item {
+                        width: (content.width - 2 * Theme.horizontalPageMargin - 6 * Theme.paddingSmall) / 7
+                        height: parent.height
+                        Rectangle {
+                            anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
+                            width: parent.width * 0.7
+                            height: Math.max(2, (modelData / page.maxOf(Zoo.activity7)) * (parent.height - Theme.paddingLarge))
+                            radius: Theme.paddingSmall / 2
+                            color: index === 6 ? Theme.highlightColor : Theme.rgba(Theme.highlightColor, 0.4)
+                        }
+                        Label {
+                            anchors { top: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: -Theme.paddingLarge }
+                            text: modelData; color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny
+                        }
+                    }
                 }
             }
 
-            // A tidy grid of stat chips.
+            // --- Quick stats ------------------------------------------------------------------
             Grid {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * Theme.horizontalPageMargin
-                columns: 2
-                spacing: Theme.paddingMedium
-
+                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                columns: 2; spacing: Theme.paddingMedium
                 Repeater {
                     model: [
                         { big: "🔥 " + Zoo.streak, label: qsTr("day streak") },
@@ -49,36 +66,52 @@ Page {
                     ]
                     delegate: Rectangle {
                         width: (content.width - 2 * Theme.horizontalPageMargin - Theme.paddingMedium) / 2
-                        height: Theme.itemSizeLarge
+                        height: Theme.itemSizeMedium
                         radius: Theme.paddingMedium
                         color: Theme.rgba(Theme.highlightBackgroundColor, 0.14)
                         Column {
-                            anchors.centerIn: parent
-                            spacing: Theme.paddingSmall
-                            Label {
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                text: modelData.big
-                                color: Theme.primaryColor
-                                font.pixelSize: Theme.fontSizeLarge
-                            }
-                            Label {
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                text: modelData.label
-                                color: Theme.secondaryColor
-                                font.pixelSize: Theme.fontSizeExtraSmall
-                            }
+                            anchors.centerIn: parent; spacing: 2
+                            Label { anchors.horizontalCenter: parent.horizontalCenter; text: modelData.big
+                                    color: Theme.primaryColor; font.pixelSize: Theme.fontSizeLarge }
+                            Label { anchors.horizontalCenter: parent.horizontalCenter; text: modelData.label
+                                    color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall }
                         }
                     }
                 }
             }
 
-            Label {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2 * Theme.horizontalPageMargin
-                wrapMode: Text.Wrap
-                text: qsTr("Keep showing up and the title improves. That's the only KPI here.")
-                color: Theme.secondaryColor
-                font.pixelSize: Theme.fontSizeExtraSmall
+            // --- Badges -----------------------------------------------------------------------
+            SectionHeader { text: qsTr("Badges") }
+            Grid {
+                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                columns: 2; spacing: Theme.paddingMedium
+                Repeater {
+                    model: Zoo.badges
+                    delegate: Rectangle {
+                        width: (content.width - 2 * Theme.horizontalPageMargin - Theme.paddingMedium) / 2
+                        height: badgeCol.height + 2 * Theme.paddingMedium
+                        radius: Theme.paddingMedium
+                        color: Theme.rgba(Theme.highlightBackgroundColor, modelData.earned ? 0.20 : 0.06)
+                        opacity: modelData.earned ? 1.0 : 0.5
+                        Row {
+                            id: badgeCol
+                            anchors.centerIn: parent
+                            width: parent.width - 2 * Theme.paddingMedium
+                            spacing: Theme.paddingSmall
+                            Label { text: modelData.emoji; font.pixelSize: Theme.fontSizeLarge
+                                    anchors.verticalCenter: parent.verticalCenter }
+                            Column {
+                                width: parent.width - Theme.fontSizeLarge - Theme.paddingSmall
+                                anchors.verticalCenter: parent.verticalCenter
+                                Label { width: parent.width; text: modelData.name; truncationMode: TruncationMode.Fade
+                                        color: modelData.earned ? Theme.primaryColor : Theme.secondaryColor
+                                        font.pixelSize: Theme.fontSizeExtraSmall }
+                                Label { width: parent.width; wrapMode: Text.Wrap; text: modelData.desc
+                                        color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny }
+                            }
+                        }
+                    }
+                }
             }
         }
         VerticalScrollDecorator {}
