@@ -73,7 +73,8 @@ zc_src = [
 T = json.load(open(os.path.join(SCRATCH, "translations.json"), encoding="utf-8"))
 
 contexts = dict(qml)
-contexts["ZooController"] = zc_src
+# C++ tr() context is the metaobject className, which includes the namespace: zoo::ZooController.
+contexts["zoo::ZooController"] = zc_src
 
 def esc(s): return html.escape(s, quote=False)
 missing = []

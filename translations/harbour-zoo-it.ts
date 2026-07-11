@@ -266,6 +266,26 @@
         <translation>Dammi 1000 🍞 (test)</translation>
     </message>
     <message>
+        <source>Hatch a blob (free)</source>
+        <translation>Fai schiudere un blob (gratis)</translation>
+    </message>
+    <message>
+        <source>Send oldest blob off 👋</source>
+        <translation>Saluta il blob più vecchio 👋</translation>
+    </message>
+    <message>
+        <source>Feed the Quest Beast 🦖</source>
+        <translation>Nutri la Bestia delle Missioni 🦖</translation>
+    </message>
+    <message>
+        <source>Trigger birthday 🎂</source>
+        <translation>Attiva il compleanno 🎂</translation>
+    </message>
+    <message>
+        <source>Farewells, the beast and birthdays play out on the zoo page — go home to watch.</source>
+        <translation>Addii, bestia e compleanni si svolgono nella pagina dello zoo — torna alla home per guardare.</translation>
+    </message>
+    <message>
         <source>Erase all data</source>
         <translation>Cancella tutti i dati</translation>
     </message>
@@ -571,7 +591,7 @@
     </message>
 </context>
 <context>
-    <name>ZooController</name>
+    <name>zoo::ZooController</name>
     <message>
         <source>Introduce yourself to a cloud. Keep it professional.</source>
         <translation>Presentati a una nuvola. Resta professionale.</translation>

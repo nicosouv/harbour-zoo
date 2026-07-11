@@ -266,6 +266,26 @@
         <translation>Anna 1000 🍞 (testi)</translation>
     </message>
     <message>
+        <source>Hatch a blob (free)</source>
+        <translation>Kuoriuta blob (ilmainen)</translation>
+    </message>
+    <message>
+        <source>Send oldest blob off 👋</source>
+        <translation>Lähetä vanhin blob matkaan 👋</translation>
+    </message>
+    <message>
+        <source>Feed the Quest Beast 🦖</source>
+        <translation>Ruoki Tehtäväpetoa 🦖</translation>
+    </message>
+    <message>
+        <source>Trigger birthday 🎂</source>
+        <translation>Laukaise syntymäpäivä 🎂</translation>
+    </message>
+    <message>
+        <source>Farewells, the beast and birthdays play out on the zoo page — go home to watch.</source>
+        <translation>Jäähyväiset, peto ja syntymäpäivät tapahtuvat eläintarhasivulla — palaa kotiin katsomaan.</translation>
+    </message>
+    <message>
         <source>Erase all data</source>
         <translation>Poista kaikki tiedot</translation>
     </message>
@@ -571,7 +591,7 @@
     </message>
 </context>
 <context>
-    <name>ZooController</name>
+    <name>zoo::ZooController</name>
     <message>
         <source>Introduce yourself to a cloud. Keep it professional.</source>
         <translation>Esittäydy pilvelle. Pysy asiallisena.</translation>

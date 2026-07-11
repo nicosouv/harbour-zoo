@@ -339,9 +339,12 @@ Page {
 
     // First launch: onboarding. Otherwise, show any pending ceremonies (farewells, milestones,
     // birthday, holidays) queued for this launch.
-    Component.onCompleted: startupTimer.start()
+    // Re-run whenever the zoo becomes the top page again (e.g. back from Settings), so freshly
+    // queued ceremonies/overdue quests surface without a restart. All checks are self-guarded.
+    Component.onCompleted: startupTimer.restart()
+    onStatusChanged: if (status === PageStatus.Active) startupTimer.restart()
     Timer {
-        id: startupTimer; interval: 1; repeat: false
+        id: startupTimer; interval: 40; repeat: false
         onTriggered: {
             if (!Zoo.onboarded) { pageStack.push(Qt.resolvedUrl("OnboardingPage.qml")); return }
             page.checkCeremonies()

@@ -266,6 +266,26 @@
         <translation>Donne-moi 1000 🍞 (test)</translation>
     </message>
     <message>
+        <source>Hatch a blob (free)</source>
+        <translation>Faire éclore un blob (gratuit)</translation>
+    </message>
+    <message>
+        <source>Send oldest blob off 👋</source>
+        <translation>Faire partir le plus vieux blob 👋</translation>
+    </message>
+    <message>
+        <source>Feed the Quest Beast 🦖</source>
+        <translation>Nourrir la Bête des Quêtes 🦖</translation>
+    </message>
+    <message>
+        <source>Trigger birthday 🎂</source>
+        <translation>Déclencher l'anniversaire 🎂</translation>
+    </message>
+    <message>
+        <source>Farewells, the beast and birthdays play out on the zoo page — go home to watch.</source>
+        <translation>Adieux, bête et anniversaires se jouent sur la page du zoo — retourne à l'accueil pour voir.</translation>
+    </message>
+    <message>
         <source>Erase all data</source>
         <translation>Effacer toutes les données</translation>
     </message>
@@ -571,7 +591,7 @@
     </message>
 </context>
 <context>
-    <name>ZooController</name>
+    <name>zoo::ZooController</name>
     <message>
         <source>Introduce yourself to a cloud. Keep it professional.</source>
         <translation>Présente-toi à un nuage. Reste professionnel.</translation>

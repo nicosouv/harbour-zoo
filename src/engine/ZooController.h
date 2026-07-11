@@ -104,6 +104,12 @@ public:
     // Wipe all data (events + preferences) so onboarding runs again. For testing.
     Q_INVOKABLE void resetAll();
 
+    // Testing helpers, wired to the Settings > Testing section. Harmless, deterministic-ish.
+    Q_INVOKABLE void debugHatch();          // hatch one blob, free of charge
+    Q_INVOKABLE void debugFarewell();       // send the oldest resident off (queues a farewell)
+    Q_INVOKABLE void debugBaitPredator();   // drop a quest due yesterday, so the beast eats one
+    Q_INVOKABLE void debugBirthday();       // set the birthday to today, to trigger its ceremony
+
     // Hard cap on residents; hatching beyond it retires the oldest (with a farewell ceremony).
     int blobCap() const { return 20; }
 

@@ -118,6 +118,34 @@ Page {
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Hatch a blob (free)")
+                onClicked: Zoo.debugHatch()
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Send oldest blob off 👋")
+                enabled: Zoo.ownedBlobs.length > 0
+                onClicked: Zoo.debugFarewell()
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Feed the Quest Beast 🦖")
+                enabled: Zoo.ownedBlobs.length > 0
+                onClicked: Zoo.debugBaitPredator()
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Trigger birthday 🎂")
+                onClicked: Zoo.debugBirthday()
+            }
+            Label {
+                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                wrapMode: Text.Wrap
+                text: qsTr("Farewells, the beast and birthdays play out on the zoo page — go home to watch.")
+                color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Erase all data")
                 onClicked: eraseRemorse.execute(qsTr("Erasing everything"), function () {
                     Zoo.resetAll()

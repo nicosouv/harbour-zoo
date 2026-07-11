@@ -433,6 +433,41 @@ void ZooController::resetAll()
     emit languageChanged();
 }
 
+// ---- testing helpers ------------------------------------------------------------------------
+void ZooController::debugHatch()
+{
+    grantCrumbs(hatchCost());   // pay for it, then hatch through the normal path (cap/farewell/milestones)
+    hatchBlob();
+}
+
+void ZooController::debugFarewell()
+{
+    if (m_state.blobs.isEmpty()) return;
+    const Blob oldest = m_state.blobs.first();
+    QJsonObject rr; rr.insert("id", oldest.id);
+    emitEvent(QStringLiteral("egg_retired"), jpayload(rr));
+    QJsonArray fs = QJsonDocument::fromJson(m_settings.value(QStringLiteral("pendingFarewells")).toString().toUtf8()).array();
+    QJsonObject f; f.insert("seed", oldest.seed);
+    fs.append(f);
+    m_settings.setValue(QStringLiteral("pendingFarewells"),
+                        QString::fromUtf8(QJsonDocument(fs).toJson(QJsonDocument::Compact)));
+    emit stateChanged();
+}
+
+void ZooController::debugBaitPredator()
+{
+    const QDate today = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    const QString due = (today.isValid() ? today.addDays(-1) : QDate::currentDate().addDays(-1))
+                            .toString(QStringLiteral("yyyy-MM-dd"));
+    addQuest(QStringLiteral("Beast bait"), due);   // overdue on the next zoo visit
+}
+
+void ZooController::debugBirthday()
+{
+    const QString today = localDate();
+    if (today.size() >= 10) setPlayerBirthday(today.mid(5));   // "MM-dd"
+}
+
 // ---- daily challenge ------------------------------------------------------------------------
 QString ZooController::todayChallenge() const
 {
