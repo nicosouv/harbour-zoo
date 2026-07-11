@@ -1,7 +1,7 @@
 // Thin QObject facade exposed to QML. Owns the engine's storage/clock and translates between QML
-// and the domain. This prototype keeps the loop's state in QSettings for speed while ALSO appending
-// to the event log, so the proper event-sourced services (Economy, HabitService, ChallengeService,
-// StateProjection) can replace the QSettings shortcuts later without changing the QML.
+// and the domain. This prototype keeps loop state in QSettings for speed while ALSO appending to
+// the event log, so the proper event-sourced services can replace the QSettings shortcuts later
+// without changing the QML.
 #ifndef ZOO_ZOOCONTROLLER_H
 #define ZOO_ZOOCONTROLLER_H
 
@@ -21,19 +21,20 @@ class ZooController : public QObject
     Q_PROPERTY(bool reminderEnabled READ reminderEnabled WRITE setReminderEnabled
                NOTIFY reminderEnabledChanged)
 
-    // Identity & onboarding.
     Q_PROPERTY(QString playerName READ playerName WRITE setPlayerName NOTIFY playerNameChanged)
     Q_PROPERTY(bool onboarded READ onboarded WRITE setOnboarded NOTIFY onboardedChanged)
 
-    // Economy.
     Q_PROPERTY(int crumbs READ crumbs NOTIFY stateChanged)
+    Q_PROPERTY(int hatchCost READ hatchCost CONSTANT)
+    Q_PROPERTY(bool canHatch READ canHatch NOTIFY stateChanged)
 
-    // Daily challenge.
     Q_PROPERTY(QString todayChallenge READ todayChallenge NOTIFY stateChanged)
     Q_PROPERTY(QString todayChallengeStatus READ todayChallengeStatus NOTIFY stateChanged)
 
-    // Habits: each entry is { id, name, doneToday }.
-    Q_PROPERTY(QVariantList habits READ habits NOTIFY stateChanged)
+    Q_PROPERTY(QVariantList habits READ habits NOTIFY stateChanged)       // { id, name, doneToday }
+    Q_PROPERTY(QVariantList quests READ quests NOTIFY stateChanged)       // { id, name, due, overdue }
+    Q_PROPERTY(QVariantList ownedBlobs READ ownedBlobs NOTIFY stateChanged)   // { id, seed, rarity }
+    Q_PROPERTY(QVariantList shopItems READ shopItems NOTIFY stateChanged)     // { id, name, cost, owned }
 
 public:
     explicit ZooController(QObject* parent = nullptr);
@@ -51,30 +52,48 @@ public:
     void setOnboarded(bool on);
 
     int crumbs() const;
+    int hatchCost() const { return 25; }
+    bool canHatch() const { return crumbs() >= hatchCost(); }
 
     QString todayChallenge() const;
-    QString todayChallengeStatus() const;   // "issued" | "completed" | "skipped"
+    QString todayChallengeStatus() const;
     QVariantList habits() const;
+    QVariantList quests() const;
+    QVariantList ownedBlobs() const;
+    QVariantList shopItems() const;
 
     Q_INVOKABLE void recordOpen();
     Q_INVOKABLE int  newSeed();
 
-    // The daily loop (each rewards Crumbs and records an event).
+    // Daily loop (each rewards Crumbs and records an event).
     Q_INVOKABLE void completeChallenge();
     Q_INVOKABLE void skipChallenge();
     Q_INVOKABLE void addHabit(const QString& name);
     Q_INVOKABLE void removeHabit(const QString& id);
-    Q_INVOKABLE void logHabit(const QString& id);   // check-in for today
+    Q_INVOKABLE void logHabit(const QString& id);
+
+    // Quests: one-off tasks, optional due date (yyyy-MM-dd, "" if none). Bigger Crumb reward.
+    Q_INVOKABLE void addQuest(const QString& name, const QString& due);
+    Q_INVOKABLE void completeQuest(const QString& id);
+    Q_INVOKABLE void removeQuest(const QString& id);
+
+    // The zoo: spend Crumbs to hatch a blob into the collection; buy decorations.
+    Q_INVOKABLE void hatchBlob();
+    Q_INVOKABLE void buyObject(const QString& id);
 
 signals:
     void stateChanged();
     void reminderEnabledChanged();
     void playerNameChanged();
     void onboardedChanged();
+    void hatched(int seed, const QString& rarity);   // for a celebratory UI moment
 
 private:
     void appendNow(const QString& type, const QString& payload);
     void award(int amount, const QString& reason);
+    bool spend(int amount, const QString& reason);   // false if unaffordable
+    void grantDecoration(const QString& id);
+    void checkMilestones();
     QString localDate() const;
 
     SystemClock m_clock;

@@ -2,25 +2,27 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import "../specimens"
 
-// Full-screen specimen host. Demonstrates a single blob big, with its (sample) name/lore/rarity,
-// and a reroll to show off that no two blobs are alike. Real flavor/persistence wire in later.
+// Full-screen view of a single blob, with its name/lore/rarity. Rarity may be passed in (for an
+// owned/just-hatched blob); otherwise it's derived from the seed for a casual preview.
 Page {
     id: page
     allowedOrientations: Orientation.All
 
     property int seed: 1
+    property string rarity: ""
 
-    // Rarity is rolled here for the demo; normally it comes from the seeded hatch roll.
-    property var rarities: ["common", "uncommon", "rare", "mythic"]
-    property string rarity: rarities[Math.abs(seed) % 4 === 0
-                                     ? (Math.abs(seed) % 40 === 0 ? 3 : 2)
-                                     : (Math.abs(seed) % 2)]
+    readonly property var _rarities: ["common", "uncommon", "rare", "mythic"]
+    readonly property string shownRarity: rarity.length > 0
+        ? rarity
+        : _rarities[Math.abs(seed) % 4 === 0
+                    ? (Math.abs(seed) % 40 === 0 ? 3 : 2)
+                    : (Math.abs(seed) % 2)]
 
     SilicaFlickable {
         anchors.fill: parent
 
         PullDownMenu {
-            MenuItem { text: qsTr("Meet another"); onClicked: page.seed = Zoo.newSeed() }
+            MenuItem { text: qsTr("Meet another"); onClicked: page.seed = Zoo.newSeed(); }
         }
 
         Column {
@@ -35,7 +37,7 @@ Page {
                 width: Math.min(page.width, page.height) * 0.72
                 height: width
                 seed: page.seed
-                rarity: page.rarity
+                rarity: page.shownRarity
                 voice: Zoo.playerName
                 lodLevel: 0
             }
@@ -49,10 +51,9 @@ Page {
                 color: Theme.secondaryColor
                 font.pixelSize: Theme.fontSizeSmall
             }
-
             Label {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: page.rarity.toUpperCase()
+                text: page.shownRarity.toUpperCase()
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeExtraSmall
                 font.letterSpacing: 2

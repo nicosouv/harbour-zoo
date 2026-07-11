@@ -27,6 +27,8 @@ DISTFILES += qml/harbour-zoo.qml \
     qml/pages/TodayPage.qml \
     qml/pages/SpecimenPage.qml \
     qml/pages/SettingsPage.qml \
+    qml/pages/ZooPage.qml \
+    qml/pages/ShopPage.qml \
     qml/specimens/Specimen.qml \
     qml/specimens/BlobSpecimen.qml \
     rpm/harbour-zoo.spec \
