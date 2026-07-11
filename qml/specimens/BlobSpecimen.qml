@@ -273,14 +273,16 @@ Specimen {
     Rectangle {
         id: bubble
         property string say: ""
-        color: "#E8E8E8"; radius: height * 0.3
-        width: bubbleLabel.implicitWidth + field.width * 0.12
-        height: bubbleLabel.implicitHeight + field.width * 0.06
+        // Readable regardless of how small the blob is (enclosure blobs are tiny).
+        property real fs: Math.max(24, Math.min(40, field.width * 0.12))
+        color: "#E8E8E8"; radius: height * 0.32
+        width: bubbleLabel.implicitWidth + bubble.fs
+        height: bubbleLabel.implicitHeight + bubble.fs * 0.5
         x: field.x + field.width * 0.5 - width / 2
         y: field.y + field.height * 0.06 - height
         opacity: 0; scale: 0.6; transformOrigin: Item.Bottom
         Text { id: bubbleLabel; anchors.centerIn: parent; text: bubble.say
-               color: "#111318"; font.pixelSize: Math.max(11, field.width * 0.11); font.bold: true }
+               color: "#111318"; font.pixelSize: bubble.fs; font.bold: true }
     }
 
     // ---- Animations (gentle, low hop) -------------------------------------------------------
