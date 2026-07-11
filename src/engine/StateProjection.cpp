@@ -23,6 +23,8 @@ static void removeById(QList<Habit>& v, const QString& id)
 { for (int i = 0; i < v.size(); ++i) if (v[i].id == id) { v.removeAt(i); return; } }
 static void removeById(QList<Quest>& v, const QString& id)
 { for (int i = 0; i < v.size(); ++i) if (v[i].id == id) { v.removeAt(i); return; } }
+static void removeById(QList<Blob>& v, const QString& id)
+{ for (int i = 0; i < v.size(); ++i) if (v[i].id == id) { v.removeAt(i); return; } }
 
 void applyEvent(ZooState& s, const Event& e)
 {
@@ -76,6 +78,8 @@ void applyEvent(ZooState& s, const Event& e)
         b.date = p.value(QStringLiteral("date")).toString();
         s.blobs.append(b);
         if (b.rarity == QLatin1String("mythic")) s.mythicSeen = true;
+    } else if (t == QLatin1String("egg_retired")) {
+        removeById(s.blobs, p.value(QStringLiteral("id")).toString());
     } else if (t == QLatin1String("decoration_bought")) {
         s.decorations.insert(p.value(QStringLiteral("decoration_id")).toString());
     } else if (t == QLatin1String("biome_bought")) {

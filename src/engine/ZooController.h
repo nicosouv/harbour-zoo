@@ -24,6 +24,7 @@ class ZooController : public QObject
                NOTIFY reminderEnabledChanged)
 
     Q_PROPERTY(QString playerName READ playerName WRITE setPlayerName NOTIFY playerNameChanged)
+    Q_PROPERTY(QString playerBirthday READ playerBirthday WRITE setPlayerBirthday NOTIFY playerBirthdayChanged) // "MM-dd"
     Q_PROPERTY(bool onboarded READ onboarded WRITE setOnboarded NOTIFY onboardedChanged)
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged) // "" = system
     Q_PROPERTY(QString blobStyle READ blobStyle WRITE setBlobStyle NOTIFY blobStyleChanged) // "mix" or a style id
@@ -75,6 +76,9 @@ public:
     bool onboarded() const;
     void setOnboarded(bool on);
 
+    QString playerBirthday() const;              // "MM-dd", empty if unset
+    void setPlayerBirthday(const QString& mmdd);
+
     QString language() const;
     void setLanguage(const QString& code);
 
@@ -89,6 +93,16 @@ public:
 
     // Grant crumbs outright (used by the Settings "give me crumbs" testing button).
     Q_INVOKABLE void grantCrumbs(int amount);
+
+    // Ceremonies: celebratory moments surfaced at launch (farewell, milestones, birthday, holiday).
+    Q_INVOKABLE QVariantList pendingCeremonies() const;   // [{ id, kind, title, body, emoji, seed }]
+    Q_INVOKABLE void dismissCeremony(const QString& id);
+
+    // Wipe all data (events + preferences) so onboarding runs again. For testing.
+    Q_INVOKABLE void resetAll();
+
+    // Hard cap on residents; hatching beyond it retires the oldest (with a farewell ceremony).
+    int blobCap() const { return 20; }
 
     bool focusRunning() const { return m_focusRunning; }
     int focusRemaining() const { return m_focusRemaining; }
@@ -146,6 +160,7 @@ signals:
     void stateChanged();
     void reminderEnabledChanged();
     void playerNameChanged();
+    void playerBirthdayChanged();
     void onboardedChanged();
     void languageChanged();
     void blobStyleChanged();
@@ -157,8 +172,9 @@ signals:
 private:
     // Append an event to the log AND fold it into m_state. The single way state ever changes.
     void emitEvent(const QString& type, const QString& payload);
-    void replay();                                    // rebuild m_state from the log
+    void replay();                                    // rebuild m_state from snapshot + tail
     void migrateIfNeeded();                            // seed a 'migrated' event from old QSettings
+    void maybeSnapshot();                              // bound the log: snapshot + prune periodically
 
     void award(int amount, const QString& reason);
     bool spend(int amount, const QString& reason);    // false if unaffordable
@@ -172,6 +188,7 @@ private:
     QSettings   m_settings;                            // device preferences only (not game state)
     ZooState    m_state;                               // the projection: fold of the event log
     quint64     m_seedCounter = 0;
+    int         m_eventsSinceSnapshot = 0;
 
     QTimer m_focusTimer;
     bool   m_focusRunning = false;

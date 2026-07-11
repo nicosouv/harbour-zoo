@@ -193,6 +193,8 @@ Page {
                         property real blobSize: (biome.width / 7) * Zoo.blobScale
                         property int  dur: 4000
                         width: blobSize; height: blobSize
+                        // A speaking blob pops above the overhead props so its bubble is readable.
+                        z: blob.speaking ? 10 : 0
                         function rx() { return Math.random() * Math.max(1, biome.width - blobSize) }
                         function ry() { return biome.height * 0.34 + Math.random() * Math.max(1, biome.height * 0.60 - blobSize) }
                         function clampx(v) { return Math.max(0, Math.min(biome.width - blobSize, v)) }
@@ -326,10 +328,18 @@ Page {
         onHatched: pageStack.push(Qt.resolvedUrl("SpecimenPage.qml"), { seed: seed, rarity: rarity })
     }
 
-    // First launch: send the keeper through onboarding before they see the (empty) zoo.
-    Component.onCompleted: if (!Zoo.onboarded) onboardTimer.start()
+    // First launch: onboarding. Otherwise, show any pending ceremonies (farewells, milestones,
+    // birthday, holidays) queued for this launch.
+    Component.onCompleted: startupTimer.start()
     Timer {
-        id: onboardTimer; interval: 1; repeat: false
-        onTriggered: pageStack.push(Qt.resolvedUrl("OnboardingPage.qml"))
+        id: startupTimer; interval: 1; repeat: false
+        onTriggered: {
+            if (!Zoo.onboarded) pageStack.push(Qt.resolvedUrl("OnboardingPage.qml"))
+            else page.checkCeremonies()
+        }
+    }
+    function checkCeremonies() {
+        var cs = Zoo.pendingCeremonies()
+        if (cs.length > 0) pageStack.push(Qt.resolvedUrl("CeremonyPage.qml"), { ceremony: cs[0] })
     }
 }

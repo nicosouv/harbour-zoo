@@ -108,6 +108,26 @@ static const Badge kBadges[] = {
 };
 static const int kBadgeCount = int(sizeof(kBadges) / sizeof(kBadges[0]));
 
+// A few national holidays per language (goofy ceremonies trigger on these dates).
+struct Holiday { const char* lang; const char* mmdd; const char* name; };
+static const Holiday kHolidays[] = {
+    { "fr", "07-14", "le 14 juillet" }, { "fr", "01-01", "le Nouvel An" }, { "fr", "12-25", "Noël" },
+    { "de", "10-03", "Tag der Deutschen Einheit" }, { "de", "12-25", "Weihnachten" },
+    { "it", "06-02", "Festa della Repubblica" }, { "it", "12-25", "Natale" },
+    { "es", "10-12", "Fiesta Nacional" }, { "es", "12-25", "Navidad" },
+    { "fi", "12-06", "itsenäisyyspäivä" }, { "fi", "12-25", "joulu" },
+    { "en", "12-25", "Christmas" }, { "en", "01-01", "New Year's Day" }, { "en", "10-31", "Halloween" },
+    { "",   "12-25", "Christmas" }, { "",   "01-01", "New Year's Day" }
+};
+static const int kHolidayCount = int(sizeof(kHolidays) / sizeof(kHolidays[0]));
+static QString holidayName(const QString& lang, const QString& mmdd)
+{
+    for (int i = 0; i < kHolidayCount; ++i)
+        if (mmdd == QLatin1String(kHolidays[i].mmdd) && lang == QLatin1String(kHolidays[i].lang))
+            return QString::fromUtf8(kHolidays[i].name);
+    return QString();
+}
+
 static QString jpayload(const QJsonObject& o)
 { return QString::fromUtf8(QJsonDocument(o).toJson(QJsonDocument::Compact)); }
 
@@ -161,17 +181,30 @@ void ZooController::emitEvent(const QString& type, const QString& payload)
     e.payload = payload;
     e.seq = m_store.appendEvent(type, e.tsUtc, e.localDate, e.localHour, payload);
     applyEvent(m_state, e);
+    maybeSnapshot();
 }
 
 void ZooController::replay()
 {
-    const QVector<Event> evs = m_store.events();
-    int start = 0;
-    for (int i = evs.size() - 1; i >= 0; --i)
-        if (evs[i].type == QLatin1String("migrated")) { start = i; break; }
     ZooState s;
-    for (int i = start; i < evs.size(); ++i) applyEvent(s, evs[i]);
+    qint64 asOf = 0;
+    QString snap;
+    if (m_store.loadSnapshot(asOf, snap) && !snap.isEmpty())
+        s = fromJson(QJsonDocument::fromJson(snap.toUtf8()).object());
+    const QVector<Event> evs = m_store.events();
+    for (const Event& e : evs)
+        if (e.seq > asOf) applyEvent(s, e);   // 'migrated' events reset state as they fold
     m_state = s;
+}
+
+void ZooController::maybeSnapshot()
+{
+    if (++m_eventsSinceSnapshot < 250) return;   // bound the log to a few hundred events
+    m_eventsSinceSnapshot = 0;
+    const qint64 seq = m_store.maxSeq();
+    if (seq <= 0) return;
+    m_store.saveSnapshot(seq, jpayload(toJson(m_state)));
+    m_store.pruneEventsBefore(seq);
 }
 
 void ZooController::migrateIfNeeded()
@@ -248,6 +281,11 @@ bool ZooController::onboarded() const
 void ZooController::setOnboarded(bool on)
 { if (on == onboarded()) return; m_settings.setValue(QStringLiteral("onboarded"), on); emit onboardedChanged(); }
 
+QString ZooController::playerBirthday() const
+{ return m_settings.value(QStringLiteral("playerBirthday")).toString(); }
+void ZooController::setPlayerBirthday(const QString& mmdd)
+{ if (mmdd == playerBirthday()) return; m_settings.setValue(QStringLiteral("playerBirthday"), mmdd); emit playerBirthdayChanged(); }
+
 QString ZooController::language() const
 { return m_settings.value(QStringLiteral("language")).toString(); }
 void ZooController::setLanguage(const QString& code)
@@ -296,6 +334,103 @@ bool ZooController::claimEasterEgg(const QString& id, int crumbs)
     emitEvent(QStringLiteral("egg_claimed"), jpayload(o));
     emit stateChanged();
     return true;
+}
+
+// ---- ceremonies -----------------------------------------------------------------------------
+QVariantList ZooController::pendingCeremonies() const
+{
+    QVariantList out;
+    const QString today = localDate();
+    const QString mmdd = today.size() >= 10 ? today.mid(5) : QString();
+    const QString year = today.left(4);
+    auto shown = [this](const QString& id) {
+        return m_settings.value(QStringLiteral("ceremonyShown/") + id, false).toBool();
+    };
+
+    const QJsonArray fs = QJsonDocument::fromJson(m_settings.value(QStringLiteral("pendingFarewells")).toString().toUtf8()).array();
+    for (const QJsonValue& v : fs) {
+        const int seed = v.toObject().value("seed").toInt();
+        QVariantMap m;
+        m.insert("id", QStringLiteral("farewell/") + QString::number(seed));
+        m.insert("kind", QStringLiteral("farewell"));
+        m.insert("title", tr("A fond farewell"));
+        m.insert("body", tr("One of your blobs has set off for new adventures. It will be fine. Probably."));
+        m.insert("emoji", QStringLiteral("👋"));
+        m.insert("seed", seed);
+        out.append(m);
+    }
+
+    static const int kMs[] = { 25, 50, 100, 200 };
+    for (int i = 0; i < int(sizeof(kMs) / sizeof(kMs[0])); ++i) {
+        const QString id = QStringLiteral("habit/") + QString::number(kMs[i]);
+        if (m_state.habitLogTotal >= kMs[i] && !shown(id)) {
+            QVariantMap m;
+            m.insert("id", id); m.insert("kind", QStringLiteral("milestone"));
+            m.insert("title", tr("Well kept"));
+            m.insert("body", tr("%1 habit check-ins. The blobs are quietly proud, and a little competitive.").arg(kMs[i]));
+            m.insert("emoji", QStringLiteral("🎉"));
+            out.append(m);
+        }
+    }
+
+    const QString bd = playerBirthday();
+    if (!bd.isEmpty() && bd == mmdd) {
+        const QString id = QStringLiteral("birthday/") + year;
+        if (!shown(id)) {
+            QVariantMap m;
+            m.insert("id", id); m.insert("kind", QStringLiteral("birthday"));
+            m.insert("title", tr("Happy birthday"));
+            m.insert("body", tr("The whole zoo made you something. It's a blob. It's always a blob."));
+            m.insert("emoji", QStringLiteral("🎂"));
+            out.append(m);
+        }
+    }
+
+    const QString hol = holidayName(language(), mmdd);
+    if (!hol.isEmpty()) {
+        const QString id = QStringLiteral("holiday/") + year + '/' + mmdd;
+        if (!shown(id)) {
+            QVariantMap m;
+            m.insert("id", id); m.insert("kind", QStringLiteral("holiday"));
+            m.insert("title", hol);
+            m.insert("body", tr("The zoo is closed for celebrations. The blobs are wearing tiny hats."));
+            m.insert("emoji", QStringLiteral("🎊"));
+            out.append(m);
+        }
+    }
+    return out;
+}
+
+void ZooController::dismissCeremony(const QString& id)
+{
+    if (id.startsWith(QStringLiteral("farewell/"))) {
+        const int seed = id.mid(9).toInt();
+        const QJsonArray fs = QJsonDocument::fromJson(m_settings.value(QStringLiteral("pendingFarewells")).toString().toUtf8()).array();
+        QJsonArray keep;
+        for (const QJsonValue& v : fs) if (v.toObject().value("seed").toInt() != seed) keep.append(v);
+        m_settings.setValue(QStringLiteral("pendingFarewells"),
+                            QString::fromUtf8(QJsonDocument(keep).toJson(QJsonDocument::Compact)));
+    } else {
+        m_settings.setValue(QStringLiteral("ceremonyShown/") + id, true);
+    }
+    emit stateChanged();
+}
+
+void ZooController::resetAll()
+{
+    m_store.clearAll();
+    m_settings.clear();
+    m_settings.setValue(QStringLiteral("esMigrated"), true);   // nothing left to migrate
+    m_state = ZooState();
+    m_eventsSinceSnapshot = 0;
+    emit stateChanged();
+    emit onboardedChanged();
+    emit playerNameChanged();
+    emit playerBirthdayChanged();
+    emit blobStyleChanged();
+    emit blobScaleChanged();
+    emit reminderEnabledChanged();
+    emit languageChanged();
 }
 
 // ---- daily challenge ------------------------------------------------------------------------
@@ -429,6 +564,19 @@ void ZooController::hatchBlob()
     const int seed = static_cast<int>(r.next() & 0x7FFFFFFF);
 
     if (!spend(hatchCost(), QStringLiteral("hatch"))) return;
+
+    // At the cap, the oldest resident retires for new adventures (a farewell ceremony is queued).
+    if (m_state.blobs.size() >= blobCap() && !m_state.blobs.isEmpty()) {
+        const Blob oldest = m_state.blobs.first();
+        QJsonObject rr; rr.insert("id", oldest.id);
+        emitEvent(QStringLiteral("egg_retired"), jpayload(rr));
+        QJsonArray fs = QJsonDocument::fromJson(m_settings.value(QStringLiteral("pendingFarewells")).toString().toUtf8()).array();
+        QJsonObject f; f.insert("seed", oldest.seed);
+        fs.append(f);
+        m_settings.setValue(QStringLiteral("pendingFarewells"),
+                            QString::fromUtf8(QJsonDocument(fs).toJson(QJsonDocument::Compact)));
+    }
+
     QJsonObject o; o.insert("id", QString::number(QDateTime::currentMSecsSinceEpoch()));
     o.insert("seed", seed); o.insert("rarity", rarity); o.insert("date", localDate());
     emitEvent(QStringLiteral("egg_hatched"), jpayload(o));

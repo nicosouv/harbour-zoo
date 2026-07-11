@@ -14,8 +14,9 @@ CoverBackground {
 
     BlobSpecimen {
         id: coverBlob
-        anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: Theme.paddingLarge }
-        width: parent.width * 0.4; height: width
+        // Sits lower so its speech bubble has room above and isn't clipped by the cover edge.
+        anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: parent.height * 0.20 }
+        width: parent.width * 0.36; height: width
         seed: 424242
         styleOverride: Zoo.blobStyle
         lodLevel: 1

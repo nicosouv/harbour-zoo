@@ -186,4 +186,73 @@ int EventStore::eventCount() const
     return 0;
 }
 
+qint64 EventStore::maxSeq() const
+{
+    if (!m_open)
+        return 0;
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    QSqlQuery q(db);
+    if (q.exec(QStringLiteral("SELECT COALESCE(MAX(seq), 0) FROM events")) && q.next())
+        return q.value(0).toLongLong();
+    return 0;
+}
+
+bool EventStore::saveSnapshot(qint64 asOfSeq, const QString& stateJson)
+{
+    if (!m_open)
+        return false;
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    QSqlQuery q(db);
+    q.prepare(QStringLiteral(
+        "INSERT OR REPLACE INTO projection_snapshot (id, as_of_seq, state_json) VALUES (1, ?, ?)"));
+    q.addBindValue(asOfSeq);
+    q.addBindValue(stateJson);
+    if (!q.exec()) {
+        qWarning() << "EventStore: snapshot save failed" << q.lastError().text();
+        return false;
+    }
+    return true;
+}
+
+bool EventStore::loadSnapshot(qint64& asOfSeq, QString& stateJson) const
+{
+    if (!m_open)
+        return false;
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    QSqlQuery q(db);
+    if (q.exec(QStringLiteral("SELECT as_of_seq, state_json FROM projection_snapshot WHERE id = 1"))
+        && q.next()) {
+        asOfSeq = q.value(0).toLongLong();
+        stateJson = q.value(1).toString();
+        return true;
+    }
+    return false;
+}
+
+bool EventStore::pruneEventsBefore(qint64 seq)
+{
+    if (!m_open)
+        return false;
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    QSqlQuery q(db);
+    q.prepare(QStringLiteral("DELETE FROM events WHERE seq < ?"));
+    q.addBindValue(seq);
+    if (!q.exec()) {
+        qWarning() << "EventStore: prune failed" << q.lastError().text();
+        return false;
+    }
+    return true;
+}
+
+bool EventStore::clearAll()
+{
+    if (!m_open)
+        return false;
+    bool ok = true;
+    ok &= exec(QStringLiteral("DELETE FROM events"));
+    ok &= exec(QStringLiteral("DELETE FROM projection_snapshot"));
+    ok &= exec(QStringLiteral("DELETE FROM specimen_instances"));
+    return ok;
+}
+
 } // namespace zoo

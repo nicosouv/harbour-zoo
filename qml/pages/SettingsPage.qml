@@ -30,6 +30,16 @@ Page {
                 EnterKey.onClicked: focus = false
                 onTextChanged: if (text !== Zoo.playerName) Zoo.playerName = text
             }
+            Component { id: bdayDialog; DatePickerDialog { } }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: Zoo.playerBirthday.length > 0 ? qsTr("Birthday: %1").arg(Zoo.playerBirthday)
+                                                    : qsTr("Set birthday (optional)")
+                onClicked: {
+                    var d = pageStack.push(bdayDialog)
+                    d.accepted.connect(function () { Zoo.playerBirthday = Qt.formatDate(d.date, "MM-dd") })
+                }
+            }
 
             // --- Language --------------------------------------------------------------------
             SectionHeader { text: qsTr("Language") }
@@ -106,6 +116,15 @@ Page {
                 text: qsTr("Give me 1000 🍞 (testing)")
                 onClicked: Zoo.grantCrumbs(1000)
             }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Erase all data")
+                onClicked: eraseRemorse.execute(qsTr("Erasing everything"), function () {
+                    Zoo.resetAll()
+                    pageStack.push(Qt.resolvedUrl("OnboardingPage.qml"))
+                })
+            }
+            RemorsePopup { id: eraseRemorse }
             Label {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 wrapMode: Text.Wrap

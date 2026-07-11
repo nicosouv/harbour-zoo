@@ -48,6 +48,18 @@ public:
     // Cheap count of the log.
     int eventCount() const;
 
+    // Highest seq in the log (0 if empty).
+    qint64 maxSeq() const;
+
+    // Projection snapshot (bounds the log): store the folded state as of a seq, then prune the
+    // events below it. On launch, load the snapshot and replay only events after `asOfSeq`.
+    bool saveSnapshot(qint64 asOfSeq, const QString& stateJson);
+    bool loadSnapshot(qint64& asOfSeq, QString& stateJson) const;
+    bool pruneEventsBefore(qint64 seq);   // DELETE rows with seq < seq (compensated by snapshot)
+
+    // Wipe all log data (events + snapshot + specimen rows). Keeps install_meta. For a full reset.
+    bool clearAll();
+
 private:
     bool exec(const QString& sql);
 

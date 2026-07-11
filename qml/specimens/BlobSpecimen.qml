@@ -44,6 +44,9 @@ Specimen {
     readonly property string displayName: _names[Math.abs(seed) % _names.length]
     readonly property string lore: _lore[Math.abs(Math.floor(seed / 7)) % _lore.length]
 
+    // True while a speech bubble is on screen — the host can raise this blob above overhead props.
+    readonly property bool speaking: bubble.opacity > 0.05
+
     NumberAnimation on tt {
         from: 0; to: 6.2831853; duration: 4200
         loops: Animation.Infinite; running: root.lodLevel < 2

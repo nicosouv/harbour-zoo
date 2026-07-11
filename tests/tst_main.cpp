@@ -186,6 +186,17 @@ private slots:
                               QString::fromUtf8(QJsonDocument(snap).toJson(QJsonDocument::Compact))));
         QCOMPARE(s.crumbs, 500);   // the snapshot replaces the whole state
     }
+
+    void reducer_retireBlob()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("egg_hatched", "2026-07-11", 9, "{\"id\":\"a\",\"seed\":1,\"rarity\":\"common\"}"));
+        applyEvent(s, mkEvent("egg_hatched", "2026-07-11", 9, "{\"id\":\"b\",\"seed\":2,\"rarity\":\"common\"}"));
+        QCOMPARE(s.blobs.size(), 2);
+        applyEvent(s, mkEvent("egg_retired", "2026-07-11", 9, "{\"id\":\"a\"}"));
+        QCOMPARE(s.blobs.size(), 1);
+        QCOMPARE(s.blobs[0].id, QStringLiteral("b"));
+    }
 };
 
 QTEST_GUILESS_MAIN(ZooEngineTest)
