@@ -15,7 +15,7 @@ Specimen {
     readonly property var _words: ["blep", "boing", "oi", "hm", "meep", "wot", "hello", "?!",
         "...", "nyoom", "ok", "ee", "hi", "brb", "oof", "mrr", "yes", "no"]
 
-    property var g: buildGenome(seed, rarity)
+    property var g: safeGenome(seed, rarity)
 
     // Live, non-persistent motion state.
     property real tt: 0            // idle clock
@@ -47,13 +47,31 @@ Specimen {
     }
 
     // ---- Genome (deterministic, seed-driven) ------------------------------------------------
+    // Park–Miller "minimal standard" LCG. Uses only * and % and stays within 2^53, so it is safe
+    // on the Qt 5.6 QML JS engine (no Math.imul, which V4 there doesn't support).
     function rngFromSeed(s) {
-        var a = (s >>> 0) || 1; // mulberry32
+        var state = (s >>> 0) % 2147483647;
+        if (state <= 0) state += 2147483646;
         return function () {
-            a = (a + 0x6D2B79F5) | 0;
-            var t = Math.imul(a ^ (a >>> 15), 1 | a);
-            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+            state = (state * 16807) % 2147483647;
+            return (state - 1) / 2147483646;
+        };
+    }
+
+    // Always returns a valid genome — if anything throws, we still show a blob (never invisible).
+    function safeGenome(seed, rarity) {
+        try { return buildGenome(seed, rarity); }
+        catch (e) { return defaultGenome(); }
+    }
+    function defaultGenome() {
+        return {
+            bodyW: 0.78, bodyH: 0.84, bodyScale: 0.92,
+            eyes: [{ x: -0.18, y: -0.06, s: 0.26 }, { x: 0.18, y: -0.06, s: 0.26 }],
+            eyeAspect: 1.0, eyeCorner: 0.5, eyeTilt: 0, mirrorTilt: true,
+            pupilRatio: 0.44, pupilAspect: 1.0, pupilCorner: 0.5,
+            blinkMs: 3500, hopMinMs: 2000, hopVarMs: 2500,
+            body: Qt.hsla(0.62, 0.30, 0.40, 1), accent: Qt.hsla(0.12, 0.6, 0.6, 1),
+            temperament: "zen"
         };
     }
 
