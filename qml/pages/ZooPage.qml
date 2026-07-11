@@ -40,6 +40,7 @@ Page {
             tree:     { sizeF: 0.22, overhead: true,  solid: false, cr: 0 },
             pine:     { sizeF: 0.20, overhead: true,  solid: false, cr: 0 },
             building: { sizeF: 0.26, overhead: true,  solid: true,  cr: 0.11 },
+            house:    { sizeF: 0.26, overhead: true,  solid: true,  cr: 0.11 },
             rock:     { sizeF: 0.13, overhead: false, solid: true,  cr: 0.06 },
             bush:     { sizeF: 0.13, overhead: false, solid: true,  cr: 0.05 },
             cactus:   { sizeF: 0.14, overhead: false, solid: true,  cr: 0.05 },
@@ -53,17 +54,18 @@ Page {
     function buildProps(theme, shopItems) {
         var TP = {
             grass: ["tree", "tree", "tree", "rock", "bush"], desert: ["cactus", "cactus", "rock", "rock"],
-            farwest: ["cactus", "rock", "building"], cyberpunk: ["building", "building"],
+            farwest: ["cactus", "rock", "house"], cyberpunk: ["building", "building"],
             snow: ["pine", "pine", "pine", "rock"], night: ["tree", "tree", "rock", "bush"],
             tokyo: ["building", "building", "lantern", "lantern"]
         }
         var list = TP[theme] || []
         var out = []; var idx = 0
         for (var i = 0; i < list.length; i++) out.push(_imgProp(list[i], idx++))
+        // Owned decorations become pixel-art sprites placed in the zoo (no clashing emoji).
         if (shopItems) for (var j = 0; j < shopItems.length; j++) {
             if (!shopItems[j].owned) continue
-            out.push({ kind: "emoji", emoji: decoEmoji(shopItems[j].id),
-                       xf: _pf(idx, 0), yf: _pf(idx, 1), sizeF: 0.11, overhead: false, solid: true, cr: 0.05 })
+            out.push({ kind: "img", src: Qt.resolvedUrl("../images/props/deco_" + shopItems[j].id + ".png"),
+                       xf: _pf(idx, 0), yf: _pf(idx, 1), sizeF: 0.13, overhead: false, solid: true, cr: 0.05 })
             idx++
         }
         return out

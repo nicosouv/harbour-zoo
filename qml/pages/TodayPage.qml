@@ -228,18 +228,23 @@ Page {
                     menu: ContextMenu { MenuItem { text: qsTr("Bin it"); onClicked: Zoo.removeQuest(modelData.id) } }
                 }
             }
-            Row {
+            Column {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 spacing: Theme.paddingSmall
                 TextField {
-                    id: questField; width: parent.width - questDate.width - questAdd.width - 2 * Theme.paddingSmall
-                    placeholderText: page.pendingDue.length > 0 ? qsTr("New quest · %1").arg(page.pendingDue) : qsTr("New quest (+20 🍞)")
+                    id: questField; width: parent.width
+                    label: qsTr("New quest")
+                    placeholderText: qsTr("New quest (+20 🍞)")
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: addQuest()
                 }
-                IconButton { id: questDate; anchors.verticalCenter: questField.verticalCenter
-                             icon.source: "image://theme/icon-m-date"; onClicked: pickDue() }
-                IconButton { id: questAdd; anchors.verticalCenter: questField.verticalCenter
-                             icon.source: "image://theme/icon-m-add"; onClicked: addQuest() }
+                Row {
+                    spacing: Theme.paddingMedium
+                    Button {
+                        text: page.pendingDue.length > 0 ? qsTr("Due %1").arg(page.pendingDue) : qsTr("Set date")
+                        onClicked: pickDue()
+                    }
+                    Button { text: qsTr("Add"); onClicked: addQuest() }
+                }
             }
         }
         VerticalScrollDecorator {}
