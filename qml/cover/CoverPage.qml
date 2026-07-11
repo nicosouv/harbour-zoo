@@ -71,7 +71,7 @@ CoverBackground {
             onTriggered: cover.idx = cover.habits.length > 0 ? (cover.idx + 1) % cover.habits.length : 0
         }
         CoverAction {
-            iconSource: "image://theme/icon-cover-new"
+            iconSource: "image://theme/icon-m-acknowledge"
             onTriggered: if (cover.cur()) Zoo.logHabit(cover.cur().id)
         }
     }

@@ -57,7 +57,8 @@ static const Biome kThemes[] = {
     { "desert",    "Desert",          60 },
     { "farwest",   "Far West",        90 },
     { "cyberpunk", "Neon City",      140 },
-    { "snow",      "Quiet Snow",      80 }
+    { "snow",      "Quiet Snow",      80 },
+    { "tokyo",     "Tokyo Street",   160 }
 };
 static const int kThemeCount = int(sizeof(kThemes) / sizeof(kThemes[0]));
 
@@ -211,6 +212,13 @@ bool ZooController::claimEasterEgg(const QString& id, int crumbs)
     award(crumbs, QStringLiteral("egg:") + id);
     emit stateChanged();
     return true;
+}
+
+void ZooController::grantCrumbs(int amount)
+{
+    if (amount <= 0) return;
+    award(amount, QStringLiteral("grant"));
+    emit stateChanged();
 }
 
 // ---- Economy --------------------------------------------------------------------------------

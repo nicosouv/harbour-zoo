@@ -212,6 +212,22 @@ Specimen {
                 y: field.height * 0.92
             }
 
+            // Ridiculous little legs, drawn under the body and wiggling as it goes.
+            Repeater {
+                model: 2
+                delegate: Rectangle {
+                    property real ph: index === 0 ? 0 : Math.PI
+                    width: root.cell * 1.3
+                    height: root.cell * 2.4
+                    color: root.pupilColor
+                    antialiasing: false
+                    transformOrigin: Item.Top
+                    x: field.width * (index === 0 ? 0.40 : 0.56) - width / 2
+                    y: field.height * 0.72 + Math.sin(root.tt * 3 + ph) * root.cell * 0.5
+                    rotation: Math.sin(root.tt * 3 + ph) * 9
+                }
+            }
+
             // Body pixels.
             Repeater {
                 model: px.cells

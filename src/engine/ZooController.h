@@ -86,6 +86,9 @@ public:
     // Grant a one-time crumb reward for a hidden easter egg. Returns true if newly claimed.
     Q_INVOKABLE bool claimEasterEgg(const QString& id, int crumbs);
 
+    // Grant crumbs outright (used by the Settings "give me crumbs" testing button).
+    Q_INVOKABLE void grantCrumbs(int amount);
+
     bool focusRunning() const { return m_focusRunning; }
     int focusRemaining() const { return m_focusRemaining; }
     int focusMinutes() const { return m_focusMinutes; }

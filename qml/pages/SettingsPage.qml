@@ -99,6 +99,20 @@ Page {
                 onCurrentIndexChanged: { var s = sizes[currentIndex]; if (s !== Zoo.blobScale) Zoo.blobScale = s }
             }
 
+            // --- Testing ---------------------------------------------------------------------
+            SectionHeader { text: qsTr("Testing") }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Give me 1000 🍞 (testing)")
+                onClicked: Zoo.grantCrumbs(1000)
+            }
+            Label {
+                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                wrapMode: Text.Wrap
+                text: qsTr("For trying things out. No judgement. Well, a little.")
+                color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
+            }
+
             // --- Reminders ---------------------------------------------------------------------
             SectionHeader { text: qsTr("Reminders") }
 

@@ -28,6 +28,47 @@ Page {
         }
     }
 
+    // Enclosure props: biome objects + your owned decorations, at stable positions.
+    property var props: buildProps(Zoo.selectedTheme, Zoo.shopItems)
+    function _pf(i, a) {
+        var h = Math.sin((i + 1) * (a === 0 ? 12.9898 : 78.233)) * 43758.5453
+        h = h - Math.floor(h)
+        return a === 0 ? 0.08 + h * 0.84 : 0.36 + h * 0.54
+    }
+    function _imgProp(name, idx) {
+        var A = {
+            tree:     { sizeF: 0.22, overhead: true,  solid: false, cr: 0 },
+            pine:     { sizeF: 0.20, overhead: true,  solid: false, cr: 0 },
+            building: { sizeF: 0.26, overhead: true,  solid: true,  cr: 0.11 },
+            rock:     { sizeF: 0.13, overhead: false, solid: true,  cr: 0.06 },
+            bush:     { sizeF: 0.13, overhead: false, solid: true,  cr: 0.05 },
+            cactus:   { sizeF: 0.14, overhead: false, solid: true,  cr: 0.05 },
+            lantern:  { sizeF: 0.08, overhead: false, solid: true,  cr: 0.04 }
+        }
+        var a = A[name] || A.rock
+        return { kind: "img", src: Qt.resolvedUrl("../images/props/" + name + ".png"),
+                 xf: _pf(idx, 0), yf: _pf(idx, 1),
+                 sizeF: a.sizeF, overhead: a.overhead, solid: a.solid, cr: a.cr }
+    }
+    function buildProps(theme, shopItems) {
+        var TP = {
+            grass: ["tree", "tree", "tree", "rock", "bush"], desert: ["cactus", "cactus", "rock", "rock"],
+            farwest: ["cactus", "rock", "building"], cyberpunk: ["building", "building"],
+            snow: ["pine", "pine", "pine", "rock"], night: ["tree", "tree", "rock", "bush"],
+            tokyo: ["building", "building", "lantern", "lantern"]
+        }
+        var list = TP[theme] || []
+        var out = []; var idx = 0
+        for (var i = 0; i < list.length; i++) out.push(_imgProp(list[i], idx++))
+        if (shopItems) for (var j = 0; j < shopItems.length; j++) {
+            if (!shopItems[j].owned) continue
+            out.push({ kind: "emoji", emoji: decoEmoji(shopItems[j].id),
+                       xf: _pf(idx, 0), yf: _pf(idx, 1), sizeF: 0.11, overhead: false, solid: true, cr: 0.05 })
+            idx++
+        }
+        return out
+    }
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: content.height + Theme.paddingLarge
@@ -126,6 +167,22 @@ Page {
                     color: "#F6EFDD"; font.pixelSize: Theme.fontSizeSmall
                 }
 
+                // Ground-level props (rocks, bushes, cacti, and your bought objects). Solid: blobs
+                // bump into them. Drawn below the blobs, so blobs walk in front.
+                Repeater {
+                    model: page.props
+                    delegate: Item {
+                        visible: !modelData.overhead
+                        width: biome.width * modelData.sizeF; height: width
+                        x: biome.width * modelData.xf - width / 2
+                        y: biome.height * modelData.yf - height / 2
+                        Image { visible: modelData.kind === "img"; anchors.fill: parent
+                                source: modelData.src; fillMode: Image.PreserveAspectFit; smooth: false }
+                        Text { visible: modelData.kind === "emoji"; anchors.centerIn: parent
+                               text: modelData.emoji; font.pixelSize: Math.max(12, parent.width * 0.85) }
+                    }
+                }
+
                 Repeater {
                     id: roamers
                     model: Zoo.ownedBlobs
@@ -145,11 +202,11 @@ Page {
                             interval: 2600 + Math.random() * 4000; running: true; repeat: true
                             onTriggered: { roamer.dur = 4000 + Math.random() * 5000; roamer.x = roamer.rx(); roamer.y = roamer.ry() }
                         }
-                        // Shoved away from another blob it bumped into.
-                        function shove(ox, oy) {
-                            var dx = x - ox, dy = y - oy
+                        // Shoved away from a point (another blob's or a solid prop's centre).
+                        function shoveFrom(cx, cy) {
+                            var dx = (x + blobSize / 2) - cx, dy = (y + blobSize / 2) - cy
                             var d = Math.sqrt(dx * dx + dy * dy) || 1
-                            roamer.dur = 420
+                            roamer.dur = 360
                             x = clampx(x + dx / d * blobSize * 0.7)
                             y = clampy(y + dy / d * blobSize * 0.7)
                         }
@@ -168,10 +225,22 @@ Page {
                     }
                 }
 
-                // Cheap "physics": when two blobs get too close they shove apart and (sometimes)
-                // exchange a weary remark about existence.
+                // Overhead props (trees, buildings) drawn ABOVE the blobs, so a blob passes under them.
+                Repeater {
+                    model: page.props
+                    delegate: Item {
+                        visible: modelData.overhead
+                        width: biome.width * modelData.sizeF; height: width
+                        x: biome.width * modelData.xf - width / 2
+                        y: biome.height * modelData.yf - height * 0.72
+                        Image { visible: modelData.kind === "img"; anchors.fill: parent
+                                source: modelData.src; fillMode: Image.PreserveAspectFit; smooth: false }
+                    }
+                }
+
+                // Physics: blobs shove off each other and off solid props, muttering about life.
                 Timer {
-                    interval: 380; running: Zoo.ownedBlobs.length > 1; repeat: true
+                    interval: 360; running: Zoo.ownedBlobs.length > 0; repeat: true
                     onTriggered: {
                         var n = roamers.count
                         for (var i = 0; i < n; i++) {
@@ -180,10 +249,19 @@ Page {
                                 var b = roamers.itemAt(j); if (!b) continue
                                 var dx = (a.x + a.blobSize / 2) - (b.x + b.blobSize / 2)
                                 var dy = (a.y + a.blobSize / 2) - (b.y + b.blobSize / 2)
-                                var dist = Math.sqrt(dx * dx + dy * dy)
-                                if (dist < (a.blobSize + b.blobSize) * 0.45) {
-                                    a.shove(b.x, b.y); b.shove(a.x, a.y)
+                                if (Math.sqrt(dx * dx + dy * dy) < (a.blobSize + b.blobSize) * 0.45) {
+                                    a.shoveFrom(b.x + b.blobSize / 2, b.y + b.blobSize / 2)
+                                    b.shoveFrom(a.x + a.blobSize / 2, a.y + a.blobSize / 2)
                                     if (Math.random() < 0.25) { a.react(); b.react() }
+                                }
+                            }
+                            for (var k = 0; k < page.props.length; k++) {
+                                var p = page.props[k]; if (!p.solid) continue
+                                var pcx = biome.width * p.xf, pcy = biome.height * p.yf
+                                var ex = (a.x + a.blobSize / 2) - pcx, ey = (a.y + a.blobSize / 2) - pcy
+                                if (Math.sqrt(ex * ex + ey * ey) < a.blobSize * 0.5 + biome.width * p.cr) {
+                                    a.shoveFrom(pcx, pcy)
+                                    if (Math.random() < 0.12) a.react()
                                 }
                             }
                         }
