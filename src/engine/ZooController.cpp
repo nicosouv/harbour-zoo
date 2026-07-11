@@ -1,6 +1,7 @@
 #include "ZooController.h"
 #include "AppId.h"
 #include "Rng.h"
+#include "StateProjection.h"
 
 #include <QStandardPaths>
 #include <QDir>
@@ -14,7 +15,7 @@
 
 namespace zoo {
 
-// Goofy, dry, British challenge pool (subset of data/challenges.json), picked by the day.
+// ---- static catalogs (not state — just content) ---------------------------------------------
 static const char* const kChallenges[] = {
     "Introduce yourself to a cloud. Keep it professional.",
     "Compliment an inanimate object out loud. Mean it.",
@@ -31,38 +32,25 @@ static const char* const kChallenges[] = {
 };
 static const int kChallengeCount = int(sizeof(kChallenges) / sizeof(kChallenges[0]));
 
-// The shop of zoo objects. Deliberately useless and fond. Some are also granted at milestones.
 struct Deco { const char* id; const char* name; int cost; };
 static const Deco kShop[] = {
-    { "rock",    "A Suspicious Rock",           15 },
-    { "fern",    "A Resilient Fern",            30 },
-    { "sign",    "A Passive-Aggressive Sign",   45 },
-    { "lamp",    "A Moody Lamp",                60 },
-    { "pond",    "A Modest Pond",               90 },
-    { "arch",    "An Unnecessary Archway",     140 },
-    { "statue",  "A Statue of Nobody",         120 },
-    { "balloon", "A Single Sad Balloon",        35 },
-    { "gnome",   "An Off-Duty Gnome",           70 },
-    { "swing",   "A Creaky Swing",             100 },
-    { "totem",   "A Totem of Mild Power",      180 },
-    { "fountain","A Fountain, Allegedly",      220 }
+    { "rock",    "A Suspicious Rock",           15 }, { "fern",    "A Resilient Fern",            30 },
+    { "sign",    "A Passive-Aggressive Sign",   45 }, { "lamp",    "A Moody Lamp",                60 },
+    { "pond",    "A Modest Pond",               90 }, { "arch",    "An Unnecessary Archway",     140 },
+    { "statue",  "A Statue of Nobody",         120 }, { "balloon", "A Single Sad Balloon",        35 },
+    { "gnome",   "An Off-Duty Gnome",           70 }, { "swing",   "A Creaky Swing",             100 },
+    { "totem",   "A Totem of Mild Power",      180 }, { "fountain","A Fountain, Allegedly",      220 }
 };
 static const int kShopCount = int(sizeof(kShop) / sizeof(kShop[0]));
 
-// Buyable pixel-art biomes (backgrounds). "night" is free and owned from the start.
 struct Biome { const char* id; const char* name; int cost; };
 static const Biome kThemes[] = {
-    { "night",     "Night (default)", 0 },
-    { "grass",     "Meadow",          40 },
-    { "desert",    "Desert",          60 },
-    { "farwest",   "Far West",        90 },
-    { "cyberpunk", "Neon City",      140 },
-    { "snow",      "Quiet Snow",      80 },
-    { "tokyo",     "Tokyo Street",   160 }
+    { "night", "Night (default)", 0 }, { "grass", "Meadow", 40 }, { "desert", "Desert", 60 },
+    { "farwest", "Far West", 90 }, { "cyberpunk", "Neon City", 140 }, { "snow", "Quiet Snow", 80 },
+    { "tokyo", "Tokyo Street", 160 }
 };
 static const int kThemeCount = int(sizeof(kThemes) / sizeof(kThemes[0]));
 
-// Goofy "fact of the day" pool (dry, British, entirely unverified).
 static const char* const kFacts[] = {
     "A group of blobs is called a 'mild concern'.",
     "No blob has ever finished a to-do list. They find it aspirational.",
@@ -120,6 +108,9 @@ static const Badge kBadges[] = {
 };
 static const int kBadgeCount = int(sizeof(kBadges) / sizeof(kBadges[0]));
 
+static QString jpayload(const QJsonObject& o)
+{ return QString::fromUtf8(QJsonDocument(o).toJson(QJsonDocument::Compact)); }
+
 // ---------------------------------------------------------------------------------------------
 ZooController::ZooController(QObject* parent)
     : QObject(parent)
@@ -127,10 +118,8 @@ ZooController::ZooController(QObject* parent)
 {
     const QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     QDir().mkpath(dir);
-    const QString dbPath = dir + QLatin1Char('/') + QLatin1String(AppId::kDatabaseFile);
-
-    if (!m_store.open(dbPath)) {
-        qWarning() << "ZooController: could not open store at" << dbPath;
+    if (!m_store.open(dir + QLatin1Char('/') + QLatin1String(AppId::kDatabaseFile))) {
+        qWarning() << "ZooController: could not open store";
     } else {
         std::random_device rd;
         const quint64 salt = (static_cast<quint64>(rd()) << 32) ^ static_cast<quint64>(rd());
@@ -144,7 +133,9 @@ ZooController::ZooController(QObject* parent)
         emit focusChanged();
     });
 
-    recordOpen();
+    migrateIfNeeded();
+    replay();
+    emit stateChanged();
 }
 
 QString ZooController::localDate() const { return m_clock.localDate(); }
@@ -159,16 +150,89 @@ QString ZooController::appVersion() const
 #endif
 }
 
-// ---- Small JSON helpers ---------------------------------------------------------------------
-// Read takes a const& so it works from const getters too; alias kept for readability at call sites.
-static QJsonArray readArray(const QSettings& s, const QString& key)
-{ return QJsonDocument::fromJson(s.value(key).toString().toUtf8()).array(); }
-static QJsonArray readArrayConst(const QSettings& s, const QString& key)
-{ return readArray(s, key); }
-static void writeArray(QSettings& s, const QString& key, const QJsonArray& a)
-{ s.setValue(key, QString::fromUtf8(QJsonDocument(a).toJson(QJsonDocument::Compact))); }
+// ---- event plumbing -------------------------------------------------------------------------
+void ZooController::emitEvent(const QString& type, const QString& payload)
+{
+    Event e;
+    e.type = type;
+    e.tsUtc = m_clock.isoUtc();
+    e.localDate = m_clock.localDate();
+    e.localHour = m_clock.localHour();
+    e.payload = payload;
+    e.seq = m_store.appendEvent(type, e.tsUtc, e.localDate, e.localHour, payload);
+    applyEvent(m_state, e);
+}
 
-// ---- Identity -------------------------------------------------------------------------------
+void ZooController::replay()
+{
+    const QVector<Event> evs = m_store.events();
+    int start = 0;
+    for (int i = evs.size() - 1; i >= 0; --i)
+        if (evs[i].type == QLatin1String("migrated")) { start = i; break; }
+    ZooState s;
+    for (int i = start; i < evs.size(); ++i) applyEvent(s, evs[i]);
+    m_state = s;
+}
+
+void ZooController::migrateIfNeeded()
+{
+    if (m_settings.value(QStringLiteral("esMigrated"), false).toBool()) return;
+    m_settings.setValue(QStringLiteral("esMigrated"), true);
+    if (!m_settings.contains(QStringLiteral("crumbs")) && !m_settings.contains(QStringLiteral("habits"))
+        && !m_settings.contains(QStringLiteral("blobs")))
+        return; // fresh install, nothing to bring across
+
+    const QString today = localDate();
+    ZooState s;
+    s.crumbs = m_settings.value(QStringLiteral("crumbs"), 0).toInt();
+
+    for (const QJsonValue& v : QJsonDocument::fromJson(m_settings.value(QStringLiteral("habits")).toString().toUtf8()).array()) {
+        const QJsonObject o = v.toObject();
+        Habit h; h.id = o.value("id").toString(); h.name = o.value("name").toString();
+        h.target = qMax(1, o.value("target").toInt(1));
+        s.habits.append(h);
+        s.habitLast[h.id] = m_settings.value(QStringLiteral("habitLast/") + h.id).toString();
+        const int c = m_settings.value(QStringLiteral("hc/") + today + '/' + h.id, 0).toInt();
+        if (c > 0) s.habitCount[today + '/' + h.id] = c;
+    }
+    for (const QJsonValue& v : QJsonDocument::fromJson(m_settings.value(QStringLiteral("quests")).toString().toUtf8()).array()) {
+        const QJsonObject o = v.toObject();
+        Quest q; q.id = o.value("id").toString(); q.name = o.value("name").toString(); q.due = o.value("due").toString();
+        s.quests.append(q);
+    }
+    for (const QJsonValue& v : QJsonDocument::fromJson(m_settings.value(QStringLiteral("blobs")).toString().toUtf8()).array()) {
+        const QJsonObject o = v.toObject();
+        Blob b; b.id = o.value("id").toString(); b.seed = o.value("seed").toInt();
+        b.rarity = o.value("rarity").toString(); b.date = o.value("date").toString();
+        s.blobs.append(b);
+    }
+    for (const QJsonValue& v : QJsonDocument::fromJson(m_settings.value(QStringLiteral("decorations")).toString().toUtf8()).array())
+        s.decorations.insert(v.toString());
+    for (const QJsonValue& v : QJsonDocument::fromJson(m_settings.value(QStringLiteral("themes")).toString().toUtf8()).array())
+        s.themesOwned.insert(v.toString());
+    s.habitLogTotal = m_settings.value(QStringLiteral("habitLogTotal"), 0).toInt();
+    s.questCompletedTotal = m_settings.value(QStringLiteral("questCompletedTotal"), 0).toInt();
+    s.focusTotal = m_settings.value(QStringLiteral("focusTotal"), 0).toInt();
+    s.deeds = m_settings.value(QStringLiteral("deeds"), 0).toInt();
+    s.streak = m_settings.value(QStringLiteral("streak"), 0).toInt();
+    s.lastActiveDate = m_settings.value(QStringLiteral("lastActiveDate")).toString();
+    s.mythicSeen = m_settings.value(QStringLiteral("mythicSeen"), false).toBool();
+    s.nightOwl = m_settings.value(QStringLiteral("nightOwl"), false).toBool();
+    if (m_settings.value(QStringLiteral("egg/funfact"), false).toBool()) s.eggsClaimed.insert(QStringLiteral("funfact"));
+    if (m_settings.value(QStringLiteral("egg/reflection"), false).toBool()) s.eggsClaimed.insert(QStringLiteral("reflection"));
+    const QDate td = QDate::fromString(today, QStringLiteral("yyyy-MM-dd"));
+    if (td.isValid()) for (int i = 0; i < 7; ++i) {
+        const QString d = td.addDays(-i).toString(QStringLiteral("yyyy-MM-dd"));
+        const int c = m_settings.value(QStringLiteral("deedday/") + d, 0).toInt();
+        if (c > 0) s.deedByDate[d] = c;
+    }
+    const QString cs = m_settings.value(QStringLiteral("challenge/") + today).toString();
+    if (!cs.isEmpty()) s.challengeStatus[today] = cs;
+
+    emitEvent(QStringLiteral("migrated"), jpayload(toJson(s)));
+}
+
+// ---- preferences (QSettings) ----------------------------------------------------------------
 bool ZooController::reminderEnabled() const
 { return m_settings.value(QStringLiteral("reminderEnabled"), false).toBool(); }
 void ZooController::setReminderEnabled(bool on)
@@ -204,44 +268,37 @@ void ZooController::setBlobScale(qreal s)
     emit blobScaleChanged();
 }
 
-bool ZooController::claimEasterEgg(const QString& id, int crumbs)
-{
-    const QString key = QStringLiteral("egg/") + id;
-    if (m_settings.value(key, false).toBool()) return false;
-    m_settings.setValue(key, true);
-    award(crumbs, QStringLiteral("egg:") + id);
-    emit stateChanged();
-    return true;
-}
+QString ZooController::selectedTheme() const
+{ return m_settings.value(QStringLiteral("selectedTheme"), QStringLiteral("night")).toString(); }
 
-void ZooController::grantCrumbs(int amount)
-{
-    if (amount <= 0) return;
-    award(amount, QStringLiteral("grant"));
-    emit stateChanged();
-}
-
-// ---- Economy --------------------------------------------------------------------------------
-int ZooController::crumbs() const
-{ return m_settings.value(QStringLiteral("crumbs"), 0).toInt(); }
+// ---- economy (events) -----------------------------------------------------------------------
+int ZooController::crumbs() const { return m_state.crumbs; }
 
 void ZooController::award(int amount, const QString& reason)
 {
-    m_settings.setValue(QStringLiteral("crumbs"), crumbs() + amount);
-    appendNow(QStringLiteral("currency_earned"),
-              QStringLiteral("{\"currency\":\"crumbs\",\"amount\":%1,\"reason\":\"%2\"}").arg(amount).arg(reason));
+    QJsonObject o; o.insert("currency", "crumbs"); o.insert("amount", amount); o.insert("reason", reason);
+    emitEvent(QStringLiteral("currency_earned"), jpayload(o));
 }
-
 bool ZooController::spend(int amount, const QString& reason)
 {
-    if (crumbs() < amount) return false;
-    m_settings.setValue(QStringLiteral("crumbs"), crumbs() - amount);
-    appendNow(QStringLiteral("currency_spent"),
-              QStringLiteral("{\"currency\":\"crumbs\",\"amount\":%1,\"reason\":\"%2\"}").arg(amount).arg(reason));
+    if (m_state.crumbs < amount) return false;
+    QJsonObject o; o.insert("currency", "crumbs"); o.insert("amount", amount); o.insert("reason", reason);
+    emitEvent(QStringLiteral("currency_spent"), jpayload(o));
+    return true;
+}
+void ZooController::grantCrumbs(int amount)
+{ if (amount <= 0) return; award(amount, QStringLiteral("grant")); emit stateChanged(); }
+
+bool ZooController::claimEasterEgg(const QString& id, int crumbs)
+{
+    if (m_state.eggsClaimed.contains(id)) return false;
+    QJsonObject o; o.insert("id", id); o.insert("crumbs", crumbs);
+    emitEvent(QStringLiteral("egg_claimed"), jpayload(o));
+    emit stateChanged();
     return true;
 }
 
-// ---- Daily challenge ------------------------------------------------------------------------
+// ---- daily challenge ------------------------------------------------------------------------
 QString ZooController::todayChallenge() const
 {
     const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
@@ -249,54 +306,225 @@ QString ZooController::todayChallenge() const
     return tr(kChallenges[((ord % kChallengeCount) + kChallengeCount) % kChallengeCount]);
 }
 QString ZooController::todayChallengeStatus() const
-{ return m_settings.value(QStringLiteral("challenge/") + localDate(), QStringLiteral("issued")).toString(); }
+{ return m_state.challengeStatus.value(localDate(), QStringLiteral("issued")); }
 
-// ---- Gamification ---------------------------------------------------------------------------
-int ZooController::deeds() const
-{ return m_settings.value(QStringLiteral("deeds"), 0).toInt(); }
+void ZooController::completeChallenge()
+{
+    if (todayChallengeStatus() == QLatin1String("completed")) return;
+    QJsonObject o; o.insert("date", localDate());
+    emitEvent(QStringLiteral("challenge_completed"), jpayload(o));
+    award(15, QStringLiteral("challenge"));
+    checkMilestones();
+    emit stateChanged();
+}
+void ZooController::skipChallenge()
+{
+    if (todayChallengeStatus() != QLatin1String("issued")) return;
+    QJsonObject o; o.insert("date", localDate());
+    emitEvent(QStringLiteral("challenge_skipped"), jpayload(o));
+    emit stateChanged();
+}
 
-int ZooController::streak() const
-{ return m_settings.value(QStringLiteral("streak"), 0).toInt(); }
+// ---- habits ---------------------------------------------------------------------------------
+QVariantList ZooController::habits() const
+{
+    const QString today = localDate();
+    QVariantList out;
+    for (const Habit& h : m_state.habits) {
+        const int cnt = m_state.habitCount.value(today + '/' + h.id, 0);
+        QVariantMap m;
+        m.insert("id", h.id); m.insert("name", h.name); m.insert("target", h.target);
+        m.insert("doneCount", cnt); m.insert("doneToday", cnt >= h.target);
+        m.insert("lastDone", m_state.habitLast.value(h.id));
+        out.append(m);
+    }
+    return out;
+}
+void ZooController::addHabit(const QString& name, int target)
+{
+    const QString t = name.trimmed();
+    if (t.isEmpty()) return;
+    QJsonObject o; o.insert("id", QString::number(QDateTime::currentMSecsSinceEpoch()));
+    o.insert("name", t); o.insert("target", qMax(1, target));
+    emitEvent(QStringLiteral("habit_created"), jpayload(o));
+    emit stateChanged();
+}
+void ZooController::removeHabit(const QString& id)
+{
+    QJsonObject o; o.insert("id", id);
+    emitEvent(QStringLiteral("habit_archived"), jpayload(o));
+    emit stateChanged();
+}
+void ZooController::logHabit(const QString& id)
+{
+    int target = 1;
+    for (const Habit& h : m_state.habits) if (h.id == id) { target = h.target; break; }
+    const int cur = m_state.habitCount.value(localDate() + '/' + id, 0);
+    if (cur >= target) return;
+    QJsonObject o; o.insert("habit_id", id); o.insert("date", localDate());
+    emitEvent(QStringLiteral("habit_logged"), jpayload(o));
+    award(5, QStringLiteral("habit"));
+    checkMilestones();
+    emit stateChanged();
+}
+
+// ---- quests ---------------------------------------------------------------------------------
+QVariantList ZooController::quests() const
+{
+    const QString today = localDate();
+    QVariantList out;
+    for (const Quest& q : m_state.quests) {
+        QVariantMap m;
+        m.insert("id", q.id); m.insert("name", q.name); m.insert("due", q.due);
+        m.insert("overdue", !q.due.isEmpty() && q.due < today);
+        out.append(m);
+    }
+    return out;
+}
+void ZooController::addQuest(const QString& name, const QString& due)
+{
+    const QString t = name.trimmed();
+    if (t.isEmpty()) return;
+    QJsonObject o; o.insert("id", QString::number(QDateTime::currentMSecsSinceEpoch()));
+    o.insert("name", t); o.insert("due", due);
+    emitEvent(QStringLiteral("quest_created"), jpayload(o));
+    emit stateChanged();
+}
+void ZooController::completeQuest(const QString& id)
+{
+    bool found = false;
+    for (const Quest& q : m_state.quests) if (q.id == id) { found = true; break; }
+    if (!found) return;
+    QJsonObject o; o.insert("id", id);
+    emitEvent(QStringLiteral("quest_completed"), jpayload(o));
+    award(20, QStringLiteral("quest"));
+    checkMilestones();
+    emit stateChanged();
+}
+void ZooController::removeQuest(const QString& id)
+{
+    QJsonObject o; o.insert("id", id);
+    emitEvent(QStringLiteral("quest_removed"), jpayload(o));
+    emit stateChanged();
+}
+
+// ---- the zoo --------------------------------------------------------------------------------
+QVariantList ZooController::ownedBlobs() const
+{
+    QVariantList out;
+    for (const Blob& b : m_state.blobs) {
+        QVariantMap m;
+        m.insert("id", b.id); m.insert("seed", b.seed); m.insert("rarity", b.rarity); m.insert("date", b.date);
+        out.append(m);
+    }
+    return out;
+}
+void ZooController::hatchBlob()
+{
+    if (m_state.crumbs < hatchCost()) return;
+    Rng r(Rng::mix(m_store.installSalt(), static_cast<quint64>(m_state.blobs.size())));
+    const double roll = r.nextDouble() * 100.0;
+    const QString rarity = roll < 1.0 ? QStringLiteral("mythic") : roll < 10.0 ? QStringLiteral("rare")
+                         : roll < 36.0 ? QStringLiteral("uncommon") : QStringLiteral("common");
+    const int seed = static_cast<int>(r.next() & 0x7FFFFFFF);
+
+    if (!spend(hatchCost(), QStringLiteral("hatch"))) return;
+    QJsonObject o; o.insert("id", QString::number(QDateTime::currentMSecsSinceEpoch()));
+    o.insert("seed", seed); o.insert("rarity", rarity); o.insert("date", localDate());
+    emitEvent(QStringLiteral("egg_hatched"), jpayload(o));
+    checkMilestones();
+    emit hatched(seed, rarity);
+    emit stateChanged();
+}
+
+QVariantList ZooController::shopItems() const
+{
+    QVariantList out;
+    for (int i = 0; i < kShopCount; ++i) {
+        const QString id = QString::fromUtf8(kShop[i].id);
+        QVariantMap m;
+        m.insert("id", id); m.insert("name", tr(kShop[i].name)); m.insert("cost", kShop[i].cost);
+        m.insert("owned", m_state.decorations.contains(id));
+        out.append(m);
+    }
+    return out;
+}
+void ZooController::grantDecoration(const QString& id)
+{
+    if (m_state.decorations.contains(id)) return;
+    QJsonObject o; o.insert("decoration_id", id);
+    emitEvent(QStringLiteral("decoration_bought"), jpayload(o));
+}
+void ZooController::buyObject(const QString& id)
+{
+    if (m_state.decorations.contains(id)) return;
+    int cost = -1;
+    for (int i = 0; i < kShopCount; ++i) if (id == QLatin1String(kShop[i].id)) { cost = kShop[i].cost; break; }
+    if (cost < 0 || !spend(cost, QStringLiteral("decoration"))) return;
+    grantDecoration(id);
+    emit stateChanged();
+}
+
+// ---- biomes ---------------------------------------------------------------------------------
+QVariantList ZooController::themes() const
+{
+    const QString sel = selectedTheme();
+    QVariantList out;
+    for (int i = 0; i < kThemeCount; ++i) {
+        const QString id = QString::fromUtf8(kThemes[i].id);
+        const bool owned = (id == QLatin1String("night")) || m_state.themesOwned.contains(id);
+        QVariantMap m;
+        m.insert("id", id); m.insert("name", tr(kThemes[i].name)); m.insert("cost", kThemes[i].cost);
+        m.insert("owned", owned); m.insert("selected", id == sel);
+        out.append(m);
+    }
+    return out;
+}
+void ZooController::buyTheme(const QString& id)
+{
+    if (id == QLatin1String("night") || m_state.themesOwned.contains(id)) return;
+    int cost = -1;
+    for (int i = 0; i < kThemeCount; ++i) if (id == QLatin1String(kThemes[i].id)) { cost = kThemes[i].cost; break; }
+    if (cost < 0 || !spend(cost, QStringLiteral("biome"))) return;
+    QJsonObject o; o.insert("biome_id", id);
+    emitEvent(QStringLiteral("biome_bought"), jpayload(o));
+    m_settings.setValue(QStringLiteral("selectedTheme"), id);   // wear it now (preference)
+    emit stateChanged();
+}
+void ZooController::selectTheme(const QString& id)
+{
+    if (id != QLatin1String("night") && !m_state.themesOwned.contains(id)) return;
+    if (id == selectedTheme()) return;
+    m_settings.setValue(QStringLiteral("selectedTheme"), id);
+    emit stateChanged();
+}
+
+// ---- gamification (derived from state) ------------------------------------------------------
+int ZooController::deeds() const { return m_state.deeds; }
+int ZooController::streak() const { return m_state.streak; }
 
 int ZooController::keeperLevel() const
 {
     static const int kThresholds[] = { 0, 3, 8, 16, 30, 50, 80 };
-    const int d = deeds();
     int lvl = 0;
     for (int i = 0; i < int(sizeof(kThresholds) / sizeof(kThresholds[0])); ++i)
-        if (d >= kThresholds[i]) lvl = i;
+        if (m_state.deeds >= kThresholds[i]) lvl = i;
     return lvl;
 }
-
 QString ZooController::keeperTitle() const
 {
     static const char* const kTitles[] = {
-        "Volunteer", "Junior Keeper", "Keeper", "Head Keeper", "Curator", "Director",
-        "Legendary Director"
+        "Volunteer", "Junior Keeper", "Keeper", "Head Keeper", "Curator", "Director", "Legendary Director"
     };
     return tr(kTitles[keeperLevel()]);
 }
-
 int ZooController::habitsKeptToday() const
-{ return m_settings.value(QStringLiteral("habitlogday/") + localDate(), 0).toInt(); }
-
-void ZooController::recordDeed()
 {
-    m_settings.setValue(QStringLiteral("deeds"), deeds() + 1);
-    // Per-day count for the activity graph.
-    const QString dayKey = QStringLiteral("deedday/") + localDate();
-    m_settings.setValue(dayKey, m_settings.value(dayKey, 0).toInt() + 1);
-
-    const QString today = localDate();
-    const QString last = m_settings.value(QStringLiteral("lastActiveDate")).toString();
-    if (last != today) {
-        const QDate td = QDate::fromString(today, QStringLiteral("yyyy-MM-dd"));
-        const QString yesterday = td.isValid()
-            ? td.addDays(-1).toString(QStringLiteral("yyyy-MM-dd")) : QString();
-        const int st = m_settings.value(QStringLiteral("streak"), 0).toInt();
-        m_settings.setValue(QStringLiteral("streak"), (last == yesterday) ? st + 1 : 1);
-        m_settings.setValue(QStringLiteral("lastActiveDate"), today);
-    }
+    const QString pref = localDate() + '/';
+    int total = 0;
+    for (auto it = m_state.habitCount.begin(); it != m_state.habitCount.end(); ++it)
+        if (it.key().startsWith(pref)) total += it.value();
+    return total;
 }
 
 QString ZooController::funFact() const
@@ -305,11 +533,9 @@ QString ZooController::funFact() const
     const qint64 ord = d.isValid() ? d.toJulianDay() : 0;
     return tr(kFacts[((ord % kFactCount) + kFactCount) % kFactCount]);
 }
-
 QString ZooController::statusPhrase() const
 {
-    const int score = (todayChallengeStatus() == QLatin1String("completed") ? 1 : 0)
-                    + habitsKeptToday();
+    const int score = (todayChallengeStatus() == QLatin1String("completed") ? 1 : 0) + habitsKeptToday();
     const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
     const int pick = int((d.isValid() ? d.toJulianDay() : 0) % 3);
     if (score <= 0) return tr(kPhraseLow[pick]);
@@ -319,17 +545,11 @@ QString ZooController::statusPhrase() const
 
 QVariantList ZooController::badges() const
 {
-    const int blobs = readArrayConst(m_settings, QStringLiteral("blobs")).size();
-    const int deco  = readArrayConst(m_settings, QStringLiteral("decorations")).size();
-    const int dd    = deeds();
-    const int st    = streak();
-    const int hab   = m_settings.value(QStringLiteral("habitLogTotal"), 0).toInt();
-    const int quests= m_settings.value(QStringLiteral("questCompletedTotal"), 0).toInt();
-    const int focus = m_settings.value(QStringLiteral("focusTotal"), 0).toInt();
-    const int biomes= readArrayConst(m_settings, QStringLiteral("themes")).size() + 1; // + night
-    const bool myth = m_settings.value(QStringLiteral("mythicSeen"), false).toBool();
-    const bool owl  = m_settings.value(QStringLiteral("nightOwl"), false).toBool();
-
+    const int blobs = m_state.blobs.size();
+    const int deco = m_state.decorations.size();
+    const int dd = m_state.deeds, st = m_state.streak;
+    const int hab = m_state.habitLogTotal, quests = m_state.questCompletedTotal, focus = m_state.focusTotal;
+    const int biomes = m_state.themesOwned.size() + 1;
     QVariantList out;
     for (int i = 0; i < kBadgeCount; ++i) {
         const QString id = QString::fromUtf8(kBadges[i].id);
@@ -341,8 +561,8 @@ QVariantList ZooController::badges() const
         else if (id == QLatin1String("habitual")) earned = hab >= 10;
         else if (id == QLatin1String("questgiver")) earned = quests >= 5;
         else if (id == QLatin1String("collector")) earned = deco >= 3;
-        else if (id == QLatin1String("mythic")) earned = myth;
-        else if (id == QLatin1String("night_owl")) earned = owl;
+        else if (id == QLatin1String("mythic")) earned = m_state.mythicSeen;
+        else if (id == QLatin1String("night_owl")) earned = m_state.nightOwl;
         else if (id == QLatin1String("regular")) earned = dd >= 25;
         else if (id == QLatin1String("devotee")) earned = dd >= 100;
         else if (id == QLatin1String("fortnight")) earned = st >= 14;
@@ -354,11 +574,8 @@ QVariantList ZooController::badges() const
         else if (id == QLatin1String("tended")) earned = st >= 7 && hab >= 20;
 
         QVariantMap m;
-        m.insert(QStringLiteral("id"), id);
-        m.insert(QStringLiteral("name"), tr(kBadges[i].name));
-        m.insert(QStringLiteral("desc"), tr(kBadges[i].desc));
-        m.insert(QStringLiteral("emoji"), QString::fromUtf8(kBadges[i].emoji));
-        m.insert(QStringLiteral("earned"), earned);
+        m.insert("id", id); m.insert("name", tr(kBadges[i].name)); m.insert("desc", tr(kBadges[i].desc));
+        m.insert("emoji", QString::fromUtf8(kBadges[i].emoji)); m.insert("earned", earned);
         out.append(m);
     }
     return out;
@@ -369,18 +586,14 @@ QVariantList ZooController::activity7() const
     QVariantList out;
     const QDate today = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
     if (!today.isValid()) { for (int i = 0; i < 7; ++i) out.append(0); return out; }
-    for (int i = 6; i >= 0; --i) {
-        const QString day = today.addDays(-i).toString(QStringLiteral("yyyy-MM-dd"));
-        out.append(m_settings.value(QStringLiteral("deedday/") + day, 0).toInt());
-    }
+    for (int i = 6; i >= 0; --i)
+        out.append(m_state.deedByDate.value(today.addDays(-i).toString(QStringLiteral("yyyy-MM-dd")), 0));
     return out;
 }
 
-// A quiet line that deepens with the zoo. The "point" of collecting blobs reveals itself slowly:
-// the zoo is a record of the days you looked after yourself. We never say it loudly.
 QString ZooController::reflection() const
 {
-    const int n = readArrayConst(m_settings, QStringLiteral("blobs")).size();
+    const int n = m_state.blobs.size();
     if (n <= 0) return QString();
     if (n < 3)  return tr("Every creature here is a day you showed up.");
     if (n < 6)  return tr("The zoo fills as you do the small things. Funny, that.");
@@ -389,350 +602,44 @@ QString ZooController::reflection() const
     return tr("A whole zoo, built from Tuesdays. You did that. On purpose, even.");
 }
 
-// ---- Biomes ---------------------------------------------------------------------------------
-QString ZooController::selectedTheme() const
-{ return m_settings.value(QStringLiteral("selectedTheme"), QStringLiteral("night")).toString(); }
-
-QVariantList ZooController::themes() const
+void ZooController::checkMilestones()
 {
-    const QJsonArray owned = readArrayConst(m_settings, QStringLiteral("themes"));
-    const QString sel = selectedTheme();
-    QVariantList out;
-    for (int i = 0; i < kThemeCount; ++i) {
-        const QString id = QString::fromUtf8(kThemes[i].id);
-        const bool isOwned = (id == QLatin1String("night")) || owned.contains(QJsonValue(id));
-        QVariantMap m;
-        m.insert(QStringLiteral("id"), id);
-        m.insert(QStringLiteral("name"), tr(kThemes[i].name));
-        m.insert(QStringLiteral("cost"), kThemes[i].cost);
-        m.insert(QStringLiteral("owned"), isOwned);
-        m.insert(QStringLiteral("selected"), id == sel);
-        out.append(m);
-    }
-    return out;
+    if (m_state.blobs.size() >= 1 && !m_state.decorations.contains(QStringLiteral("rock")))
+        grantDecoration(QStringLiteral("rock"));
+    if (m_state.habitLogTotal >= 7 && !m_state.decorations.contains(QStringLiteral("fern")))
+        grantDecoration(QStringLiteral("fern"));
 }
 
-void ZooController::buyTheme(const QString& id)
-{
-    QJsonArray owned = readArray(m_settings, QStringLiteral("themes"));
-    if (id == QLatin1String("night") || owned.contains(QJsonValue(id))) return;
-    int cost = -1;
-    for (int i = 0; i < kThemeCount; ++i)
-        if (id == QLatin1String(kThemes[i].id)) { cost = kThemes[i].cost; break; }
-    if (cost < 0 || !spend(cost, QStringLiteral("biome"))) return;
-    owned.append(id);
-    writeArray(m_settings, QStringLiteral("themes"), owned);
-    m_settings.setValue(QStringLiteral("selectedTheme"), id);   // wear it immediately
-    appendNow(QStringLiteral("biome_bought"), QStringLiteral("{\"biome_id\":\"%1\"}").arg(id));
-    emit stateChanged();
-}
-
-void ZooController::selectTheme(const QString& id)
-{
-    const QJsonArray owned = readArrayConst(m_settings, QStringLiteral("themes"));
-    if (id != QLatin1String("night") && !owned.contains(QJsonValue(id))) return;
-    if (id == selectedTheme()) return;
-    m_settings.setValue(QStringLiteral("selectedTheme"), id);
-    emit stateChanged();
-}
-
-// ---- Focus (pomodoro) — engine-driven so it survives navigation -----------------------------
+// ---- focus (pomodoro) — engine-driven -------------------------------------------------------
 void ZooController::startFocus(int minutes)
 {
     if (minutes <= 0) return;
-    m_focusMinutes = minutes;
-    m_focusRemaining = minutes * 60;
-    m_focusRunning = true;
+    m_focusMinutes = minutes; m_focusRemaining = minutes * 60; m_focusRunning = true;
     m_focusTimer.start();
     emit focusChanged();
 }
 void ZooController::stopFocus()
 {
     if (!m_focusRunning && m_focusRemaining == 0) return;
-    m_focusTimer.stop();
-    m_focusRunning = false;
-    m_focusRemaining = 0;
+    m_focusTimer.stop(); m_focusRunning = false; m_focusRemaining = 0;
     emit focusChanged();
 }
 void ZooController::finishFocus()
 {
     m_focusTimer.stop();
     const int minutes = m_focusMinutes;
-    m_focusRunning = false;
-    m_focusRemaining = 0;
-
-    m_settings.setValue(QStringLiteral("focusTotal"),
-                        m_settings.value(QStringLiteral("focusTotal"), 0).toInt() + 1);
-    appendNow(QStringLiteral("focus_completed"), QStringLiteral("{\"minutes\":%1}").arg(minutes));
-    award(2 + minutes / 5, QStringLiteral("focus"));   // a couple of crumbs per five minutes
-    recordDeed();
+    m_focusRunning = false; m_focusRemaining = 0;
+    QJsonObject o; o.insert("minutes", minutes);
+    emitEvent(QStringLiteral("focus_completed"), jpayload(o));
+    award(2 + minutes / 5, QStringLiteral("focus"));
     checkMilestones();
     emit focusChanged();
     emit focusFinished(minutes);
     emit stateChanged();
 }
 
-void ZooController::completeChallenge()
-{
-    if (todayChallengeStatus() == QLatin1String("completed")) return;
-    m_settings.setValue(QStringLiteral("challenge/") + localDate(), QStringLiteral("completed"));
-    appendNow(QStringLiteral("challenge_completed"), QStringLiteral("{\"date\":\"%1\"}").arg(localDate()));
-    if (m_clock.localHour() < 5)
-        m_settings.setValue(QStringLiteral("nightOwl"), true);   // badge flag
-    award(15, QStringLiteral("challenge"));
-    recordDeed();
-    checkMilestones();
-    emit stateChanged();
-}
-void ZooController::skipChallenge()
-{
-    if (todayChallengeStatus() != QLatin1String("issued")) return;
-    m_settings.setValue(QStringLiteral("challenge/") + localDate(), QStringLiteral("skipped"));
-    appendNow(QStringLiteral("challenge_skipped"), QStringLiteral("{\"date\":\"%1\"}").arg(localDate()));
-    emit stateChanged();
-}
-
-// ---- Habits (recurring) ---------------------------------------------------------------------
-QVariantList ZooController::habits() const
-{
-    const QJsonArray defs = readArrayConst(m_settings, QStringLiteral("habits"));
-    QVariantList out;
-    for (const QJsonValue& v : defs) {
-        const QJsonObject o = v.toObject();
-        const QString id = o.value(QStringLiteral("id")).toString();
-        const int target = qMax(1, o.value(QStringLiteral("target")).toInt(1));
-        const int count = m_settings.value(QStringLiteral("hc/") + localDate() + '/' + id, 0).toInt();
-        QVariantMap m;
-        m.insert(QStringLiteral("id"), id);
-        m.insert(QStringLiteral("name"), o.value(QStringLiteral("name")).toString());
-        m.insert(QStringLiteral("target"), target);
-        m.insert(QStringLiteral("doneCount"), count);
-        m.insert(QStringLiteral("doneToday"), count >= target);
-        m.insert(QStringLiteral("lastDone"),
-                 m_settings.value(QStringLiteral("habitLast/") + id).toString());
-        out.append(m);
-    }
-    return out;
-}
-void ZooController::addHabit(const QString& name, int target)
-{
-    const QString t = name.trimmed();
-    if (t.isEmpty()) return;
-    QJsonArray defs = readArray(m_settings, QStringLiteral("habits"));
-    const QString id = QString::number(QDateTime::currentMSecsSinceEpoch());
-    QJsonObject o;
-    o.insert(QStringLiteral("id"), id);
-    o.insert(QStringLiteral("name"), t);
-    o.insert(QStringLiteral("target"), qMax(1, target));
-    defs.append(o);
-    writeArray(m_settings, QStringLiteral("habits"), defs);
-    appendNow(QStringLiteral("habit_created"), QStringLiteral("{\"habit_id\":\"%1\"}").arg(id));
-    emit stateChanged();
-}
-void ZooController::removeHabit(const QString& id)
-{
-    QJsonArray defs = readArray(m_settings, QStringLiteral("habits"));
-    for (int i = 0; i < defs.size(); ++i)
-        if (defs.at(i).toObject().value(QStringLiteral("id")).toString() == id) { defs.removeAt(i); break; }
-    writeArray(m_settings, QStringLiteral("habits"), defs);
-    appendNow(QStringLiteral("habit_archived"), QStringLiteral("{\"habit_id\":\"%1\"}").arg(id));
-    emit stateChanged();
-}
-void ZooController::logHabit(const QString& id)
-{
-    // Find the habit's daily target; a habit can be logged up to `target` times per day.
-    int target = 1;
-    const QJsonArray defs = readArrayConst(m_settings, QStringLiteral("habits"));
-    for (const QJsonValue& v : defs)
-        if (v.toObject().value(QStringLiteral("id")).toString() == id) {
-            target = qMax(1, v.toObject().value(QStringLiteral("target")).toInt(1));
-            break;
-        }
-
-    const QString ckey = QStringLiteral("hc/") + localDate() + '/' + id;
-    const int cur = m_settings.value(ckey, 0).toInt();
-    if (cur >= target) return;                      // already fully done today
-    m_settings.setValue(ckey, cur + 1);
-
-    m_settings.setValue(QStringLiteral("habitLogTotal"),
-                        m_settings.value(QStringLiteral("habitLogTotal"), 0).toInt() + 1);
-    m_settings.setValue(QStringLiteral("habitlogday/") + localDate(),
-                        m_settings.value(QStringLiteral("habitlogday/") + localDate(), 0).toInt() + 1);
-    m_settings.setValue(QStringLiteral("habitLast/") + id, localDate());
-    appendNow(QStringLiteral("habit_logged"),
-              QStringLiteral("{\"habit_id\":\"%1\",\"date\":\"%2\"}").arg(id).arg(localDate()));
-    award(5, QStringLiteral("habit"));
-    recordDeed();
-    checkMilestones();
-    emit stateChanged();
-}
-
-// ---- Quests (one-off, optional due date) ----------------------------------------------------
-QVariantList ZooController::quests() const
-{
-    const QJsonArray defs = readArrayConst(m_settings, QStringLiteral("quests"));
-    QVariantList out;
-    for (const QJsonValue& v : defs) {
-        const QJsonObject o = v.toObject();
-        const QString due = o.value(QStringLiteral("due")).toString();
-        QVariantMap m;
-        m.insert(QStringLiteral("id"), o.value(QStringLiteral("id")).toString());
-        m.insert(QStringLiteral("name"), o.value(QStringLiteral("name")).toString());
-        m.insert(QStringLiteral("due"), due);
-        m.insert(QStringLiteral("overdue"), !due.isEmpty() && due < localDate());
-        out.append(m);
-    }
-    return out;
-}
-void ZooController::addQuest(const QString& name, const QString& due)
-{
-    const QString t = name.trimmed();
-    if (t.isEmpty()) return;
-    QJsonArray defs = readArray(m_settings, QStringLiteral("quests"));
-    const QString id = QString::number(QDateTime::currentMSecsSinceEpoch());
-    QJsonObject o; o.insert(QStringLiteral("id"), id); o.insert(QStringLiteral("name"), t);
-    o.insert(QStringLiteral("due"), due);
-    defs.append(o);
-    writeArray(m_settings, QStringLiteral("quests"), defs);
-    appendNow(QStringLiteral("quest_created"), QStringLiteral("{\"quest_id\":\"%1\"}").arg(id));
-    emit stateChanged();
-}
-void ZooController::completeQuest(const QString& id)
-{
-    QJsonArray defs = readArray(m_settings, QStringLiteral("quests"));
-    bool found = false;
-    for (int i = 0; i < defs.size(); ++i)
-        if (defs.at(i).toObject().value(QStringLiteral("id")).toString() == id) { defs.removeAt(i); found = true; break; }
-    if (!found) return;
-    writeArray(m_settings, QStringLiteral("quests"), defs);
-    appendNow(QStringLiteral("quest_completed"), QStringLiteral("{\"quest_id\":\"%1\"}").arg(id));
-    m_settings.setValue(QStringLiteral("questCompletedTotal"),
-                        m_settings.value(QStringLiteral("questCompletedTotal"), 0).toInt() + 1);
-    award(20, QStringLiteral("quest"));   // quests are worth more than a habit check-in
-    recordDeed();
-    checkMilestones();
-    emit stateChanged();
-}
-void ZooController::removeQuest(const QString& id)
-{
-    QJsonArray defs = readArray(m_settings, QStringLiteral("quests"));
-    for (int i = 0; i < defs.size(); ++i)
-        if (defs.at(i).toObject().value(QStringLiteral("id")).toString() == id) { defs.removeAt(i); break; }
-    writeArray(m_settings, QStringLiteral("quests"), defs);
-    emit stateChanged();
-}
-
-// ---- The zoo: hatching blobs ----------------------------------------------------------------
-QVariantList ZooController::ownedBlobs() const
-{
-    const QJsonArray blobs = readArrayConst(m_settings, QStringLiteral("blobs"));
-    QVariantList out;
-    for (const QJsonValue& v : blobs) {
-        const QJsonObject o = v.toObject();
-        QVariantMap m;
-        m.insert(QStringLiteral("id"), o.value(QStringLiteral("id")).toString());
-        m.insert(QStringLiteral("seed"), o.value(QStringLiteral("seed")).toInt());
-        m.insert(QStringLiteral("rarity"), o.value(QStringLiteral("rarity")).toString());
-        m.insert(QStringLiteral("date"), o.value(QStringLiteral("date")).toString());
-        out.append(m);
-    }
-    return out;
-}
-void ZooController::hatchBlob()
-{
-    if (!spend(hatchCost(), QStringLiteral("hatch"))) return;
-
-    QJsonArray blobs = readArray(m_settings, QStringLiteral("blobs"));
-    // Seeded, reproducible rarity roll driven by how many we've hatched (spec §5.1).
-    Rng r(Rng::mix(m_store.installSalt(), static_cast<quint64>(blobs.size())));
-    const double roll = r.nextDouble() * 100.0;
-    QString rarity = roll < 1.0 ? QStringLiteral("mythic")
-                   : roll < 10.0 ? QStringLiteral("rare")
-                   : roll < 36.0 ? QStringLiteral("uncommon")
-                                 : QStringLiteral("common");
-    const int seed = static_cast<int>(r.next() & 0x7FFFFFFF);
-    const QString id = QString::number(QDateTime::currentMSecsSinceEpoch());
-    if (rarity == QLatin1String("mythic"))
-        m_settings.setValue(QStringLiteral("mythicSeen"), true);   // badge flag
-
-    QJsonObject o;
-    o.insert(QStringLiteral("id"), id);
-    o.insert(QStringLiteral("seed"), seed);
-    o.insert(QStringLiteral("rarity"), rarity);
-    o.insert(QStringLiteral("date"), localDate());   // the day this creature moved in
-    blobs.append(o);
-    writeArray(m_settings, QStringLiteral("blobs"), blobs);
-
-    appendNow(QStringLiteral("egg_hatched"),
-              QStringLiteral("{\"seed\":%1,\"rarity\":\"%2\"}").arg(seed).arg(rarity));
-    checkMilestones();
-    emit hatched(seed, rarity);
-    emit stateChanged();
-}
-
-// ---- Shop & decorations ---------------------------------------------------------------------
-QVariantList ZooController::shopItems() const
-{
-    const QJsonArray owned = readArrayConst(m_settings, QStringLiteral("decorations"));
-    QVariantList out;
-    for (int i = 0; i < kShopCount; ++i) {
-        QVariantMap m;
-        m.insert(QStringLiteral("id"), QString::fromUtf8(kShop[i].id));
-        m.insert(QStringLiteral("name"), tr(kShop[i].name));
-        m.insert(QStringLiteral("cost"), kShop[i].cost);
-        m.insert(QStringLiteral("owned"), owned.contains(QJsonValue(QString::fromUtf8(kShop[i].id))));
-        out.append(m);
-    }
-    return out;
-}
-void ZooController::grantDecoration(const QString& id)
-{
-    QJsonArray owned = readArray(m_settings, QStringLiteral("decorations"));
-    if (owned.contains(QJsonValue(id))) return;
-    owned.append(id);
-    writeArray(m_settings, QStringLiteral("decorations"), owned);
-    appendNow(QStringLiteral("decoration_bought"), QStringLiteral("{\"decoration_id\":\"%1\"}").arg(id));
-}
-void ZooController::buyObject(const QString& id)
-{
-    QJsonArray owned = readArray(m_settings, QStringLiteral("decorations"));
-    if (owned.contains(QJsonValue(id))) return;
-    int cost = -1;
-    for (int i = 0; i < kShopCount; ++i)
-        if (id == QLatin1String(kShop[i].id)) { cost = kShop[i].cost; break; }
-    if (cost < 0) return;
-    if (!spend(cost, QStringLiteral("decoration"))) return;
-    grantDecoration(id);
-    emit stateChanged();
-}
-
-// ---- Milestones (grant a decoration once) ---------------------------------------------------
-void ZooController::checkMilestones()
-{
-    QJsonArray granted = readArray(m_settings, QStringLiteral("milestones"));
-    auto has = [&](const QString& k) { return granted.contains(QJsonValue(k)); };
-    auto mark = [&](const QString& k) { granted.append(k); };
-
-    const int hatched = readArrayConst(m_settings, QStringLiteral("blobs")).size();
-    const int habitTotal = m_settings.value(QStringLiteral("habitLogTotal"), 0).toInt();
-
-    bool changed = false;
-    if (hatched >= 1 && !has(QStringLiteral("first_hatch"))) {
-        grantDecoration(QStringLiteral("rock")); mark(QStringLiteral("first_hatch")); changed = true;
-    }
-    if (habitTotal >= 7 && !has(QStringLiteral("habit_7"))) {
-        grantDecoration(QStringLiteral("fern")); mark(QStringLiteral("habit_7")); changed = true;
-    }
-    if (changed)
-        writeArray(m_settings, QStringLiteral("milestones"), granted);
-}
-
-// ---- Log plumbing ---------------------------------------------------------------------------
-void ZooController::appendNow(const QString& type, const QString& payload)
-{ m_store.appendEvent(type, m_clock.isoUtc(), localDate(), m_clock.localHour(), payload); }
-
-void ZooController::recordOpen()
-{ appendNow(QStringLiteral("app_opened"), QStringLiteral("{}")); emit stateChanged(); }
+// ---- misc -----------------------------------------------------------------------------------
+void ZooController::recordOpen() { emit stateChanged(); }
 
 int ZooController::newSeed()
 {

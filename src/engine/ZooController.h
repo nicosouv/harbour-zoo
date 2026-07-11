@@ -10,6 +10,7 @@
 #include <QVariantList>
 #include <QTimer>
 #include "EventStore.h"
+#include "ZooState.h"
 #include "Clock.h"
 
 namespace zoo {
@@ -154,18 +155,22 @@ signals:
     void hatched(int seed, const QString& rarity);   // for a celebratory UI moment
 
 private:
-    void appendNow(const QString& type, const QString& payload);
+    // Append an event to the log AND fold it into m_state. The single way state ever changes.
+    void emitEvent(const QString& type, const QString& payload);
+    void replay();                                    // rebuild m_state from the log
+    void migrateIfNeeded();                            // seed a 'migrated' event from old QSettings
+
     void award(int amount, const QString& reason);
-    bool spend(int amount, const QString& reason);   // false if unaffordable
+    bool spend(int amount, const QString& reason);    // false if unaffordable
     void grantDecoration(const QString& id);
     void checkMilestones();
-    void recordDeed();                                // bump lifetime deeds + active-day streak
     void finishFocus();                               // called by the tick when the timer hits 0
     QString localDate() const;
 
     SystemClock m_clock;
     EventStore  m_store;
-    QSettings   m_settings;
+    QSettings   m_settings;                            // device preferences only (not game state)
+    ZooState    m_state;                               // the projection: fold of the event log
     quint64     m_seedCounter = 0;
 
     QTimer m_focusTimer;

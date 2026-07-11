@@ -12,12 +12,15 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 SOURCES += src/main.cpp \
     src/engine/Rng.cpp \
     src/engine/EventStore.cpp \
+    src/engine/StateProjection.cpp \
     src/engine/ZooController.cpp
 
 HEADERS += src/engine/AppId.h \
     src/engine/Clock.h \
     src/engine/Rng.h \
     src/engine/EventStore.h \
+    src/engine/ZooState.h \
+    src/engine/StateProjection.h \
     src/engine/ZooController.h
 
 QT += sql

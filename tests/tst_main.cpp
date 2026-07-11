@@ -2,12 +2,22 @@
 // deterministic RNG and the append-only EventStore round-trip + install-salt persistence.
 #include <QtTest>
 #include <QSet>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include "engine/Rng.h"
 #include "engine/EventStore.h"
 #include "engine/Clock.h"
+#include "engine/StateProjection.h"
 
 using namespace zoo;
+
+static Event mkEvent(const QString& type, const QString& date, int hour, const QString& payload)
+{
+    Event e; e.type = type; e.tsUtc = date + "T00:00:00Z";
+    e.localDate = date; e.localHour = hour; e.payload = payload;
+    return e;
+}
 
 class ZooEngineTest : public QObject
 {
@@ -104,6 +114,77 @@ private slots:
         QCOMPARE(clk.isoUtc(), QStringLiteral("2026-07-11T02:30:00Z"));
         clk.advanceSecs(3600);
         QCOMPARE(clk.nowUtc().time().hour(), 3);
+    }
+
+    // ---- StateProjection (the pure reducer) -----------------------------------------------
+    void reducer_economyAndHabits()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("currency_earned", "2026-07-11", 9, "{\"amount\":20}"));
+        QCOMPARE(s.crumbs, 20);
+        applyEvent(s, mkEvent("currency_spent", "2026-07-11", 9, "{\"amount\":5}"));
+        QCOMPARE(s.crumbs, 15);
+        applyEvent(s, mkEvent("habit_created", "2026-07-11", 9, "{\"id\":\"h1\",\"name\":\"Water\",\"target\":6}"));
+        QCOMPARE(s.habits.size(), 1);
+        QCOMPARE(s.habits[0].target, 6);
+        applyEvent(s, mkEvent("habit_logged", "2026-07-11", 9, "{\"habit_id\":\"h1\",\"date\":\"2026-07-11\"}"));
+        applyEvent(s, mkEvent("habit_logged", "2026-07-11", 9, "{\"habit_id\":\"h1\",\"date\":\"2026-07-11\"}"));
+        QCOMPARE(s.habitCount.value("2026-07-11/h1"), 2);
+        QCOMPARE(s.habitLogTotal, 2);
+        QCOMPARE(s.deeds, 2);
+        QCOMPARE(s.streak, 1);
+    }
+
+    void reducer_streakAcrossDays()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("challenge_completed", "2026-07-10", 9, "{}"));
+        QCOMPARE(s.streak, 1);
+        applyEvent(s, mkEvent("challenge_completed", "2026-07-11", 9, "{}"));
+        QCOMPARE(s.streak, 2);   // consecutive day extends
+        applyEvent(s, mkEvent("challenge_completed", "2026-07-14", 9, "{}"));
+        QCOMPARE(s.streak, 1);   // a gap resets
+    }
+
+    void reducer_nightOwlAndMythic()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("challenge_completed", "2026-07-11", 3, "{}"));
+        QVERIFY(s.nightOwl);
+        applyEvent(s, mkEvent("egg_hatched", "2026-07-11", 9, "{\"id\":\"b1\",\"seed\":42,\"rarity\":\"mythic\"}"));
+        QVERIFY(s.mythicSeen);
+        QCOMPARE(s.blobs.size(), 1);
+    }
+
+    void reducer_eggClaimedOnce()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("egg_claimed", "2026-07-11", 9, "{\"id\":\"funfact\",\"crumbs\":200}"));
+        applyEvent(s, mkEvent("egg_claimed", "2026-07-11", 9, "{\"id\":\"funfact\",\"crumbs\":200}"));
+        QCOMPARE(s.crumbs, 200);   // second claim ignored
+    }
+
+    void reducer_jsonRoundTrip()
+    {
+        ZooState s;
+        s.crumbs = 99; s.deeds = 5; s.streak = 3; s.mythicSeen = true;
+        Habit h; h.id = "h"; h.name = "Test \"quote\""; h.target = 2; s.habits.append(h);
+        s.decorations.insert("rock");
+        const ZooState s2 = fromJson(toJson(s));
+        QCOMPARE(s2.crumbs, 99);
+        QCOMPARE(s2.habits.size(), 1);
+        QCOMPARE(s2.habits[0].name, QStringLiteral("Test \"quote\""));
+        QCOMPARE(s2.streak, 3);
+        QVERIFY(s2.decorations.contains("rock"));
+    }
+
+    void reducer_migratedReplacesState()
+    {
+        ZooState s; s.crumbs = 5;
+        QJsonObject snap; snap.insert("crumbs", 500);
+        applyEvent(s, mkEvent("migrated", "2026-07-11", 9,
+                              QString::fromUtf8(QJsonDocument(snap).toJson(QJsonDocument::Compact))));
+        QCOMPARE(s.crumbs, 500);   // the snapshot replaces the whole state
     }
 };
 
