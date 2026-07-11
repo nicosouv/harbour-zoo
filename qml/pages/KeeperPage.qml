@@ -62,7 +62,9 @@ Page {
                         { big: "🔥 " + Zoo.streak, label: qsTr("day streak") },
                         { big: "🥚 " + Zoo.ownedBlobs.length, label: qsTr("residents") },
                         { big: "🍞 " + Zoo.crumbs, label: qsTr("crumbs, unspent") },
-                        { big: "📋 " + Zoo.habitsKeptToday, label: qsTr("habits kept today") }
+                        { big: "📋 " + Zoo.habitsKeptToday, label: qsTr("habits kept today") },
+                        { big: "📅 " + Zoo.weekDeeds, label: qsTr("useful things this week") },
+                        { big: "🗓️ " + Zoo.monthDeeds, label: qsTr("this month") }
                     ]
                     delegate: Rectangle {
                         width: (content.width - 2 * Theme.horizontalPageMargin - Theme.paddingMedium) / 2

@@ -187,6 +187,18 @@ private slots:
         QCOMPARE(s.crumbs, 500);   // the snapshot replaces the whole state
     }
 
+    void reducer_badHabitSlip()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("habit_created", "2026-07-11", 9, "{\"id\":\"b1\",\"name\":\"Doomscroll\",\"target\":1,\"kind\":\"bad\"}"));
+        QCOMPARE(s.habits[0].kind, QStringLiteral("bad"));
+        applyEvent(s, mkEvent("habit_slipped", "2026-07-11", 9, "{\"habit_id\":\"b1\",\"date\":\"2026-07-11\"}"));
+        QCOMPARE(s.slipTotal, 1);
+        QCOMPARE(s.slipByDate.value("2026-07-11"), 1);
+        QCOMPARE(s.deeds, 0);          // a slip is not a deed
+        QCOMPARE(s.habitLogTotal, 0);  // and isn't a check-in
+    }
+
     void reducer_retireBlob()
     {
         ZooState s;

@@ -53,6 +53,9 @@ class ZooController : public QObject
     Q_PROPERTY(QVariantList badges READ badges NOTIFY stateChanged)      // { id, name, desc, emoji, earned }
     Q_PROPERTY(QVariantList activity7 READ activity7 NOTIFY stateChanged) // last 7 days of deed counts
     Q_PROPERTY(QString reflection READ reflection NOTIFY stateChanged)   // quiet self-care line, deepens
+    Q_PROPERTY(qreal zooMood READ zooMood NOTIFY stateChanged)           // -1..1, from good vs bad habits
+    Q_PROPERTY(int weekDeeds READ weekDeeds NOTIFY stateChanged)
+    Q_PROPERTY(int monthDeeds READ monthDeeds NOTIFY stateChanged)
     Q_PROPERTY(QString selectedTheme READ selectedTheme NOTIFY stateChanged)
     Q_PROPERTY(QVariantList themes READ themes NOTIFY stateChanged)      // { id, name, cost, owned, selected }
 
@@ -124,6 +127,9 @@ public:
     QVariantList badges() const;
     QVariantList activity7() const;
     QString reflection() const;
+    qreal zooMood() const;
+    int weekDeeds() const;
+    int monthDeeds() const;
     QString selectedTheme() const;
     QVariantList themes() const;
     QVariantList habits() const;
@@ -137,7 +143,7 @@ public:
     // Daily loop (each rewards Crumbs and records an event).
     Q_INVOKABLE void completeChallenge();
     Q_INVOKABLE void skipChallenge();
-    Q_INVOKABLE void addHabit(const QString& name, int target);   // target = times per day (>=1)
+    Q_INVOKABLE void addHabit(const QString& name, int target, const QString& kind); // kind = good|bad
     Q_INVOKABLE void removeHabit(const QString& id);
     Q_INVOKABLE void logHabit(const QString& id);                 // one check-in toward the target
 

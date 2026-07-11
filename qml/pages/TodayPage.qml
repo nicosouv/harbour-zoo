@@ -30,10 +30,11 @@ Page {
         questField.text = ""; page.pendingDue = ""; questField.focus = false
     }
     property int habitTarget: 1
+    property string habitKind: "good"
     function addHabit() {
         if (habitField.text.trim().length === 0) return
-        Zoo.addHabit(habitField.text, habitTarget)
-        habitField.text = ""; habitTarget = 1; habitField.focus = false
+        Zoo.addHabit(habitField.text, habitTarget, habitKind)
+        habitField.text = ""; habitTarget = 1; habitKind = "good"; habitField.focus = false
     }
 
     SilicaFlickable {
@@ -135,24 +136,28 @@ Page {
                 model: Zoo.habits
                 delegate: ListItem {
                     id: habitItem; width: content.width; contentHeight: Theme.itemSizeSmall
-                    property bool done: modelData.doneToday
-                    property bool multi: modelData.target > 1
-                    onClicked: if (modelData.doneCount < modelData.target) {
-                        page.celebrate(circle); Zoo.logHabit(modelData.id)
+                    property bool bad: modelData.bad
+                    property bool done: modelData.doneToday      // good: target met; bad: clean today
+                    property bool multi: !bad && modelData.target > 1
+                    onClicked: {
+                        if (bad) { Zoo.logHabit(modelData.id) }   // a slip — recorded, no confetti
+                        else if (modelData.doneCount < modelData.target) { page.celebrate(circle); Zoo.logHabit(modelData.id) }
                     }
                     Rectangle {
                         id: circle
                         anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
                         width: Theme.iconSizeSmall; height: width; radius: width / 2
-                        color: habitItem.done ? Theme.highlightColor : "transparent"
+                        color: (!habitItem.bad && habitItem.done) ? Theme.highlightColor : "transparent"
                         border.width: 2
-                        border.color: habitItem.done ? Theme.highlightColor : Theme.secondaryColor
+                        border.color: habitItem.bad ? Theme.secondaryHighlightColor
+                                     : (habitItem.done ? Theme.highlightColor : Theme.secondaryColor)
                         Behavior on color { ColorAnimation { duration: 160 } }
                         Label {
                             anchors.centerIn: parent
-                            text: habitItem.done ? "✓" : (habitItem.multi ? modelData.doneCount : "")
-                            visible: habitItem.done || habitItem.multi
-                            color: habitItem.done ? "#20233A" : Theme.secondaryColor
+                            text: habitItem.bad ? (modelData.slips > 0 ? modelData.slips : "")
+                                                : (habitItem.done ? "✓" : (habitItem.multi ? modelData.doneCount : ""))
+                            visible: text.length > 0
+                            color: (!habitItem.bad && habitItem.done) ? "#20233A" : Theme.secondaryColor
                             font.pixelSize: Theme.fontSizeExtraSmall; font.bold: true
                         }
                     }
@@ -160,16 +165,27 @@ Page {
                         anchors { left: circle.right; leftMargin: Theme.paddingMedium
                                   right: parent.right; rightMargin: Theme.horizontalPageMargin
                                   verticalCenter: parent.verticalCenter }
-                        Label {
-                            width: parent.width; text: modelData.name; truncationMode: TruncationMode.Fade
-                            color: habitItem.done ? Theme.secondaryColor : Theme.primaryColor
+                        Row {
+                            width: parent.width; spacing: Theme.paddingSmall
+                            Label {
+                                text: modelData.name; truncationMode: TruncationMode.Fade
+                                color: habitItem.done ? Theme.secondaryColor : Theme.primaryColor
+                                width: Math.min(implicitWidth, parent.width - (habitItem.bad ? avoidTag.width + Theme.paddingSmall : 0))
+                            }
+                            Label {
+                                id: avoidTag; visible: habitItem.bad; text: qsTr("avoid")
+                                color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeTiny
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
                         }
                         Label {
-                            text: habitItem.multi
-                                  ? qsTr("%1 / %2 today").arg(modelData.doneCount).arg(modelData.target)
-                                  : (habitItem.done ? qsTr("✓ today")
-                                     : (modelData.lastDone.length > 0 ? qsTr("last: %1").arg(modelData.lastDone)
-                                                                      : qsTr("not yet")))
+                            text: habitItem.bad
+                                  ? (modelData.slips > 0 ? qsTr("slipped %1 today").arg(modelData.slips) : qsTr("clean today, nice"))
+                                  : (habitItem.multi
+                                     ? qsTr("%1 / %2 today").arg(modelData.doneCount).arg(modelData.target)
+                                     : (habitItem.done ? qsTr("✓ today")
+                                        : (modelData.lastDone.length > 0 ? qsTr("last: %1").arg(modelData.lastDone)
+                                                                         : qsTr("not yet"))))
                             color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny
                         }
                     }
@@ -188,7 +204,13 @@ Page {
                 Row {
                     spacing: Theme.paddingMedium
                     Button {
-                        text: qsTr("×%1 per day").arg(page.habitTarget)
+                        text: page.habitKind === "good" ? qsTr("Good") : qsTr("Bad (avoid)")
+                        color: page.habitKind === "good" ? Theme.primaryColor : Theme.secondaryHighlightColor
+                        onClicked: page.habitKind = page.habitKind === "good" ? "bad" : "good"
+                    }
+                    Button {
+                        visible: page.habitKind === "good"
+                        text: qsTr("×%1/day").arg(page.habitTarget)
                         onClicked: page.habitTarget = page.habitTarget >= 8 ? 1 : page.habitTarget + 1
                     }
                     Button { text: qsTr("Add"); onClicked: addHabit() }

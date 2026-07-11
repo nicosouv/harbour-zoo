@@ -46,6 +46,8 @@ void applyEvent(ZooState& s, const Event& e)
         h.id = p.value(QStringLiteral("id")).toString();
         h.name = p.value(QStringLiteral("name")).toString();
         h.target = qMax(1, p.value(QStringLiteral("target")).toInt(1));
+        const QString k = p.value(QStringLiteral("kind")).toString();
+        h.kind = (k == QLatin1String("bad")) ? QStringLiteral("bad") : QStringLiteral("good");
         s.habits.append(h);
     } else if (t == QLatin1String("habit_archived")) {
         removeById(s.habits, p.value(QStringLiteral("id")).toString());
@@ -58,6 +60,17 @@ void applyEvent(ZooState& s, const Event& e)
         s.habitLogTotal += 1;
         s.habitLast[id] = d;
         recordDeed(s, d);
+    } else if (t == QLatin1String("habit_slipped")) {
+        // A "bad" habit was ticked (you did the thing you meant to avoid). No reward, no deed —
+        // just a quietly-recorded slip that nudges the zoo's mood.
+        const QString id = p.value(QStringLiteral("habit_id")).toString();
+        QString d = p.value(QStringLiteral("date")).toString();
+        if (d.isEmpty()) d = e.localDate;
+        const QString key = d + QLatin1Char('/') + id;
+        s.habitCount[key] = s.habitCount.value(key, 0) + 1;
+        s.slipByDate[d] = s.slipByDate.value(d, 0) + 1;
+        s.slipTotal += 1;
+        s.habitLast[id] = d;
     } else if (t == QLatin1String("quest_created")) {
         Quest q;
         q.id = p.value(QStringLiteral("id")).toString();
@@ -116,6 +129,7 @@ QJsonObject toJson(const ZooState& s)
     QJsonArray habits;
     for (const Habit& h : s.habits) {
         QJsonObject j; j.insert("id", h.id); j.insert("name", h.name); j.insert("target", h.target);
+        j.insert("kind", h.kind);
         habits.append(j);
     }
     o.insert(QStringLiteral("habits"), habits);
@@ -138,6 +152,8 @@ QJsonObject toJson(const ZooState& s)
     o.insert(QStringLiteral("habitCount"), intMapToJson(s.habitCount));
     o.insert(QStringLiteral("habitLast"), strMapToJson(s.habitLast));
     o.insert(QStringLiteral("deedByDate"), intMapToJson(s.deedByDate));
+    o.insert(QStringLiteral("slipByDate"), intMapToJson(s.slipByDate));
+    o.insert(QStringLiteral("slipTotal"), s.slipTotal);
     o.insert(QStringLiteral("challengeStatus"), strMapToJson(s.challengeStatus));
     o.insert(QStringLiteral("habitLogTotal"), s.habitLogTotal);
     o.insert(QStringLiteral("questCompletedTotal"), s.questCompletedTotal);
@@ -157,7 +173,9 @@ ZooState fromJson(const QJsonObject& o)
     for (const QJsonValue& v : o.value(QStringLiteral("habits")).toArray()) {
         const QJsonObject j = v.toObject();
         Habit h; h.id = j.value("id").toString(); h.name = j.value("name").toString();
-        h.target = qMax(1, j.value("target").toInt(1)); s.habits.append(h);
+        h.target = qMax(1, j.value("target").toInt(1));
+        h.kind = (j.value("kind").toString() == QLatin1String("bad")) ? QStringLiteral("bad") : QStringLiteral("good");
+        s.habits.append(h);
     }
     for (const QJsonValue& v : o.value(QStringLiteral("quests")).toArray()) {
         const QJsonObject j = v.toObject();
@@ -178,6 +196,9 @@ ZooState fromJson(const QJsonObject& o)
     for (auto it = hl.begin(); it != hl.end(); ++it) s.habitLast.insert(it.key(), it.value().toString());
     const QJsonObject dd = o.value(QStringLiteral("deedByDate")).toObject();
     for (auto it = dd.begin(); it != dd.end(); ++it) s.deedByDate.insert(it.key(), it.value().toInt());
+    const QJsonObject sd = o.value(QStringLiteral("slipByDate")).toObject();
+    for (auto it = sd.begin(); it != sd.end(); ++it) s.slipByDate.insert(it.key(), it.value().toInt());
+    s.slipTotal = o.value(QStringLiteral("slipTotal")).toInt();
     const QJsonObject cs = o.value(QStringLiteral("challengeStatus")).toObject();
     for (auto it = cs.begin(); it != cs.end(); ++it) s.challengeStatus.insert(it.key(), it.value().toString());
     s.habitLogTotal = o.value(QStringLiteral("habitLogTotal")).toInt();

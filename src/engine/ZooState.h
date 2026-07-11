@@ -11,7 +11,7 @@
 
 namespace zoo {
 
-struct Habit { QString id; QString name; int target = 1; };
+struct Habit { QString id; QString name; int target = 1; QString kind = QStringLiteral("good"); }; // good|bad
 struct Quest { QString id; QString name; QString due; };
 struct Blob  { QString id; int seed = 0; QString rarity; QString date; };
 
@@ -26,10 +26,13 @@ struct ZooState {
     QSet<QString> themesOwned;   // owned biome ids ("night" is implicit)
     QSet<QString> eggsClaimed;   // one-time easter-egg ids
 
-    QMap<QString, int>     habitCount;      // key "date/id" -> check-ins that day
+    QMap<QString, int>     habitCount;      // key "date/id" -> check-ins/slips that day
     QMap<QString, QString> habitLast;       // id -> last date logged
     QMap<QString, int>     deedByDate;      // date -> useful-actions that day (activity graph)
+    QMap<QString, int>     slipByDate;      // date -> bad-habit slips that day (zoo mood)
     QMap<QString, QString> challengeStatus; // date -> "completed" | "skipped"
+
+    int slipTotal = 0;
 
     int habitLogTotal = 0;
     int questCompletedTotal = 0;

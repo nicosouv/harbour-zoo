@@ -467,20 +467,26 @@ QVariantList ZooController::habits() const
     QVariantList out;
     for (const Habit& h : m_state.habits) {
         const int cnt = m_state.habitCount.value(today + '/' + h.id, 0);
+        const bool bad = (h.kind == QLatin1String("bad"));
         QVariantMap m;
         m.insert("id", h.id); m.insert("name", h.name); m.insert("target", h.target);
-        m.insert("doneCount", cnt); m.insert("doneToday", cnt >= h.target);
+        m.insert("kind", h.kind); m.insert("bad", bad);
+        m.insert("doneCount", cnt);
+        // Good habits are "done" when the target is met; bad habits are "clean" when never ticked.
+        m.insert("doneToday", bad ? (cnt == 0) : (cnt >= h.target));
+        m.insert("slips", cnt);
         m.insert("lastDone", m_state.habitLast.value(h.id));
         out.append(m);
     }
     return out;
 }
-void ZooController::addHabit(const QString& name, int target)
+void ZooController::addHabit(const QString& name, int target, const QString& kind)
 {
     const QString t = name.trimmed();
     if (t.isEmpty()) return;
     QJsonObject o; o.insert("id", QString::number(QDateTime::currentMSecsSinceEpoch()));
     o.insert("name", t); o.insert("target", qMax(1, target));
+    o.insert("kind", kind == QLatin1String("bad") ? "bad" : "good");
     emitEvent(QStringLiteral("habit_created"), jpayload(o));
     emit stateChanged();
 }
@@ -493,10 +499,18 @@ void ZooController::removeHabit(const QString& id)
 void ZooController::logHabit(const QString& id)
 {
     int target = 1;
-    for (const Habit& h : m_state.habits) if (h.id == id) { target = h.target; break; }
+    bool bad = false;
+    for (const Habit& h : m_state.habits) if (h.id == id) { target = h.target; bad = (h.kind == QLatin1String("bad")); break; }
+
+    QJsonObject o; o.insert("habit_id", id); o.insert("date", localDate());
+    if (bad) {
+        // Ticking a bad habit is a slip: recorded, no reward, no deed. Never shamed.
+        emitEvent(QStringLiteral("habit_slipped"), jpayload(o));
+        emit stateChanged();
+        return;
+    }
     const int cur = m_state.habitCount.value(localDate() + '/' + id, 0);
     if (cur >= target) return;
-    QJsonObject o; o.insert("habit_id", id); o.insert("date", localDate());
     emitEvent(QStringLiteral("habit_logged"), jpayload(o));
     award(5, QStringLiteral("habit"));
     checkMilestones();
@@ -748,6 +762,39 @@ QString ZooController::reflection() const
     if (n < 10) return tr("A collection of ordinary days, quietly kept.");
     if (n < 20) return tr("Turns out this is what looking after yourself looks like.");
     return tr("A whole zoo, built from Tuesdays. You did that. On purpose, even.");
+}
+
+qreal ZooController::zooMood() const
+{
+    const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    if (!d.isValid()) return 0.0;
+    int good = 0, slip = 0;
+    for (int i = 0; i < 7; ++i) {
+        const QString day = d.addDays(-i).toString(QStringLiteral("yyyy-MM-dd"));
+        good += m_state.deedByDate.value(day, 0);
+        slip += m_state.slipByDate.value(day, 0);
+    }
+    if (good + slip == 0) return 0.0;
+    qreal m = qreal(good - slip) / qreal(good + slip + 3);
+    if (m < -1.0) m = -1.0;
+    if (m > 1.0) m = 1.0;
+    return m;
+}
+int ZooController::weekDeeds() const
+{
+    const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    if (!d.isValid()) return 0;
+    int total = 0;
+    for (int i = 0; i < 7; ++i) total += m_state.deedByDate.value(d.addDays(-i).toString(QStringLiteral("yyyy-MM-dd")), 0);
+    return total;
+}
+int ZooController::monthDeeds() const
+{
+    const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    if (!d.isValid()) return 0;
+    int total = 0;
+    for (int i = 0; i < 30; ++i) total += m_state.deedByDate.value(d.addDays(-i).toString(QStringLiteral("yyyy-MM-dd")), 0);
+    return total;
 }
 
 void ZooController::checkMilestones()

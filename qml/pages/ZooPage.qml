@@ -242,6 +242,15 @@ Page {
                     }
                 }
 
+                // Zoo mood: recent good vs bad habits gently tint the whole scene (warm when you're
+                // doing well, cool and murky when the bad habits have been winning).
+                Rectangle {
+                    anchors.fill: parent
+                    color: Zoo.zooMood >= 0 ? "#F2C85C" : "#33456A"
+                    opacity: Math.abs(Zoo.zooMood) * 0.22
+                    Behavior on opacity { NumberAnimation { duration: 500 } }
+                }
+
                 // Physics: blobs shove off each other and off solid props, muttering about life.
                 Timer {
                     interval: 360; running: Zoo.ownedBlobs.length > 0; repeat: true
