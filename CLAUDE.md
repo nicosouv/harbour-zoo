@@ -36,9 +36,12 @@ decoupled from QML.**
 
 ## Architecture (one line)
 
-`QML → ZooController (thin facade) → engine services → EventStore (SQLite, append-only)`. QML never
-touches SQLite; the engine never imports Qt Quick. Current state is a **projection** of an
-append-only event log — reproducible by replay, which makes the whole engine testable on desktop.
+**Event-sourced with a pure reducer.** `QML → ZooController (thin facade) → EventStore (append-only
+SQLite)`. Game state = `fold(applyEvent, events)` via the pure `StateProjection` reducer into
+`ZooState`; every command is *append event → apply → notify*. QSettings holds **preferences only**
+(language, blob style/size, reminder, name, biome). QML never touches SQLite; the engine never
+imports Qt Quick. Reproducible by replay and unit-tested (`tests/`). See the `zoo-engine` skill.
+Regenerate art/translations with `scripts/` (see `scripts/README.md`).
 
 ## Build commands
 

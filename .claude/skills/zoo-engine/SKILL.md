@@ -9,6 +9,31 @@ The engine is **UI-agnostic, deterministic, and unit-tested on desktop**. QML ne
 except through one thin facade. If you're tempted to put logic in QML or call `time()` in a
 service, stop — it belongs here, injectable and tested.
 
+## Realized architecture (this is how it actually works now)
+
+Event-sourced with a **pure functional reducer** (Redux-style fold). Concretely:
+
+- **`EventStore`** — append-only SQLite log. Single source of truth for *game state*.
+- **`ZooState`** (`ZooState.h`) — plain data: the projection (crumbs, habits, quests, blobs,
+  decorations, biomes owned, streak, deeds, counters, badges' inputs…). No behaviour.
+- **`StateProjection`** (`applyEvent(ZooState&, const Event&)`) — the **pure reducer**. `current
+  state = fold(applyEvent, events)`. No I/O, no clock: it reads `event.localDate`/`localHour` from
+  the event itself, so replay is fully reproducible. Unit-tested in `tests/` (streak across days,
+  night-owl, mythic, egg-claimed-once, JSON round-trip, migration).
+- **`ZooController`** — thin facade. Every command does exactly: **build event → `emitEvent`
+  (append to store + `applyEvent` into `m_state`) → emit change signals**. Getters read `m_state`.
+  Derived values (keeper level, badges, activity graph, reflection) are computed from `m_state` on
+  demand. On launch it **replays** the log into `m_state`.
+- **`QSettings`** holds *device preferences only* (language, blob style/size, reminder, player
+  name, selected biome, onboarded) — NOT game history. Don't put game state in QSettings.
+- **Migration**: a one-time `migrated` event carries a full-state JSON snapshot (built from the old
+  QSettings layout). Replay starts from the latest `migrated` event, so old + new coexist without
+  double-counting. `toJson`/`fromJson` in `StateProjection` serialise a whole state.
+
+To add a stateful feature: define an event type + payload → append it in the matching
+`ZooController` command → handle it in `applyEvent` → read it back in a getter. That's the whole
+loop. Keep `applyEvent` pure (no clock/RNG/QSettings) so the tests stay meaningful.
+
 ## Layering (hard rule)
 
 ```
