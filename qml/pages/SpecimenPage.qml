@@ -40,6 +40,7 @@ Page {
                 seed: page.seed
                 rarity: page.shownRarity
                 voice: Zoo.playerName
+                styleOverride: Zoo.blobStyle
                 lodLevel: 0
             }
 

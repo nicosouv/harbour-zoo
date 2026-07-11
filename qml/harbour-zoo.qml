@@ -18,4 +18,38 @@ ApplicationWindow {
     initialPage: Component { ZooPage { } }
     cover: Component { CoverPage { } }
     allowedOrientations: defaultAllowedOrientations
+
+    function _fmt(s) { var m = Math.floor(s / 60), r = s % 60; return m + ":" + (r < 10 ? "0" + r : r) }
+
+    // Persistent focus banner — shown on every page while a Pomodoro session runs. Tap to open
+    // Today (where you can give up). Sits at the bottom to avoid page headers.
+    Rectangle {
+        id: focusBanner
+        z: 10000
+        visible: Zoo.focusRunning
+        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+        height: Theme.itemSizeExtraSmall
+        color: Theme.rgba(Theme.highlightBackgroundColor, 0.96)
+
+        Row {
+            anchors.centerIn: parent
+            spacing: Theme.paddingMedium
+            Label {
+                anchors.verticalCenter: parent.verticalCenter
+                text: "⏳ " + app._fmt(Zoo.focusRemaining)
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeMedium
+            }
+            Label {
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("focusing")
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: pageStack.push(Qt.resolvedUrl("pages/TodayPage.qml"))
+        }
+    }
 }

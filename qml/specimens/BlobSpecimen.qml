@@ -14,8 +14,10 @@ Specimen {
     readonly property var _words: ["blep", "boing", "oi", "hm", "meep", "wot", "hello", "?!",
         "...", "nyoom", "ok", "ee", "hi", "brb", "oof", "mrr"]
 
+    // "" or "mix" => style comes from the seed; a specific style id forces every blob to it.
+    property string styleOverride: ""
     // Pixel plan built from the seed (silhouette cells + eye positions). Never throws => never blank.
-    property var px: safePixels(seed)
+    property var px: safePixels(seed, styleOverride)
     property real cell: field.width / px.N
 
     property real tt: 0
@@ -54,50 +56,101 @@ Specimen {
         var h = n.toString(16); if (h.length < 2) h = "0" + h;
         return "#" + h + h + h;
     }
-    function safePixels(seed) { try { return buildPixels(seed); } catch (e) { return defaultPixels(); } }
+    function safePixels(seed, ov) { try { return buildPixels(seed, ov); } catch (e) { return defaultPixels(); } }
+    readonly property var _styleIds: ["mono","chonk","ovoid","bean","hires","slime","cyclops","smiley","ghost"]
 
-    function buildPixels(seed) {
-        var r = rngFromSeed(seed);
-        function range(a, b) { return a + (b - a) * r(); }
-        var N = 12;
-        var rx = range(0.30, 0.40), ry = range(0.34, 0.46);
+    // Silhouette helpers.
+    function _mask(N, rx, ry, cy, bump, r) {
         var on = [];
         for (var y = 0; y < N; y++) {
             on[y] = [];
             for (var x = 0; x < N; x++) {
-                var nx = (x + 0.5) / N - 0.5, ny = (y + 0.5) / N - 0.5;
-                on[y][x] = ((nx * nx) / (rx * rx) + (ny * ny) / (ry * ry)) <= 1.0;
+                var nx = (x + 0.5) / N - 0.5, ny = (y + 0.5) / N - cy;
+                var rr = (nx * nx) / (rx * rx) + (ny * ny) / (ry * ry);
+                if (bump) rr += bump * Math.sin(x * 1.7 + y * 0.9) * 0.03;
+                on[y][x] = rr <= 1.0;
             }
         }
-        var topL = range(0.40, 0.52), botL = range(0.16, 0.24);
+        return on;
+    }
+    function _edge(on, x, y, N) {
+        if (x <= 0 || !on[y][x - 1]) return true;
+        if (x >= N - 1 || !on[y][x + 1]) return true;
+        if (y <= 0 || !on[y - 1][x]) return true;
+        if (y >= N - 1 || !on[y + 1][x]) return true;
+        return false;
+    }
+
+    // Each blob's STYLE is drawn from its seed (mix), unless an override forces one style.
+    function buildPixels(seed, ov) {
+        var r = rngFromSeed(seed);
+        function rg(a, b) { return a + (b - a) * r(); }
+        function ri(a, b) { return a + Math.floor(r() * (b - a + 1)); }
+        // Weighted style pool (mono + chonk favoured).
+        var pool = ["mono","mono","mono","chonk","chonk","chonk","ovoid","ovoid",
+                    "bean","bean","hires","hires","slime","cyclops","smiley","ghost"];
+        var style = pool[Math.floor(r() * pool.length)];
+        if (ov && ov !== "mix" && _styleIds.indexOf(ov) >= 0) style = ov;
+
+        var N, on, outline = -1, top = 150, bot = 95, cy = 0.5;
+        var mono = false, gloss = false, scallop = false, mouth = false;
+        if (style === "mono") { N = 12; on = _mask(N, rg(0.34,0.40), rg(0.40,0.46), cy, 0, r); mono = true; }
+        else if (style === "chonk") { N = 14; on = _mask(N, 0.44, 0.44, cy, 0, r); outline = 18; top = 172; bot = 122; }
+        else if (style === "ovoid") { N = 12; on = _mask(N, rg(0.34,0.40), rg(0.40,0.46), cy, 0, r); outline = 25; top = rg(145,165); bot = rg(85,100); }
+        else if (style === "bean") { N = 13; on = _mask(N, 0.42, 0.30, cy, 1.0, r); outline = 22; }
+        else if (style === "hires") { N = 16; on = _mask(N, rg(0.36,0.42), rg(0.42,0.48), cy, 0, r); outline = 30; top = 160; bot = 90; }
+        else if (style === "slime") { N = 13; cy = 0.42; on = _mask(N, 0.40, 0.34, cy, 0, r); top = 175; bot = 110; gloss = true; }
+        else if (style === "cyclops") { N = 12; on = _mask(N, 0.36, 0.44, cy, 0, r); outline = 22; }
+        else if (style === "smiley") { N = 13; on = _mask(N, 0.40, 0.42, cy, 0, r); outline = 22; mouth = true; }
+        else { style = "ghost"; N = 13; cy = 0.40; on = _mask(N, 0.36, 0.46, cy, 0, r); outline = 20; scallop = true; }
+
+        if (scallop) for (var sx = 0; sx < N; sx++) if (sx % 3 === 0) for (var sy = N - 2; sy < N; sy++) on[sy][sx] = false;
+
         var cells = [];
-        for (var yy = 0; yy < N; yy++) {
-            for (var xx = 0; xx < N; xx++) {
-                if (!on[yy][xx]) continue;
-                var edge = (xx === 0 || !on[yy][xx - 1]) || (xx === N - 1 || !on[yy][xx + 1])
-                        || (yy === 0 || !on[yy - 1][xx]) || (yy === N - 1 || !on[yy + 1][xx]);
-                var t = yy / (N - 1);
-                var L = topL + (botL - topL) * t;
-                var c = edge ? grayHex(0.09) : grayHex(Math.max(0.06, L + (r() < 0.06 ? -0.09 : 0)));
-                cells.push({ x: xx, y: yy, c: c });
-            }
+        for (var yy = 0; yy < N; yy++) for (var xx = 0; xx < N; xx++) {
+            if (!on[yy][xx]) continue;
+            if (mono) { cells.push({ x: xx, y: yy, c: "#282828" }); continue; }
+            if (outline >= 0 && _edge(on, xx, yy, N)) { cells.push({ x: xx, y: yy, c: grayHex(outline / 255) }); continue; }
+            var t = yy / (N - 1);
+            var v = (top + (bot - top) * t) / 255;
+            if (r() < 0.05) v -= 0.09;
+            cells.push({ x: xx, y: yy, c: grayHex(Math.max(0.06, v)) });
         }
-        var two = r() > 0.2;
-        var eyeRow = Math.floor(N * range(0.36, 0.46));
-        var eyeCol = Math.floor(N * range(0.24, 0.30));
-        var eyes = two ? [{ x: eyeCol, y: eyeRow }, { x: N - 2 - eyeCol, y: eyeRow }]
-                       : [{ x: Math.floor(N / 2) - 1, y: eyeRow }];
-        return { N: N, cells: cells, eyes: eyes,
-                 hopH: range(0.05, 0.10),
-                 blinkMs: Math.floor(range(2600, 6000)),
-                 hopMinMs: Math.floor(range(1800, 3000)),
-                 hopVarMs: Math.floor(range(2000, 4200)) };
+        if (gloss) { if (on[3] && on[3][4]) cells.push({ x: 4, y: 3, c: "#E6E6E6" });
+                     if (on[3] && on[3][5]) cells.push({ x: 5, y: 3, c: "#DADADA" }); }
+        if (mouth) { for (var mc = 5; mc <= 7; mc++) if (on[8] && on[8][mc]) cells.push({ x: mc, y: 8, c: "#141416" }); }
+
+        // Eye descriptors: { gx, gy, gw, gh, pupil } in grid cells.
+        var eyes = [];
+        if (style === "cyclops") {
+            eyes.push({ gx: 4, gy: 4, gw: 4, gh: 3, pupil: true });
+        } else if (style === "chonk") {
+            var chy = ri(5, 6), cl = ri(3, 4);
+            eyes.push({ gx: cl, gy: chy, gw: 3, gh: 3, pupil: true });
+            eyes.push({ gx: N - 3 - cl, gy: chy, gw: 3, gh: 3, pupil: true });
+        } else if (style === "bean") {
+            var by = ri(5, 6);
+            eyes.push({ gx: 4, gy: by, gw: 2, gh: 1, pupil: false });
+            eyes.push({ gx: 7, gy: by, gw: 2, gh: 1, pupil: false });
+        } else {
+            var el = (style === "hires") ? 5 : 3;
+            var ey = (style === "hires") ? ri(6, 7) : (style === "slime") ? ri(5, 6) : (style === "smiley") ? 4 : ri(4, 5);
+            eyes.push({ gx: el, gy: ey, gw: 2, gh: 2, pupil: !mono });
+            eyes.push({ gx: N - 2 - el, gy: ey, gw: 2, gh: 2, pupil: !mono });
+        }
+
+        return { N: N, cells: cells, eyes: eyes, style: style,
+                 hopH: rg(0.045, 0.085),
+                 blinkMs: Math.floor(rg(2600, 6000)),
+                 hopMinMs: Math.floor(rg(1800, 3000)),
+                 hopVarMs: Math.floor(rg(2000, 4200)) };
     }
     function defaultPixels() {
         var cells = [];
         for (var y = 2; y < 10; y++) for (var x = 3; x < 9; x++) cells.push({ x: x, y: y, c: "#3A3A3A" });
-        return { N: 12, cells: cells, eyes: [{ x: 4, y: 4 }, { x: 6, y: 4 }],
-                 hopH: 0.07, blinkMs: 3500, hopMinMs: 2200, hopVarMs: 2600 };
+        return { N: 12, cells: cells,
+                 eyes: [{ gx: 3, gy: 4, gw: 2, gh: 2, pupil: true }, { gx: 7, gy: 4, gw: 2, gh: 2, pupil: true }],
+                 style: "ovoid", hopH: 0.07, blinkMs: 3500, hopMinMs: 2200, hopVarMs: 2600 };
     }
 
     // ---- Behaviour --------------------------------------------------------------------------
@@ -159,26 +212,30 @@ Specimen {
                 }
             }
 
-            // Eyes: a 2×2 light block + a 1px pupil that blinks and tracks.
+            // Eyes: sized per style (2×2, 3×3, sleepy line, big cyclops), blinking + gaze-tracking.
             Repeater {
                 model: px.eyes
                 delegate: Item {
-                    x: Math.round(modelData.x * root.cell)
-                    y: Math.round(modelData.y * root.cell)
-                    Rectangle {
-                        width: root.cell * 2
-                        height: root.cell * 2 * root.eyeOpen
-                        y: root.cell * (1 - root.eyeOpen)
+                    property var e: modelData
+                    property real ew: e.gw * root.cell
+                    property real eh: e.gh * root.cell
+                    x: Math.round(e.gx * root.cell)
+                    y: Math.round(e.gy * root.cell)
+                    Rectangle {   // white
+                        width: parent.ew
+                        height: parent.eh * root.eyeOpen
+                        y: parent.eh * (1 - root.eyeOpen) / 2
                         color: root.eyeColor
                         antialiasing: false
                     }
-                    Rectangle {
-                        width: root.cell; height: root.cell
+                    Rectangle {   // pupil
+                        visible: e.pupil && root.eyeOpen > 0.4
+                        property real psz: (e.gw >= 4 ? 2 : 1) * root.cell
+                        width: psz; height: psz
                         color: root.pupilColor
                         antialiasing: false
-                        visible: root.eyeOpen > 0.4
-                        x: root.cell * 0.5 + root.gazeX * root.cell * 0.5
-                        y: root.cell * 0.5 + root.gazeY * root.cell * 0.5
+                        x: (parent.ew - width) / 2 + root.gazeX * (parent.ew - width) / 2
+                        y: (parent.eh - height) / 2 + root.gazeY * (parent.eh - height) / 2
                     }
                 }
             }

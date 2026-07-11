@@ -62,6 +62,27 @@ Page {
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
 
+            // --- Blobs -----------------------------------------------------------------------
+            SectionHeader { text: qsTr("Blobs") }
+            ComboBox {
+                property var codes: ["mix", "mono", "chonk", "ovoid", "bean", "hires", "slime", "cyclops", "smiley", "ghost"]
+                label: qsTr("Blob style")
+                currentIndex: Math.max(0, codes.indexOf(Zoo.blobStyle))
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("Mix of all styles") }
+                    MenuItem { text: "Mono" }
+                    MenuItem { text: "Chonk" }
+                    MenuItem { text: "Ovoid" }
+                    MenuItem { text: "Bean" }
+                    MenuItem { text: "Hi-res" }
+                    MenuItem { text: "Slime" }
+                    MenuItem { text: "Cyclops" }
+                    MenuItem { text: "Smiley" }
+                    MenuItem { text: "Ghost" }
+                }
+                onCurrentIndexChanged: { var c = codes[currentIndex]; if (c !== Zoo.blobStyle) Zoo.blobStyle = c }
+            }
+
             // --- Reminders ---------------------------------------------------------------------
             SectionHeader { text: qsTr("Reminders") }
 

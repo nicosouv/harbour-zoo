@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QSettings>
 #include <QVariantList>
+#include <QTimer>
 #include "EventStore.h"
 #include "Clock.h"
 
@@ -24,6 +25,7 @@ class ZooController : public QObject
     Q_PROPERTY(QString playerName READ playerName WRITE setPlayerName NOTIFY playerNameChanged)
     Q_PROPERTY(bool onboarded READ onboarded WRITE setOnboarded NOTIFY onboardedChanged)
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged) // "" = system
+    Q_PROPERTY(QString blobStyle READ blobStyle WRITE setBlobStyle NOTIFY blobStyleChanged) // "mix" or a style id
 
     Q_PROPERTY(int crumbs READ crumbs NOTIFY stateChanged)
     Q_PROPERTY(int hatchCost READ hatchCost CONSTANT)
@@ -33,6 +35,11 @@ class ZooController : public QObject
     Q_PROPERTY(QString todayChallengeStatus READ todayChallengeStatus NOTIFY stateChanged)
 
     // Gamification / status.
+    // Pomodoro focus timer — lives in the engine so it survives page navigation.
+    Q_PROPERTY(bool focusRunning READ focusRunning NOTIFY focusChanged)
+    Q_PROPERTY(int focusRemaining READ focusRemaining NOTIFY focusChanged)  // seconds left
+    Q_PROPERTY(int focusMinutes READ focusMinutes NOTIFY focusChanged)      // planned length
+
     Q_PROPERTY(int deeds READ deeds NOTIFY stateChanged)              // lifetime useful actions
     Q_PROPERTY(int streak READ streak NOTIFY stateChanged)           // consecutive active days
     Q_PROPERTY(int keeperLevel READ keeperLevel NOTIFY stateChanged)
@@ -68,6 +75,13 @@ public:
 
     QString language() const;
     void setLanguage(const QString& code);
+
+    QString blobStyle() const;
+    void setBlobStyle(const QString& style);
+
+    bool focusRunning() const { return m_focusRunning; }
+    int focusRemaining() const { return m_focusRemaining; }
+    int focusMinutes() const { return m_focusMinutes; }
 
     int crumbs() const;
     int hatchCost() const { return 25; }
@@ -113,8 +127,9 @@ public:
     Q_INVOKABLE void buyTheme(const QString& id);
     Q_INVOKABLE void selectTheme(const QString& id);
 
-    // A finished focus (pomodoro) session — rewards crumbs by the minute and records a deed.
-    Q_INVOKABLE void completeFocus(int minutes);
+    // Pomodoro: start/stop from QML; the engine ticks and rewards on completion.
+    Q_INVOKABLE void startFocus(int minutes);
+    Q_INVOKABLE void stopFocus();
 
 signals:
     void stateChanged();
@@ -122,6 +137,9 @@ signals:
     void playerNameChanged();
     void onboardedChanged();
     void languageChanged();
+    void blobStyleChanged();
+    void focusChanged();
+    void focusFinished(int minutes);   // for a celebratory UI moment (confetti)
     void hatched(int seed, const QString& rarity);   // for a celebratory UI moment
 
 private:
@@ -131,12 +149,18 @@ private:
     void grantDecoration(const QString& id);
     void checkMilestones();
     void recordDeed();                                // bump lifetime deeds + active-day streak
+    void finishFocus();                               // called by the tick when the timer hits 0
     QString localDate() const;
 
     SystemClock m_clock;
     EventStore  m_store;
     QSettings   m_settings;
     quint64     m_seedCounter = 0;
+
+    QTimer m_focusTimer;
+    bool   m_focusRunning = false;
+    int    m_focusRemaining = 0;
+    int    m_focusMinutes = 0;
 };
 
 } // namespace zoo

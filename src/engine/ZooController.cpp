@@ -135,6 +135,14 @@ ZooController::ZooController(QObject* parent)
         const quint64 salt = (static_cast<quint64>(rd()) << 32) ^ static_cast<quint64>(rd());
         m_store.bootstrap(salt);
     }
+
+    m_focusTimer.setInterval(1000);
+    connect(&m_focusTimer, &QTimer::timeout, this, [this]() {
+        if (!m_focusRunning) return;
+        if (--m_focusRemaining <= 0) { finishFocus(); return; }
+        emit focusChanged();
+    });
+
     recordOpen();
 }
 
@@ -179,6 +187,11 @@ QString ZooController::language() const
 { return m_settings.value(QStringLiteral("language")).toString(); }
 void ZooController::setLanguage(const QString& code)
 { if (code == language()) return; m_settings.setValue(QStringLiteral("language"), code); emit languageChanged(); }
+
+QString ZooController::blobStyle() const
+{ return m_settings.value(QStringLiteral("blobStyle"), QStringLiteral("mix")).toString(); }
+void ZooController::setBlobStyle(const QString& style)
+{ if (style == blobStyle()) return; m_settings.setValue(QStringLiteral("blobStyle"), style); emit blobStyleChanged(); }
 
 // ---- Economy --------------------------------------------------------------------------------
 int ZooController::crumbs() const
@@ -395,16 +408,39 @@ void ZooController::selectTheme(const QString& id)
     emit stateChanged();
 }
 
-// ---- Focus (pomodoro) -----------------------------------------------------------------------
-void ZooController::completeFocus(int minutes)
+// ---- Focus (pomodoro) — engine-driven so it survives navigation -----------------------------
+void ZooController::startFocus(int minutes)
 {
     if (minutes <= 0) return;
+    m_focusMinutes = minutes;
+    m_focusRemaining = minutes * 60;
+    m_focusRunning = true;
+    m_focusTimer.start();
+    emit focusChanged();
+}
+void ZooController::stopFocus()
+{
+    if (!m_focusRunning && m_focusRemaining == 0) return;
+    m_focusTimer.stop();
+    m_focusRunning = false;
+    m_focusRemaining = 0;
+    emit focusChanged();
+}
+void ZooController::finishFocus()
+{
+    m_focusTimer.stop();
+    const int minutes = m_focusMinutes;
+    m_focusRunning = false;
+    m_focusRemaining = 0;
+
     m_settings.setValue(QStringLiteral("focusTotal"),
                         m_settings.value(QStringLiteral("focusTotal"), 0).toInt() + 1);
     appendNow(QStringLiteral("focus_completed"), QStringLiteral("{\"minutes\":%1}").arg(minutes));
     award(2 + minutes / 5, QStringLiteral("focus"));   // a couple of crumbs per five minutes
     recordDeed();
     checkMilestones();
+    emit focusChanged();
+    emit focusFinished(minutes);
     emit stateChanged();
 }
 

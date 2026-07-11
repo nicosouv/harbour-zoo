@@ -38,29 +38,24 @@ Page {
                 description: qsTr("%1 · level %2").arg(Zoo.keeperTitle).arg(Zoo.keeperLevel)
             }
 
-            Column {
-                width: parent.width; spacing: Theme.paddingMedium
-                visible: !Zoo.onboarded
-                Label {
-                    x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
-                    wrapMode: Text.Wrap
-                    text: qsTr("A zoo. Empty, judgemental. Do useful things under 'Today' → earn crumbs → hatch odd little creatures here.")
-                    color: Theme.primaryColor; font.pixelSize: Theme.fontSizeSmall
+            // Status row, tappable to the Keeper page (a button in addition to the pull-down).
+            BackgroundItem {
+                width: parent.width; height: Theme.itemSizeExtraSmall
+                onClicked: pageStack.push(Qt.resolvedUrl("KeeperPage.qml"))
+                Row {
+                    anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                    spacing: Theme.paddingLarge
+                    Label { text: "🍞 " + Zoo.crumbs; color: Theme.primaryColor; font.pixelSize: Theme.fontSizeSmall }
+                    Label { text: "🥚 " + Zoo.ownedBlobs.length; color: Theme.primaryColor; font.pixelSize: Theme.fontSizeSmall }
+                    Label { text: "🔥 " + Zoo.streak; color: Theme.primaryColor; font.pixelSize: Theme.fontSizeSmall }
                 }
-                TextField {
-                    id: nameField; width: parent.width
-                    label: qsTr("Name? (optional)"); placeholderText: qsTr("So they can shout it")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-close"; EnterKey.onClicked: focus = false
+                Row {
+                    anchors { right: parent.right; rightMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                    spacing: Theme.paddingSmall
+                    Label { text: qsTr("Keeper"); color: Theme.highlightColor; font.pixelSize: Theme.fontSizeExtraSmall
+                            anchors.verticalCenter: parent.verticalCenter }
+                    Image { source: "image://theme/icon-m-right"; anchors.verticalCenter: parent.verticalCenter }
                 }
-                Button { anchors.horizontalCenter: parent.horizontalCenter; text: qsTr("Go")
-                    onClicked: { if (nameField.text.trim().length > 0) Zoo.playerName = nameField.text.trim(); Zoo.onboarded = true } }
-            }
-
-            Row {
-                x: Theme.horizontalPageMargin; spacing: Theme.paddingLarge
-                Label { text: "🍞 " + Zoo.crumbs; color: Theme.primaryColor; font.pixelSize: Theme.fontSizeSmall }
-                Label { text: "🥚 " + Zoo.ownedBlobs.length; color: Theme.primaryColor; font.pixelSize: Theme.fontSizeSmall }
-                Label { text: "🔥 " + Zoo.streak; color: Theme.primaryColor; font.pixelSize: Theme.fontSizeSmall }
             }
 
             Label {
@@ -132,7 +127,7 @@ Page {
                         BlobSpecimen {
                             anchors.fill: parent
                             seed: modelData.seed; rarity: modelData.rarity
-                            voice: Zoo.playerName; lodLevel: 1
+                            voice: Zoo.playerName; styleOverride: Zoo.blobStyle; lodLevel: 1
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: pageStack.push(Qt.resolvedUrl("SpecimenPage.qml"),
@@ -191,5 +186,12 @@ Page {
     Connections {
         target: Zoo
         onHatched: pageStack.push(Qt.resolvedUrl("SpecimenPage.qml"), { seed: seed, rarity: rarity })
+    }
+
+    // First launch: send the keeper through onboarding before they see the (empty) zoo.
+    Component.onCompleted: if (!Zoo.onboarded) onboardTimer.start()
+    Timer {
+        id: onboardTimer; interval: 1; repeat: false
+        onTriggered: pageStack.push(Qt.resolvedUrl("OnboardingPage.qml"))
     }
 }

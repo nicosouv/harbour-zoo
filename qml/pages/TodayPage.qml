@@ -13,20 +13,8 @@ Page {
         confetti.fireAt(p.x, p.y)
     }
 
-    // Pomodoro focus timer.
+    // Pomodoro selection only — the timer itself runs in the engine (survives navigation).
     property int focusMin: 25
-    property int focusRemaining: 0
-    property bool focusRunning: false
-    function startFocus() { focusRemaining = focusMin * 60; focusRunning = true }
-    function stopFocus() { focusRunning = false; focusRemaining = 0 }
-    function focusTick() {
-        focusRemaining -= 1
-        if (focusRemaining <= 0) {
-            focusRunning = false
-            confetti.fireAt(page.width / 2, page.height * 0.4)
-            Zoo.completeFocus(focusMin)
-        }
-    }
     function mmss(s) { var m = Math.floor(s / 60), r = s % 60; return m + ":" + (r < 10 ? "0" + r : r) }
 
     property string pendingDue: ""
@@ -96,7 +84,7 @@ Page {
 
                 Row {
                     x: Theme.horizontalPageMargin; spacing: Theme.paddingMedium
-                    visible: !page.focusRunning
+                    visible: !Zoo.focusRunning
                     Repeater {
                         model: [5, 15, 25]
                         delegate: Button {
@@ -107,26 +95,26 @@ Page {
                 }
                 Button {
                     x: Theme.horizontalPageMargin
-                    visible: !page.focusRunning
+                    visible: !Zoo.focusRunning
                     text: qsTr("Start %1 min").arg(page.focusMin)
-                    onClicked: page.startFocus()
+                    onClicked: Zoo.startFocus(page.focusMin)
                 }
 
                 Column {
                     x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                     spacing: Theme.paddingSmall
-                    visible: page.focusRunning
-                    Label { text: page.mmss(page.focusRemaining); color: Theme.highlightColor
+                    visible: Zoo.focusRunning
+                    Label { text: page.mmss(Zoo.focusRemaining); color: Theme.highlightColor
                             font.pixelSize: Theme.fontSizeHuge }
                     ProgressBar {
                         width: parent.width; minimumValue: 0
-                        maximumValue: page.focusMin * 60
-                        value: page.focusMin * 60 - page.focusRemaining
+                        maximumValue: Math.max(1, Zoo.focusMinutes * 60)
+                        value: Zoo.focusMinutes * 60 - Zoo.focusRemaining
                     }
                     Label { width: parent.width; wrapMode: Text.Wrap
                             text: qsTr("Focusing. The blobs are being very quiet for you.")
                             color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeSmall }
-                    Button { text: qsTr("Give up (no shame)"); onClicked: page.stopFocus() }
+                    Button { text: qsTr("Give up (no shame)"); onClicked: Zoo.stopFocus() }
                 }
             }
 
@@ -253,5 +241,9 @@ Page {
     // Confetti overlay, fired on a validation.
     ConfettiBurst { id: confetti }
 
-    Timer { id: focusTimer; interval: 1000; repeat: true; running: page.focusRunning; onTriggered: page.focusTick() }
+    // Celebrate a finished focus session even if it completes while on this page.
+    Connections {
+        target: Zoo
+        onFocusFinished: confetti.fireAt(page.width / 2, page.height * 0.4)
+    }
 }
