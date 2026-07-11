@@ -1,4 +1,756 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="de">
+<context>
+    <name>CoverPage</name>
+    <message>
+        <source>Zoo</source>
+        <translation>Zoo</translation>
+    </message>
+</context>
+<context>
+    <name>KeeperPage</name>
+    <message>
+        <source>Keeper</source>
+        <translation>Wärter</translation>
+    </message>
+    <message>
+        <source>Level %1 · %2 useful things done</source>
+        <translation>Level %1 · %2 nützliche Dinge getan</translation>
+    </message>
+    <message>
+        <source>Last 7 days</source>
+        <translation>Letzte 7 Tage</translation>
+    </message>
+    <message>
+        <source>day streak</source>
+        <translation>Tage in Folge</translation>
+    </message>
+    <message>
+        <source>residents</source>
+        <translation>Bewohner</translation>
+    </message>
+    <message>
+        <source>crumbs, unspent</source>
+        <translation>übrige Krümel</translation>
+    </message>
+    <message>
+        <source>habits kept today</source>
+        <translation>heute gehaltene Gewohnheiten</translation>
+    </message>
+    <message>
+        <source>Badges</source>
+        <translation>Abzeichen</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>You</source>
+        <translation>Du</translation>
+    </message>
+    <message>
+        <source>Your name (so the creatures can shout it)</source>
+        <translation>Dein Name (damit die Kreaturen ihn rufen)</translation>
+    </message>
+    <message>
+        <source>Optional. They'll manage either way.</source>
+        <translation>Optional. Sie kommen auch so klar.</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation>Sprache</translation>
+    </message>
+    <message>
+        <source>System default</source>
+        <translation>Systemsprache</translation>
+    </message>
+    <message>
+        <source>Takes effect next time you open Zoo.</source>
+        <translation>Wird beim nächsten Start von Zoo wirksam.</translation>
+    </message>
+    <message>
+        <source>Reminders</source>
+        <translation>Erinnerungen</translation>
+    </message>
+    <message>
+        <source>Gentle daily reminder</source>
+        <translation>Sanfte tägliche Erinnerung</translation>
+    </message>
+    <message>
+        <source>A soft nudge once a day. Off by default. The zoo waits for you, it never nags.</source>
+        <translation>Ein sanfter Anstoß pro Tag. Standardmäßig aus. Der Zoo wartet auf dich, er nörgelt nie.</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>Über</translation>
+    </message>
+    <message>
+        <source>Zoo</source>
+        <translation>Zoo</translation>
+    </message>
+    <message>
+        <source>version %1</source>
+        <translation>Version %1</translation>
+    </message>
+    <message>
+        <source>A small, strange, living zoo. Do one little thing a day, keep your habits, and grow a collection of odd creatures you actually want to visit. Offline, private, and gentle. No shame, no timers built to stress you.</source>
+        <translation>Ein kleiner, seltsamer, lebendiger Zoo. Tu jeden Tag eine Kleinigkeit, halte deine Gewohnheiten und lass eine Sammlung schrulliger Kreaturen wachsen, die du wirklich besuchen willst. Offline, privat und sanft. Keine Scham, keine stressigen Timer.</translation>
+    </message>
+    <message>
+        <source>© 2026 Nicolas Souveton, MIT licensed</source>
+        <translation>© 2026 Nicolas Souveton, MIT-Lizenz</translation>
+    </message>
+    <message>
+        <source>Source on GitHub</source>
+        <translation>Quellcode auf GitHub</translation>
+    </message>
+    <message>
+        <source>Made with ❤️ for Sailfish OS</source>
+        <translation>Mit ❤️ für Sailfish OS</translation>
+    </message>
+</context>
+<context>
+    <name>ShopPage</name>
+    <message>
+        <source>Shop</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>%1 crumbs to your name</source>
+        <translation>%1 Krümel auf deinem Konto</translation>
+    </message>
+    <message>
+        <source>Biomes</source>
+        <translation>Biome</translation>
+    </message>
+    <message>
+        <source>in use</source>
+        <translation>aktiv</translation>
+    </message>
+    <message>
+        <source>owned</source>
+        <translation>im Besitz</translation>
+    </message>
+    <message>
+        <source>%1 crumbs</source>
+        <translation>%1 Krümel</translation>
+    </message>
+    <message>
+        <source>Using</source>
+        <translation>Aktiv</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation>Nutzen</translation>
+    </message>
+    <message>
+        <source>Buy</source>
+        <translation>Kaufen</translation>
+    </message>
+    <message>
+        <source>Objects</source>
+        <translation>Objekte</translation>
+    </message>
+    <message>
+        <source>In your zoo</source>
+        <translation>In deinem Zoo</translation>
+    </message>
+    <message>
+        <source>Owned</source>
+        <translation>Im Besitz</translation>
+    </message>
+    <message>
+        <source>Some objects turn up for free when you hit a milestone: your first hatch, a week of habits, that sort of thing. No need to thank us.</source>
+        <translation>Manche Objekte gibt es gratis, wenn du einen Meilenstein erreichst: dein erstes Ausbrüten, eine Woche Gewohnheiten, so etwas. Kein Dank nötig.</translation>
+    </message>
+</context>
+<context>
+    <name>SpecimenPage</name>
+    <message>
+        <source>Meet another</source>
+        <translation>Noch einen</translation>
+    </message>
+    <message>
+        <source>moved in on %1, a day you showed up</source>
+        <translation>eingezogen am %1, ein Tag, an dem du da warst</translation>
+    </message>
+</context>
+<context>
+    <name>TodayPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>Keeper</source>
+        <translation>Wärter</translation>
+    </message>
+    <message>
+        <source>Today</source>
+        <translation>Heute</translation>
+    </message>
+    <message>
+        <source>🍞 %1 crumbs</source>
+        <translation>🍞 %1 Krümel</translation>
+    </message>
+    <message>
+        <source>Challenge</source>
+        <translation>Aufgabe</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Erledigt</translation>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation>Überspringen</translation>
+    </message>
+    <message>
+        <source>Done. +15 🍞</source>
+        <translation>Erledigt. +15 🍞</translation>
+    </message>
+    <message>
+        <source>Skipped. Bold.</source>
+        <translation>Übersprungen. Mutig.</translation>
+    </message>
+    <message>
+        <source>Focus</source>
+        <translation>Fokus</translation>
+    </message>
+    <message>
+        <source>Start %1 min</source>
+        <translation>%1 Min starten</translation>
+    </message>
+    <message>
+        <source>Focusing. The blobs are being very quiet for you.</source>
+        <translation>Fokus. Die Blobs sind ganz still für dich.</translation>
+    </message>
+    <message>
+        <source>Give up (no shame)</source>
+        <translation>Aufgeben (ohne Scham)</translation>
+    </message>
+    <message>
+        <source>Habits</source>
+        <translation>Gewohnheiten</translation>
+    </message>
+    <message>
+        <source>Add one you'll actually do.</source>
+        <translation>Füg eine hinzu, die du wirklich tust.</translation>
+    </message>
+    <message>
+        <source>✓ today</source>
+        <translation>✓ heute</translation>
+    </message>
+    <message>
+        <source>last: %1</source>
+        <translation>zuletzt: %1</translation>
+    </message>
+    <message>
+        <source>not yet</source>
+        <translation>noch nicht</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+    <message>
+        <source>New habit (+5 🍞)</source>
+        <translation>Neue Gewohnheit (+5 🍞)</translation>
+    </message>
+    <message>
+        <source>Quests</source>
+        <translation>Aufträge</translation>
+    </message>
+    <message>
+        <source>One-off things go here.</source>
+        <translation>Einmalige Dinge kommen hierher.</translation>
+    </message>
+    <message>
+        <source>was due %1</source>
+        <translation>war fällig am %1</translation>
+    </message>
+    <message>
+        <source>by %1</source>
+        <translation>bis %1</translation>
+    </message>
+    <message>
+        <source>Bin it</source>
+        <translation>Wegwerfen</translation>
+    </message>
+    <message>
+        <source>New quest · %1</source>
+        <translation>Neuer Auftrag · %1</translation>
+    </message>
+    <message>
+        <source>New quest (+20 🍞)</source>
+        <translation>Neuer Auftrag (+20 🍞)</translation>
+    </message>
+</context>
+<context>
+    <name>ZooPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>Shop</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>Keeper</source>
+        <translation>Wärter</translation>
+    </message>
+    <message>
+        <source>Today</source>
+        <translation>Heute</translation>
+    </message>
+    <message>
+        <source>Your zoo</source>
+        <translation>Dein Zoo</translation>
+    </message>
+    <message>
+        <source>%1 · level %2</source>
+        <translation>%1 · Level %2</translation>
+    </message>
+    <message>
+        <source>A zoo. Empty, judgemental. Do useful things under 'Today' → earn crumbs → hatch odd little creatures here.</source>
+        <translation>Ein Zoo. Leer, urteilend. Tu nützliche Dinge unter „Heute“ → verdien Krümel → brüte hier schräge kleine Kreaturen aus.</translation>
+    </message>
+    <message>
+        <source>Name? (optional)</source>
+        <translation>Name? (optional)</translation>
+    </message>
+    <message>
+        <source>So they can shout it</source>
+        <translation>Damit sie ihn rufen</translation>
+    </message>
+    <message>
+        <source>Go</source>
+        <translation>Los</translation>
+    </message>
+    <message>
+        <source>Empty. Do a habit, earn crumbs, hatch something. It helps.</source>
+        <translation>Leer. Mach eine Gewohnheit, verdien Krümel, brüte etwas aus. Das hilft.</translation>
+    </message>
+    <message>
+        <source>Hatch a blob (%1 🍞)</source>
+        <translation>Einen Blob ausbrüten (%1 🍞)</translation>
+    </message>
+    <message>
+        <source>Fun fact, allegedly</source>
+        <translation>Angeblich ein Fakt</translation>
+    </message>
+</context>
+<context>
+    <name>ZooController</name>
+    <message>
+        <source>Introduce yourself to a cloud. Keep it professional.</source>
+        <translation>Stell dich einer Wolke vor. Bleib professionell.</translation>
+    </message>
+    <message>
+        <source>Compliment an inanimate object out loud. Mean it.</source>
+        <translation>Mach einem leblosen Gegenstand laut ein Kompliment. Ernsthaft.</translation>
+    </message>
+    <message>
+        <source>Photograph three triangular things. They know what they did.</source>
+        <translation>Fotografiere drei dreieckige Dinge. Sie wissen, was sie getan haben.</translation>
+    </message>
+    <message>
+        <source>Name a pigeon. Do NOT tell it its name. It must never know.</source>
+        <translation>Gib einer Taube einen Namen. Sag ihn ihr NICHT. Sie darf es nie erfahren.</translation>
+    </message>
+    <message>
+        <source>Walk somewhere you've never walked. Ten whole metres counts.</source>
+        <translation>Geh irgendwo, wo du noch nie warst. Zehn Meter zählen schon.</translation>
+    </message>
+    <message>
+        <source>Do your best impression of a door. Nobody's watching. Probably.</source>
+        <translation>Mach deine beste Tür-Imitation. Keiner schaut zu. Wahrscheinlich.</translation>
+    </message>
+    <message>
+        <source>Find a face in something that isn't a face. Say hi. Be normal about it.</source>
+        <translation>Finde ein Gesicht in etwas, das keins ist. Sag Hallo. Bleib dabei normal.</translation>
+    </message>
+    <message>
+        <source>Hum a dramatic theme for a boring task. Commit like your life depends on it.</source>
+        <translation>Summ ein dramatisches Thema für eine langweilige Aufgabe. Gib alles, als hinge dein Leben davon ab.</translation>
+    </message>
+    <message>
+        <source>Reorganise something by colour for absolutely no reason.</source>
+        <translation>Sortier irgendetwas nach Farbe, völlig grundlos.</translation>
+    </message>
+    <message>
+        <source>Thank a tool that helped you today. Out loud. Yes, really.</source>
+        <translation>Bedank dich bei einem Werkzeug, das dir heute geholfen hat. Laut. Ja, wirklich.</translation>
+    </message>
+    <message>
+        <source>Invent a word for how you feel right now. Use it once, aggressively.</source>
+        <translation>Erfinde ein Wort für dein aktuelles Gefühl. Benutz es einmal, aggressiv.</translation>
+    </message>
+    <message>
+        <source>Stand like a superhero for one full breath. Feel the power. Leave.</source>
+        <translation>Steh eine ganze Atemzuglang wie ein Superheld. Spür die Kraft. Geh.</translation>
+    </message>
+    <message>
+        <source>A group of blobs is called a 'mild concern'.</source>
+        <translation>Eine Gruppe Blobs nennt man eine „leichte Sorge“.</translation>
+    </message>
+    <message>
+        <source>No blob has ever finished a to-do list. They find it aspirational.</source>
+        <translation>Kein Blob hat je eine To-do-Liste beendet. Sie finden das erstrebenswert.</translation>
+    </message>
+    <message>
+        <source>The average blob blinks four times before deciding you're fine.</source>
+        <translation>Ein durchschnittlicher Blob blinzelt viermal, bevor er dich okay findet.</translation>
+    </message>
+    <message>
+        <source>Every blob believes it is slightly larger than it actually is.</source>
+        <translation>Jeder Blob hält sich für etwas größer, als er ist.</translation>
+    </message>
+    <message>
+        <source>Blobs hop to think. They think rarely.</source>
+        <translation>Blobs hüpfen, um zu denken. Sie denken selten.</translation>
+    </message>
+    <message>
+        <source>A blob's favourite colour is 'the grey one'.</source>
+        <translation>Die Lieblingsfarbe eines Blobs ist „das Graue“.</translation>
+    </message>
+    <message>
+        <source>Statistically, you are someone's favourite. The blobs took a vote.</source>
+        <translation>Statistisch gesehen bist du jemandes Liebling. Die Blobs haben abgestimmt.</translation>
+    </message>
+    <message>
+        <source>Blobs do not dream. They simply buffer.</source>
+        <translation>Blobs träumen nicht. Sie puffern einfach.</translation>
+    </message>
+    <message>
+        <source>It is considered rude to count a blob's pixels aloud.</source>
+        <translation>Es gilt als unhöflich, die Pixel eines Blobs laut zu zählen.</translation>
+    </message>
+    <message>
+        <source>Blobs are 90% vibes and 10% structural concern.</source>
+        <translation>Blobs bestehen zu 90 % aus Vibes und zu 10 % aus statischer Sorge.</translation>
+    </message>
+    <message>
+        <source>The oldest known blob is three weeks old and unbearably smug.</source>
+        <translation>Der älteste bekannte Blob ist drei Wochen alt und unerträglich selbstgefällig.</translation>
+    </message>
+    <message>
+        <source>Crumbs aren't currency anywhere reputable. Here, they're everything.</source>
+        <translation>Krümel sind nirgendwo Seriösem eine Währung. Hier sind sie alles.</translation>
+    </message>
+    <message>
+        <source>Blobs experience Tuesdays more intensely than other creatures.</source>
+        <translation>Blobs erleben Dienstage intensiver als andere Kreaturen.</translation>
+    </message>
+    <message>
+        <source>The word 'blep' predates language. Probably.</source>
+        <translation>Das Wort „blep“ ist älter als die Sprache. Wahrscheinlich.</translation>
+    </message>
+    <message>
+        <source>You've done precisely nothing today. Magnificent restraint.</source>
+        <translation>Du hast heute exakt nichts getan. Großartige Zurückhaltung.</translation>
+    </message>
+    <message>
+        <source>A blank slate. The blobs are pretending not to notice.</source>
+        <translation>Ein leeres Blatt. Die Blobs tun, als merkten sie es nicht.</translation>
+    </message>
+    <message>
+        <source>Nothing yet. Bold. We admire the commitment to leisure.</source>
+        <translation>Noch nichts. Mutig. Wir bewundern die Hingabe zur Muße.</translation>
+    </message>
+    <message>
+        <source>A start. The blobs are cautiously optimistic.</source>
+        <translation>Ein Anfang. Die Blobs sind vorsichtig optimistisch.</translation>
+    </message>
+    <message>
+        <source>Some progress. Steady on, hero.</source>
+        <translation>Etwas Fortschritt. Immer mit der Ruhe, Held.</translation>
+    </message>
+    <message>
+        <source>Not bad. The zoo noticed and will deny it later.</source>
+        <translation>Nicht schlecht. Der Zoo hat's bemerkt und wird's später leugnen.</translation>
+    </message>
+    <message>
+        <source>Look at you. Insufferable, honestly.</source>
+        <translation>Sieh dich an. Unerträglich, ehrlich.</translation>
+    </message>
+    <message>
+        <source>Fully productive. The blobs are a little intimidated.</source>
+        <translation>Voll produktiv. Die Blobs sind etwas eingeschüchtert.</translation>
+    </message>
+    <message>
+        <source>All done. Please leave some ambition for tomorrow.</source>
+        <translation>Alles erledigt. Lass etwas Ehrgeiz für morgen übrig.</translation>
+    </message>
+    <message>
+        <source>Volunteer</source>
+        <translation>Freiwilliger</translation>
+    </message>
+    <message>
+        <source>Junior Keeper</source>
+        <translation>Junior-Wärter</translation>
+    </message>
+    <message>
+        <source>Keeper</source>
+        <translation>Wärter</translation>
+    </message>
+    <message>
+        <source>Head Keeper</source>
+        <translation>Oberwärter</translation>
+    </message>
+    <message>
+        <source>Curator</source>
+        <translation>Kurator</translation>
+    </message>
+    <message>
+        <source>Director</source>
+        <translation>Direktor</translation>
+    </message>
+    <message>
+        <source>Legendary Director</source>
+        <translation>Legendärer Direktor</translation>
+    </message>
+    <message>
+        <source>A Suspicious Rock</source>
+        <translation>Ein verdächtiger Stein</translation>
+    </message>
+    <message>
+        <source>A Resilient Fern</source>
+        <translation>Ein zäher Farn</translation>
+    </message>
+    <message>
+        <source>A Passive-Aggressive Sign</source>
+        <translation>Ein passiv-aggressives Schild</translation>
+    </message>
+    <message>
+        <source>A Moody Lamp</source>
+        <translation>Eine launische Lampe</translation>
+    </message>
+    <message>
+        <source>A Modest Pond</source>
+        <translation>Ein bescheidener Teich</translation>
+    </message>
+    <message>
+        <source>An Unnecessary Archway</source>
+        <translation>Ein überflüssiger Torbogen</translation>
+    </message>
+    <message>
+        <source>A Statue of Nobody</source>
+        <translation>Eine Statue von niemandem</translation>
+    </message>
+    <message>
+        <source>A Single Sad Balloon</source>
+        <translation>Ein einzelner trauriger Luftballon</translation>
+    </message>
+    <message>
+        <source>An Off-Duty Gnome</source>
+        <translation>Ein Gartenzwerg im Feierabend</translation>
+    </message>
+    <message>
+        <source>A Creaky Swing</source>
+        <translation>Eine quietschende Schaukel</translation>
+    </message>
+    <message>
+        <source>A Totem of Mild Power</source>
+        <translation>Ein Totem milder Macht</translation>
+    </message>
+    <message>
+        <source>A Fountain, Allegedly</source>
+        <translation>Ein Brunnen, angeblich</translation>
+    </message>
+    <message>
+        <source>Night (default)</source>
+        <translation>Nacht (Standard)</translation>
+    </message>
+    <message>
+        <source>Meadow</source>
+        <translation>Wiese</translation>
+    </message>
+    <message>
+        <source>Desert</source>
+        <translation>Wüste</translation>
+    </message>
+    <message>
+        <source>Far West</source>
+        <translation>Wilder Westen</translation>
+    </message>
+    <message>
+        <source>Neon City</source>
+        <translation>Neonstadt</translation>
+    </message>
+    <message>
+        <source>Quiet Snow</source>
+        <translation>Stiller Schnee</translation>
+    </message>
+    <message>
+        <source>Hatchling</source>
+        <translation>Frischling</translation>
+    </message>
+    <message>
+        <source>Menagerie</source>
+        <translation>Menagerie</translation>
+    </message>
+    <message>
+        <source>Consistent-ish</source>
+        <translation>So halbwegs beständig</translation>
+    </message>
+    <message>
+        <source>Regular</source>
+        <translation>Beständig</translation>
+    </message>
+    <message>
+        <source>Creature of Habit</source>
+        <translation>Gewohnheitstier</translation>
+    </message>
+    <message>
+        <source>Quest Cleared</source>
+        <translation>Auftrag erledigt</translation>
+    </message>
+    <message>
+        <source>Interior Decorator</source>
+        <translation>Innenausstatter</translation>
+    </message>
+    <message>
+        <source>Impossible Colour</source>
+        <translation>Unmögliche Farbe</translation>
+    </message>
+    <message>
+        <source>Small Hours</source>
+        <translation>Frühe Stunden</translation>
+    </message>
+    <message>
+        <source>Regular Attender</source>
+        <translation>Stammgast</translation>
+    </message>
+    <message>
+        <source>Devotee</source>
+        <translation>Anhänger</translation>
+    </message>
+    <message>
+        <source>Fortnight</source>
+        <translation>Zwei Wochen</translation>
+    </message>
+    <message>
+        <source>Full House</source>
+        <translation>Volles Haus</translation>
+    </message>
+    <message>
+        <source>Quest Master</source>
+        <translation>Auftragsmeister</translation>
+    </message>
+    <message>
+        <source>Landscaper</source>
+        <translation>Landschaftsgärtner</translation>
+    </message>
+    <message>
+        <source>Ritualist</source>
+        <translation>Ritualist</translation>
+    </message>
+    <message>
+        <source>Focused</source>
+        <translation>Fokussiert</translation>
+    </message>
+    <message>
+        <source>Well-Tended</source>
+        <translation>Gut umsorgt</translation>
+    </message>
+    <message>
+        <source>Hatch your first blob.</source>
+        <translation>Brüte deinen ersten Blob aus.</translation>
+    </message>
+    <message>
+        <source>Five residents.</source>
+        <translation>Fünf Bewohner.</translation>
+    </message>
+    <message>
+        <source>A 3-day streak.</source>
+        <translation>Eine 3-Tage-Serie.</translation>
+    </message>
+    <message>
+        <source>A 7-day streak.</source>
+        <translation>Eine 7-Tage-Serie.</translation>
+    </message>
+    <message>
+        <source>Ten habit check-ins.</source>
+        <translation>Zehn Gewohnheits-Häkchen.</translation>
+    </message>
+    <message>
+        <source>Finish five quests.</source>
+        <translation>Schließe fünf Aufträge ab.</translation>
+    </message>
+    <message>
+        <source>Own three objects.</source>
+        <translation>Besitze drei Objekte.</translation>
+    </message>
+    <message>
+        <source>Hatch a mythic blob.</source>
+        <translation>Brüte einen mythischen Blob aus.</translation>
+    </message>
+    <message>
+        <source>A challenge before 5am.</source>
+        <translation>Eine Aufgabe vor 5 Uhr morgens.</translation>
+    </message>
+    <message>
+        <source>25 useful things done.</source>
+        <translation>25 nützliche Dinge getan.</translation>
+    </message>
+    <message>
+        <source>100 useful things done.</source>
+        <translation>100 nützliche Dinge getan.</translation>
+    </message>
+    <message>
+        <source>A 14-day streak.</source>
+        <translation>Eine 14-Tage-Serie.</translation>
+    </message>
+    <message>
+        <source>Ten residents.</source>
+        <translation>Zehn Bewohner.</translation>
+    </message>
+    <message>
+        <source>Finish ten quests.</source>
+        <translation>Schließe zehn Aufträge ab.</translation>
+    </message>
+    <message>
+        <source>Own three biomes.</source>
+        <translation>Besitze drei Biome.</translation>
+    </message>
+    <message>
+        <source>Thirty habit check-ins.</source>
+        <translation>Dreißig Gewohnheits-Häkchen.</translation>
+    </message>
+    <message>
+        <source>Five focus sessions.</source>
+        <translation>Fünf Fokus-Sitzungen.</translation>
+    </message>
+    <message>
+        <source>A 7-day streak with 20 habits. You are being looked after.</source>
+        <translation>Eine 7-Tage-Serie mit 20 Gewohnheiten. Man kümmert sich um dich.</translation>
+    </message>
+    <message>
+        <source>Every creature here is a day you showed up.</source>
+        <translation>Jede Kreatur hier ist ein Tag, an dem du da warst.</translation>
+    </message>
+    <message>
+        <source>The zoo fills as you do the small things. Funny, that.</source>
+        <translation>Der Zoo füllt sich, während du die kleinen Dinge tust. Komisch, oder?</translation>
+    </message>
+    <message>
+        <source>A collection of ordinary days, quietly kept.</source>
+        <translation>Eine Sammlung gewöhnlicher Tage, still bewahrt.</translation>
+    </message>
+    <message>
+        <source>Turns out this is what looking after yourself looks like.</source>
+        <translation>Es stellt sich heraus: So sieht Selbstfürsorge aus.</translation>
+    </message>
+    <message>
+        <source>A whole zoo, built from Tuesdays. You did that. On purpose, even.</source>
+        <translation>Ein ganzer Zoo, aus Dienstagen gebaut. Das hast du getan. Sogar absichtlich.</translation>
+    </message>
+</context>
 </TS>

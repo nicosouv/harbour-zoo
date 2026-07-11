@@ -98,9 +98,9 @@ public:
     // Daily loop (each rewards Crumbs and records an event).
     Q_INVOKABLE void completeChallenge();
     Q_INVOKABLE void skipChallenge();
-    Q_INVOKABLE void addHabit(const QString& name);
+    Q_INVOKABLE void addHabit(const QString& name, int target);   // target = times per day (>=1)
     Q_INVOKABLE void removeHabit(const QString& id);
-    Q_INVOKABLE void logHabit(const QString& id);
+    Q_INVOKABLE void logHabit(const QString& id);                 // one check-in toward the target
 
     // Quests: one-off tasks, optional due date (yyyy-MM-dd, "" if none). Bigger Crumb reward.
     Q_INVOKABLE void addQuest(const QString& name, const QString& due);

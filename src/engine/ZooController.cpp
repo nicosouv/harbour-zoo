@@ -205,7 +205,7 @@ QString ZooController::todayChallenge() const
 {
     const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
     const qint64 ord = d.isValid() ? d.toJulianDay() : 0;
-    return QString::fromUtf8(kChallenges[((ord % kChallengeCount) + kChallengeCount) % kChallengeCount]);
+    return tr(kChallenges[((ord % kChallengeCount) + kChallengeCount) % kChallengeCount]);
 }
 QString ZooController::todayChallengeStatus() const
 { return m_settings.value(QStringLiteral("challenge/") + localDate(), QStringLiteral("issued")).toString(); }
@@ -233,11 +233,11 @@ QString ZooController::keeperTitle() const
         "Volunteer", "Junior Keeper", "Keeper", "Head Keeper", "Curator", "Director",
         "Legendary Director"
     };
-    return QString::fromUtf8(kTitles[keeperLevel()]);
+    return tr(kTitles[keeperLevel()]);
 }
 
 int ZooController::habitsKeptToday() const
-{ return readArrayConst(m_settings, QStringLiteral("habitlog/") + localDate()).size(); }
+{ return m_settings.value(QStringLiteral("habitlogday/") + localDate(), 0).toInt(); }
 
 void ZooController::recordDeed()
 {
@@ -262,7 +262,7 @@ QString ZooController::funFact() const
 {
     const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
     const qint64 ord = d.isValid() ? d.toJulianDay() : 0;
-    return QString::fromUtf8(kFacts[((ord % kFactCount) + kFactCount) % kFactCount]);
+    return tr(kFacts[((ord % kFactCount) + kFactCount) % kFactCount]);
 }
 
 QString ZooController::statusPhrase() const
@@ -271,9 +271,9 @@ QString ZooController::statusPhrase() const
                     + habitsKeptToday();
     const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
     const int pick = int((d.isValid() ? d.toJulianDay() : 0) % 3);
-    if (score <= 0) return QString::fromUtf8(kPhraseLow[pick]);
-    if (score <= 2) return QString::fromUtf8(kPhraseMid[pick]);
-    return QString::fromUtf8(kPhraseHigh[pick]);
+    if (score <= 0) return tr(kPhraseLow[pick]);
+    if (score <= 2) return tr(kPhraseMid[pick]);
+    return tr(kPhraseHigh[pick]);
 }
 
 QVariantList ZooController::badges() const
@@ -314,8 +314,8 @@ QVariantList ZooController::badges() const
 
         QVariantMap m;
         m.insert(QStringLiteral("id"), id);
-        m.insert(QStringLiteral("name"), QString::fromUtf8(kBadges[i].name));
-        m.insert(QStringLiteral("desc"), QString::fromUtf8(kBadges[i].desc));
+        m.insert(QStringLiteral("name"), tr(kBadges[i].name));
+        m.insert(QStringLiteral("desc"), tr(kBadges[i].desc));
         m.insert(QStringLiteral("emoji"), QString::fromUtf8(kBadges[i].emoji));
         m.insert(QStringLiteral("earned"), earned);
         out.append(m);
@@ -341,11 +341,11 @@ QString ZooController::reflection() const
 {
     const int n = readArrayConst(m_settings, QStringLiteral("blobs")).size();
     if (n <= 0) return QString();
-    if (n < 3)  return QStringLiteral("Every creature here is a day you showed up.");
-    if (n < 6)  return QStringLiteral("The zoo fills as you do the small things. Funny, that.");
-    if (n < 10) return QStringLiteral("A collection of ordinary days, quietly kept.");
-    if (n < 20) return QStringLiteral("Turns out this is what looking after yourself looks like.");
-    return QStringLiteral("A whole zoo, built from Tuesdays. You did that. On purpose, even.");
+    if (n < 3)  return tr("Every creature here is a day you showed up.");
+    if (n < 6)  return tr("The zoo fills as you do the small things. Funny, that.");
+    if (n < 10) return tr("A collection of ordinary days, quietly kept.");
+    if (n < 20) return tr("Turns out this is what looking after yourself looks like.");
+    return tr("A whole zoo, built from Tuesdays. You did that. On purpose, even.");
 }
 
 // ---- Biomes ---------------------------------------------------------------------------------
@@ -362,7 +362,7 @@ QVariantList ZooController::themes() const
         const bool isOwned = (id == QLatin1String("night")) || owned.contains(QJsonValue(id));
         QVariantMap m;
         m.insert(QStringLiteral("id"), id);
-        m.insert(QStringLiteral("name"), QString::fromUtf8(kThemes[i].name));
+        m.insert(QStringLiteral("name"), tr(kThemes[i].name));
         m.insert(QStringLiteral("cost"), kThemes[i].cost);
         m.insert(QStringLiteral("owned"), isOwned);
         m.insert(QStringLiteral("selected"), id == sel);
@@ -432,28 +432,34 @@ void ZooController::skipChallenge()
 QVariantList ZooController::habits() const
 {
     const QJsonArray defs = readArrayConst(m_settings, QStringLiteral("habits"));
-    const QJsonArray doneToday = readArrayConst(m_settings, QStringLiteral("habitlog/") + localDate());
     QVariantList out;
     for (const QJsonValue& v : defs) {
         const QJsonObject o = v.toObject();
         const QString id = o.value(QStringLiteral("id")).toString();
+        const int target = qMax(1, o.value(QStringLiteral("target")).toInt(1));
+        const int count = m_settings.value(QStringLiteral("hc/") + localDate() + '/' + id, 0).toInt();
         QVariantMap m;
         m.insert(QStringLiteral("id"), id);
         m.insert(QStringLiteral("name"), o.value(QStringLiteral("name")).toString());
-        m.insert(QStringLiteral("doneToday"), doneToday.contains(QJsonValue(id)));
+        m.insert(QStringLiteral("target"), target);
+        m.insert(QStringLiteral("doneCount"), count);
+        m.insert(QStringLiteral("doneToday"), count >= target);
         m.insert(QStringLiteral("lastDone"),
                  m_settings.value(QStringLiteral("habitLast/") + id).toString());
         out.append(m);
     }
     return out;
 }
-void ZooController::addHabit(const QString& name)
+void ZooController::addHabit(const QString& name, int target)
 {
     const QString t = name.trimmed();
     if (t.isEmpty()) return;
     QJsonArray defs = readArray(m_settings, QStringLiteral("habits"));
     const QString id = QString::number(QDateTime::currentMSecsSinceEpoch());
-    QJsonObject o; o.insert(QStringLiteral("id"), id); o.insert(QStringLiteral("name"), t);
+    QJsonObject o;
+    o.insert(QStringLiteral("id"), id);
+    o.insert(QStringLiteral("name"), t);
+    o.insert(QStringLiteral("target"), qMax(1, target));
     defs.append(o);
     writeArray(m_settings, QStringLiteral("habits"), defs);
     appendNow(QStringLiteral("habit_created"), QStringLiteral("{\"habit_id\":\"%1\"}").arg(id));
@@ -470,13 +476,24 @@ void ZooController::removeHabit(const QString& id)
 }
 void ZooController::logHabit(const QString& id)
 {
-    const QString key = QStringLiteral("habitlog/") + localDate();
-    QJsonArray done = readArray(m_settings, key);
-    if (done.contains(QJsonValue(id))) return;
-    done.append(id);
-    writeArray(m_settings, key, done);
+    // Find the habit's daily target; a habit can be logged up to `target` times per day.
+    int target = 1;
+    const QJsonArray defs = readArrayConst(m_settings, QStringLiteral("habits"));
+    for (const QJsonValue& v : defs)
+        if (v.toObject().value(QStringLiteral("id")).toString() == id) {
+            target = qMax(1, v.toObject().value(QStringLiteral("target")).toInt(1));
+            break;
+        }
+
+    const QString ckey = QStringLiteral("hc/") + localDate() + '/' + id;
+    const int cur = m_settings.value(ckey, 0).toInt();
+    if (cur >= target) return;                      // already fully done today
+    m_settings.setValue(ckey, cur + 1);
+
     m_settings.setValue(QStringLiteral("habitLogTotal"),
                         m_settings.value(QStringLiteral("habitLogTotal"), 0).toInt() + 1);
+    m_settings.setValue(QStringLiteral("habitlogday/") + localDate(),
+                        m_settings.value(QStringLiteral("habitlogday/") + localDate(), 0).toInt() + 1);
     m_settings.setValue(QStringLiteral("habitLast/") + id, localDate());
     appendNow(QStringLiteral("habit_logged"),
               QStringLiteral("{\"habit_id\":\"%1\",\"date\":\"%2\"}").arg(id).arg(localDate()));
@@ -597,7 +614,7 @@ QVariantList ZooController::shopItems() const
     for (int i = 0; i < kShopCount; ++i) {
         QVariantMap m;
         m.insert(QStringLiteral("id"), QString::fromUtf8(kShop[i].id));
-        m.insert(QStringLiteral("name"), QString::fromUtf8(kShop[i].name));
+        m.insert(QStringLiteral("name"), tr(kShop[i].name));
         m.insert(QStringLiteral("cost"), kShop[i].cost);
         m.insert(QStringLiteral("owned"), owned.contains(QJsonValue(QString::fromUtf8(kShop[i].id))));
         out.append(m);

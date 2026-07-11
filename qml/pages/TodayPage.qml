@@ -41,9 +41,11 @@ Page {
         Zoo.addQuest(questField.text, page.pendingDue)
         questField.text = ""; page.pendingDue = ""; questField.focus = false
     }
+    property int habitTarget: 1
     function addHabit() {
         if (habitField.text.trim().length === 0) return
-        Zoo.addHabit(habitField.text); habitField.text = ""; habitField.focus = false
+        Zoo.addHabit(habitField.text, habitTarget)
+        habitField.text = ""; habitTarget = 1; habitField.focus = false
     }
 
     SilicaFlickable {
@@ -141,7 +143,10 @@ Page {
                 delegate: ListItem {
                     id: habitItem; width: content.width; contentHeight: Theme.itemSizeSmall
                     property bool done: modelData.doneToday
-                    onClicked: if (!done) { page.celebrate(circle); Zoo.logHabit(modelData.id) }
+                    property bool multi: modelData.target > 1
+                    onClicked: if (modelData.doneCount < modelData.target) {
+                        page.celebrate(circle); Zoo.logHabit(modelData.id)
+                    }
                     Rectangle {
                         id: circle
                         anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
@@ -150,8 +155,13 @@ Page {
                         border.width: 2
                         border.color: habitItem.done ? Theme.highlightColor : Theme.secondaryColor
                         Behavior on color { ColorAnimation { duration: 160 } }
-                        Label { anchors.centerIn: parent; text: "✓"; visible: habitItem.done
-                                color: "#20233A"; font.pixelSize: Theme.fontSizeSmall; font.bold: true }
+                        Label {
+                            anchors.centerIn: parent
+                            text: habitItem.done ? "✓" : (habitItem.multi ? modelData.doneCount : "")
+                            visible: habitItem.done || habitItem.multi
+                            color: habitItem.done ? "#20233A" : Theme.secondaryColor
+                            font.pixelSize: Theme.fontSizeExtraSmall; font.bold: true
+                        }
                     }
                     Column {
                         anchors { left: circle.right; leftMargin: Theme.paddingMedium
@@ -162,9 +172,11 @@ Page {
                             color: habitItem.done ? Theme.secondaryColor : Theme.primaryColor
                         }
                         Label {
-                            text: habitItem.done ? qsTr("✓ today")
-                                 : (modelData.lastDone.length > 0 ? qsTr("last: %1").arg(modelData.lastDone)
-                                                                  : qsTr("not yet"))
+                            text: habitItem.multi
+                                  ? qsTr("%1 / %2 today").arg(modelData.doneCount).arg(modelData.target)
+                                  : (habitItem.done ? qsTr("✓ today")
+                                     : (modelData.lastDone.length > 0 ? qsTr("last: %1").arg(modelData.lastDone)
+                                                                      : qsTr("not yet")))
                             color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny
                         }
                     }
@@ -175,9 +187,15 @@ Page {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 spacing: Theme.paddingSmall
                 TextField {
-                    id: habitField; width: parent.width - habitAdd.width - Theme.paddingSmall
+                    id: habitField; width: parent.width - habitTargetBtn.width - habitAdd.width - 2 * Theme.paddingSmall
                     placeholderText: qsTr("New habit (+5 🍞)")
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: addHabit()
+                }
+                Button {
+                    id: habitTargetBtn
+                    anchors.verticalCenter: habitField.verticalCenter
+                    text: "×" + page.habitTarget
+                    onClicked: page.habitTarget = page.habitTarget >= 8 ? 1 : page.habitTarget + 1
                 }
                 IconButton { id: habitAdd; anchors.verticalCenter: habitField.verticalCenter
                              icon.source: "image://theme/icon-m-add"; onClicked: addHabit() }
