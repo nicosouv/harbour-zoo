@@ -1,38 +1,37 @@
 import QtQuick 2.6
 
-// The hero specimen. A living blob rendered procedurally from the seed — an SDF-metaball body on
-// the GPU, reactive googly eyes, spring jiggle on poke. No two are alike: the seed is read as a
-// "genome" (see docs/specimen-taxonomy.md + zoo-specimen skill). Deterministic: same seed+rarity
-// always yields the same creature. Qt 5.6 / GLSL ES 1.00 compatible (no QtQuick.Shapes).
+// The hero specimen. A living blob rendered from the seed as a "genome": an ovoid body (not a
+// circle), always-visible googly eyes, idle bob, and a springy hop that lands floppy and re-forms.
+// It mutters little random words at irregular intervals. Pure QML (no shader) for rock-solid
+// rendering on every device. Deterministic look: same seed+rarity => same creature, forever.
 Specimen {
     id: root
 
-    // Local palette (icon-canonical), kept self-contained so the specimen has no outside deps.
     readonly property color creamColor: "#F6EFDD"
     readonly property color pupilColor: "#1A1C26"
 
-    // A name to occasionally shout in a speech bubble. Empty => a goofy noise instead.
+    // A name it occasionally shouts. Mostly it just mutters nonsense (see _words).
     property string voice: ""
-    readonly property var _shouts: ["Oi.", "hello", "BLEP", "mate", "...why", "hm.", "oh good, you",
-        "brilliant", "sup", "we meet again"]
+    readonly property var _words: ["blep", "boing", "oi", "hm", "meep", "wot", "hello", "?!",
+        "...", "nyoom", "ok", "ee", "hi", "brb", "oof", "mrr", "yes", "no"]
 
-    // The genome — a pure function of (seed, rarity). Rebinds when either changes.
     property var g: buildGenome(seed, rarity)
 
-    // Animation clock (0..2π, seamless loop). Drives wobble + idle gaze. Paused for thumbnails.
-    property real tt: 0
-
-    // Eye openness (1 = open). Blink and poke-widen animate this.
+    // Live, non-persistent motion state.
+    property real tt: 0            // idle clock
+    property real hopY: 0          // vertical hop offset
+    property real sx: 1.0          // horizontal squash
+    property real sy: 1.0          // vertical squash
     property real eyeOpen: 1.0
+    readonly property real idleBob: Math.sin(tt * 1.6) * (field.height * 0.012)
 
-    // Gaze: follow the finger while pressed, otherwise a gentle idle wander.
+    // Gaze: follow the finger while pressed, else a gentle wander.
     property bool looking: false
     property real touchX: 0
     property real touchY: 0
-    readonly property real gazeX: looking ? touchX : 0.35 * Math.sin(tt * 0.7)
-    readonly property real gazeY: looking ? touchY : 0.22 * Math.sin(tt * 0.9 + 1.0)
+    readonly property real gazeX: looking ? touchX : 0.4 * Math.sin(tt * 0.7)
+    readonly property real gazeY: looking ? touchY : 0.25 * Math.sin(tt * 0.9 + 1.0)
 
-    // Sample flavor (until StaticFlavorProvider wires in): stable per seed.
     readonly property var _names: ["Sir Reginald Ooze", "Beans", "The Understudy", "Gerald, Probably",
         "Small Cousin", "The Committee", "Blob Ross", "Modest Steve", "Uncertain Todd",
         "Professor Squish", "Nap Enthusiast", "The Damp One"]
@@ -43,11 +42,11 @@ Specimen {
     readonly property string lore: _lore[Math.abs(Math.floor(seed / 7)) % _lore.length]
 
     NumberAnimation on tt {
-        from: 0; to: 6.2831853; duration: 5000
+        from: 0; to: 6.2831853; duration: 4200
         loops: Animation.Infinite; running: root.lodLevel < 2
     }
 
-    // ---- Genome construction (deterministic, seed-driven) -----------------------------------
+    // ---- Genome (deterministic, seed-driven) ------------------------------------------------
     function rngFromSeed(s) {
         var a = (s >>> 0) || 1; // mulberry32
         return function () {
@@ -63,89 +62,77 @@ Specimen {
         function range(lo, hi) { return lo + (hi - lo) * r(); }
         function pick(arr) { return arr[Math.floor(r() * arr.length)]; }
 
-        var lobeCount = 2 + Math.floor(r() * 3.999);   // 2..5 lobes
-        var lobes = [];
-        var baseR = range(0.20, 0.30);
-        for (var i = 0; i < 5; ++i) {
-            if (i < lobeCount) {
-                var ang = r() * Math.PI * 2;
-                var dist = range(0.0, 0.14);
-                lobes.push(Qt.vector3d(Math.cos(ang) * dist, Math.sin(ang) * dist,
-                                       baseR * range(0.7, 1.15)));
-            } else {
-                lobes.push(Qt.vector3d(10, 10, 0)); // inactive: far away, zero radius => ignored
-            }
-        }
+        // Ovoid body: width and height differ (egg / squat / tall). Some blobs are just bigger.
+        var bodyW = range(0.62, 0.86);
+        var bodyH = bodyW * range(0.82, 1.28);
+        var bodyScale = range(0.72, 1.0);
 
-        var eyeCount = pick([1, 2, 2, 2, 3]); // usually two
+        // Eyes — not necessarily round. aspect >1 = wide/sleepy, <1 = tall; corner low = almond.
+        var eyeCount = pick([1, 2, 2, 2, 2, 3]);
         var eyes = [];
-        var spacing = range(0.13, 0.21);
-        var eyeY = range(-0.06, 0.03);
-        var eyeSize = range(0.17, 0.26);
+        var spacing = range(0.15, 0.24);
+        var eyeY = range(-0.12, -0.02);
+        var eyeSize = range(0.20, 0.30);
         if (eyeCount === 1) {
             eyes.push({ x: 0, y: eyeY, s: eyeSize * 1.25 });
         } else if (eyeCount === 2) {
             eyes.push({ x: -spacing, y: eyeY, s: eyeSize });
             eyes.push({ x: spacing, y: eyeY + range(-0.02, 0.02), s: eyeSize });
         } else {
-            eyes.push({ x: -spacing, y: eyeY, s: eyeSize * 0.8 });
-            eyes.push({ x: 0, y: eyeY - 0.04, s: eyeSize * 0.8 });
-            eyes.push({ x: spacing, y: eyeY, s: eyeSize * 0.8 });
+            eyes.push({ x: -spacing, y: eyeY, s: eyeSize * 0.82 });
+            eyes.push({ x: 0, y: eyeY - 0.05, s: eyeSize * 0.82 });
+            eyes.push({ x: spacing, y: eyeY, s: eyeSize * 0.82 });
         }
 
-        // Body colour: common stays near the icon ink; rarer widens the hue range.
-        var wander = (rarity === "common") ? 0.04 : (rarity === "uncommon" ? 0.12 : 0.5);
-        var h = (0.625 + range(-wander, wander) + 1) % 1;   // 0.625 ≈ icon navy hue
-        var sat = (rarity === "common") ? range(0.14, 0.24) : range(0.35, 0.70);
-        var lig = range(0.16, 0.26);
-
-        // Eye shape genes — eyes are NOT necessarily round. aspect >1 = wide/sleepy, <1 = tall;
-        // corner 0.5 = fully round/pill, lower = boxy/almond; tilt slants them; pupils vary too.
-        var eyeAspect = range(0.72, 1.7);
-        var eyeCorner = range(0.16, 0.5);
-        var eyeTilt = Math.floor(range(0, 24));
+        var wander = (rarity === "common") ? 0.05 : (rarity === "uncommon" ? 0.13 : 0.5);
+        var h = (0.62 + range(-wander, wander) + 1) % 1;
+        var sat = (rarity === "common") ? range(0.22, 0.36) : range(0.4, 0.72);
+        var lig = range(0.30, 0.44);
 
         return {
-            lobes: lobes,
+            bodyW: bodyW, bodyH: bodyH, bodyScale: bodyScale,
             eyes: eyes,
-            eyeAspect: eyeAspect,
-            eyeCorner: eyeCorner,
-            eyeTilt: eyeTilt,
-            mirrorTilt: (r() < 0.85),          // usually the pair slants symmetrically
-            pupilRatio: range(0.34, 0.46),
+            eyeAspect: range(0.72, 1.7),
+            eyeCorner: range(0.28, 0.5),
+            eyeTilt: Math.floor(range(0, 22)),
+            mirrorTilt: (r() < 0.85),
+            pupilRatio: range(0.36, 0.5),
             pupilAspect: range(0.62, 1.18),
-            pupilCorner: range(0.30, 0.5),
+            pupilCorner: range(0.34, 0.5),
             blinkMs: Math.floor(range(2600, 6000)),
-            wobbleAmp: range(0.010, 0.026),
-            wobbleFreq: range(3.0, 7.0),
+            hopMinMs: Math.floor(range(1400, 2600)),
+            hopVarMs: Math.floor(range(1800, 4200)),
             body: Qt.hsla(h, sat, lig, 1),
-            accent: Qt.hsla((h + 0.5) % 1, 0.6, 0.55, 1),
+            accent: Qt.hsla((h + 0.5) % 1, 0.6, 0.6, 1),
             temperament: pick(["shy", "hyper", "sleepy", "smug", "nervous", "zen"])
         };
     }
 
-    // ---- Interaction ------------------------------------------------------------------------
+    // ---- Behaviour --------------------------------------------------------------------------
+    function hop() {
+        if (root.lodLevel >= 2) return;
+        hopAnim.restart();
+        hopTimer.interval = g.hopMinMs + Math.floor(Math.random() * g.hopVarMs); // irregular
+    }
+
+    function speak() {
+        if (root.lodLevel >= 2) return;
+        bubble.say = (root.voice && root.voice.length > 0 && Math.random() < 0.25)
+                     ? root.voice.toUpperCase() + "!"
+                     : root._words[Math.floor(Math.random() * root._words.length)];
+        bubbleAnim.restart();
+        speakTimer.interval = 2500 + Math.floor(Math.random() * 8000); // irregular, not periodic
+    }
+
     function poke() {
-        pokeAnim.restart();
+        splatAnim.restart();
         wideAnim.restart();
         var m = root.memory || {};
         m.pokes = (m.pokes || 0) + 1;
         root.memory = m;
         root.persist(m);
-        if (m.pokes % 50 === 0)
-            puffAnim.restart(); // secret: every 50 pokes it burps
-        else if (Math.random() < 0.5)
-            shout();            // poking it is rude; it may comment
-    }
-
-    // Occasional goofy outburst — shouts the player's name, or a noise if there isn't one.
-    function shout() {
-        if (root.lodLevel >= 2)
-            return;
-        bubble.say = (root.voice && root.voice.length > 0)
-                     ? root.voice.toUpperCase() + "!"
-                     : root._shouts[Math.floor(Math.random() * root._shouts.length)];
-        bubbleAnim.restart();
+        if (m.pokes % 50 === 0) puffAnim.restart();  // burp secret
+        else if (Math.random() < 0.6) speak();        // poking is rude; it comments
     }
 
     // ---- Drawing ----------------------------------------------------------------------------
@@ -154,125 +141,105 @@ Specimen {
         width: Math.min(root.width, root.height)
         height: width
         anchors.centerIn: parent
-        transformOrigin: Item.Center
 
-        // Body: SDF-metaball union, domain-warped for organic wobble, on the GPU.
-        ShaderEffect {
-            id: body
+        // Everything that moves as one creature (body + eyes). Squashes onto its base.
+        Item {
+            id: visual
             anchors.fill: parent
+            transform: [
+                Scale {
+                    origin.x: visual.width / 2; origin.y: visual.height
+                    xScale: root.sx; yScale: root.sy
+                },
+                Translate { y: root.hopY + root.idleBob }
+            ]
 
-            property vector3d b0: g.lobes[0]
-            property vector3d b1: g.lobes[1]
-            property vector3d b2: g.lobes[2]
-            property vector3d b3: g.lobes[3]
-            property vector3d b4: g.lobes[4]
-            property real uT: root.tt
-            property real uAmp: g.wobbleAmp
-            property real uFreq: g.wobbleFreq
-            property color uBody: g.body
-            property color uAccent: g.accent
-            property real uEdge: 0.012
-            property real uIri: (root.rarity === "rare" || root.rarity === "mythic") ? 1.0 : 0.0
-            property real uGlow: (root.rarity === "mythic") ? 1.0 : 0.0
+            // Ground shadow (shrinks as it hops, for lift).
+            Rectangle {
+                width: body.width * (0.86 - root.hopY / field.height * 0.6)
+                height: width * 0.20
+                radius: height / 2
+                color: "#20233A"
+                opacity: 0.22
+                x: field.width / 2 - width / 2
+                y: body.y + body.height - height * 0.4
+            }
 
-            fragmentShader: "
-                uniform lowp float qt_Opacity;
-                varying highp vec2 qt_TexCoord0;
-                uniform highp vec3 b0; uniform highp vec3 b1; uniform highp vec3 b2;
-                uniform highp vec3 b3; uniform highp vec3 b4;
-                uniform highp float uT; uniform highp float uAmp; uniform highp float uFreq;
-                uniform lowp vec4 uBody; uniform lowp vec4 uAccent;
-                uniform highp float uEdge; uniform lowp float uIri; uniform lowp float uGlow;
-
-                highp float sdCircle(highp vec2 p, highp vec3 c) { return length(p - c.xy) - c.z; }
-                highp float smin(highp float a, highp float b, highp float k) {
-                    highp float h = clamp(0.5 + 0.5 * (b - a) / k, 0.0, 1.0);
-                    return mix(b, a, h) - k * h * (1.0 - h);
+            // Ovoid body (NOT a circle): width != height, fully rounded => egg/capsule.
+            Rectangle {
+                id: body
+                width: field.width * g.bodyW * g.bodyScale
+                height: field.width * g.bodyH * g.bodyScale
+                radius: Math.min(width, height) / 2
+                x: field.width / 2 - width / 2
+                y: field.height * (0.52 + (1 - g.bodyScale) * 0.2) - height / 2
+                gradient: Gradient {
+                    GradientStop { position: 0.0; color: Qt.lighter(g.body, 1.22) }
+                    GradientStop { position: 1.0; color: Qt.darker(g.body, 1.18) }
                 }
-                void main() {
-                    highp vec2 p = qt_TexCoord0 - vec2(0.5);
-                    // organic domain warp (seamless: t appears only inside sin(.. + t) / sin(.. - t))
-                    p += uAmp * vec2(sin(p.y * uFreq + uT) + 0.5 * sin(p.x * uFreq * 1.7 - uT),
-                                     sin(p.x * uFreq + uT) + 0.5 * sin(p.y * uFreq * 1.7 - uT));
-                    highp float k = 0.08;
-                    highp float d = sdCircle(p, b0);
-                    d = smin(d, sdCircle(p, b1), k);
-                    d = smin(d, sdCircle(p, b2), k);
-                    d = smin(d, sdCircle(p, b3), k);
-                    d = smin(d, sdCircle(p, b4), k);
 
-                    highp float a = 1.0 - smoothstep(-uEdge, uEdge, d);
-
-                    lowp vec3 col = uBody.rgb;
-                    highp float hi = clamp(1.0 - length(p - vec2(-0.14, -0.16)) * 1.3, 0.0, 1.0);
-                    col += hi * 0.10;                        // soft top-left highlight
-                    col -= clamp(p.y, 0.0, 0.5) * 0.10;       // gentle bottom shade (volume)
-                    if (uIri > 0.5) {                         // rare iridescence
-                        lowp vec3 iri = 0.5 + 0.5 * cos(6.2831 * (p.x + p.y + uT * 0.05)
-                                                        + vec3(0.0, 2.0, 4.0));
-                        col = mix(col, iri, 0.30);
-                    }
-                    lowp float glow = uGlow * (1.0 - smoothstep(uEdge, uEdge + 0.06, d)) * 0.5;
-                    col += uAccent.rgb * glow;                // mythic outer glow
-                    a = max(a, glow);
-
-                    gl_FragColor = vec4(col * a, a) * qt_Opacity;
-                }"
-        }
-
-        // Eyes: the soul. Shaped by the genome (not necessarily round): aspect, roundedness and
-        // tilt vary. They track the finger, blink, and widen on poke.
-        Repeater {
-            model: g.eyes
-            delegate: Item {
-                id: eye
-                property var e: modelData
-                property real base: field.width * e.s
-                property real ew: base * g.eyeAspect          // eye width
-                property real eh: base / g.eyeAspect           // eye height (tall/short = not round)
-                width: ew
-                height: eh
-                x: field.width * (0.5 + e.x) - ew / 2
-                y: field.height * (0.5 + e.y) - eh / 2
-                // slant: pair mirrors around the centre eye; a single/centre eye stays level
-                rotation: g.eyeTilt * (g.mirrorTilt ? (e.x < 0 ? -1 : (e.x > 0 ? 1 : 0)) : 1)
-                transformOrigin: Item.Center
-
-                Rectangle { // white — blink squashes height only
-                    width: eye.ew
-                    height: eye.eh * root.eyeOpen
-                    anchors.centerIn: parent
-                    radius: Math.min(width, height) * g.eyeCorner
+                // soft top-left sheen
+                Rectangle {
+                    width: parent.width * 0.34; height: parent.height * 0.24
+                    radius: Math.min(width, height) / 2
                     color: root.creamColor
+                    opacity: 0.12
+                    x: parent.width * 0.16; y: parent.height * 0.12
                 }
-                Rectangle { // pupil — shaped, gaze-tracking
-                    id: pupil
-                    property real pw: Math.min(eye.ew, eye.eh) * g.pupilRatio
-                    width: pw * g.pupilAspect
-                    height: pw / g.pupilAspect
-                    radius: Math.min(width, height) * g.pupilCorner
-                    color: root.pupilColor
-                    visible: root.eyeOpen > 0.35
-                    x: eye.ew * 0.5 - width / 2 + root.gazeX * eye.ew * 0.16
-                    y: eye.eh * 0.5 - height / 2 + root.gazeY * eye.eh * 0.16
-                    Rectangle { // catch-light
-                        width: parent.width * 0.30; height: parent.height * 0.30
-                        radius: Math.min(width, height) / 2
+            }
+
+            // Eyes — always visible, ovoid, gaze-tracking, blinking.
+            Repeater {
+                model: g.eyes
+                delegate: Item {
+                    id: eye
+                    property var e: modelData
+                    property real base: body.width * e.s
+                    property real ew: base * g.eyeAspect
+                    property real eh: base / g.eyeAspect
+                    width: ew
+                    height: eh
+                    x: body.x + body.width * (0.5 + e.x) - ew / 2
+                    y: body.y + body.height * (0.5 + e.y) - eh / 2
+                    rotation: g.eyeTilt * (g.mirrorTilt ? (e.x < 0 ? -1 : (e.x > 0 ? 1 : 0)) : 1)
+                    transformOrigin: Item.Center
+
+                    Rectangle { // white
+                        width: eye.ew
+                        height: eye.eh * root.eyeOpen
+                        anchors.centerIn: parent
+                        radius: Math.min(width, height) * g.eyeCorner
                         color: root.creamColor
-                        x: parent.width * 0.18; y: parent.height * 0.16
+                    }
+                    Rectangle { // pupil
+                        property real pw: Math.min(eye.ew, eye.eh) * g.pupilRatio
+                        width: pw * g.pupilAspect
+                        height: pw / g.pupilAspect
+                        radius: Math.min(width, height) * g.pupilCorner
+                        color: root.pupilColor
+                        visible: root.eyeOpen > 0.35
+                        x: eye.ew * 0.5 - width / 2 + root.gazeX * eye.ew * 0.18
+                        y: eye.eh * 0.5 - height / 2 + root.gazeY * eye.eh * 0.18
+                        Rectangle { // catch-light
+                            width: parent.width * 0.32; height: parent.height * 0.32
+                            radius: Math.min(width, height) / 2
+                            color: root.creamColor
+                            x: parent.width * 0.16; y: parent.height * 0.14
+                        }
                     }
                 }
             }
-        }
 
-        // Burp puff (the 50-poke secret).
-        Rectangle {
-            id: puff
-            anchors.centerIn: parent
-            width: field.width * 0.2; height: width; radius: width / 2
-            color: g.accent
-            opacity: 0
-            scale: 0.4
+            // Burp puff (50-poke secret).
+            Rectangle {
+                id: puff
+                anchors.horizontalCenter: body.horizontalCenter
+                y: body.y - field.height * 0.05
+                width: field.width * 0.18; height: width; radius: width / 2
+                color: g.accent
+                opacity: 0
+                scale: 0.4
+            }
         }
     }
 
@@ -292,44 +259,7 @@ Specimen {
         root.touchY = Math.max(-1, Math.min(1, (mouse.y - cy) / (field.height / 2)));
     }
 
-    // ---- Animations -------------------------------------------------------------------------
-    SequentialAnimation {
-        id: pokeAnim
-        NumberAnimation { target: field; property: "scale"; to: 0.86; duration: 90
-            easing.type: Easing.OutQuad }
-        NumberAnimation { target: field; property: "scale"; to: 1.0; duration: 480
-            easing.type: Easing.OutBack; easing.overshoot: 2.4 }
-    }
-    SequentialAnimation {
-        id: wideAnim
-        NumberAnimation { target: root; property: "eyeOpen"; to: 1.3; duration: 90 }
-        NumberAnimation { target: root; property: "eyeOpen"; to: 1.0; duration: 260
-            easing.type: Easing.OutBack }
-    }
-    SequentialAnimation {
-        id: blinkAnim
-        NumberAnimation { target: root; property: "eyeOpen"; to: 0.08; duration: 70
-            easing.type: Easing.InQuad }
-        NumberAnimation { target: root; property: "eyeOpen"; to: 1.0; duration: 110
-            easing.type: Easing.OutQuad }
-    }
-    SequentialAnimation {
-        id: puffAnim
-        ParallelAnimation {
-            NumberAnimation { target: puff; property: "opacity"; from: 0.7; to: 0; duration: 600 }
-            NumberAnimation { target: puff; property: "scale"; from: 0.4; to: 1.6; duration: 600
-                easing.type: Easing.OutQuad }
-        }
-    }
-
-    Timer {
-        interval: g.blinkMs
-        running: root.lodLevel < 2
-        repeat: true
-        onTriggered: blinkAnim.restart()
-    }
-
-    // Speech bubble (sits just over the blob's head so it doesn't overrun the layout).
+    // ---- Speech bubble ----------------------------------------------------------------------
     Rectangle {
         id: bubble
         property string say: ""
@@ -338,20 +268,19 @@ Specimen {
         width: bubbleLabel.implicitWidth + field.width * 0.14
         height: bubbleLabel.implicitHeight + field.width * 0.07
         x: field.x + field.width * 0.5 - width / 2
-        y: field.y - height * 0.5
+        y: field.y + field.height * 0.10 - height
         opacity: 0
         scale: 0.6
         transformOrigin: Item.Bottom
-
         Text {
             id: bubbleLabel
             anchors.centerIn: parent
             text: bubble.say
             color: root.pupilColor
-            font.pixelSize: Math.max(11, field.width * 0.11)
+            font.pixelSize: Math.max(12, field.width * 0.12)
             font.bold: true
         }
-        Rectangle { // little tail
+        Rectangle { // tail
             width: field.width * 0.06; height: width
             color: root.creamColor
             rotation: 45
@@ -359,23 +288,73 @@ Specimen {
             y: bubble.height - height / 2
         }
     }
+
+    // ---- Animations -------------------------------------------------------------------------
+    SequentialAnimation {  // hop: crouch, launch+stretch, fall, floppy splat, springy re-form
+        id: hopAnim
+        ParallelAnimation {
+            NumberAnimation { target: root; property: "sy"; to: 0.86; duration: 90 }
+            NumberAnimation { target: root; property: "sx"; to: 1.10; duration: 90 }
+        }
+        ParallelAnimation {
+            NumberAnimation { target: root; property: "hopY"; to: -field.height * 0.22
+                duration: 260; easing.type: Easing.OutQuad }
+            NumberAnimation { target: root; property: "sy"; to: 1.16; duration: 200 }
+            NumberAnimation { target: root; property: "sx"; to: 0.90; duration: 200 }
+        }
+        NumberAnimation { target: root; property: "hopY"; to: 0; duration: 230; easing.type: Easing.InQuad }
+        ParallelAnimation { // land flasque
+            NumberAnimation { target: root; property: "sy"; to: 0.70; duration: 70 }
+            NumberAnimation { target: root; property: "sx"; to: 1.24; duration: 70 }
+        }
+        ParallelAnimation { // re-form, jelly
+            NumberAnimation { target: root; property: "sy"; to: 1.0; duration: 750; easing.type: Easing.OutElastic }
+            NumberAnimation { target: root; property: "sx"; to: 1.0; duration: 750; easing.type: Easing.OutElastic }
+        }
+    }
+    SequentialAnimation { // poke reaction (squish)
+        id: splatAnim
+        ParallelAnimation {
+            NumberAnimation { target: root; property: "sy"; to: 0.78; duration: 80 }
+            NumberAnimation { target: root; property: "sx"; to: 1.18; duration: 80 }
+        }
+        ParallelAnimation {
+            NumberAnimation { target: root; property: "sy"; to: 1.0; duration: 620; easing.type: Easing.OutElastic }
+            NumberAnimation { target: root; property: "sx"; to: 1.0; duration: 620; easing.type: Easing.OutElastic }
+        }
+    }
+    SequentialAnimation {
+        id: wideAnim
+        NumberAnimation { target: root; property: "eyeOpen"; to: 1.3; duration: 90 }
+        NumberAnimation { target: root; property: "eyeOpen"; to: 1.0; duration: 260; easing.type: Easing.OutBack }
+    }
+    SequentialAnimation {
+        id: blinkAnim
+        NumberAnimation { target: root; property: "eyeOpen"; to: 0.08; duration: 70; easing.type: Easing.InQuad }
+        NumberAnimation { target: root; property: "eyeOpen"; to: 1.0; duration: 110; easing.type: Easing.OutQuad }
+    }
     SequentialAnimation {
         id: bubbleAnim
         ParallelAnimation {
-            NumberAnimation { target: bubble; property: "opacity"; to: 1.0; duration: 160 }
-            NumberAnimation { target: bubble; property: "scale"; to: 1.0; duration: 240
-                easing.type: Easing.OutBack; easing.overshoot: 3.0 }
+            NumberAnimation { target: bubble; property: "opacity"; to: 1.0; duration: 150 }
+            NumberAnimation { target: bubble; property: "scale"; to: 1.0; duration: 240; easing.type: Easing.OutBack; easing.overshoot: 3.0 }
         }
-        PauseAnimation { duration: 1500 }
+        PauseAnimation { duration: 1400 }
         ParallelAnimation {
             NumberAnimation { target: bubble; property: "opacity"; to: 0.0; duration: 260 }
             NumberAnimation { target: bubble; property: "scale"; to: 0.6; duration: 260 }
         }
     }
-    Timer { // random-ish outbursts
-        interval: 6000 + Math.abs(root.seed % 9000)
-        running: root.lodLevel < 2
-        repeat: true
-        onTriggered: shout()
+    SequentialAnimation {
+        id: puffAnim
+        ParallelAnimation {
+            NumberAnimation { target: puff; property: "opacity"; from: 0.7; to: 0; duration: 600 }
+            NumberAnimation { target: puff; property: "scale"; from: 0.4; to: 1.6; duration: 600; easing.type: Easing.OutQuad }
+        }
     }
+
+    // ---- Irregular timers -------------------------------------------------------------------
+    Timer { interval: g.blinkMs; running: root.lodLevel < 2; repeat: true; onTriggered: blinkAnim.restart() }
+    Timer { id: hopTimer; interval: g.hopMinMs; running: root.lodLevel < 2; repeat: true; onTriggered: root.hop() }
+    Timer { id: speakTimer; interval: 3000 + Math.abs(root.seed % 6000); running: root.lodLevel < 2; repeat: true; onTriggered: root.speak() }
 }
