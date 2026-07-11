@@ -45,7 +45,7 @@ zc_src = [
  "A Suspicious Rock", "A Resilient Fern", "A Passive-Aggressive Sign", "A Moody Lamp",
  "A Modest Pond", "An Unnecessary Archway", "A Statue of Nobody", "A Single Sad Balloon",
  "An Off-Duty Gnome", "A Creaky Swing", "A Totem of Mild Power", "A Fountain, Allegedly",
- "Night (default)", "Meadow", "Desert", "Far West", "Neon City", "Quiet Snow",
+ "Night (default)", "Meadow", "Desert", "Far West", "Neon City", "Quiet Snow", "Tokyo Street",
  "Hatchling", "Menagerie", "Consistent-ish", "Regular", "Creature of Habit", "Quest Cleared",
  "Interior Decorator", "Impossible Colour", "Small Hours", "Regular Attender", "Devotee",
  "Fortnight", "Full House", "Quest Master", "Landscaper", "Ritualist", "Focused", "Well-Tended",
@@ -59,6 +59,14 @@ zc_src = [
  "A collection of ordinary days, quietly kept.",
  "Turns out this is what looking after yourself looks like.",
  "A whole zoo, built from Tuesdays. You did that. On purpose, even.",
+ # Ceremonies
+ "A fond farewell",
+ "One of your blobs has set off for new adventures. It will be fine. Probably.",
+ "Well kept",
+ "%1 habit check-ins. The blobs are quietly proud, and a little competitive.",
+ "Happy birthday",
+ "The whole zoo made you something. It's a blob. It's always a blob.",
+ "The zoo is closed for celebrations. The blobs are wearing tiny hats.",
 ]
 
 # Flat translation dict: source -> [fr, de, it, es, fi]

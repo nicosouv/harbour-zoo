@@ -2,10 +2,67 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="fi">
 <context>
+    <name>PredatorOverlay</name>
+    <message>
+        <source>NOM</source>
+        <translation>NOM</translation>
+    </message>
+    <message>
+        <source>The Quest Beast ate %1. Overdue quests have consequences. Mild ones.</source>
+        <translation>Tehtäväpeto söi %1. Myöhästyneillä tehtävillä on seurauksia. Lieviä.</translation>
+    </message>
+    <message>
+        <source>a blob</source>
+        <translation>blobin</translation>
+    </message>
+    <message>
+        <source>%1 blobs</source>
+        <translation>%1 blobia</translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
-        <source>Zoo</source>
-        <translation>Zoo</translation>
+        <source>focusing</source>
+        <translation>keskittyy</translation>
+    </message>
+    <message>
+        <source>No habits yet</source>
+        <translation>Ei vielä tapoja</translation>
+    </message>
+    <message>
+        <source> today</source>
+        <translation> tänään</translation>
+    </message>
+    <message>
+        <source>done today</source>
+        <translation>tehty tänään</translation>
+    </message>
+    <message>
+        <source>to do</source>
+        <translation>tehtävänä</translation>
+    </message>
+</context>
+<context>
+    <name>harbour-zoo</name>
+    <message>
+        <source>focusing</source>
+        <translation>keskittyy</translation>
+    </message>
+    <message>
+        <source>Focus done</source>
+        <translation>Keskittyminen valmis</translation>
+    </message>
+    <message>
+        <source>Time's up. Well done, allegedly.</source>
+        <translation>Aika loppui. Hyvin tehty, kuulemma.</translation>
+    </message>
+</context>
+<context>
+    <name>CeremonyPage</name>
+    <message>
+        <source>Continue</source>
+        <translation>Jatka</translation>
     </message>
 </context>
 <context>
@@ -17,6 +74,10 @@
     <message>
         <source>Level %1 · %2 useful things done</source>
         <translation>Taso %1 · %2 hyödyllistä tehtynä</translation>
+    </message>
+    <message>
+        <source>Every resident is a day you looked after yourself. The habits are the point; the zoo just makes it visible.</source>
+        <translation>Jokainen asukas on päivä, jona pidit itsestäsi huolta. Tavat ovat pointti; eläintarha vain tekee sen näkyväksi.</translation>
     </message>
     <message>
         <source>Last 7 days</source>
@@ -39,8 +100,91 @@
         <translation>tänään pidetyt tavat</translation>
     </message>
     <message>
+        <source>useful things this week</source>
+        <translation>hyödyllistä tällä viikolla</translation>
+    </message>
+    <message>
+        <source>this month</source>
+        <translation>tässä kuussa</translation>
+    </message>
+    <message>
         <source>Badges</source>
         <translation>Merkit</translation>
+    </message>
+</context>
+<context>
+    <name>OnboardingPage</name>
+    <message>
+        <source>Mix</source>
+        <translation>Sekoitus</translation>
+    </message>
+    <message>
+        <source>Drink water</source>
+        <translation>Juo vettä</translation>
+    </message>
+    <message>
+        <source>Read</source>
+        <translation>Lue</translation>
+    </message>
+    <message>
+        <source>Move a bit</source>
+        <translation>Liiku vähän</translation>
+    </message>
+    <message>
+        <source>Breathe</source>
+        <translation>Hengitä</translation>
+    </message>
+    <message>
+        <source>Welcome</source>
+        <translation>Tervetuloa</translation>
+    </message>
+    <message>
+        <source>A zoo of odd little creatures, fed by the useful things you do. Two minutes to set up, then it's yours.</source>
+        <translation>Eläintarha kummallisia pikkuolentoja, jota ruokkivat hyödylliset tekosi. Kaksi minuuttia asetuksiin, sitten se on sinun.</translation>
+    </message>
+    <message>
+        <source>Your name</source>
+        <translation>Nimesi</translation>
+    </message>
+    <message>
+        <source>Optional. So the creatures can shout it.</source>
+        <translation>Valinnainen. Jotta oliot voivat huutaa sen.</translation>
+    </message>
+    <message>
+        <source>Blob style</source>
+        <translation>Blobin tyyli</translation>
+    </message>
+    <message>
+        <source>Pick one style, or Mix for a bit of everything.</source>
+        <translation>Valitse tyyli tai Sekoitus vähän kaikkea.</translation>
+    </message>
+    <message>
+        <source>Habits</source>
+        <translation>Tavat</translation>
+    </message>
+    <message>
+        <source>Tap a few to add them. Or your own below. You can change these anytime.</source>
+        <translation>Napauta muutamaa lisätäksesi ne. Tai omat alla. Voit muuttaa milloin vain.</translation>
+    </message>
+    <message>
+        <source>Custom habit</source>
+        <translation>Oma tapa</translation>
+    </message>
+    <message>
+        <source>%1 habit(s) lined up</source>
+        <translation>%1 tapaa valmiina</translation>
+    </message>
+    <message>
+        <source>A quest (optional)</source>
+        <translation>Tehtävä (valinnainen)</translation>
+    </message>
+    <message>
+        <source>Something one-off</source>
+        <translation>Jokin kertaluontoinen</translation>
+    </message>
+    <message>
+        <source>Into the zoo</source>
+        <translation>Eläintarhaan</translation>
     </message>
 </context>
 <context>
@@ -62,6 +206,14 @@
         <translation>Valinnainen. Ne pärjäävät silti.</translation>
     </message>
     <message>
+        <source>Birthday: %1</source>
+        <translation>Syntymäpäivä: %1</translation>
+    </message>
+    <message>
+        <source>Set birthday (optional)</source>
+        <translation>Aseta syntymäpäivä (valinnainen)</translation>
+    </message>
+    <message>
         <source>Language</source>
         <translation>Kieli</translation>
     </message>
@@ -72,6 +224,58 @@
     <message>
         <source>Takes effect next time you open Zoo.</source>
         <translation>Tulee voimaan, kun avaat Zoon seuraavan kerran.</translation>
+    </message>
+    <message>
+        <source>Blobs</source>
+        <translation>Blobit</translation>
+    </message>
+    <message>
+        <source>Blob style</source>
+        <translation>Blobin tyyli</translation>
+    </message>
+    <message>
+        <source>Mix of all styles</source>
+        <translation>Kaikkien tyylien sekoitus</translation>
+    </message>
+    <message>
+        <source>Blob size</source>
+        <translation>Blobin koko</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>Pieni</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Keskikoko</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>Suuri</translation>
+    </message>
+    <message>
+        <source>Enormous</source>
+        <translation>Valtava</translation>
+    </message>
+    <message>
+        <source>Testing</source>
+        <translation>Testaus</translation>
+    </message>
+    <message>
+        <source>Give me 1000 🍞 (testing)</source>
+        <translation>Anna 1000 🍞 (testi)</translation>
+    </message>
+    <message>
+        <source>Erase all data</source>
+        <translation>Poista kaikki tiedot</translation>
+    </message>
+    <message>
+        <source>Erasing everything</source>
+        <translation>Poistetaan kaikki</translation>
+    </message>
+    <message>
+        <source>For trying things out. No judgement. Well, a little.</source>
+        <translation>Kokeiluihin. Ei tuomiota. No, vähän.</translation>
     </message>
     <message>
         <source>Reminders</source>
@@ -243,6 +447,22 @@
         <translation>Lisää sellainen, jonka oikeasti teet.</translation>
     </message>
     <message>
+        <source>avoid</source>
+        <translation>vältä</translation>
+    </message>
+    <message>
+        <source>slipped %1 today</source>
+        <translation>lipsuit %1 kertaa tänään</translation>
+    </message>
+    <message>
+        <source>clean today, nice</source>
+        <translation>puhdas tänään, hienoa</translation>
+    </message>
+    <message>
+        <source>%1 / %2 today</source>
+        <translation>%1 / %2 tänään</translation>
+    </message>
+    <message>
         <source>✓ today</source>
         <translation>✓ tänään</translation>
     </message>
@@ -261,6 +481,18 @@
     <message>
         <source>New habit (+5 🍞)</source>
         <translation>Uusi tapa (+5 🍞)</translation>
+    </message>
+    <message>
+        <source>New habit</source>
+        <translation>Uusi tapa</translation>
+    </message>
+    <message>
+        <source>times/day</source>
+        <translation>kertaa/pv</translation>
+    </message>
+    <message>
+        <source>avoid this one</source>
+        <translation>vältä tätä</translation>
     </message>
     <message>
         <source>Quests</source>
@@ -283,12 +515,16 @@
         <translation>Roskiin</translation>
     </message>
     <message>
-        <source>New quest · %1</source>
-        <translation>Uusi tehtävä · %1</translation>
+        <source>New quest</source>
+        <translation>Uusi tehtävä</translation>
     </message>
     <message>
         <source>New quest (+20 🍞)</source>
         <translation>Uusi tehtävä (+20 🍞)</translation>
+    </message>
+    <message>
+        <source>no deadline</source>
+        <translation>ei määräaikaa</translation>
     </message>
 </context>
 <context>
@@ -318,20 +554,8 @@
         <translation>%1 · taso %2</translation>
     </message>
     <message>
-        <source>A zoo. Empty, judgemental. Do useful things under 'Today' → earn crumbs → hatch odd little creatures here.</source>
-        <translation>Eläintarha. Tyhjä, tuomitseva. Tee hyödyllisiä juttuja kohdassa ”Tänään” → ansaitse muruja → kuori tänne kummia pikkuolentoja.</translation>
-    </message>
-    <message>
-        <source>Name? (optional)</source>
-        <translation>Nimi? (valinnainen)</translation>
-    </message>
-    <message>
-        <source>So they can shout it</source>
-        <translation>Jotta ne huutavat sen</translation>
-    </message>
-    <message>
-        <source>Go</source>
-        <translation>Menoksi</translation>
+        <source>Today's tasks</source>
+        <translation>Päivän tehtävät</translation>
     </message>
     <message>
         <source>Empty. Do a habit, earn crumbs, hatch something. It helps.</source>
@@ -589,6 +813,10 @@
         <translation>Hiljainen lumi</translation>
     </message>
     <message>
+        <source>Tokyo Street</source>
+        <translation>Tokion katu</translation>
+    </message>
+    <message>
         <source>Hatchling</source>
         <translation>Kuoriutunut</translation>
     </message>
@@ -751,6 +979,34 @@
     <message>
         <source>A whole zoo, built from Tuesdays. You did that. On purpose, even.</source>
         <translation>Kokonainen eläintarha, rakennettu tiistaista. Sinä teit sen. Vielä tarkoituksella.</translation>
+    </message>
+    <message>
+        <source>A fond farewell</source>
+        <translation>Lämmin jäähyväiset</translation>
+    </message>
+    <message>
+        <source>One of your blobs has set off for new adventures. It will be fine. Probably.</source>
+        <translation>Yksi blobeistasi lähti uusiin seikkailuihin. Kaikki hyvin. Luultavasti.</translation>
+    </message>
+    <message>
+        <source>Well kept</source>
+        <translation>Hyvin pidetty</translation>
+    </message>
+    <message>
+        <source>%1 habit check-ins. The blobs are quietly proud, and a little competitive.</source>
+        <translation>%1 tapakirjausta. Blobit ovat hiljaa ylpeitä, ja hieman kilpailuhenkisiä.</translation>
+    </message>
+    <message>
+        <source>Happy birthday</source>
+        <translation>Hyvää syntymäpäivää</translation>
+    </message>
+    <message>
+        <source>The whole zoo made you something. It's a blob. It's always a blob.</source>
+        <translation>Koko eläintarha teki sinulle jotain. Se on blob. Se on aina blob.</translation>
+    </message>
+    <message>
+        <source>The zoo is closed for celebrations. The blobs are wearing tiny hats.</source>
+        <translation>Eläintarha on suljettu juhlien vuoksi. Blobeilla on pienet hatut.</translation>
     </message>
 </context>
 </TS>

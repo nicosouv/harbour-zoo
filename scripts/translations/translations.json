@@ -1216,5 +1216,453 @@
 "Uno zoo intero, costruito coi martedì. L'hai fatto tu. E pure apposta.",
 "Todo un zoo, hecho de martes. Lo hiciste tú. Y a propósito, además.",
 "Kokonainen eläintarha, rakennettu tiistaista. Sinä teit sen. Vielä tarkoituksella."
+],
+"NOM": [
+"NOM",
+"NOM",
+"NOM",
+"NOM",
+"NOM"
+],
+"The Quest Beast ate %1. Overdue quests have consequences. Mild ones.": [
+"La Bête des Quêtes a mangé %1. Les quêtes en retard ont des conséquences. Modérées.",
+"Die Quest-Bestie hat %1 gefressen. Überfällige Aufträge haben Folgen. Milde.",
+"La Bestia delle Missioni ha mangiato %1. Le missioni scadute hanno conseguenze. Lievi.",
+"La Bestia de las Misiones se comió %1. Las misiones vencidas tienen consecuencias. Leves.",
+"Tehtäväpeto söi %1. Myöhästyneillä tehtävillä on seurauksia. Lieviä."
+],
+"a blob": [
+"un blob",
+"einen Blob",
+"un blob",
+"un blob",
+"blobin"
+],
+"%1 blobs": [
+"%1 blobs",
+"%1 Blobs",
+"%1 blob",
+"%1 blobs",
+"%1 blobia"
+],
+"focusing": [
+"concentration",
+"Fokus",
+"concentrazione",
+"concentración",
+"keskittyy"
+],
+"No habits yet": [
+"Pas encore d'habitudes",
+"Noch keine Gewohnheiten",
+"Ancora nessuna abitudine",
+"Aún no hay hábitos",
+"Ei vielä tapoja"
+],
+" today": [
+" aujourd'hui",
+" heute",
+" oggi",
+" hoy",
+" tänään"
+],
+"done today": [
+"fait aujourd'hui",
+"heute erledigt",
+"fatto oggi",
+"hecho hoy",
+"tehty tänään"
+],
+"to do": [
+"à faire",
+"zu tun",
+"da fare",
+"por hacer",
+"tehtävänä"
+],
+"Focus done": [
+"Concentration terminée",
+"Fokus beendet",
+"Concentrazione finita",
+"Concentración terminada",
+"Keskittyminen valmis"
+],
+"Time's up. Well done, allegedly.": [
+"C'est l'heure. Bien joué, paraît-il.",
+"Zeit ist um. Gut gemacht, angeblich.",
+"Tempo scaduto. Ben fatto, a quanto pare.",
+"Se acabó el tiempo. Bien hecho, supuestamente.",
+"Aika loppui. Hyvin tehty, kuulemma."
+],
+"Continue": [
+"Continuer",
+"Weiter",
+"Continua",
+"Continuar",
+"Jatka"
+],
+"Every resident is a day you looked after yourself. The habits are the point; the zoo just makes it visible.": [
+"Chaque résident est un jour où tu as pris soin de toi. Les habitudes sont le but ; le zoo ne fait que le rendre visible.",
+"Jeder Bewohner ist ein Tag, an dem du dich um dich gekümmert hast. Die Gewohnheiten sind der Punkt; der Zoo macht es nur sichtbar.",
+"Ogni residente è un giorno in cui ti sei preso cura di te. Le abitudini sono il punto; lo zoo lo rende solo visibile.",
+"Cada residente es un día que te cuidaste. Los hábitos son lo importante; el zoo solo lo hace visible.",
+"Jokainen asukas on päivä, jona pidit itsestäsi huolta. Tavat ovat pointti; eläintarha vain tekee sen näkyväksi."
+],
+"useful things this week": [
+"trucs utiles cette semaine",
+"nützliche Dinge diese Woche",
+"cose utili questa settimana",
+"cosas útiles esta semana",
+"hyödyllistä tällä viikolla"
+],
+"this month": [
+"ce mois-ci",
+"diesen Monat",
+"questo mese",
+"este mes",
+"tässä kuussa"
+],
+"Mix": [
+"Mix",
+"Mix",
+"Mix",
+"Mezcla",
+"Sekoitus"
+],
+"Drink water": [
+"Boire de l'eau",
+"Wasser trinken",
+"Bere acqua",
+"Beber agua",
+"Juo vettä"
+],
+"Read": [
+"Lire",
+"Lesen",
+"Leggere",
+"Leer",
+"Lue"
+],
+"Move a bit": [
+"Bouger un peu",
+"Etwas bewegen",
+"Muoversi un po'",
+"Moverse un poco",
+"Liiku vähän"
+],
+"Breathe": [
+"Respirer",
+"Atmen",
+"Respirare",
+"Respirar",
+"Hengitä"
+],
+"Welcome": [
+"Bienvenue",
+"Willkommen",
+"Benvenuto",
+"Bienvenido",
+"Tervetuloa"
+],
+"A zoo of odd little creatures, fed by the useful things you do. Two minutes to set up, then it's yours.": [
+"Un zoo de drôles de petites créatures, nourri par les trucs utiles que tu fais. Deux minutes pour le régler, puis il est à toi.",
+"Ein Zoo schrulliger kleiner Kreaturen, gefüttert von den nützlichen Dingen, die du tust. Zwei Minuten Einrichtung, dann gehört er dir.",
+"Uno zoo di strane creaturine, nutrito dalle cose utili che fai. Due minuti per configurarlo, poi è tuo.",
+"Un zoo de criaturitas raras, alimentado por las cosas útiles que haces. Dos minutos para configurarlo y es tuyo.",
+"Eläintarha kummallisia pikkuolentoja, jota ruokkivat hyödylliset tekosi. Kaksi minuuttia asetuksiin, sitten se on sinun."
+],
+"Your name": [
+"Ton prénom",
+"Dein Name",
+"Il tuo nome",
+"Tu nombre",
+"Nimesi"
+],
+"Optional. So the creatures can shout it.": [
+"Facultatif. Pour que les créatures le crient.",
+"Optional. Damit die Kreaturen ihn rufen.",
+"Facoltativo. Così le creature possono urlarlo.",
+"Opcional. Para que las criaturas lo griten.",
+"Valinnainen. Jotta oliot voivat huutaa sen."
+],
+"Blob style": [
+"Style de blob",
+"Blob-Stil",
+"Stile del blob",
+"Estilo de blob",
+"Blobin tyyli"
+],
+"Pick one style, or Mix for a bit of everything.": [
+"Choisis un style, ou Mix pour un peu de tout.",
+"Wähle einen Stil, oder Mix für etwas von allem.",
+"Scegli uno stile, o Mix per un po' di tutto.",
+"Elige un estilo, o Mezcla para un poco de todo.",
+"Valitse tyyli tai Sekoitus vähän kaikkea."
+],
+"Tap a few to add them. Or your own below. You can change these anytime.": [
+"Touches-en quelques-unes pour les ajouter. Ou les tiennes ci-dessous. Modifiable à tout moment.",
+"Tipp ein paar an, um sie hinzuzufügen. Oder eigene unten. Jederzeit änderbar.",
+"Toccane alcune per aggiungerle. O le tue qui sotto. Modificabili in ogni momento.",
+"Toca algunas para añadirlas. O las tuyas abajo. Puedes cambiarlas cuando quieras.",
+"Napauta muutamaa lisätäksesi ne. Tai omat alla. Voit muuttaa milloin vain."
+],
+"Custom habit": [
+"Habitude perso",
+"Eigene Gewohnheit",
+"Abitudine personalizzata",
+"Hábito propio",
+"Oma tapa"
+],
+"%1 habit(s) lined up": [
+"%1 habitude(s) en place",
+"%1 Gewohnheit(en) bereit",
+"%1 abitudine/i pronte",
+"%1 hábito(s) listos",
+"%1 tapaa valmiina"
+],
+"A quest (optional)": [
+"Une quête (facultatif)",
+"Ein Auftrag (optional)",
+"Una missione (facoltativa)",
+"Una misión (opcional)",
+"Tehtävä (valinnainen)"
+],
+"Something one-off": [
+"Un truc ponctuel",
+"Etwas Einmaliges",
+"Qualcosa una tantum",
+"Algo puntual",
+"Jokin kertaluontoinen"
+],
+"Into the zoo": [
+"Dans le zoo",
+"Ab in den Zoo",
+"Nello zoo",
+"Al zoo",
+"Eläintarhaan"
+],
+"Birthday: %1": [
+"Anniversaire : %1",
+"Geburtstag: %1",
+"Compleanno: %1",
+"Cumpleaños: %1",
+"Syntymäpäivä: %1"
+],
+"Set birthday (optional)": [
+"Définir l'anniversaire (facultatif)",
+"Geburtstag festlegen (optional)",
+"Imposta compleanno (facoltativo)",
+"Fijar cumpleaños (opcional)",
+"Aseta syntymäpäivä (valinnainen)"
+],
+"Blobs": [
+"Blobs",
+"Blobs",
+"Blob",
+"Blobs",
+"Blobit"
+],
+"Mix of all styles": [
+"Mélange de tous les styles",
+"Mix aus allen Stilen",
+"Mix di tutti gli stili",
+"Mezcla de todos los estilos",
+"Kaikkien tyylien sekoitus"
+],
+"Blob size": [
+"Taille des blobs",
+"Blob-Größe",
+"Dimensione dei blob",
+"Tamaño de blob",
+"Blobin koko"
+],
+"Small": [
+"Petit",
+"Klein",
+"Piccolo",
+"Pequeño",
+"Pieni"
+],
+"Medium": [
+"Moyen",
+"Mittel",
+"Medio",
+"Mediano",
+"Keskikoko"
+],
+"Large": [
+"Grand",
+"Groß",
+"Grande",
+"Grande",
+"Suuri"
+],
+"Enormous": [
+"Énorme",
+"Riesig",
+"Enorme",
+"Enorme",
+"Valtava"
+],
+"Testing": [
+"Test",
+"Test",
+"Test",
+"Pruebas",
+"Testaus"
+],
+"Give me 1000 🍞 (testing)": [
+"Donne-moi 1000 🍞 (test)",
+"Gib mir 1000 🍞 (Test)",
+"Dammi 1000 🍞 (test)",
+"Dame 1000 🍞 (prueba)",
+"Anna 1000 🍞 (testi)"
+],
+"Erase all data": [
+"Effacer toutes les données",
+"Alle Daten löschen",
+"Cancella tutti i dati",
+"Borrar todos los datos",
+"Poista kaikki tiedot"
+],
+"Erasing everything": [
+"Suppression de tout",
+"Alles wird gelöscht",
+"Cancellazione di tutto",
+"Borrando todo",
+"Poistetaan kaikki"
+],
+"For trying things out. No judgement. Well, a little.": [
+"Pour faire des essais. Aucun jugement. Bon, un peu.",
+"Zum Ausprobieren. Kein Urteil. Na ja, ein bisschen.",
+"Per fare prove. Nessun giudizio. Beh, un po'.",
+"Para hacer pruebas. Sin juicios. Bueno, un poco.",
+"Kokeiluihin. Ei tuomiota. No, vähän."
+],
+"avoid": [
+"à éviter",
+"meiden",
+"evita",
+"evitar",
+"vältä"
+],
+"slipped %1 today": [
+"craqué %1 fois aujourd'hui",
+"%1-mal heute geschwächelt",
+"ceduto %1 volte oggi",
+"caíste %1 veces hoy",
+"lipsuit %1 kertaa tänään"
+],
+"clean today, nice": [
+"clean aujourd'hui, bravo",
+"heute sauber, schön",
+"pulito oggi, bene",
+"limpio hoy, bien",
+"puhdas tänään, hienoa"
+],
+"%1 / %2 today": [
+"%1 / %2 aujourd'hui",
+"%1 / %2 heute",
+"%1 / %2 oggi",
+"%1 / %2 hoy",
+"%1 / %2 tänään"
+],
+"New habit": [
+"Nouvelle habitude",
+"Neue Gewohnheit",
+"Nuova abitudine",
+"Nuevo hábito",
+"Uusi tapa"
+],
+"times/day": [
+"fois/jour",
+"mal/Tag",
+"volte/giorno",
+"veces/día",
+"kertaa/pv"
+],
+"avoid this one": [
+"celle-ci à éviter",
+"diese meiden",
+"evita questa",
+"evita este",
+"vältä tätä"
+],
+"New quest": [
+"Nouvelle quête",
+"Neuer Auftrag",
+"Nuova missione",
+"Nueva misión",
+"Uusi tehtävä"
+],
+"no deadline": [
+"pas de date",
+"keine Frist",
+"nessuna scadenza",
+"sin fecha",
+"ei määräaikaa"
+],
+"Today's tasks": [
+"Tâches du jour",
+"Heutige Aufgaben",
+"Attività di oggi",
+"Tareas de hoy",
+"Päivän tehtävät"
+],
+"Tokyo Street": [
+"Rue de Tokyo",
+"Tokio-Straße",
+"Strada di Tokyo",
+"Calle de Tokio",
+"Tokion katu"
+],
+"A fond farewell": [
+"Un tendre adieu",
+"Ein herzlicher Abschied",
+"Un caro addio",
+"Una cariñosa despedida",
+"Lämmin jäähyväiset"
+],
+"One of your blobs has set off for new adventures. It will be fine. Probably.": [
+"Un de tes blobs est parti vers de nouvelles aventures. Ça ira. Sans doute.",
+"Einer deiner Blobs ist zu neuen Abenteuern aufgebrochen. Es wird ihm gut gehen. Wahrscheinlich.",
+"Uno dei tuoi blob è partito per nuove avventure. Andrà tutto bene. Probabilmente.",
+"Uno de tus blobs se ha ido a nuevas aventuras. Estará bien. Probablemente.",
+"Yksi blobeistasi lähti uusiin seikkailuihin. Kaikki hyvin. Luultavasti."
+],
+"Well kept": [
+"Bien tenu",
+"Gut gepflegt",
+"Ben tenuto",
+"Bien mantenido",
+"Hyvin pidetty"
+],
+"%1 habit check-ins. The blobs are quietly proud, and a little competitive.": [
+"%1 validations d'habitudes. Les blobs sont discrètement fiers, et un peu compétitifs.",
+"%1 Gewohnheits-Häkchen. Die Blobs sind still stolz und ein bisschen ehrgeizig.",
+"%1 spunte di abitudini. I blob sono silenziosamente orgogliosi, e un po' competitivi.",
+"%1 registros de hábitos. Los blobs están calladamente orgullosos, y algo competitivos.",
+"%1 tapakirjausta. Blobit ovat hiljaa ylpeitä, ja hieman kilpailuhenkisiä."
+],
+"Happy birthday": [
+"Joyeux anniversaire",
+"Alles Gute zum Geburtstag",
+"Buon compleanno",
+"Feliz cumpleaños",
+"Hyvää syntymäpäivää"
+],
+"The whole zoo made you something. It's a blob. It's always a blob.": [
+"Tout le zoo t'a fait un cadeau. C'est un blob. C'est toujours un blob.",
+"Der ganze Zoo hat dir etwas gemacht. Es ist ein Blob. Es ist immer ein Blob.",
+"Tutto lo zoo ti ha fatto una cosa. È un blob. È sempre un blob.",
+"Todo el zoo te hizo algo. Es un blob. Siempre es un blob.",
+"Koko eläintarha teki sinulle jotain. Se on blob. Se on aina blob."
+],
+"The zoo is closed for celebrations. The blobs are wearing tiny hats.": [
+"Le zoo est fermé pour cause de fête. Les blobs portent de petits chapeaux.",
+"Der Zoo ist wegen Feierlichkeiten geschlossen. Die Blobs tragen winzige Hüte.",
+"Lo zoo è chiuso per festeggiamenti. I blob indossano cappellini.",
+"El zoo está cerrado por celebraciones. Los blobs llevan sombreritos.",
+"Eläintarha on suljettu juhlien vuoksi. Blobeilla on pienet hatut."
 ]
 }

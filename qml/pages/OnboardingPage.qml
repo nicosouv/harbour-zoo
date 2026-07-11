@@ -87,6 +87,8 @@ Page {
                                 color: Theme.secondaryColor
                             }
                         }
+                        // On top of the preview blob (whose own MouseArea would otherwise eat the tap).
+                        MouseArea { anchors.fill: parent; onClicked: page.selectedStyle = modelData.id }
                     }
                 }
             }

@@ -204,16 +204,23 @@ Page {
                 Row {
                     spacing: Theme.paddingMedium
                     Button {
-                        text: page.habitKind === "good" ? qsTr("Good") : qsTr("Bad (avoid)")
-                        color: page.habitKind === "good" ? Theme.primaryColor : Theme.secondaryHighlightColor
+                        text: page.habitKind === "good" ? "🙂" : "⚠️"
                         onClicked: page.habitKind = page.habitKind === "good" ? "bad" : "good"
                     }
                     Button {
                         visible: page.habitKind === "good"
-                        text: qsTr("×%1/day").arg(page.habitTarget)
+                        text: "×" + page.habitTarget
                         onClicked: page.habitTarget = page.habitTarget >= 8 ? 1 : page.habitTarget + 1
                     }
-                    Button { text: qsTr("Add"); onClicked: addHabit() }
+                    Label {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: page.habitKind === "good" ? qsTr("times/day") : qsTr("avoid this one")
+                        color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
+                    }
+                    IconButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        icon.source: "image://theme/icon-m-add"; onClicked: addHabit()
+                    }
                 }
             }
 
@@ -261,11 +268,19 @@ Page {
                 }
                 Row {
                     spacing: Theme.paddingMedium
-                    Button {
-                        text: page.pendingDue.length > 0 ? qsTr("Due %1").arg(page.pendingDue) : qsTr("Set date")
-                        onClicked: pickDue()
+                    IconButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        icon.source: "image://theme/icon-m-date"; onClicked: pickDue()
                     }
-                    Button { text: qsTr("Add"); onClicked: addQuest() }
+                    Label {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: page.pendingDue.length > 0 ? page.pendingDue : qsTr("no deadline")
+                        color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
+                    }
+                    IconButton {
+                        anchors.verticalCenter: parent.verticalCenter
+                        icon.source: "image://theme/icon-m-add"; onClicked: addQuest()
+                    }
                 }
             }
         }

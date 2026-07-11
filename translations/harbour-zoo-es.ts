@@ -2,10 +2,67 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="es">
 <context>
+    <name>PredatorOverlay</name>
+    <message>
+        <source>NOM</source>
+        <translation>NOM</translation>
+    </message>
+    <message>
+        <source>The Quest Beast ate %1. Overdue quests have consequences. Mild ones.</source>
+        <translation>La Bestia de las Misiones se comió %1. Las misiones vencidas tienen consecuencias. Leves.</translation>
+    </message>
+    <message>
+        <source>a blob</source>
+        <translation>un blob</translation>
+    </message>
+    <message>
+        <source>%1 blobs</source>
+        <translation>%1 blobs</translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
-        <source>Zoo</source>
-        <translation>Zoo</translation>
+        <source>focusing</source>
+        <translation>concentración</translation>
+    </message>
+    <message>
+        <source>No habits yet</source>
+        <translation>Aún no hay hábitos</translation>
+    </message>
+    <message>
+        <source> today</source>
+        <translation> hoy</translation>
+    </message>
+    <message>
+        <source>done today</source>
+        <translation>hecho hoy</translation>
+    </message>
+    <message>
+        <source>to do</source>
+        <translation>por hacer</translation>
+    </message>
+</context>
+<context>
+    <name>harbour-zoo</name>
+    <message>
+        <source>focusing</source>
+        <translation>concentración</translation>
+    </message>
+    <message>
+        <source>Focus done</source>
+        <translation>Concentración terminada</translation>
+    </message>
+    <message>
+        <source>Time's up. Well done, allegedly.</source>
+        <translation>Se acabó el tiempo. Bien hecho, supuestamente.</translation>
+    </message>
+</context>
+<context>
+    <name>CeremonyPage</name>
+    <message>
+        <source>Continue</source>
+        <translation>Continuar</translation>
     </message>
 </context>
 <context>
@@ -17,6 +74,10 @@
     <message>
         <source>Level %1 · %2 useful things done</source>
         <translation>Nivel %1 · %2 cosas útiles hechas</translation>
+    </message>
+    <message>
+        <source>Every resident is a day you looked after yourself. The habits are the point; the zoo just makes it visible.</source>
+        <translation>Cada residente es un día que te cuidaste. Los hábitos son lo importante; el zoo solo lo hace visible.</translation>
     </message>
     <message>
         <source>Last 7 days</source>
@@ -39,8 +100,91 @@
         <translation>hábitos cumplidos hoy</translation>
     </message>
     <message>
+        <source>useful things this week</source>
+        <translation>cosas útiles esta semana</translation>
+    </message>
+    <message>
+        <source>this month</source>
+        <translation>este mes</translation>
+    </message>
+    <message>
         <source>Badges</source>
         <translation>Insignias</translation>
+    </message>
+</context>
+<context>
+    <name>OnboardingPage</name>
+    <message>
+        <source>Mix</source>
+        <translation>Mezcla</translation>
+    </message>
+    <message>
+        <source>Drink water</source>
+        <translation>Beber agua</translation>
+    </message>
+    <message>
+        <source>Read</source>
+        <translation>Leer</translation>
+    </message>
+    <message>
+        <source>Move a bit</source>
+        <translation>Moverse un poco</translation>
+    </message>
+    <message>
+        <source>Breathe</source>
+        <translation>Respirar</translation>
+    </message>
+    <message>
+        <source>Welcome</source>
+        <translation>Bienvenido</translation>
+    </message>
+    <message>
+        <source>A zoo of odd little creatures, fed by the useful things you do. Two minutes to set up, then it's yours.</source>
+        <translation>Un zoo de criaturitas raras, alimentado por las cosas útiles que haces. Dos minutos para configurarlo y es tuyo.</translation>
+    </message>
+    <message>
+        <source>Your name</source>
+        <translation>Tu nombre</translation>
+    </message>
+    <message>
+        <source>Optional. So the creatures can shout it.</source>
+        <translation>Opcional. Para que las criaturas lo griten.</translation>
+    </message>
+    <message>
+        <source>Blob style</source>
+        <translation>Estilo de blob</translation>
+    </message>
+    <message>
+        <source>Pick one style, or Mix for a bit of everything.</source>
+        <translation>Elige un estilo, o Mezcla para un poco de todo.</translation>
+    </message>
+    <message>
+        <source>Habits</source>
+        <translation>Hábitos</translation>
+    </message>
+    <message>
+        <source>Tap a few to add them. Or your own below. You can change these anytime.</source>
+        <translation>Toca algunas para añadirlas. O las tuyas abajo. Puedes cambiarlas cuando quieras.</translation>
+    </message>
+    <message>
+        <source>Custom habit</source>
+        <translation>Hábito propio</translation>
+    </message>
+    <message>
+        <source>%1 habit(s) lined up</source>
+        <translation>%1 hábito(s) listos</translation>
+    </message>
+    <message>
+        <source>A quest (optional)</source>
+        <translation>Una misión (opcional)</translation>
+    </message>
+    <message>
+        <source>Something one-off</source>
+        <translation>Algo puntual</translation>
+    </message>
+    <message>
+        <source>Into the zoo</source>
+        <translation>Al zoo</translation>
     </message>
 </context>
 <context>
@@ -62,6 +206,14 @@
         <translation>Opcional. Se las arreglarán igual.</translation>
     </message>
     <message>
+        <source>Birthday: %1</source>
+        <translation>Cumpleaños: %1</translation>
+    </message>
+    <message>
+        <source>Set birthday (optional)</source>
+        <translation>Fijar cumpleaños (opcional)</translation>
+    </message>
+    <message>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
@@ -72,6 +224,58 @@
     <message>
         <source>Takes effect next time you open Zoo.</source>
         <translation>Se aplica la próxima vez que abras Zoo.</translation>
+    </message>
+    <message>
+        <source>Blobs</source>
+        <translation>Blobs</translation>
+    </message>
+    <message>
+        <source>Blob style</source>
+        <translation>Estilo de blob</translation>
+    </message>
+    <message>
+        <source>Mix of all styles</source>
+        <translation>Mezcla de todos los estilos</translation>
+    </message>
+    <message>
+        <source>Blob size</source>
+        <translation>Tamaño de blob</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>Pequeño</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Mediano</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation>Grande</translation>
+    </message>
+    <message>
+        <source>Enormous</source>
+        <translation>Enorme</translation>
+    </message>
+    <message>
+        <source>Testing</source>
+        <translation>Pruebas</translation>
+    </message>
+    <message>
+        <source>Give me 1000 🍞 (testing)</source>
+        <translation>Dame 1000 🍞 (prueba)</translation>
+    </message>
+    <message>
+        <source>Erase all data</source>
+        <translation>Borrar todos los datos</translation>
+    </message>
+    <message>
+        <source>Erasing everything</source>
+        <translation>Borrando todo</translation>
+    </message>
+    <message>
+        <source>For trying things out. No judgement. Well, a little.</source>
+        <translation>Para hacer pruebas. Sin juicios. Bueno, un poco.</translation>
     </message>
     <message>
         <source>Reminders</source>
@@ -243,6 +447,22 @@
         <translation>Añade uno que vayas a hacer de verdad.</translation>
     </message>
     <message>
+        <source>avoid</source>
+        <translation>evitar</translation>
+    </message>
+    <message>
+        <source>slipped %1 today</source>
+        <translation>caíste %1 veces hoy</translation>
+    </message>
+    <message>
+        <source>clean today, nice</source>
+        <translation>limpio hoy, bien</translation>
+    </message>
+    <message>
+        <source>%1 / %2 today</source>
+        <translation>%1 / %2 hoy</translation>
+    </message>
+    <message>
         <source>✓ today</source>
         <translation>✓ hoy</translation>
     </message>
@@ -261,6 +481,18 @@
     <message>
         <source>New habit (+5 🍞)</source>
         <translation>Nuevo hábito (+5 🍞)</translation>
+    </message>
+    <message>
+        <source>New habit</source>
+        <translation>Nuevo hábito</translation>
+    </message>
+    <message>
+        <source>times/day</source>
+        <translation>veces/día</translation>
+    </message>
+    <message>
+        <source>avoid this one</source>
+        <translation>evita este</translation>
     </message>
     <message>
         <source>Quests</source>
@@ -283,12 +515,16 @@
         <translation>A la basura</translation>
     </message>
     <message>
-        <source>New quest · %1</source>
-        <translation>Nueva misión · %1</translation>
+        <source>New quest</source>
+        <translation>Nueva misión</translation>
     </message>
     <message>
         <source>New quest (+20 🍞)</source>
         <translation>Nueva misión (+20 🍞)</translation>
+    </message>
+    <message>
+        <source>no deadline</source>
+        <translation>sin fecha</translation>
     </message>
 </context>
 <context>
@@ -318,20 +554,8 @@
         <translation>%1 · nivel %2</translation>
     </message>
     <message>
-        <source>A zoo. Empty, judgemental. Do useful things under 'Today' → earn crumbs → hatch odd little creatures here.</source>
-        <translation>Un zoo. Vacío, juzgón. Haz cosas útiles en «Hoy» → gana migas → incuba aquí criaturas raras.</translation>
-    </message>
-    <message>
-        <source>Name? (optional)</source>
-        <translation>¿Nombre? (opcional)</translation>
-    </message>
-    <message>
-        <source>So they can shout it</source>
-        <translation>Para que lo griten</translation>
-    </message>
-    <message>
-        <source>Go</source>
-        <translation>Vamos</translation>
+        <source>Today's tasks</source>
+        <translation>Tareas de hoy</translation>
     </message>
     <message>
         <source>Empty. Do a habit, earn crumbs, hatch something. It helps.</source>
@@ -589,6 +813,10 @@
         <translation>Nieve tranquila</translation>
     </message>
     <message>
+        <source>Tokyo Street</source>
+        <translation>Calle de Tokio</translation>
+    </message>
+    <message>
         <source>Hatchling</source>
         <translation>Recién nacido</translation>
     </message>
@@ -751,6 +979,34 @@
     <message>
         <source>A whole zoo, built from Tuesdays. You did that. On purpose, even.</source>
         <translation>Todo un zoo, hecho de martes. Lo hiciste tú. Y a propósito, además.</translation>
+    </message>
+    <message>
+        <source>A fond farewell</source>
+        <translation>Una cariñosa despedida</translation>
+    </message>
+    <message>
+        <source>One of your blobs has set off for new adventures. It will be fine. Probably.</source>
+        <translation>Uno de tus blobs se ha ido a nuevas aventuras. Estará bien. Probablemente.</translation>
+    </message>
+    <message>
+        <source>Well kept</source>
+        <translation>Bien mantenido</translation>
+    </message>
+    <message>
+        <source>%1 habit check-ins. The blobs are quietly proud, and a little competitive.</source>
+        <translation>%1 registros de hábitos. Los blobs están calladamente orgullosos, y algo competitivos.</translation>
+    </message>
+    <message>
+        <source>Happy birthday</source>
+        <translation>Feliz cumpleaños</translation>
+    </message>
+    <message>
+        <source>The whole zoo made you something. It's a blob. It's always a blob.</source>
+        <translation>Todo el zoo te hizo algo. Es un blob. Siempre es un blob.</translation>
+    </message>
+    <message>
+        <source>The zoo is closed for celebrations. The blobs are wearing tiny hats.</source>
+        <translation>El zoo está cerrado por celebraciones. Los blobs llevan sombreritos.</translation>
     </message>
 </context>
 </TS>
