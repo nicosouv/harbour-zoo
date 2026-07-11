@@ -16,32 +16,37 @@ Item {
             id: c
             property real ang: 0
             property real dist: 100
-            width: 6 + Math.random() * 6
-            height: 5 + Math.random() * 6
+            property int dur: 1300
+            width: 8 + Math.random() * 12
+            height: 7 + Math.random() * 12
             radius: 1
             antialiasing: false
             rotation: Math.random() * 360
             ParallelAnimation {
                 running: true
                 NumberAnimation { target: c; property: "x"; to: c.x + Math.cos(c.ang) * c.dist
-                    duration: 950; easing.type: Easing.OutQuad }
-                NumberAnimation { target: c; property: "y"; to: c.y + Math.sin(c.ang) * c.dist + 160
-                    duration: 950; easing.type: Easing.InQuad }
-                NumberAnimation { target: c; property: "opacity"; from: 1; to: 0; duration: 950 }
-                RotationAnimation { target: c; to: c.rotation + 360 + Math.random() * 360; duration: 950 }
+                    duration: c.dur; easing.type: Easing.OutQuad }
+                NumberAnimation { target: c; property: "y"; to: c.y + Math.sin(c.ang) * c.dist + 320
+                    duration: c.dur; easing.type: Easing.InQuad }
+                NumberAnimation { target: c; property: "opacity"; from: 1; to: 0
+                    duration: c.dur; easing.type: Easing.InQuad }
+                RotationAnimation { target: c; to: c.rotation + 540 + Math.random() * 540; duration: c.dur }
                 onStopped: c.destroy()
             }
         }
     }
 
+    // A big, generous burst: lots of pieces, wide spread, a good long flight.
     function fireAt(px, py) {
-        for (var i = 0; i < 22; i++) {
-            // Mostly upward spread, like a popped party popper.
-            var ang = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.3;
+        for (var i = 0; i < 70; i++) {
+            // Full upward fan, like a properly overfilled party popper.
+            var ang = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.7;
             piece.createObject(root, {
                 x: px, y: py,
                 color: root.colors[Math.floor(Math.random() * root.colors.length)],
-                ang: ang, dist: 70 + Math.random() * 140
+                ang: ang,
+                dist: 120 + Math.random() * 320,
+                dur: 1100 + Math.random() * 800
             });
         }
     }

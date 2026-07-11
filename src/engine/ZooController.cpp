@@ -34,14 +34,32 @@ static const int kChallengeCount = int(sizeof(kChallenges) / sizeof(kChallenges[
 // The shop of zoo objects. Deliberately useless and fond. Some are also granted at milestones.
 struct Deco { const char* id; const char* name; int cost; };
 static const Deco kShop[] = {
-    { "rock",   "A Suspicious Rock",           15 },
-    { "fern",   "A Resilient Fern",            30 },
-    { "sign",   "A Passive-Aggressive Sign",   45 },
-    { "lamp",   "A Moody Lamp",                60 },
-    { "pond",   "A Modest Pond",               90 },
-    { "arch",   "An Unnecessary Archway",     140 }
+    { "rock",    "A Suspicious Rock",           15 },
+    { "fern",    "A Resilient Fern",            30 },
+    { "sign",    "A Passive-Aggressive Sign",   45 },
+    { "lamp",    "A Moody Lamp",                60 },
+    { "pond",    "A Modest Pond",               90 },
+    { "arch",    "An Unnecessary Archway",     140 },
+    { "statue",  "A Statue of Nobody",         120 },
+    { "balloon", "A Single Sad Balloon",        35 },
+    { "gnome",   "An Off-Duty Gnome",           70 },
+    { "swing",   "A Creaky Swing",             100 },
+    { "totem",   "A Totem of Mild Power",      180 },
+    { "fountain","A Fountain, Allegedly",      220 }
 };
 static const int kShopCount = int(sizeof(kShop) / sizeof(kShop[0]));
+
+// Buyable pixel-art biomes (backgrounds). "night" is free and owned from the start.
+struct Biome { const char* id; const char* name; int cost; };
+static const Biome kThemes[] = {
+    { "night",     "Night (default)", 0 },
+    { "grass",     "Meadow",          40 },
+    { "desert",    "Desert",          60 },
+    { "farwest",   "Far West",        90 },
+    { "cyberpunk", "Neon City",      140 },
+    { "snow",      "Quiet Snow",      80 }
+};
+static const int kThemeCount = int(sizeof(kThemes) / sizeof(kThemes[0]));
 
 // Goofy "fact of the day" pool (dry, British, entirely unverified).
 static const char* const kFacts[] = {
@@ -88,7 +106,16 @@ static const Badge kBadges[] = {
     { "questgiver", "Quest Cleared",      "Finish five quests.",      "🗺️" },
     { "collector",  "Interior Decorator", "Own three objects.",       "🪴" },
     { "mythic",     "Impossible Colour",  "Hatch a mythic blob.",     "✨" },
-    { "night_owl",  "Small Hours",        "A challenge before 5am.",  "🦉" }
+    { "night_owl",  "Small Hours",        "A challenge before 5am.",  "🦉" },
+    { "regular",    "Regular Attender",   "25 useful things done.",   "📈" },
+    { "devotee",    "Devotee",            "100 useful things done.",  "🏆" },
+    { "fortnight",  "Fortnight",          "A 14-day streak.",         "📆" },
+    { "full_house", "Full House",         "Ten residents.",           "🏠" },
+    { "quest_master","Quest Master",      "Finish ten quests.",       "⚔️" },
+    { "landscaper", "Landscaper",         "Own three biomes.",        "🗺️" },
+    { "ritualist",  "Ritualist",          "Thirty habit check-ins.",  "🔁" },
+    { "focused",    "Focused",            "Five focus sessions.",     "⏳" },
+    { "tended",     "Well-Tended",        "A 7-day streak with 20 habits. You are being looked after.", "🫶" }
 };
 static const int kBadgeCount = int(sizeof(kBadges) / sizeof(kBadges[0]));
 
@@ -147,6 +174,11 @@ bool ZooController::onboarded() const
 { return m_settings.value(QStringLiteral("onboarded"), false).toBool(); }
 void ZooController::setOnboarded(bool on)
 { if (on == onboarded()) return; m_settings.setValue(QStringLiteral("onboarded"), on); emit onboardedChanged(); }
+
+QString ZooController::language() const
+{ return m_settings.value(QStringLiteral("language")).toString(); }
+void ZooController::setLanguage(const QString& code)
+{ if (code == language()) return; m_settings.setValue(QStringLiteral("language"), code); emit languageChanged(); }
 
 // ---- Economy --------------------------------------------------------------------------------
 int ZooController::crumbs() const
@@ -248,9 +280,12 @@ QVariantList ZooController::badges() const
 {
     const int blobs = readArrayConst(m_settings, QStringLiteral("blobs")).size();
     const int deco  = readArrayConst(m_settings, QStringLiteral("decorations")).size();
+    const int dd    = deeds();
     const int st    = streak();
     const int hab   = m_settings.value(QStringLiteral("habitLogTotal"), 0).toInt();
     const int quests= m_settings.value(QStringLiteral("questCompletedTotal"), 0).toInt();
+    const int focus = m_settings.value(QStringLiteral("focusTotal"), 0).toInt();
+    const int biomes= readArrayConst(m_settings, QStringLiteral("themes")).size() + 1; // + night
     const bool myth = m_settings.value(QStringLiteral("mythicSeen"), false).toBool();
     const bool owl  = m_settings.value(QStringLiteral("nightOwl"), false).toBool();
 
@@ -267,6 +302,15 @@ QVariantList ZooController::badges() const
         else if (id == QLatin1String("collector")) earned = deco >= 3;
         else if (id == QLatin1String("mythic")) earned = myth;
         else if (id == QLatin1String("night_owl")) earned = owl;
+        else if (id == QLatin1String("regular")) earned = dd >= 25;
+        else if (id == QLatin1String("devotee")) earned = dd >= 100;
+        else if (id == QLatin1String("fortnight")) earned = st >= 14;
+        else if (id == QLatin1String("full_house")) earned = blobs >= 10;
+        else if (id == QLatin1String("quest_master")) earned = quests >= 10;
+        else if (id == QLatin1String("landscaper")) earned = biomes >= 3;
+        else if (id == QLatin1String("ritualist")) earned = hab >= 30;
+        else if (id == QLatin1String("focused")) earned = focus >= 5;
+        else if (id == QLatin1String("tended")) earned = st >= 7 && hab >= 20;
 
         QVariantMap m;
         m.insert(QStringLiteral("id"), id);
@@ -289,6 +333,79 @@ QVariantList ZooController::activity7() const
         out.append(m_settings.value(QStringLiteral("deedday/") + day, 0).toInt());
     }
     return out;
+}
+
+// A quiet line that deepens with the zoo. The "point" of collecting blobs reveals itself slowly:
+// the zoo is a record of the days you looked after yourself. We never say it loudly.
+QString ZooController::reflection() const
+{
+    const int n = readArrayConst(m_settings, QStringLiteral("blobs")).size();
+    if (n <= 0) return QString();
+    if (n < 3)  return QStringLiteral("Every creature here is a day you showed up.");
+    if (n < 6)  return QStringLiteral("The zoo fills as you do the small things. Funny, that.");
+    if (n < 10) return QStringLiteral("A collection of ordinary days, quietly kept.");
+    if (n < 20) return QStringLiteral("Turns out this is what looking after yourself looks like.");
+    return QStringLiteral("A whole zoo, built from Tuesdays. You did that. On purpose, even.");
+}
+
+// ---- Biomes ---------------------------------------------------------------------------------
+QString ZooController::selectedTheme() const
+{ return m_settings.value(QStringLiteral("selectedTheme"), QStringLiteral("night")).toString(); }
+
+QVariantList ZooController::themes() const
+{
+    const QJsonArray owned = readArrayConst(m_settings, QStringLiteral("themes"));
+    const QString sel = selectedTheme();
+    QVariantList out;
+    for (int i = 0; i < kThemeCount; ++i) {
+        const QString id = QString::fromUtf8(kThemes[i].id);
+        const bool isOwned = (id == QLatin1String("night")) || owned.contains(QJsonValue(id));
+        QVariantMap m;
+        m.insert(QStringLiteral("id"), id);
+        m.insert(QStringLiteral("name"), QString::fromUtf8(kThemes[i].name));
+        m.insert(QStringLiteral("cost"), kThemes[i].cost);
+        m.insert(QStringLiteral("owned"), isOwned);
+        m.insert(QStringLiteral("selected"), id == sel);
+        out.append(m);
+    }
+    return out;
+}
+
+void ZooController::buyTheme(const QString& id)
+{
+    QJsonArray owned = readArray(m_settings, QStringLiteral("themes"));
+    if (id == QLatin1String("night") || owned.contains(QJsonValue(id))) return;
+    int cost = -1;
+    for (int i = 0; i < kThemeCount; ++i)
+        if (id == QLatin1String(kThemes[i].id)) { cost = kThemes[i].cost; break; }
+    if (cost < 0 || !spend(cost, QStringLiteral("biome"))) return;
+    owned.append(id);
+    writeArray(m_settings, QStringLiteral("themes"), owned);
+    m_settings.setValue(QStringLiteral("selectedTheme"), id);   // wear it immediately
+    appendNow(QStringLiteral("biome_bought"), QStringLiteral("{\"biome_id\":\"%1\"}").arg(id));
+    emit stateChanged();
+}
+
+void ZooController::selectTheme(const QString& id)
+{
+    const QJsonArray owned = readArrayConst(m_settings, QStringLiteral("themes"));
+    if (id != QLatin1String("night") && !owned.contains(QJsonValue(id))) return;
+    if (id == selectedTheme()) return;
+    m_settings.setValue(QStringLiteral("selectedTheme"), id);
+    emit stateChanged();
+}
+
+// ---- Focus (pomodoro) -----------------------------------------------------------------------
+void ZooController::completeFocus(int minutes)
+{
+    if (minutes <= 0) return;
+    m_settings.setValue(QStringLiteral("focusTotal"),
+                        m_settings.value(QStringLiteral("focusTotal"), 0).toInt() + 1);
+    appendNow(QStringLiteral("focus_completed"), QStringLiteral("{\"minutes\":%1}").arg(minutes));
+    award(2 + minutes / 5, QStringLiteral("focus"));   // a couple of crumbs per five minutes
+    recordDeed();
+    checkMilestones();
+    emit stateChanged();
 }
 
 void ZooController::completeChallenge()
@@ -435,6 +552,7 @@ QVariantList ZooController::ownedBlobs() const
         m.insert(QStringLiteral("id"), o.value(QStringLiteral("id")).toString());
         m.insert(QStringLiteral("seed"), o.value(QStringLiteral("seed")).toInt());
         m.insert(QStringLiteral("rarity"), o.value(QStringLiteral("rarity")).toString());
+        m.insert(QStringLiteral("date"), o.value(QStringLiteral("date")).toString());
         out.append(m);
     }
     return out;
@@ -460,6 +578,7 @@ void ZooController::hatchBlob()
     o.insert(QStringLiteral("id"), id);
     o.insert(QStringLiteral("seed"), seed);
     o.insert(QStringLiteral("rarity"), rarity);
+    o.insert(QStringLiteral("date"), localDate());   // the day this creature moved in
     blobs.append(o);
     writeArray(m_settings, QStringLiteral("blobs"), blobs);
 

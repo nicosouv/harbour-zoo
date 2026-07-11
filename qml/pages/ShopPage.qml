@@ -31,6 +31,32 @@ Page {
                 description: qsTr("%1 crumbs to your name").arg(Zoo.crumbs)
             }
 
+            SectionHeader { text: qsTr("Biomes") }
+            Repeater {
+                model: Zoo.themes
+                delegate: ListItem {
+                    width: content.width; contentHeight: Theme.itemSizeMedium
+                    Column {
+                        anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin
+                                  right: themeBtn.left; rightMargin: Theme.paddingMedium; verticalCenter: parent.verticalCenter }
+                        Label { text: modelData.name; color: modelData.selected ? Theme.highlightColor : Theme.primaryColor }
+                        Label {
+                            text: modelData.owned ? (modelData.selected ? qsTr("in use") : qsTr("owned"))
+                                                  : qsTr("%1 crumbs").arg(modelData.cost)
+                            font.pixelSize: Theme.fontSizeExtraSmall; color: Theme.secondaryColor
+                        }
+                    }
+                    Button {
+                        id: themeBtn
+                        anchors { right: parent.right; rightMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                        text: modelData.owned ? (modelData.selected ? qsTr("Using") : qsTr("Use")) : qsTr("Buy")
+                        enabled: modelData.owned ? !modelData.selected : Zoo.crumbs >= modelData.cost
+                        onClicked: modelData.owned ? Zoo.selectTheme(modelData.id) : Zoo.buyTheme(modelData.id)
+                    }
+                }
+            }
+
+            SectionHeader { text: qsTr("Objects") }
             Repeater {
                 model: Zoo.shopItems
                 delegate: ListItem {
@@ -76,7 +102,7 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 wrapMode: Text.Wrap
-                text: qsTr("Some objects turn up for free when you hit a milestone — your first "
+                text: qsTr("Some objects turn up for free when you hit a milestone: your first "
                            + "hatch, a week of habits, that sort of thing. No need to thank us.")
                 color: Theme.secondaryColor
                 font.pixelSize: Theme.fontSizeExtraSmall

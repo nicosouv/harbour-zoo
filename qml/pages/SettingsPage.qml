@@ -31,12 +31,43 @@ Page {
                 onTextChanged: if (text !== Zoo.playerName) Zoo.playerName = text
             }
 
+            // --- Language --------------------------------------------------------------------
+            SectionHeader { text: qsTr("Language") }
+
+            ComboBox {
+                id: langCombo
+                property var codes: ["", "en", "fr", "de", "it", "es", "fi"]
+                label: qsTr("Language")
+                currentIndex: Math.max(0, codes.indexOf(Zoo.language))
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("System default") }
+                    MenuItem { text: "English" }
+                    MenuItem { text: "Français" }
+                    MenuItem { text: "Deutsch" }
+                    MenuItem { text: "Italiano" }
+                    MenuItem { text: "Español" }
+                    MenuItem { text: "Suomi" }
+                }
+                onCurrentIndexChanged: {
+                    var c = codes[currentIndex]
+                    if (c !== Zoo.language) Zoo.language = c
+                }
+            }
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                wrapMode: Text.Wrap
+                text: qsTr("Takes effect next time you open Zoo.")
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+            }
+
             // --- Reminders ---------------------------------------------------------------------
             SectionHeader { text: qsTr("Reminders") }
 
             TextSwitch {
                 text: qsTr("Gentle daily reminder")
-                description: qsTr("A soft nudge once a day. Off by default — the zoo waits for you, "
+                description: qsTr("A soft nudge once a day. Off by default. The zoo waits for you, "
                                   + "it never nags.")
                 checked: Zoo.reminderEnabled
                 onCheckedChanged: if (checked !== Zoo.reminderEnabled) Zoo.reminderEnabled = checked
@@ -68,7 +99,7 @@ Page {
                 wrapMode: Text.Wrap
                 text: qsTr("A small, strange, living zoo. Do one little thing a day, keep your "
                            + "habits, and grow a collection of odd creatures you actually want to "
-                           + "visit. Offline, private, and gentle — no shame, no timers built to "
+                           + "visit. Offline, private, and gentle. No shame, no timers built to "
                            + "stress you.")
                 color: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeSmall
@@ -80,7 +111,7 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 wrapMode: Text.Wrap
-                text: qsTr("© 2026 Nicolas Souveton — MIT licensed")
+                text: qsTr("© 2026 Nicolas Souveton, MIT licensed")
                 color: Theme.secondaryColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }

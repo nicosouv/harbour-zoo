@@ -23,6 +23,7 @@ class ZooController : public QObject
 
     Q_PROPERTY(QString playerName READ playerName WRITE setPlayerName NOTIFY playerNameChanged)
     Q_PROPERTY(bool onboarded READ onboarded WRITE setOnboarded NOTIFY onboardedChanged)
+    Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged) // "" = system
 
     Q_PROPERTY(int crumbs READ crumbs NOTIFY stateChanged)
     Q_PROPERTY(int hatchCost READ hatchCost CONSTANT)
@@ -41,6 +42,9 @@ class ZooController : public QObject
     Q_PROPERTY(QString statusPhrase READ statusPhrase NOTIFY stateChanged) // adapts to today's effort
     Q_PROPERTY(QVariantList badges READ badges NOTIFY stateChanged)      // { id, name, desc, emoji, earned }
     Q_PROPERTY(QVariantList activity7 READ activity7 NOTIFY stateChanged) // last 7 days of deed counts
+    Q_PROPERTY(QString reflection READ reflection NOTIFY stateChanged)   // quiet self-care line, deepens
+    Q_PROPERTY(QString selectedTheme READ selectedTheme NOTIFY stateChanged)
+    Q_PROPERTY(QVariantList themes READ themes NOTIFY stateChanged)      // { id, name, cost, owned, selected }
 
     Q_PROPERTY(QVariantList habits READ habits NOTIFY stateChanged)       // { id, name, doneToday }
     Q_PROPERTY(QVariantList quests READ quests NOTIFY stateChanged)       // { id, name, due, overdue }
@@ -62,6 +66,9 @@ public:
     bool onboarded() const;
     void setOnboarded(bool on);
 
+    QString language() const;
+    void setLanguage(const QString& code);
+
     int crumbs() const;
     int hatchCost() const { return 25; }
     bool canHatch() const { return crumbs() >= hatchCost(); }
@@ -77,6 +84,9 @@ public:
     QString statusPhrase() const;
     QVariantList badges() const;
     QVariantList activity7() const;
+    QString reflection() const;
+    QString selectedTheme() const;
+    QVariantList themes() const;
     QVariantList habits() const;
     QVariantList quests() const;
     QVariantList ownedBlobs() const;
@@ -97,15 +107,21 @@ public:
     Q_INVOKABLE void completeQuest(const QString& id);
     Q_INVOKABLE void removeQuest(const QString& id);
 
-    // The zoo: spend Crumbs to hatch a blob into the collection; buy decorations.
+    // The zoo: spend Crumbs to hatch a blob into the collection; buy decorations & biomes.
     Q_INVOKABLE void hatchBlob();
     Q_INVOKABLE void buyObject(const QString& id);
+    Q_INVOKABLE void buyTheme(const QString& id);
+    Q_INVOKABLE void selectTheme(const QString& id);
+
+    // A finished focus (pomodoro) session — rewards crumbs by the minute and records a deed.
+    Q_INVOKABLE void completeFocus(int minutes);
 
 signals:
     void stateChanged();
     void reminderEnabledChanged();
     void playerNameChanged();
     void onboardedChanged();
+    void languageChanged();
     void hatched(int seed, const QString& rarity);   // for a celebratory UI moment
 
 private:

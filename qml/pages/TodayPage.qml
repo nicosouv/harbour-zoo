@@ -13,6 +13,22 @@ Page {
         confetti.fireAt(p.x, p.y)
     }
 
+    // Pomodoro focus timer.
+    property int focusMin: 25
+    property int focusRemaining: 0
+    property bool focusRunning: false
+    function startFocus() { focusRemaining = focusMin * 60; focusRunning = true }
+    function stopFocus() { focusRunning = false; focusRemaining = 0 }
+    function focusTick() {
+        focusRemaining -= 1
+        if (focusRemaining <= 0) {
+            focusRunning = false
+            confetti.fireAt(page.width / 2, page.height * 0.4)
+            Zoo.completeFocus(focusMin)
+        }
+    }
+    function mmss(s) { var m = Math.floor(s / 60), r = s % 60; return m + ":" + (r < 10 ? "0" + r : r) }
+
     property string pendingDue: ""
 
     Component { id: dueDialog; DatePickerDialog { } }
@@ -68,6 +84,47 @@ Page {
                     visible: Zoo.todayChallengeStatus !== "issued"
                     text: Zoo.todayChallengeStatus === "completed" ? qsTr("Done. +15 🍞") : qsTr("Skipped. Bold.")
                     color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeSmall
+                }
+            }
+
+            // --- Focus (pomodoro) --------------------------------------------------------------
+            SectionHeader { text: qsTr("Focus") }
+            Column {
+                width: parent.width; spacing: Theme.paddingSmall
+
+                Row {
+                    x: Theme.horizontalPageMargin; spacing: Theme.paddingMedium
+                    visible: !page.focusRunning
+                    Repeater {
+                        model: [5, 15, 25]
+                        delegate: Button {
+                            text: modelData + "m"
+                            onClicked: page.focusMin = modelData
+                        }
+                    }
+                }
+                Button {
+                    x: Theme.horizontalPageMargin
+                    visible: !page.focusRunning
+                    text: qsTr("Start %1 min").arg(page.focusMin)
+                    onClicked: page.startFocus()
+                }
+
+                Column {
+                    x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                    spacing: Theme.paddingSmall
+                    visible: page.focusRunning
+                    Label { text: page.mmss(page.focusRemaining); color: Theme.highlightColor
+                            font.pixelSize: Theme.fontSizeHuge }
+                    ProgressBar {
+                        width: parent.width; minimumValue: 0
+                        maximumValue: page.focusMin * 60
+                        value: page.focusMin * 60 - page.focusRemaining
+                    }
+                    Label { width: parent.width; wrapMode: Text.Wrap
+                            text: qsTr("Focusing. The blobs are being very quiet for you.")
+                            color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeSmall }
+                    Button { text: qsTr("Give up (no shame)"); onClicked: page.stopFocus() }
                 }
             }
 
@@ -175,6 +232,8 @@ Page {
         VerticalScrollDecorator {}
     }
 
-    // Confetti overlay — sits above everything, ignores input, fired on a validation.
+    // Confetti overlay, fired on a validation.
     ConfettiBurst { id: confetti }
+
+    Timer { id: focusTimer; interval: 1000; repeat: true; running: page.focusRunning; onTriggered: page.focusTick() }
 }

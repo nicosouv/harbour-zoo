@@ -10,6 +10,7 @@ Page {
 
     property int seed: 1
     property string rarity: ""
+    property string date: ""
 
     readonly property var _rarities: ["common", "uncommon", "rare", "mythic"]
     readonly property string shownRarity: rarity.length > 0
@@ -57,6 +58,13 @@ Page {
                 color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeExtraSmall
                 font.letterSpacing: 2
+            }
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: page.date.length > 0
+                text: qsTr("moved in on %1, a day you showed up").arg(page.date)
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeTiny
             }
         }
     }
