@@ -152,6 +152,10 @@ public:
     Q_INVOKABLE void completeQuest(const QString& id);
     Q_INVOKABLE void removeQuest(const QString& id);
 
+    // Each overdue quest costs one resident (eaten by the Quest Beast), once. Returns the eaten
+    // blobs' seeds so the UI can play the predator animation. Call once at launch.
+    Q_INVOKABLE QVariantList processOverdueQuests();
+
     // The zoo: spend Crumbs to hatch a blob into the collection; buy decorations & biomes.
     Q_INVOKABLE void hatchBlob();
     Q_INVOKABLE void buyObject(const QString& id);

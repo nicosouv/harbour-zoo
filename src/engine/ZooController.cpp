@@ -557,6 +557,26 @@ void ZooController::removeQuest(const QString& id)
     emit stateChanged();
 }
 
+QVariantList ZooController::processOverdueQuests()
+{
+    QVariantList out;
+    const QString today = localDate();
+    for (int i = 0; i < m_state.quests.size(); ++i) {
+        const Quest q = m_state.quests[i];
+        if (q.due.isEmpty() || q.due >= today) continue;                          // not overdue
+        if (m_settings.value(QStringLiteral("predated/") + q.id, false).toBool()) continue; // already cost a blob
+        if (m_state.blobs.isEmpty()) break;                                       // nothing left to eat
+        m_settings.setValue(QStringLiteral("predated/") + q.id, true);
+        const Blob victim = m_state.blobs.first();
+        QJsonObject o; o.insert("id", victim.id);
+        emitEvent(QStringLiteral("egg_retired"), jpayload(o));                    // the beast eats it
+        QVariantMap m; m.insert("seed", victim.seed);
+        out.append(m);
+    }
+    if (!out.isEmpty()) emit stateChanged();
+    return out;
+}
+
 // ---- the zoo --------------------------------------------------------------------------------
 QVariantList ZooController::ownedBlobs() const
 {

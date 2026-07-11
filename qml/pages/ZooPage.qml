@@ -343,12 +343,16 @@ Page {
     Timer {
         id: startupTimer; interval: 1; repeat: false
         onTriggered: {
-            if (!Zoo.onboarded) pageStack.push(Qt.resolvedUrl("OnboardingPage.qml"))
-            else page.checkCeremonies()
+            if (!Zoo.onboarded) { pageStack.push(Qt.resolvedUrl("OnboardingPage.qml")); return }
+            page.checkCeremonies()
+            var victims = Zoo.processOverdueQuests()
+            if (victims.length > 0) predator.run(victims.length)
         }
     }
     function checkCeremonies() {
         var cs = Zoo.pendingCeremonies()
         if (cs.length > 0) pageStack.push(Qt.resolvedUrl("CeremonyPage.qml"), { ceremony: cs[0] })
     }
+
+    PredatorOverlay { id: predator }
 }

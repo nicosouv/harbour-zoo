@@ -24,6 +24,17 @@ Page {
                 Label { text: Zoo.keeperTitle; color: Theme.highlightColor; font.pixelSize: Theme.fontSizeExtraLarge }
                 Label { text: qsTr("Level %1 · %2 useful things done").arg(Zoo.keeperLevel).arg(Zoo.deeds)
                         color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall }
+                Item { width: 1; height: Theme.paddingSmall }
+                Label {
+                    width: parent.width; visible: Zoo.reflection.length > 0; wrapMode: Text.Wrap
+                    text: Zoo.reflection; color: Theme.secondaryHighlightColor
+                    font.pixelSize: Theme.fontSizeExtraSmall; font.italic: true
+                }
+                Label {
+                    width: parent.width; visible: Zoo.ownedBlobs.length > 0; wrapMode: Text.Wrap
+                    text: qsTr("Every resident is a day you looked after yourself. The habits are the point; the zoo just makes it visible.")
+                    color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny
+                }
             }
 
             // --- Last 7 days activity graph ---------------------------------------------------
