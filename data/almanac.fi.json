@@ -1,0 +1,39 @@
+{
+  "chapters": [
+    {
+      "id": "arrival",
+      "title": "Tyhjä eläintarha",
+      "body": "Se oli tyhjä, kun löysit sen, muutama paljas aitaus, tuuli ja avainnippu, jota kukaan ei ollut lunastanut. Otit sen. Täällä ei ole vielä mitään. Juuri nyt on paras hetki aloittaa."
+    },
+    {
+      "id": "first_light",
+      "title": "Ensimmäinen valo",
+      "body": "Kourallinen tavallisia päiviä, ja jo jokin liikahtaa ruohikossa. Et rakentanut olentoa; pidit pienen lupauksen, ja olento tuli pitämään sinulle seuraa. Palaa yhä uudelleen. Se vahtii porttia."
+    },
+    {
+      "id": "companions",
+      "title": "Seuraa",
+      "body": "Nyt on pieni joukko, jokainen on päivä, jona valitsit itsesi helpomman tyhjyyden sijaan. Ne eivät tiedä olevansa kalenteri. Ne luulevat olevansa perhe. Anna niiden olla."
+    },
+    {
+      "id": "the_seat",
+      "title": "Paikka, pidetty lämpimänä",
+      "body": "Seitsemänä päivänä tulit paikalle. Jokin päivä lipsahtaa joskus, niin käy aina, ja kun käy, portti pysyy auki ja paikkasi lämpimänä. Tämä eläintarha laskee saapumiset, ei koskaan poissaoloja. Paluu on ainoa sääntö."
+    },
+    {
+      "id": "first_goodbye",
+      "title": "Ensimmäiset jäähyväiset",
+      "body": "Yksi heistä otti pienen nyytin olalleen ja käveli portista ulos lopullisesti. Se ei lähtenyt siksi, että petit sen. Se lähti, koska oli vihdoin kasvanut tarpeeksi. Se pieni kipu? Se on todiste siitä, että sillä oli väliä. Se, mitä hoivaamme, kasvaa lopulta yli. Anna sen olla se onnellinen loppu, joka se on."
+    },
+    {
+      "id": "the_turn",
+      "title": "Mitä varten eläintarha oli",
+      "body": "Luulit keräväsi olentoja. Katso uudelleen. Jokainen aitaus on tiistai, jota et haaskannut, hiljaa pidetty lupaus itsellesi. Eläintarha ei ollut koskaan pointti. Se oli aina vain todiste."
+    },
+    {
+      "id": "the_promise",
+      "title": "Tiistaista rakennettu eläintarha",
+      "body": "Tässä on koko salaisuus, nyt kun olet sen ansainnut: mikään tästä ei koskaan koskenut blobeja. Se koski jotakuta, joka tuli aina uudelleen paikalle itsensä vuoksi, yksi pieni päivä kerrallaan, kunnes paikalle tulemisesta tuli se, kuka hän on. Se joku olet sinä. Eläintarha vain muistutti sinua siitä."
+    }
+  ]
+}

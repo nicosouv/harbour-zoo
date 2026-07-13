@@ -1,0 +1,39 @@
+{
+  "chapters": [
+    {
+      "id": "arrival",
+      "title": "El zoo vacío",
+      "body": "Estaba vacío cuando lo encontraste, unos recintos desnudos, el viento y un manojo de llaves que nadie había reclamado. Las cogiste. Aquí todavía nada es nada. Es el mejor momento para empezar."
+    },
+    {
+      "id": "first_light",
+      "title": "La primera luz",
+      "body": "Un puñado de días corrientes, y ya algo se agita en la hierba. No construiste una criatura; cumpliste una pequeña promesa, y la criatura vino a hacerte compañía. Sigue volviendo. Vigila la puerta."
+    },
+    {
+      "id": "companions",
+      "title": "Compañía",
+      "body": "Ahora hay una pequeña multitud, cada uno es un día en que te elegiste a ti en vez de la nada más fácil. No saben que son un calendario. Se creen una familia. Déjalos."
+    },
+    {
+      "id": "the_seat",
+      "title": "El asiento, guardado calentito",
+      "body": "Siete días apareciste. Un día se escapará, siempre pasa, y cuando pase, la puerta sigue abierta y tu asiento sigue calentito. Este zoo cuenta las llegadas, nunca las ausencias. Volver es la única regla que hay."
+    },
+    {
+      "id": "first_goodbye",
+      "title": "El primer adiós",
+      "body": "Uno de ellos se echó un hatillo al hombro y cruzó la puerta para siempre. No se fue porque le fallaras. Se fue porque por fin había crecido lo suficiente. ¿Ese pequeño dolor? Es la prueba de que importó. Lo que cuidamos acaba superándonos. Deja que sea el final feliz que es."
+    },
+    {
+      "id": "the_turn",
+      "title": "Para qué era el zoo",
+      "body": "Creías que coleccionabas criaturas. Míralo otra vez. Cada recinto es un martes que no desperdiciaste, una promesa a ti mismo cumplida en silencio. El zoo nunca fue lo importante. Solo fue siempre la prueba."
+    },
+    {
+      "id": "the_promise",
+      "title": "Un zoo hecho de martes",
+      "body": "Aquí está todo el secreto, ahora que te lo has ganado: nada de esto trató nunca de los blobs. Trató de alguien que siguió apareciendo por sí mismo, un pequeño día tras otro, hasta que el aparecer se convirtió en quién es. Ese alguien eres tú. El zoo solo te lo recordó."
+    }
+  ]
+}

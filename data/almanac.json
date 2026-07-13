@@ -1,0 +1,88 @@
+{
+  "chapters": [
+    {
+      "id": "arrival",
+      "arc": "founding",
+      "unlock": {
+        "anyOf": [
+          {
+            "blobs": 1
+          },
+          {
+            "deeds": 1
+          }
+        ]
+      },
+      "title": "The empty zoo",
+      "body": "It was empty when you found it, a few bare enclosures, the wind, and a ring of keys nobody had claimed. You picked them up. Nothing here is anything yet. That is the very best time to begin."
+    },
+    {
+      "id": "first_light",
+      "arc": "founding",
+      "unlock": {
+        "deeds": 5
+      },
+      "title": "The first light",
+      "body": "A handful of ordinary days, and already something stirs in the grass. You didn't build a creature; you kept a small promise, and the creature came to keep you company. Keep coming back. It watches the gate."
+    },
+    {
+      "id": "companions",
+      "arc": "founding",
+      "unlock": {
+        "blobs": 5
+      },
+      "title": "Company",
+      "body": "There's a little crowd now, each one a day you chose yourself over the easier nothing. They don't know they're a calendar. They think they're a family. Let them."
+    },
+    {
+      "id": "the_seat",
+      "arc": "founding",
+      "unlock": {
+        "streak": 7
+      },
+      "title": "The seat, kept warm",
+      "body": "Seven days you turned up. A day will slip one day, it always does, and when it does, the gate stays open and your seat stays warm. This zoo counts arrivals, never absences. Coming back is the only rule there is."
+    },
+    {
+      "id": "first_goodbye",
+      "arc": "founding",
+      "unlock": {
+        "retired": 1
+      },
+      "title": "The first goodbye",
+      "body": "One of them shouldered a little bundle and walked out the gate for good. It didn't leave because you failed it. It left because it had finally grown enough to. That small ache? That is proof it mattered. The things we tend outgrow us. Let it be the happy ending it is."
+    },
+    {
+      "id": "the_turn",
+      "arc": "founding",
+      "unlock": {
+        "anyOf": [
+          {
+            "deeds": 25
+          },
+          {
+            "keeperLevel": 3
+          }
+        ]
+      },
+      "title": "What the zoo was for",
+      "body": "You thought you were collecting creatures. Look again. Every enclosure is a Tuesday you didn't waste, a promise to yourself quietly kept. The zoo was never the point. It was only ever the proof."
+    },
+    {
+      "id": "the_promise",
+      "arc": "founding",
+      "unlock": {
+        "anyOf": [
+          {
+            "deeds": 100
+          },
+          {
+            "blobs": 20
+          }
+        ]
+      },
+      "title": "A zoo built from Tuesdays",
+      "body": "Here is the whole secret, now that you've earned it: none of this was ever about the blobs. It was about someone who kept showing up for themselves, one small day at a time, until the showing-up became who they are. That someone is you. The zoo only ever remembered it back to you."
+    }
+  ]
+}

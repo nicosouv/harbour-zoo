@@ -8,6 +8,8 @@
 #include <QObject>
 #include <QSettings>
 #include <QVariantList>
+#include <QVariantMap>
+#include <QMap>
 #include <QTimer>
 #include "EventStore.h"
 #include "ZooState.h"
@@ -223,7 +225,10 @@ private:
     bool spend(int amount, const QString& reason);    // false if unaffordable
     void grantDecoration(const QString& id);
     void checkMilestones();
-    bool almanacUnlocked(int index) const;            // has story chapter `index` been earned yet
+    void loadAlmanac();                               // read data/almanac.json (+ locale overlay)
+    QString dataFilePath(const QString& name) const;  // resolve a shipped data/ file, "" if absent
+    bool almanacCondPasses(const QVariantMap& cond) const;  // one unlock condition vs current state
+    QMap<QString, bool> almanacUnlockedMap() const;   // chapter id -> unlocked (honours "after")
     void finishFocus();                               // called by the tick when the timer hits 0
     QString localDate() const;
 
@@ -231,6 +236,7 @@ private:
     EventStore  m_store;
     QSettings   m_settings;                            // device preferences only (not game state)
     ZooState    m_state;                               // the projection: fold of the event log
+    QVariantList m_almanac;                            // authored story chapters (data/almanac*.json)
     quint64     m_seedCounter = 0;
     int         m_eventsSinceSnapshot = 0;
 

@@ -1117,62 +1117,6 @@
         <translation>Der Zoo ist wegen Feierlichkeiten geschlossen. Die Blobs tragen winzige Hüte.</translation>
     </message>
     <message>
-        <source>The empty zoo</source>
-        <translation>Der leere Zoo</translation>
-    </message>
-    <message>
-        <source>It was empty when you found it, a few bare enclosures, the wind, and a ring of keys nobody had claimed. You picked them up. Nothing here is anything yet. That is the very best time to begin.</source>
-        <translation>Er war leer, als du ihn fandest, ein paar kahle Gehege, der Wind und ein Schlüsselbund, den niemand beansprucht hatte. Du hast ihn genommen. Noch ist hier nichts irgendetwas. Das ist der allerbeste Moment, um anzufangen.</translation>
-    </message>
-    <message>
-        <source>The first light</source>
-        <translation>Das erste Licht</translation>
-    </message>
-    <message>
-        <source>A handful of ordinary days, and already something stirs in the grass. You didn't build a creature; you kept a small promise, and the creature came to keep you company. Keep coming back. It watches the gate.</source>
-        <translation>Eine Handvoll gewöhnlicher Tage, und schon regt sich etwas im Gras. Du hast keine Kreatur gebaut; du hast ein kleines Versprechen gehalten, und die Kreatur kam, um dir Gesellschaft zu leisten. Komm wieder. Sie behält das Tor im Blick.</translation>
-    </message>
-    <message>
-        <source>Company</source>
-        <translation>Gesellschaft</translation>
-    </message>
-    <message>
-        <source>There's a little crowd now, each one a day you chose yourself over the easier nothing. They don't know they're a calendar. They think they're a family. Let them.</source>
-        <translation>Jetzt ist es eine kleine Schar, jeder ein Tag, an dem du dich für dich entschieden hast statt für das einfachere Nichts. Sie wissen nicht, dass sie ein Kalender sind. Sie halten sich für eine Familie. Lass sie.</translation>
-    </message>
-    <message>
-        <source>The seat, kept warm</source>
-        <translation>Der Platz, warm gehalten</translation>
-    </message>
-    <message>
-        <source>Seven days you turned up. A day will slip one day, it always does, and when it does, the gate stays open and your seat stays warm. This zoo counts arrivals, never absences. Coming back is the only rule there is.</source>
-        <translation>Sieben Tage bist du aufgetaucht. Ein Tag wird irgendwann rutschen, das passiert immer, und wenn, bleibt das Tor offen und dein Platz warm. Dieser Zoo zählt Ankünfte, nie Abwesenheiten. Wiederkommen ist die einzige Regel.</translation>
-    </message>
-    <message>
-        <source>The first goodbye</source>
-        <translation>Der erste Abschied</translation>
-    </message>
-    <message>
-        <source>One of them shouldered a little bundle and walked out the gate for good. It didn't leave because you failed it. It left because it had finally grown enough to. That small ache? That is proof it mattered. The things we tend outgrow us. Let it be the happy ending it is.</source>
-        <translation>Einer von ihnen nahm ein kleines Bündel auf die Schulter und ging für immer durchs Tor. Er ging nicht, weil du versagt hast. Er ging, weil er endlich groß genug war. Dieser kleine Schmerz? Er ist der Beweis, dass es zählte. Was wir umsorgen, wächst über uns hinaus. Lass es das glückliche Ende sein, das es ist.</translation>
-    </message>
-    <message>
-        <source>What the zoo was for</source>
-        <translation>Wozu der Zoo da war</translation>
-    </message>
-    <message>
-        <source>You thought you were collecting creatures. Look again. Every enclosure is a Tuesday you didn't waste, a promise to yourself quietly kept. The zoo was never the point. It was only ever the proof.</source>
-        <translation>Du dachtest, du sammelst Kreaturen. Schau noch einmal. Jedes Gehege ist ein Dienstag, den du nicht vergeudet hast, ein still gehaltenes Versprechen an dich selbst. Der Zoo war nie das Ziel. Er war immer nur der Beweis.</translation>
-    </message>
-    <message>
-        <source>A zoo built from Tuesdays</source>
-        <translation>Ein Zoo aus Dienstagen</translation>
-    </message>
-    <message>
-        <source>Here is the whole secret, now that you've earned it: none of this was ever about the blobs. It was about someone who kept showing up for themselves, one small day at a time, until the showing-up became who they are. That someone is you. The zoo only ever remembered it back to you.</source>
-        <translation>Hier ist das ganze Geheimnis, jetzt wo du es dir verdient hast: bei alldem ging es nie um die Blobs. Es ging um jemanden, der immer wieder für sich selbst auftauchte, einen kleinen Tag nach dem anderen, bis das Auftauchen zu dem wurde, wer er ist. Dieser Jemand bist du. Der Zoo hat es dir nur zurückerinnert.</translation>
-    </message>
-    <message>
         <source>Not yet written</source>
         <translation>Noch nicht geschrieben</translation>
     </message>

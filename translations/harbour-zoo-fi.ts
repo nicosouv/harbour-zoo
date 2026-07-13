@@ -1117,62 +1117,6 @@
         <translation>Eläintarha on suljettu juhlien vuoksi. Blobeilla on pienet hatut.</translation>
     </message>
     <message>
-        <source>The empty zoo</source>
-        <translation>Tyhjä eläintarha</translation>
-    </message>
-    <message>
-        <source>It was empty when you found it, a few bare enclosures, the wind, and a ring of keys nobody had claimed. You picked them up. Nothing here is anything yet. That is the very best time to begin.</source>
-        <translation>Se oli tyhjä, kun löysit sen, muutama paljas aitaus, tuuli ja avainnippu, jota kukaan ei ollut lunastanut. Otit sen. Täällä ei ole vielä mitään. Juuri nyt on paras hetki aloittaa.</translation>
-    </message>
-    <message>
-        <source>The first light</source>
-        <translation>Ensimmäinen valo</translation>
-    </message>
-    <message>
-        <source>A handful of ordinary days, and already something stirs in the grass. You didn't build a creature; you kept a small promise, and the creature came to keep you company. Keep coming back. It watches the gate.</source>
-        <translation>Kourallinen tavallisia päiviä, ja jo jokin liikahtaa ruohikossa. Et rakentanut olentoa; pidit pienen lupauksen, ja olento tuli pitämään sinulle seuraa. Palaa yhä uudelleen. Se vahtii porttia.</translation>
-    </message>
-    <message>
-        <source>Company</source>
-        <translation>Seuraa</translation>
-    </message>
-    <message>
-        <source>There's a little crowd now, each one a day you chose yourself over the easier nothing. They don't know they're a calendar. They think they're a family. Let them.</source>
-        <translation>Nyt on pieni joukko, jokainen on päivä, jona valitsit itsesi helpomman tyhjyyden sijaan. Ne eivät tiedä olevansa kalenteri. Ne luulevat olevansa perhe. Anna niiden olla.</translation>
-    </message>
-    <message>
-        <source>The seat, kept warm</source>
-        <translation>Paikka, pidetty lämpimänä</translation>
-    </message>
-    <message>
-        <source>Seven days you turned up. A day will slip one day, it always does, and when it does, the gate stays open and your seat stays warm. This zoo counts arrivals, never absences. Coming back is the only rule there is.</source>
-        <translation>Seitsemänä päivänä tulit paikalle. Jokin päivä lipsahtaa joskus, niin käy aina, ja kun käy, portti pysyy auki ja paikkasi lämpimänä. Tämä eläintarha laskee saapumiset, ei koskaan poissaoloja. Paluu on ainoa sääntö.</translation>
-    </message>
-    <message>
-        <source>The first goodbye</source>
-        <translation>Ensimmäiset jäähyväiset</translation>
-    </message>
-    <message>
-        <source>One of them shouldered a little bundle and walked out the gate for good. It didn't leave because you failed it. It left because it had finally grown enough to. That small ache? That is proof it mattered. The things we tend outgrow us. Let it be the happy ending it is.</source>
-        <translation>Yksi heistä otti pienen nyytin olalleen ja käveli portista ulos lopullisesti. Se ei lähtenyt siksi, että petit sen. Se lähti, koska oli vihdoin kasvanut tarpeeksi. Se pieni kipu? Se on todiste siitä, että sillä oli väliä. Se, mitä hoivaamme, kasvaa lopulta yli. Anna sen olla se onnellinen loppu, joka se on.</translation>
-    </message>
-    <message>
-        <source>What the zoo was for</source>
-        <translation>Mitä varten eläintarha oli</translation>
-    </message>
-    <message>
-        <source>You thought you were collecting creatures. Look again. Every enclosure is a Tuesday you didn't waste, a promise to yourself quietly kept. The zoo was never the point. It was only ever the proof.</source>
-        <translation>Luulit keräväsi olentoja. Katso uudelleen. Jokainen aitaus on tiistai, jota et haaskannut, hiljaa pidetty lupaus itsellesi. Eläintarha ei ollut koskaan pointti. Se oli aina vain todiste.</translation>
-    </message>
-    <message>
-        <source>A zoo built from Tuesdays</source>
-        <translation>Tiistaista rakennettu eläintarha</translation>
-    </message>
-    <message>
-        <source>Here is the whole secret, now that you've earned it: none of this was ever about the blobs. It was about someone who kept showing up for themselves, one small day at a time, until the showing-up became who they are. That someone is you. The zoo only ever remembered it back to you.</source>
-        <translation>Tässä on koko salaisuus, nyt kun olet sen ansainnut: mikään tästä ei koskaan koskenut blobeja. Se koski jotakuta, joka tuli aina uudelleen paikalle itsensä vuoksi, yksi pieni päivä kerrallaan, kunnes paikalle tulemisesta tuli se, kuka hän on. Se joku olet sinä. Eläintarha vain muistutti sinua siitä.</translation>
-    </message>
-    <message>
         <source>Not yet written</source>
         <translation>Vielä kirjoittamatta</translation>
     </message>

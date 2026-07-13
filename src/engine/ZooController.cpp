@@ -5,6 +5,8 @@
 
 #include <QStandardPaths>
 #include <QDir>
+#include <QFile>
+#include <QHash>
 #include <QDebug>
 #include <QDate>
 #include <QJsonDocument>
@@ -155,6 +157,7 @@ ZooController::ZooController(QObject* parent)
 
     migrateIfNeeded();
     replay();
+    loadAlmanac();
     emit stateChanged();
 }
 
@@ -289,7 +292,8 @@ void ZooController::setPlayerBirthday(const QString& mmdd)
 QString ZooController::language() const
 { return m_settings.value(QStringLiteral("language")).toString(); }
 void ZooController::setLanguage(const QString& code)
-{ if (code == language()) return; m_settings.setValue(QStringLiteral("language"), code); emit languageChanged(); }
+{ if (code == language()) return; m_settings.setValue(QStringLiteral("language"), code);
+  loadAlmanac(); emit languageChanged(); emit stateChanged(); }
 
 QString ZooController::blobStyle() const
 { return m_settings.value(QStringLiteral("blobStyle"), QStringLiteral("mix")).toString(); }
@@ -417,81 +421,110 @@ void ZooController::dismissCeremony(const QString& id)
     emit stateChanged();
 }
 
-// The Keeper's Almanac, the story's red thread ("Le zoo se souvient"). Told in the Curator's
-// voice, in four movements (arrival · the everyday · the turn · the reveal): the zoo is not a
-// collection of creatures, it is a portrait of one person who kept a small promise to themselves.
-// Chapters unlock at real milestones; "read" is a preference (like ceremonyShown), not game state.
-struct AlmanacChapter { const char* id; const char* title; const char* body; };
-static const AlmanacChapter kAlmanac[] = {
-    { "arrival",
-      QT_TR_NOOP("The empty zoo"),
-      QT_TR_NOOP("It was empty when you found it, a few bare enclosures, the wind, and a ring of keys "
-                 "nobody had claimed. You picked them up. Nothing here is anything yet. That is the very "
-                 "best time to begin.") },
-    { "first_light",
-      QT_TR_NOOP("The first light"),
-      QT_TR_NOOP("A handful of ordinary days, and already something stirs in the grass. You didn't build "
-                 "a creature; you kept a small promise, and the creature came to keep you company. Keep "
-                 "coming back. It watches the gate.") },
-    { "companions",
-      QT_TR_NOOP("Company"),
-      QT_TR_NOOP("There's a little crowd now, each one a day you chose yourself over the easier nothing. "
-                 "They don't know they're a calendar. They think they're a family. Let them.") },
-    { "the_seat",
-      QT_TR_NOOP("The seat, kept warm"),
-      QT_TR_NOOP("Seven days you turned up. A day will slip one day, it always does, and when it does, "
-                 "the gate stays open and your seat stays warm. This zoo counts arrivals, never absences. "
-                 "Coming back is the only rule there is.") },
-    { "first_goodbye",
-      QT_TR_NOOP("The first goodbye"),
-      QT_TR_NOOP("One of them shouldered a little bundle and walked out the gate for good. It didn't leave "
-                 "because you failed it. It left because it had finally grown enough to. That small ache? "
-                 "That is proof it mattered. The things we tend outgrow us. Let it be the happy ending it is.") },
-    { "the_turn",
-      QT_TR_NOOP("What the zoo was for"),
-      QT_TR_NOOP("You thought you were collecting creatures. Look again. Every enclosure is a Tuesday you "
-                 "didn't waste, a promise to yourself quietly kept. The zoo was never the point. It was "
-                 "only ever the proof.") },
-    { "the_promise",
-      QT_TR_NOOP("A zoo built from Tuesdays"),
-      QT_TR_NOOP("Here is the whole secret, now that you've earned it: none of this was ever about the "
-                 "blobs. It was about someone who kept showing up for themselves, one small day at a time, "
-                 "until the showing-up became who they are. That someone is you. The zoo only ever "
-                 "remembered it back to you.") }
-};
-static const int kAlmanacCount = int(sizeof(kAlmanac) / sizeof(kAlmanac[0]));
-
-// Whether chapter `i` has been unlocked by the current state. Thresholds are gentle and roughly
-// monotonic, so the story reveals itself in order as the zoo (and its Keeper) grows.
-bool ZooController::almanacUnlocked(int i) const
+// The Keeper's Almanac, the story's red thread ("Le zoo se souvient"). The chapters are authored as
+// DATA (data/almanac.json + per-locale data/almanac.<lang>.json), so new arcs (implicit "seasons")
+// are added without touching this engine. Each chapter unlocks by declarative conditions; "read" is
+// a preference (like ceremonyShown), not game state. See data/almanac.README.md for the schema.
+QString ZooController::dataFilePath(const QString& name) const
 {
-    const int blobs = m_state.blobs.size();
-    switch (i) {
-    case 0: return blobs >= 1 || m_state.deeds >= 1;              // arrival
-    case 1: return m_state.deeds >= 5;                            // first light
-    case 2: return blobs >= 5;                                    // company
-    case 3: return m_state.streak >= 7;                           // the seat
-    case 4: return m_state.retiredTotal >= 1;                     // first goodbye
-    case 5: return m_state.deeds >= 25 || keeperLevel() >= 3;     // the turn
-    case 6: return m_state.deeds >= 100 || blobs >= 20;           // the promise
-    default: return false;
+    // The data/ dir may install either flat (…/harbour-zoo/) or nested (…/harbour-zoo/data/), and in
+    // dev it's the repo's ./data — try all, plus a ZOO_DATA_DIR override (used by tests).
+    QStringList paths;
+    const QByteArray env = qgetenv("ZOO_DATA_DIR");
+    if (!env.isEmpty()) paths << QString::fromLocal8Bit(env) + QLatin1Char('/') + name;
+    const QString shared = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                              QStringLiteral("harbour-zoo"), QStandardPaths::LocateDirectory);
+    if (!shared.isEmpty()) { paths << shared + QLatin1Char('/') + name
+                                   << shared + QStringLiteral("/data/") + name; }
+    paths << QStringLiteral("/usr/share/harbour-zoo/") + name
+          << QStringLiteral("/usr/share/harbour-zoo/data/") + name
+          << QDir::current().filePath(QStringLiteral("data/") + name)
+          << QDir::current().filePath(QStringLiteral("../data/") + name);
+    for (const QString& p : paths) if (QFile::exists(p)) return p;
+    return QString();
+}
+
+static QVariantList readChapters(const QString& path)
+{
+    if (path.isEmpty()) return QVariantList();
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly)) return QVariantList();
+    return QJsonDocument::fromJson(f.readAll()).object()
+            .value(QStringLiteral("chapters")).toArray().toVariantList();
+}
+
+// Load the base (English) chapters, then overlay the current locale's title/body by id.
+void ZooController::loadAlmanac()
+{
+    m_almanac = readChapters(dataFilePath(QStringLiteral("almanac.json")));
+    const QString lang = language().left(2);
+    if (lang.isEmpty() || lang == QLatin1String("en")) return;
+    const QVariantList loc = readChapters(dataFilePath(QStringLiteral("almanac.") + lang + QStringLiteral(".json")));
+    if (loc.isEmpty()) return;
+    QHash<QString, QVariantMap> byId;
+    for (const QVariant& v : loc) { const QVariantMap m = v.toMap(); byId.insert(m.value("id").toString(), m); }
+    for (int i = 0; i < m_almanac.size(); ++i) {
+        QVariantMap ch = m_almanac.at(i).toMap();
+        const QVariantMap o = byId.value(ch.value("id").toString());
+        if (o.contains("title")) ch.insert("title", o.value("title"));
+        if (o.contains("body")) ch.insert("body", o.value("body"));
+        m_almanac[i] = ch;
     }
+}
+
+// Does a condition object hold against the current state? All listed thresholds are ANDed; an
+// optional "anyOf" array is ORed. Unknown keys are ignored (forward-compatible authoring).
+bool ZooController::almanacCondPasses(const QVariantMap& c) const
+{
+    if (c.contains("deeds") && m_state.deeds < c.value("deeds").toInt()) return false;
+    if (c.contains("streak") && m_state.streak < c.value("streak").toInt()) return false;
+    if (c.contains("blobs") && m_state.blobs.size() < c.value("blobs").toInt()) return false;
+    if (c.contains("retired") && m_state.retiredTotal < c.value("retired").toInt()) return false;
+    if (c.contains("habits") && m_state.habitLogTotal < c.value("habits").toInt()) return false;
+    if (c.contains("quests") && m_state.questCompletedTotal < c.value("quests").toInt()) return false;
+    if (c.contains("focus") && m_state.focusTotal < c.value("focus").toInt()) return false;
+    if (c.contains("keeperLevel") && keeperLevel() < c.value("keeperLevel").toInt()) return false;
+    if (c.contains("anyOf")) {
+        const QVariantList arr = c.value("anyOf").toList();
+        bool any = arr.isEmpty();
+        for (const QVariant& v : arr) if (almanacCondPasses(v.toMap())) { any = true; break; }
+        if (!any) return false;
+    }
+    return true;
+}
+
+// id -> unlocked, honouring each chapter's conditions and an optional "after" (a chapter that must
+// be unlocked first). The "after" lever lets a later arc stay hidden until an earlier one lands.
+QMap<QString, bool> ZooController::almanacUnlockedMap() const
+{
+    QMap<QString, bool> u;
+    for (const QVariant& v : m_almanac) {
+        const QVariantMap ch = v.toMap();
+        bool ok = almanacCondPasses(ch.value(QStringLiteral("unlock")).toMap());
+        const QString after = ch.value(QStringLiteral("after")).toString();
+        if (!after.isEmpty() && !u.value(after, false)) ok = false;
+        u.insert(ch.value(QStringLiteral("id")).toString(), ok);
+    }
+    return u;
 }
 
 QVariantList ZooController::almanacChapters() const
 {
     QVariantList out;
-    for (int i = 0; i < kAlmanacCount; ++i) {
-        const QString id = QString::fromUtf8(kAlmanac[i].id);
-        const bool unlocked = almanacUnlocked(i);
+    const QMap<QString, bool> u = almanacUnlockedMap();
+    int idx = 0;
+    for (const QVariant& v : m_almanac) {
+        const QVariantMap ch = v.toMap();
+        const QString id = ch.value(QStringLiteral("id")).toString();
+        const bool unlocked = u.value(id, false);
         QVariantMap m;
         m.insert("id", id);
-        m.insert("index", i + 1);
+        m.insert("index", ++idx);
         m.insert("unlocked", unlocked);
         m.insert("read", m_settings.value(QStringLiteral("almanacRead/") + id, false).toBool());
         // Locked chapters read as a gentle promise, never their contents (no spoilers).
-        m.insert("title", unlocked ? tr(kAlmanac[i].title) : tr("Not yet written"));
-        m.insert("body", unlocked ? tr(kAlmanac[i].body)
+        m.insert("title", unlocked ? ch.value("title").toString() : tr("Not yet written"));
+        m.insert("body", unlocked ? ch.value("body").toString()
                                   : tr("The Almanac keeps this page blank, for now. Keep showing up."));
         out.append(m);
     }
@@ -500,15 +533,19 @@ QVariantList ZooController::almanacChapters() const
 
 QVariantMap ZooController::pendingChapter() const
 {
-    for (int i = 0; i < kAlmanacCount; ++i) {
-        const QString id = QString::fromUtf8(kAlmanac[i].id);
-        if (!almanacUnlocked(i)) continue;
+    const QMap<QString, bool> u = almanacUnlockedMap();
+    int idx = 0;
+    for (const QVariant& v : m_almanac) {
+        const QVariantMap ch = v.toMap();
+        ++idx;
+        const QString id = ch.value(QStringLiteral("id")).toString();
+        if (!u.value(id, false)) continue;
         if (m_settings.value(QStringLiteral("almanacRead/") + id, false).toBool()) continue;
         QVariantMap m;
         m.insert("id", id);
-        m.insert("index", i + 1);
-        m.insert("title", tr(kAlmanac[i].title));
-        m.insert("body", tr(kAlmanac[i].body));
+        m.insert("index", idx);
+        m.insert("title", ch.value("title").toString());
+        m.insert("body", ch.value("body").toString());
         return m;   // earliest unlocked-but-unread: surfaces the story in order, one page at a time
     }
     return QVariantMap();
@@ -522,10 +559,12 @@ void ZooController::markChapterRead(const QString& id)
 
 bool ZooController::hasUnreadAlmanac() const
 {
-    for (int i = 0; i < kAlmanacCount; ++i) {
-        if (!almanacUnlocked(i)) continue;
-        const QString id = QString::fromUtf8(kAlmanac[i].id);
-        if (!m_settings.value(QStringLiteral("almanacRead/") + id, false).toBool()) return true;
+    const QMap<QString, bool> u = almanacUnlockedMap();
+    for (const QVariant& v : m_almanac) {
+        const QVariantMap ch = v.toMap();
+        const QString id = ch.value(QStringLiteral("id")).toString();
+        if (u.value(id, false) && !m_settings.value(QStringLiteral("almanacRead/") + id, false).toBool())
+            return true;
     }
     return false;
 }

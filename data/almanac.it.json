@@ -1,0 +1,39 @@
+{
+  "chapters": [
+    {
+      "id": "arrival",
+      "title": "Lo zoo vuoto",
+      "body": "Era vuoto quando l'hai trovato, qualche recinto spoglio, il vento e un mazzo di chiavi che nessuno aveva reclamato. Le hai raccolte. Qui non c'è ancora niente. È il momento migliore per cominciare."
+    },
+    {
+      "id": "first_light",
+      "title": "La prima luce",
+      "body": "Una manciata di giorni ordinari, e già qualcosa si muove nell'erba. Non hai costruito una creatura; hai mantenuto una piccola promessa, e la creatura è venuta a farti compagnia. Continua a tornare. Sorveglia il cancello."
+    },
+    {
+      "id": "companions",
+      "title": "Compagnia",
+      "body": "Ora c'è una piccola folla, ognuno è un giorno in cui hai scelto te stesso invece del nulla più comodo. Non sanno di essere un calendario. Si credono una famiglia. Lasciali fare."
+    },
+    {
+      "id": "the_seat",
+      "title": "Il posto, tenuto al caldo",
+      "body": "Sette giorni ti sei presentato. Un giorno prima o poi scivolerà via, succede sempre, e quando succede, il cancello resta aperto e il tuo posto resta al caldo. Questo zoo conta gli arrivi, mai le assenze. Tornare è l'unica regola che c'è."
+    },
+    {
+      "id": "first_goodbye",
+      "title": "Il primo addio",
+      "body": "Uno di loro si è messo un fagottino in spalla ed è uscito dal cancello per sempre. Non se n'è andato perché hai fallito. Se n'è andato perché era finalmente cresciuto abbastanza. Quel piccolo dolore? È la prova che contava. Ciò che curiamo finisce per superarci. Lascia che sia il lieto fine che è."
+    },
+    {
+      "id": "the_turn",
+      "title": "A cosa serviva lo zoo",
+      "body": "Credevi di collezionare creature. Guarda di nuovo. Ogni recinto è un martedì che non hai sprecato, una promessa a te stesso mantenuta in silenzio. Lo zoo non è mai stato il punto. È sempre stato solo la prova."
+    },
+    {
+      "id": "the_promise",
+      "title": "Uno zoo costruito coi martedì",
+      "body": "Ecco tutto il segreto, ora che te lo sei meritato: niente di tutto questo ha mai riguardato i blob. Riguardava qualcuno che ha continuato a presentarsi per sé, un piccolo giorno alla volta, finché il presentarsi è diventato ciò che è. Quel qualcuno sei tu. Lo zoo non ha fatto che ricordartelo."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "chapters": [
+    {
+      "id": "arrival",
+      "title": "Le zoo vide",
+      "body": "Il était vide quand tu l'as trouvé, quelques enclos nus, le vent, et un trousseau de clés que personne n'avait réclamé. Tu les as prises. Rien ici n'est encore quoi que ce soit. C'est le meilleur moment pour commencer."
+    },
+    {
+      "id": "first_light",
+      "title": "La première lueur",
+      "body": "Une poignée de jours ordinaires, et déjà quelque chose remue dans l'herbe. Tu n'as pas fabriqué une créature ; tu as tenu une petite promesse, et la créature est venue te tenir compagnie. Reviens. Elle surveille la porte."
+    },
+    {
+      "id": "companions",
+      "title": "De la compagnie",
+      "body": "Il y a une petite foule maintenant, chacun est un jour où tu t'es choisi plutôt que le néant plus facile. Ils ne savent pas qu'ils sont un calendrier. Ils se croient une famille. Laisse-les."
+    },
+    {
+      "id": "the_seat",
+      "title": "La place, gardée au chaud",
+      "body": "Sept jours, tu es venu. Un jour finira par filer, ça arrive toujours, et quand ça arrive, la porte reste ouverte et ta place reste au chaud. Ce zoo compte les arrivées, jamais les absences. Revenir, c'est la seule règle qui existe."
+    },
+    {
+      "id": "first_goodbye",
+      "title": "Le premier au revoir",
+      "body": "L'un d'eux a chargé un petit baluchon sur l'épaule et a franchi la porte pour de bon. Il n'est pas parti parce que tu l'as raté. Il est parti parce qu'il avait enfin assez grandi. Cette petite douleur ? C'est la preuve que ça comptait. Ce qu'on soigne finit par nous dépasser. Accepte que ce soit la fin heureuse que c'est."
+    },
+    {
+      "id": "the_turn",
+      "title": "À quoi servait le zoo",
+      "body": "Tu croyais collectionner des créatures. Regarde encore. Chaque enclos est un mardi que tu n'as pas gaspillé, une promesse à toi-même tenue en silence. Le zoo n'a jamais été le but. Il n'a jamais été que la preuve."
+    },
+    {
+      "id": "the_promise",
+      "title": "Un zoo bâti à partir de mardis",
+      "body": "Voici tout le secret, maintenant que tu l'as mérité : rien de tout ça n'a jamais parlé des blobs. Ça parlait de quelqu'un qui a continué à se présenter pour soi, un petit jour après l'autre, jusqu'à ce que se présenter devienne qui il est. Ce quelqu'un, c'est toi. Le zoo n'a fait que te le rappeler."
+    }
+  ]
+}

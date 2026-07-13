@@ -1,0 +1,39 @@
+{
+  "chapters": [
+    {
+      "id": "arrival",
+      "title": "Der leere Zoo",
+      "body": "Er war leer, als du ihn fandest, ein paar kahle Gehege, der Wind und ein Schlüsselbund, den niemand beansprucht hatte. Du hast ihn genommen. Noch ist hier nichts irgendetwas. Das ist der allerbeste Moment, um anzufangen."
+    },
+    {
+      "id": "first_light",
+      "title": "Das erste Licht",
+      "body": "Eine Handvoll gewöhnlicher Tage, und schon regt sich etwas im Gras. Du hast keine Kreatur gebaut; du hast ein kleines Versprechen gehalten, und die Kreatur kam, um dir Gesellschaft zu leisten. Komm wieder. Sie behält das Tor im Blick."
+    },
+    {
+      "id": "companions",
+      "title": "Gesellschaft",
+      "body": "Jetzt ist es eine kleine Schar, jeder ein Tag, an dem du dich für dich entschieden hast statt für das einfachere Nichts. Sie wissen nicht, dass sie ein Kalender sind. Sie halten sich für eine Familie. Lass sie."
+    },
+    {
+      "id": "the_seat",
+      "title": "Der Platz, warm gehalten",
+      "body": "Sieben Tage bist du aufgetaucht. Ein Tag wird irgendwann rutschen, das passiert immer, und wenn, bleibt das Tor offen und dein Platz warm. Dieser Zoo zählt Ankünfte, nie Abwesenheiten. Wiederkommen ist die einzige Regel."
+    },
+    {
+      "id": "first_goodbye",
+      "title": "Der erste Abschied",
+      "body": "Einer von ihnen nahm ein kleines Bündel auf die Schulter und ging für immer durchs Tor. Er ging nicht, weil du versagt hast. Er ging, weil er endlich groß genug war. Dieser kleine Schmerz? Er ist der Beweis, dass es zählte. Was wir umsorgen, wächst über uns hinaus. Lass es das glückliche Ende sein, das es ist."
+    },
+    {
+      "id": "the_turn",
+      "title": "Wozu der Zoo da war",
+      "body": "Du dachtest, du sammelst Kreaturen. Schau noch einmal. Jedes Gehege ist ein Dienstag, den du nicht vergeudet hast, ein still gehaltenes Versprechen an dich selbst. Der Zoo war nie das Ziel. Er war immer nur der Beweis."
+    },
+    {
+      "id": "the_promise",
+      "title": "Ein Zoo aus Dienstagen",
+      "body": "Hier ist das ganze Geheimnis, jetzt wo du es dir verdient hast: bei alldem ging es nie um die Blobs. Es ging um jemanden, der immer wieder für sich selbst auftauchte, einen kleinen Tag nach dem anderen, bis das Auftauchen zu dem wurde, wer er ist. Dieser Jemand bist du. Der Zoo hat es dir nur zurückerinnert."
+    }
+  ]
+}
