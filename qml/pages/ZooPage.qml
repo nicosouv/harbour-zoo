@@ -72,6 +72,7 @@ Page {
     }
 
     SilicaFlickable {
+        id: mainFlick
         anchors.fill: parent
         contentHeight: content.height + Theme.paddingLarge
 
@@ -332,6 +333,20 @@ Page {
 
     ConfettiBurst { id: confetti }
 
+    // Big moments play here, in place: the page above freezes and blurs while a 2D scene runs on
+    // top (a farewell blob walking off with its bindle, a milestone's confetti, the Quest Beast).
+    CeremonyOverlay {
+        id: ceremonyOverlay
+        blurSource: mainFlick
+        onFinished: {
+            Zoo.dismissCeremony(ceremony.id)
+            var next = Zoo.pendingCeremonies()
+            if (next.length > 0) play(next[0])
+            else page.runPendingPredator()
+        }
+        onPredatorDone: {}
+    }
+
     Connections {
         target: Zoo
         onHatched: pageStack.push(Qt.resolvedUrl("SpecimenPage.qml"), { seed: seed, rarity: rarity })
@@ -343,19 +358,22 @@ Page {
     // queued ceremonies/overdue quests surface without a restart. All checks are self-guarded.
     Component.onCompleted: startupTimer.restart()
     onStatusChanged: if (status === PageStatus.Active) startupTimer.restart()
+
+    // Overdue-quest victims waiting for their (blurred) eat scene, once any ceremonies have played.
+    property int _pendingVictims: 0
+    function runPendingPredator() {
+        if (_pendingVictims > 0) { var n = _pendingVictims; _pendingVictims = 0; ceremonyOverlay.playPredator(n) }
+    }
+
     Timer {
         id: startupTimer; interval: 40; repeat: false
         onTriggered: {
             if (!Zoo.onboarded) { pageStack.push(Qt.resolvedUrl("OnboardingPage.qml")); return }
-            page.checkCeremonies()
-            var victims = Zoo.processOverdueQuests()
-            if (victims.length > 0) predator.run(victims.length)
+            if (ceremonyOverlay.busy) return
+            page._pendingVictims += Zoo.processOverdueQuests().length
+            var cs = Zoo.pendingCeremonies()
+            if (cs.length > 0) ceremonyOverlay.play(cs[0])
+            else page.runPendingPredator()
         }
     }
-    function checkCeremonies() {
-        var cs = Zoo.pendingCeremonies()
-        if (cs.length > 0) pageStack.push(Qt.resolvedUrl("CeremonyPage.qml"), { ceremony: cs[0] })
-    }
-
-    PredatorOverlay { id: predator }
 }
