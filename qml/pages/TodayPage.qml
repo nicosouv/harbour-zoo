@@ -270,10 +270,8 @@ Page {
                             }
                             Row {
                                 spacing: Theme.paddingMedium
-                                Button { text: qsTr("Two more weeks"); font.pixelSize: Theme.fontSizeTiny
-                                         onClicked: Zoo.extendTolerance(modelData.id) }
-                                Button { text: qsTr("Let it count"); font.pixelSize: Theme.fontSizeTiny
-                                         onClicked: Zoo.tightenTolerance(modelData.id) }
+                                Button { text: qsTr("Two more weeks"); onClicked: Zoo.extendTolerance(modelData.id) }
+                                Button { text: qsTr("Let it count"); onClicked: Zoo.tightenTolerance(modelData.id) }
                             }
                         }
                     }
