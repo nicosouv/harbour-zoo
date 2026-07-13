@@ -114,29 +114,49 @@ Item {
             lodLevel: 1
         }
 
-        // A little hobo bindle: a stick over the shoulder with a polka-dot bundle at the end.
+        // A little hobo bindle: a stick over the shoulder holding a knotted, polka-dot cloth sack.
         Item {
             id: bindle
-            width: root.blobSize * 0.5; height: width
-            x: root.blobSize * 0.60; y: -root.blobSize * 0.06
+            width: root.blobSize * 0.66; height: width
+            x: root.blobSize * 0.50; y: -root.blobSize * 0.16
             opacity: 0
-            Rectangle {   // the stick
-                width: parent.width; height: Math.max(3, root.blobSize * 0.028)
-                radius: height / 2; color: "#7A4A22"
-                anchors.centerIn: parent; rotation: -32; antialiasing: false
+            // The stick, resting on the shoulder and angling up behind the sack.
+            Rectangle {
+                width: parent.width * 0.94; height: Math.max(4, root.blobSize * 0.04)
+                radius: height / 2; color: "#6E4322"
+                x: 0; y: parent.height * 0.52
+                rotation: -34; transformOrigin: Item.Left; antialiasing: false
             }
-            Item {        // the bundle, at the raised end of the stick
-                width: root.blobSize * 0.22; height: width
-                x: parent.width * 0.62; y: -parent.height * 0.04
-                Rectangle {   // red cloth, tied into a diamond
-                    anchors.centerIn: parent
-                    width: parent.width * 0.78; height: width
-                    color: "#C0392B"; rotation: 45; radius: 2; antialiasing: false
+            // A pale nub where the stick tip pokes out above the knot.
+            Rectangle {
+                width: Math.max(3, root.blobSize * 0.05); height: width; radius: width / 2
+                color: "#8A5A2E"; x: parent.width * 0.80; y: parent.height * 0.02; antialiasing: false
+            }
+            // The cloth sack (round-ish body + a tied knot on top + polka dots).
+            Item {
+                id: sack
+                width: root.blobSize * 0.32; height: width
+                x: parent.width * 0.56; y: parent.height * 0.06
+                // Two little corners of tied cloth forming the knot.
+                Rectangle { width: parent.width * 0.20; height: width; color: "#8E2A1C"
+                            x: parent.width * 0.26; y: parent.height * 0.02; rotation: 45; antialiasing: false }
+                Rectangle { width: parent.width * 0.20; height: width; color: "#8E2A1C"
+                            x: parent.width * 0.52; y: parent.height * 0.02; rotation: 45; antialiasing: false }
+                // The bundle body.
+                Rectangle {
+                    x: 0; y: parent.height * 0.16
+                    width: parent.width; height: parent.height * 0.84
+                    radius: width * 0.42; color: "#C0392B"
+                    border.width: Math.max(1, root.blobSize * 0.012); border.color: "#8E2A1C"
+                    antialiasing: false
                 }
-                Rectangle { width: parent.width * 0.13; height: width; radius: width / 2; color: "#F6EFDD"
-                            x: parent.width * 0.34; y: parent.height * 0.42; antialiasing: false }
-                Rectangle { width: parent.width * 0.11; height: width; radius: width / 2; color: "#F6EFDD"
-                            x: parent.width * 0.56; y: parent.height * 0.30; antialiasing: false }
+                // Polka dots.
+                Rectangle { width: parent.width * 0.15; height: width; radius: width / 2; color: "#F6EFDD"
+                            x: parent.width * 0.24; y: parent.height * 0.52; antialiasing: false }
+                Rectangle { width: parent.width * 0.12; height: width; radius: width / 2; color: "#F6EFDD"
+                            x: parent.width * 0.58; y: parent.height * 0.40; antialiasing: false }
+                Rectangle { width: parent.width * 0.10; height: width; radius: width / 2; color: "#F6EFDD"
+                            x: parent.width * 0.44; y: parent.height * 0.70; antialiasing: false }
             }
         }
     }
@@ -154,7 +174,7 @@ Item {
         lodLevel: 1
     }
 
-    // ---- Predator: a chonky blob sweeps across, chomps, and leaves ---------------------------
+    // ---- Predator: a chonky blob sweeps in, opens its maw, EATS a small resident, and leaves --
     BlobSpecimen {
         id: predator
         width: root.width * 0.5; height: width
@@ -164,6 +184,43 @@ Item {
         styleOverride: "chonk"
         voice: qsTr("NOM")
         lodLevel: 0
+    }
+    // The doomed little resident, sitting at centre stage until the beast reaches it. In front of
+    // the predator so we see it, then it shrinks into the open maw.
+    BlobSpecimen {
+        id: prey
+        width: root.blobSize * 0.52; height: width
+        x: root.width * 0.5 - width / 2
+        y: root.stageY + root.blobSize * 0.24
+        transformOrigin: Item.Center
+        visible: root.scene === "predator" && root.shade > 0.01
+        seed: 424242
+        styleOverride: Zoo.blobStyle
+        voice: Zoo.playerName
+        lodLevel: 1
+    }
+    // The beast's maw: a dark mouth that yawns open on the chomp (teeth and all), then snaps shut.
+    Item {
+        id: maw
+        visible: root.scene === "predator" && root.shade > 0.01 && openH > 0.5
+        property real openH: 0
+        width: root.blobSize * 0.5; height: openH
+        x: root.width * 0.5 - width / 2
+        y: root.stageY + root.blobSize * 0.16
+        Rectangle {
+            anchors.fill: parent; color: "#0A0B0F"
+            radius: Math.min(width, height) * 0.4; antialiasing: false
+            border.width: Math.max(1, root.blobSize * 0.015); border.color: "#2A0E0A"
+        }
+        // A row of little teeth along the top lip.
+        Row {
+            anchors { top: parent.top; horizontalCenter: parent.horizontalCenter; topMargin: -root.blobSize * 0.02 }
+            spacing: maw.width * 0.10
+            Repeater {
+                model: 4
+                delegate: Rectangle { width: maw.width * 0.10; height: width; color: "#F6EFDD"; antialiasing: false }
+            }
+        }
     }
 
     ConfettiBurst { id: confetti }
@@ -197,12 +254,27 @@ Item {
 
     SequentialAnimation {
         id: predatorAnim
-        ScriptAction { script: predator.x = -predator.width }
+        ScriptAction { script: { predator.x = -predator.width; prey.scale = 1; prey.opacity = 1
+                                 prey.y = root.stageY + root.blobSize * 0.24; maw.openH = 0 } }
         NumberAnimation { target: root; property: "shade"; to: 1; duration: 300 }
+        // The little one notices, gives a nervous hop.
+        ScriptAction { script: prey.react() }
+        PauseAnimation { duration: 250 }
+        // The beast sweeps in and arrives right on top of the prey.
         NumberAnimation { target: predator; property: "x"; to: root.width * 0.5 - predator.width / 2
-                          duration: 800; easing.type: Easing.OutQuad }
+                          duration: 850; easing.type: Easing.OutQuad }
+        // The maw yawns open...
+        NumberAnimation { target: maw; property: "openH"; to: root.blobSize * 0.5; duration: 200; easing.type: Easing.OutQuad }
         ScriptAction { script: predator.react() }                     // a big chomp + "NOM"
-        PauseAnimation { duration: 900 }
+        // ...the mini blob is pulled in and squashed down to nothing inside it...
+        ParallelAnimation {
+            NumberAnimation { target: prey; property: "y"; to: maw.y + maw.openH * 0.4; duration: 240; easing.type: Easing.InQuad }
+            NumberAnimation { target: prey; property: "scale"; to: 0.0; duration: 260; easing.type: Easing.InBack }
+            NumberAnimation { target: prey; property: "opacity"; to: 0.0; duration: 260 }
+        }
+        // ...and the jaws snap shut.
+        NumberAnimation { target: maw; property: "openH"; to: 0; duration: 160; easing.type: Easing.InQuad }
+        PauseAnimation { duration: 650 }
         NumberAnimation { target: predator; property: "x"; to: root.width; duration: 700; easing.type: Easing.InQuad }
         NumberAnimation { target: root; property: "shade"; to: 0; duration: 300 }
         ScriptAction { script: { root.predatorCount = 0; root.predatorDone() } }
