@@ -56,25 +56,39 @@ from the system automatically. No runtime language picker needed (Sailfish conve
 - Keep engine (C++) mostly string-free; surface user copy in QML where possible so translators
   work in one place.
 
-## Workflow (regenerate & fill)
+## Workflow — use the repo's Python pipeline (NOT lupdate)
+
+`lupdate`/`lrelease` need a Qt toolchain that isn't on every setup (macOS dev box, CI runs only
+`lrelease` at RPM build). So the `.ts` files here are **generated from a Python translation table**
+in `scripts/translations/` — this is the canonical workflow. Never hand-edit the `.ts` files and
+never hand-add `<message>` blocks; regenerate them.
+
+The four files (`scripts/translations/`):
+- **`maketrans.py`** — the master table `T = { source: [fr, de, it, es, fi] }`. **Edit this** to add
+  or fix a translation. Running it writes `translations.json`.
+- **`gen_ts.py`** — emits `translations/harbour-zoo-{fr,de,it,es,fi}.ts`. QML contexts come from
+  `qml_strings.json`; **C++ (`tr()`) source strings are listed by hand in its `zc_src` array**
+  under the `zoo::ZooController` context (the metaobject className includes the namespace). Add any
+  new C++ user-facing string to `zc_src`.
+- **`extract.py`** — rescans `qml/**` for `qsTr()` into `qml_strings.json`, then prints every
+  source not yet in `translations.json` (`MISSING`). Run it after changing QML strings.
+- **`translations.json` / `qml_strings.json`** — generated caches; don't edit by hand.
 
 ```bash
-# 1. Extract/update source strings from qml + src into every .ts
-lupdate harbour-zoo.pro          # or: lupdate qml src -ts translations/harbour-zoo-*.ts
-
-# 2. Translate: fill each .ts (Qt Linguist, or edit XML), keeping the voice (see prime rule).
-
-# 3. Compile (also done automatically by sailfishapp_i18n at build)
-lrelease translations/harbour-zoo-*.ts
+# From repo root, after adding/changing any qsTr() (QML) or tr()/QT_TR_NOOP (C++):
+python3 scripts/translations/extract.py        # refresh qml_strings.json + list MISSING sources
+#   → add new C++ strings to gen_ts.py `zc_src`; add every MISSING source to maketrans.py `T`
+python3 scripts/translations/maketrans.py       # rebuild translations.json from the table
+python3 scripts/translations/gen_ts.py          # rebuild the 5 .ts; prints "OK, all translated." or MISSING
 ```
 
-- Run `lupdate` after adding/changing any `qsTr`. Never hand-add `<message>` blocks — let
-  `lupdate` manage them so line numbers/contexts stay correct.
-- Leave `-en.ts` present as the source-locale baseline (strings == source); the others carry
-  real translations.
-- A `scripts/merge_translations.py`-style helper (see sibling harbour-sailcat) can batch-apply a
-  translation map across locales if machine-assisting — but every result still gets a
-  voice-preserving human pass before shipping.
+Iterate until `gen_ts.py` prints **`OK, all translated.`** (zero MISSING). `lrelease` (→ `.qm`)
+runs automatically via `sailfishapp_i18n` at RPM build; you don't run it locally.
+
+- `-en.ts` stays the source-locale baseline (strings == source, Qt falls back to source); `gen_ts.py`
+  only writes the other five.
+- **No em-dashes (`—`) or en-dashes (`–`) in any user-facing copy** — the owner's house style.
+  Use a comma, colon, or full stop. This holds for the English source *and* every translation.
 
 ## Definition of done for i18n
 
