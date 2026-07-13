@@ -93,6 +93,7 @@ void applyEvent(ZooState& s, const Event& e)
         if (b.rarity == QLatin1String("mythic")) s.mythicSeen = true;
     } else if (t == QLatin1String("egg_retired")) {
         removeById(s.blobs, p.value(QStringLiteral("id")).toString());
+        s.retiredTotal += 1;
     } else if (t == QLatin1String("decoration_bought")) {
         s.decorations.insert(p.value(QStringLiteral("decoration_id")).toString());
     } else if (t == QLatin1String("biome_bought")) {
@@ -158,6 +159,7 @@ QJsonObject toJson(const ZooState& s)
     o.insert(QStringLiteral("habitLogTotal"), s.habitLogTotal);
     o.insert(QStringLiteral("questCompletedTotal"), s.questCompletedTotal);
     o.insert(QStringLiteral("focusTotal"), s.focusTotal);
+    o.insert(QStringLiteral("retiredTotal"), s.retiredTotal);
     o.insert(QStringLiteral("deeds"), s.deeds);
     o.insert(QStringLiteral("streak"), s.streak);
     o.insert(QStringLiteral("lastActiveDate"), s.lastActiveDate);
@@ -204,6 +206,7 @@ ZooState fromJson(const QJsonObject& o)
     s.habitLogTotal = o.value(QStringLiteral("habitLogTotal")).toInt();
     s.questCompletedTotal = o.value(QStringLiteral("questCompletedTotal")).toInt();
     s.focusTotal = o.value(QStringLiteral("focusTotal")).toInt();
+    s.retiredTotal = o.value(QStringLiteral("retiredTotal")).toInt();
     s.deeds = o.value(QStringLiteral("deeds")).toInt();
     s.streak = o.value(QStringLiteral("streak")).toInt();
     s.lastActiveDate = o.value(QStringLiteral("lastActiveDate")).toString();

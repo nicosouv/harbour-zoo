@@ -208,6 +208,11 @@ private slots:
         applyEvent(s, mkEvent("egg_retired", "2026-07-11", 9, "{\"id\":\"a\"}"));
         QCOMPARE(s.blobs.size(), 1);
         QCOMPARE(s.blobs[0].id, QStringLiteral("b"));
+        QCOMPARE(s.retiredTotal, 1);   // lifetime farewells counted, even as residents come and go
+        applyEvent(s, mkEvent("egg_retired", "2026-07-12", 9, "{\"id\":\"b\"}"));
+        QCOMPARE(s.blobs.size(), 0);
+        QCOMPARE(s.retiredTotal, 2);
+        QCOMPARE(fromJson(toJson(s)).retiredTotal, 2);   // survives the snapshot round-trip
     }
 };
 

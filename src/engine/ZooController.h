@@ -53,6 +53,7 @@ class ZooController : public QObject
     Q_PROPERTY(QVariantList badges READ badges NOTIFY stateChanged)      // { id, name, desc, emoji, earned }
     Q_PROPERTY(QVariantList activity7 READ activity7 NOTIFY stateChanged) // last 7 days of deed counts
     Q_PROPERTY(QString reflection READ reflection NOTIFY stateChanged)   // quiet self-care line, deepens
+    Q_PROPERTY(bool hasUnreadAlmanac READ hasUnreadAlmanac NOTIFY stateChanged) // a new story chapter waits
     Q_PROPERTY(qreal zooMood READ zooMood NOTIFY stateChanged)           // -1..1, from good vs bad habits
     Q_PROPERTY(int weekDeeds READ weekDeeds NOTIFY stateChanged)
     Q_PROPERTY(int monthDeeds READ monthDeeds NOTIFY stateChanged)
@@ -100,6 +101,13 @@ public:
     // Ceremonies: celebratory moments surfaced at launch (farewell, milestones, birthday, holiday).
     Q_INVOKABLE QVariantList pendingCeremonies() const;   // [{ id, kind, title, body, emoji, seed }]
     Q_INVOKABLE void dismissCeremony(const QString& id);
+
+    // The Keeper's Almanac: the story's red thread. Chapters unlock at real milestones and reframe,
+    // slowly, that the zoo is a portrait of you keeping a promise to yourself ("Le zoo se souvient").
+    Q_INVOKABLE QVariantList almanacChapters() const;     // [{ id, index, title, body, unlocked, read }]
+    Q_INVOKABLE QVariantMap  pendingChapter() const;      // first unlocked-but-unread chapter, or {}
+    Q_INVOKABLE void markChapterRead(const QString& id);
+    bool hasUnreadAlmanac() const;                        // an unlocked chapter is waiting to be read
 
     // Wipe all data (events + preferences) so onboarding runs again. For testing.
     Q_INVOKABLE void resetAll();
@@ -196,6 +204,7 @@ private:
     bool spend(int amount, const QString& reason);    // false if unaffordable
     void grantDecoration(const QString& id);
     void checkMilestones();
+    bool almanacUnlocked(int index) const;            // has story chapter `index` been earned yet
     void finishFocus();                               // called by the tick when the timer hits 0
     QString localDate() const;
 

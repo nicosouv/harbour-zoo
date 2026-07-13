@@ -37,6 +37,7 @@ struct ZooState {
     int habitLogTotal = 0;
     int questCompletedTotal = 0;
     int focusTotal = 0;
+    int retiredTotal = 0;        // lifetime residents that have set off for good (farewells)
     int deeds = 0;               // lifetime useful actions
     int streak = 0;              // consecutive active days
     QString lastActiveDate;

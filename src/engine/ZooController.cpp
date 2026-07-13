@@ -354,7 +354,8 @@ QVariantList ZooController::pendingCeremonies() const
         m.insert("id", QStringLiteral("farewell/") + QString::number(seed));
         m.insert("kind", QStringLiteral("farewell"));
         m.insert("title", tr("A fond farewell"));
-        m.insert("body", tr("One of your blobs has set off for new adventures. It will be fine. Probably."));
+        m.insert("body", tr("A blob grew up and set off to live its own life. Not because you failed it — "
+                            "because it was ready. The zoo remembers."));
         m.insert("emoji", QStringLiteral("👋"));
         m.insert("seed", seed);
         out.append(m);
@@ -414,6 +415,119 @@ void ZooController::dismissCeremony(const QString& id)
         m_settings.setValue(QStringLiteral("ceremonyShown/") + id, true);
     }
     emit stateChanged();
+}
+
+// The Keeper's Almanac — the story's red thread ("Le zoo se souvient"). Told in the Curator's
+// voice, in four movements (arrival · the everyday · the turn · the reveal): the zoo is not a
+// collection of creatures, it is a portrait of one person who kept a small promise to themselves.
+// Chapters unlock at real milestones; "read" is a preference (like ceremonyShown), not game state.
+struct AlmanacChapter { const char* id; const char* title; const char* body; };
+static const AlmanacChapter kAlmanac[] = {
+    { "arrival",
+      QT_TR_NOOP("The empty zoo"),
+      QT_TR_NOOP("It was empty when you found it — a few bare enclosures, the wind, and a ring of keys "
+                 "nobody had claimed. You picked them up. Nothing here is anything yet. That is the very "
+                 "best time to begin.") },
+    { "first_light",
+      QT_TR_NOOP("The first light"),
+      QT_TR_NOOP("A handful of ordinary days, and already something stirs in the grass. You didn't build "
+                 "a creature; you kept a small promise, and the creature came to keep you company. Keep "
+                 "coming back. It watches the gate.") },
+    { "companions",
+      QT_TR_NOOP("Company"),
+      QT_TR_NOOP("There's a little crowd now — each one a day you chose yourself over the easier nothing. "
+                 "They don't know they're a calendar. They think they're a family. Let them.") },
+    { "the_seat",
+      QT_TR_NOOP("The seat, kept warm"),
+      QT_TR_NOOP("Seven days you turned up. A day will slip one day — it always does — and when it does, "
+                 "the gate stays open and your seat stays warm. This zoo counts arrivals, never absences. "
+                 "Coming back is the only rule there is.") },
+    { "first_goodbye",
+      QT_TR_NOOP("The first goodbye"),
+      QT_TR_NOOP("One of them shouldered a little bundle and walked out the gate for good. It didn't leave "
+                 "because you failed it. It left because it had finally grown enough to. That small ache? "
+                 "That is proof it mattered. The things we tend outgrow us. Let it be the happy ending it is.") },
+    { "the_turn",
+      QT_TR_NOOP("What the zoo was for"),
+      QT_TR_NOOP("You thought you were collecting creatures. Look again. Every enclosure is a Tuesday you "
+                 "didn't waste, a promise to yourself quietly kept. The zoo was never the point. It was "
+                 "only ever the proof.") },
+    { "the_promise",
+      QT_TR_NOOP("A zoo built from Tuesdays"),
+      QT_TR_NOOP("Here is the whole secret, now that you've earned it: none of this was ever about the "
+                 "blobs. It was about someone who kept showing up for themselves, one small day at a time, "
+                 "until the showing-up became who they are. That someone is you. The zoo only ever "
+                 "remembered it back to you.") }
+};
+static const int kAlmanacCount = int(sizeof(kAlmanac) / sizeof(kAlmanac[0]));
+
+// Whether chapter `i` has been unlocked by the current state. Thresholds are gentle and roughly
+// monotonic, so the story reveals itself in order as the zoo (and its Keeper) grows.
+bool ZooController::almanacUnlocked(int i) const
+{
+    const int blobs = m_state.blobs.size();
+    switch (i) {
+    case 0: return blobs >= 1 || m_state.deeds >= 1;              // arrival
+    case 1: return m_state.deeds >= 5;                            // first light
+    case 2: return blobs >= 5;                                    // company
+    case 3: return m_state.streak >= 7;                           // the seat
+    case 4: return m_state.retiredTotal >= 1;                     // first goodbye
+    case 5: return m_state.deeds >= 25 || keeperLevel() >= 3;     // the turn
+    case 6: return m_state.deeds >= 100 || blobs >= 20;           // the promise
+    default: return false;
+    }
+}
+
+QVariantList ZooController::almanacChapters() const
+{
+    QVariantList out;
+    for (int i = 0; i < kAlmanacCount; ++i) {
+        const QString id = QString::fromUtf8(kAlmanac[i].id);
+        const bool unlocked = almanacUnlocked(i);
+        QVariantMap m;
+        m.insert("id", id);
+        m.insert("index", i + 1);
+        m.insert("unlocked", unlocked);
+        m.insert("read", m_settings.value(QStringLiteral("almanacRead/") + id, false).toBool());
+        // Locked chapters read as a gentle promise, never their contents (no spoilers).
+        m.insert("title", unlocked ? tr(kAlmanac[i].title) : tr("Not yet written"));
+        m.insert("body", unlocked ? tr(kAlmanac[i].body)
+                                  : tr("The Almanac keeps this page blank, for now. Keep showing up."));
+        out.append(m);
+    }
+    return out;
+}
+
+QVariantMap ZooController::pendingChapter() const
+{
+    for (int i = 0; i < kAlmanacCount; ++i) {
+        const QString id = QString::fromUtf8(kAlmanac[i].id);
+        if (!almanacUnlocked(i)) continue;
+        if (m_settings.value(QStringLiteral("almanacRead/") + id, false).toBool()) continue;
+        QVariantMap m;
+        m.insert("id", id);
+        m.insert("index", i + 1);
+        m.insert("title", tr(kAlmanac[i].title));
+        m.insert("body", tr(kAlmanac[i].body));
+        return m;   // earliest unlocked-but-unread: surfaces the story in order, one page at a time
+    }
+    return QVariantMap();
+}
+
+void ZooController::markChapterRead(const QString& id)
+{
+    m_settings.setValue(QStringLiteral("almanacRead/") + id, true);
+    emit stateChanged();
+}
+
+bool ZooController::hasUnreadAlmanac() const
+{
+    for (int i = 0; i < kAlmanacCount; ++i) {
+        if (!almanacUnlocked(i)) continue;
+        const QString id = QString::fromUtf8(kAlmanac[i].id);
+        if (!m_settings.value(QStringLiteral("almanacRead/") + id, false).toBool()) return true;
+    }
+    return false;
 }
 
 void ZooController::resetAll()

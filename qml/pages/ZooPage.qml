@@ -80,6 +80,10 @@ Page {
             MenuItem { text: qsTr("Settings"); onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml")) }
             MenuItem { text: qsTr("Shop"); onClicked: pageStack.push(Qt.resolvedUrl("ShopPage.qml")) }
             MenuItem { text: qsTr("Keeper"); onClicked: pageStack.push(Qt.resolvedUrl("KeeperPage.qml")) }
+            MenuItem {
+                text: Zoo.hasUnreadAlmanac ? qsTr("Almanac •") : qsTr("Almanac")
+                onClicked: pageStack.push(Qt.resolvedUrl("AlmanacPage.qml"))
+            }
             MenuItem { text: qsTr("Today"); onClicked: pageStack.push(Qt.resolvedUrl("TodayPage.qml")) }
         }
 
@@ -280,6 +284,19 @@ Page {
                             }
                         }
                     }
+                }
+            }
+
+            // A new page in the story quietly waiting. Gentle, never a red badge — a warm invitation.
+            BackgroundItem {
+                width: parent.width; height: Theme.itemSizeExtraSmall
+                visible: Zoo.hasUnreadAlmanac
+                onClicked: pageStack.push(Qt.resolvedUrl("AlmanacPage.qml"))
+                Label {
+                    x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    wrapMode: Text.Wrap; text: qsTr("A new page appeared in the Almanac.")
+                    color: Theme.highlightColor; font.pixelSize: Theme.fontSizeSmall; font.italic: true
                 }
             }
 

@@ -37,6 +37,26 @@ Page {
                 }
             }
 
+            // --- The story so far -------------------------------------------------------------
+            SectionHeader { text: qsTr("The Keeper's Almanac") }
+            BackgroundItem {
+                width: parent.width; height: Theme.itemSizeSmall
+                onClicked: pageStack.push(Qt.resolvedUrl("AlmanacPage.qml"))
+                Label {
+                    anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                    width: parent.width - 2 * Theme.horizontalPageMargin - Theme.iconSizeSmall
+                    wrapMode: Text.Wrap
+                    text: Zoo.hasUnreadAlmanac ? qsTr("A new page is waiting to be read.")
+                                               : qsTr("The story of the zoo, and of you.")
+                    color: Zoo.hasUnreadAlmanac ? Theme.highlightColor : Theme.secondaryColor
+                    font.pixelSize: Theme.fontSizeSmall
+                }
+                Image {
+                    source: "image://theme/icon-m-right"
+                    anchors { right: parent.right; rightMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                }
+            }
+
             // --- Last 7 days activity graph ---------------------------------------------------
             SectionHeader { text: qsTr("Last 7 days") }
             Row {
