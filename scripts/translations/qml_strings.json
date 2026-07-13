@@ -1,9 +1,10 @@
 {
- "PredatorOverlay": [
-  "NOM",
+ "CeremonyOverlay": [
+  "The Quest Beast",
   "The Quest Beast ate %1. Overdue quests have consequences. Mild ones.",
   "a blob",
-  "%1 blobs"
+  "%1 blobs",
+  "NOM"
  ],
  "CoverPage": [
   "focusing",
@@ -17,13 +18,18 @@
   "Focus done",
   "Time's up. Well done, allegedly."
  ],
- "CeremonyPage": [
-  "Continue"
+ "AlmanacPage": [
+  "The Keeper's Almanac",
+  "The zoo remembers. Read on when a page is ready.",
+  "Chapter %1"
  ],
  "KeeperPage": [
   "Keeper",
   "Level %1 · %2 useful things done",
   "Every resident is a day you looked after yourself. The habits are the point; the zoo just makes it visible.",
+  "The Keeper's Almanac",
+  "A new page is waiting to be read.",
+  "The story of the zoo, and of you.",
   "Last 7 days",
   "day streak",
   "residents",
@@ -77,7 +83,7 @@
   "Send oldest blob off 👋",
   "Feed the Quest Beast 🦖",
   "Trigger birthday 🎂",
-  "Farewells, the beast and birthdays play out on the zoo page — go home to watch.",
+  "Farewells, the beast and birthdays play out on the zoo page. Go home to watch.",
   "Erase all data",
   "Erasing everything",
   "For trying things out. No judgement. Well, a little.",
@@ -116,6 +122,7 @@
   "Keeper",
   "Today",
   "🍞 %1 crumbs",
+  "How are you, right now?",
   "Challenge",
   "Done",
   "Skip",
@@ -127,6 +134,7 @@
   "Give up (no shame)",
   "Habits",
   "Add one you'll actually do.",
+  "tolerated",
   "avoid",
   "slipped %1 today",
   "clean today, nice",
@@ -134,10 +142,21 @@
   "✓ today",
   "last: %1",
   "not yet",
+  "missed yesterday, today's the one that keeps it",
+  "↪ instead: %1",
+  "Your 'ok for now' window closed. Extend it, or let it count again?",
+  "Two more weeks",
+  "Let it count",
   "Remove",
   "New habit (+5 🍞)",
   "New habit",
+  "When? e.g. after my morning coffee",
+  "Cue (optional)",
+  "Instead, I'll… (same payoff, kinder)",
+  "Replacement (optional)",
+  "tighten",
   "times/day",
+  "ok for now",
   "avoid this one",
   "Quests",
   "One-off things go here.",
@@ -152,11 +171,14 @@
   "Settings",
   "Shop",
   "Keeper",
+  "Almanac •",
+  "Almanac",
   "Today",
   "Your zoo",
   "%1 · level %2",
   "Today's tasks",
   "Empty. Do a habit, earn crumbs, hatch something. It helps.",
+  "A new page appeared in the Almanac.",
   "Hatch a blob (%1 🍞)",
   "Fun fact, allegedly"
  ]

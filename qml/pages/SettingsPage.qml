@@ -141,7 +141,7 @@ Page {
             Label {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 wrapMode: Text.Wrap
-                text: qsTr("Farewells, the beast and birthdays play out on the zoo page — go home to watch.")
+                text: qsTr("Farewells, the beast and birthdays play out on the zoo page. Go home to watch.")
                 color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
             }
             Button {

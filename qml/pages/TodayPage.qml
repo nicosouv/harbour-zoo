@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import "../components"
 
 // The useful loop (reached from the zoo via "Today"): challenge, habits, quests. Light copy, dry
-// British voice. Everything here earns crumbs that feed the zoo — and a little confetti.
+// British voice. Everything here earns crumbs that feed the zoo, and a little confetti.
 Page {
     id: page
     allowedOrientations: Orientation.All
@@ -13,7 +13,7 @@ Page {
         confetti.fireAt(p.x, p.y)
     }
 
-    // Pomodoro selection only — the timer itself runs in the engine (survives navigation).
+    // Pomodoro selection only, the timer itself runs in the engine (survives navigation).
     property int focusMin: 25
     function mmss(s) { var m = Math.floor(s / 60), r = s % 60; return m + ":" + (r < 10 ? "0" + r : r) }
 
@@ -57,7 +57,7 @@ Page {
             PageHeader { title: qsTr("Today"); description: qsTr("🍞 %1 crumbs").arg(Zoo.crumbs) }
 
             // --- Emotional check-in ------------------------------------------------------------
-            // One optional tap. It never gates action — it just right-sizes today's ask (a low day
+            // One optional tap. It never gates action, it just right-sizes today's ask (a low day
             // means "go tiny, and tiny counts"). See the evidence base in docs/utility-spine.md.
             Column {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
@@ -189,7 +189,7 @@ Page {
                     property bool done: modelData.doneToday      // good: target met; bad: clean today
                     property bool multi: !bad && modelData.target > 1
                     onClicked: {
-                        if (bad) { Zoo.logHabit(modelData.id) }   // a slip — recorded, no confetti
+                        if (bad) { Zoo.logHabit(modelData.id) }   // a slip, recorded, no confetti
                         else if (modelData.doneCount < modelData.target) { page.celebrate(circle); Zoo.logHabit(modelData.id) }
                     }
                     Rectangle {
@@ -239,7 +239,7 @@ Page {
                                                                          : qsTr("not yet"))))
                             color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny
                         }
-                        // The anchor (implementation intention) — quietly reinforces when to act.
+                        // The anchor (implementation intention), quietly reinforces when to act.
                         Label {
                             width: parent.width; visible: modelData.cue.length > 0; wrapMode: Text.Wrap
                             text: "⏱ " + modelData.cue
@@ -249,17 +249,17 @@ Page {
                         Label {
                             width: parent.width; wrapMode: Text.Wrap
                             visible: modelData.missedYesterday && !habitItem.done
-                            text: qsTr("missed yesterday — today's the one that keeps it")
+                            text: qsTr("missed yesterday, today's the one that keeps it")
                             color: Theme.highlightColor; font.pixelSize: Theme.fontSizeTiny
                         }
-                        // The swap for a bad habit — surfaced right where the slip happens.
+                        // The swap for a bad habit, surfaced right where the slip happens.
                         Label {
                             width: parent.width
                             visible: habitItem.bad && modelData.replacement.length > 0; wrapMode: Text.Wrap
                             text: qsTr("↪ instead: %1").arg(modelData.replacement)
                             color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeTiny
                         }
-                        // The tolerance window has closed — a gentle re-ask, never a scold.
+                        // The tolerance window has closed, a gentle re-ask, never a scold.
                         Column {
                             width: parent.width; visible: modelData.toleranceExpired
                             spacing: Theme.paddingSmall
@@ -289,7 +289,7 @@ Page {
                     label: qsTr("New habit")
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: cueField.focus = true
                 }
-                // Implementation intention / anchor — the single strongest lever for follow-through.
+                // Implementation intention / anchor, the single strongest lever for follow-through.
                 TextField {
                     id: cueField; width: parent.width
                     placeholderText: qsTr("When? e.g. after my morning coffee")

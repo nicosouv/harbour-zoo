@@ -2,14 +2,14 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de">
 <context>
-    <name>PredatorOverlay</name>
+    <name>CeremonyOverlay</name>
     <message>
-        <source>NOM</source>
-        <translation>NOM</translation>
+        <source>The Quest Beast</source>
+        <translation>Das Auftragsbiest</translation>
     </message>
     <message>
         <source>The Quest Beast ate %1. Overdue quests have consequences. Mild ones.</source>
-        <translation>Die Quest-Bestie hat %1 gefressen. Überfällige Aufträge haben Folgen. Milde.</translation>
+        <translation>Das Auftragsbiest hat %1 gefressen. Überfällige Aufträge haben Folgen. Milde.</translation>
     </message>
     <message>
         <source>a blob</source>
@@ -19,12 +19,16 @@
         <source>%1 blobs</source>
         <translation>%1 Blobs</translation>
     </message>
+    <message>
+        <source>NOM</source>
+        <translation>MAMPF</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
     <message>
         <source>focusing</source>
-        <translation>Fokus</translation>
+        <translation>Fokus läuft</translation>
     </message>
     <message>
         <source>No habits yet</source>
@@ -47,11 +51,11 @@
     <name>harbour-zoo</name>
     <message>
         <source>focusing</source>
-        <translation>Fokus</translation>
+        <translation>Fokus läuft</translation>
     </message>
     <message>
         <source>Focus done</source>
-        <translation>Fokus beendet</translation>
+        <translation>Fokus fertig</translation>
     </message>
     <message>
         <source>Time's up. Well done, allegedly.</source>
@@ -59,10 +63,18 @@
     </message>
 </context>
 <context>
-    <name>CeremonyPage</name>
+    <name>AlmanacPage</name>
     <message>
-        <source>Continue</source>
-        <translation>Weiter</translation>
+        <source>The Keeper's Almanac</source>
+        <translation>Almanach des Wärters</translation>
+    </message>
+    <message>
+        <source>The zoo remembers. Read on when a page is ready.</source>
+        <translation>Der Zoo erinnert sich. Lies weiter, wenn eine Seite bereit ist.</translation>
+    </message>
+    <message>
+        <source>Chapter %1</source>
+        <translation>Kapitel %1</translation>
     </message>
 </context>
 <context>
@@ -77,7 +89,19 @@
     </message>
     <message>
         <source>Every resident is a day you looked after yourself. The habits are the point; the zoo just makes it visible.</source>
-        <translation>Jeder Bewohner ist ein Tag, an dem du dich um dich gekümmert hast. Die Gewohnheiten sind der Punkt; der Zoo macht es nur sichtbar.</translation>
+        <translation>Jeder Bewohner ist ein Tag, an dem du auf dich geachtet hast. Die Gewohnheiten sind der Punkt; der Zoo macht es nur sichtbar.</translation>
+    </message>
+    <message>
+        <source>The Keeper's Almanac</source>
+        <translation>Almanach des Wärters</translation>
+    </message>
+    <message>
+        <source>A new page is waiting to be read.</source>
+        <translation>Eine neue Seite wartet darauf, gelesen zu werden.</translation>
+    </message>
+    <message>
+        <source>The story of the zoo, and of you.</source>
+        <translation>Die Geschichte des Zoos, und deine.</translation>
     </message>
     <message>
         <source>Last 7 days</source>
@@ -140,7 +164,7 @@
     </message>
     <message>
         <source>A zoo of odd little creatures, fed by the useful things you do. Two minutes to set up, then it's yours.</source>
-        <translation>Ein Zoo schrulliger kleiner Kreaturen, gefüttert von den nützlichen Dingen, die du tust. Zwei Minuten Einrichtung, dann gehört er dir.</translation>
+        <translation>Ein Zoo schräger kleiner Kreaturen, genährt von den nützlichen Dingen, die du tust. Zwei Minuten zum Einrichten, dann gehört er dir.</translation>
     </message>
     <message>
         <source>Your name</source>
@@ -156,7 +180,7 @@
     </message>
     <message>
         <source>Pick one style, or Mix for a bit of everything.</source>
-        <translation>Wähle einen Stil, oder Mix für etwas von allem.</translation>
+        <translation>Wähl einen Stil, oder Mix für etwas von allem.</translation>
     </message>
     <message>
         <source>Habits</source>
@@ -164,7 +188,7 @@
     </message>
     <message>
         <source>Tap a few to add them. Or your own below. You can change these anytime.</source>
-        <translation>Tipp ein paar an, um sie hinzuzufügen. Oder eigene unten. Jederzeit änderbar.</translation>
+        <translation>Tipp ein paar an, um sie hinzuzufügen. Oder eigene unten. Du kannst das jederzeit ändern.</translation>
     </message>
     <message>
         <source>Custom habit</source>
@@ -235,7 +259,7 @@
     </message>
     <message>
         <source>Mix of all styles</source>
-        <translation>Mix aus allen Stilen</translation>
+        <translation>Mix aller Stile</translation>
     </message>
     <message>
         <source>Blob size</source>
@@ -267,7 +291,7 @@
     </message>
     <message>
         <source>Hatch a blob (free)</source>
-        <translation>Blob ausbrüten (gratis)</translation>
+        <translation>Einen Blob ausbrüten (gratis)</translation>
     </message>
     <message>
         <source>Send oldest blob off 👋</source>
@@ -275,15 +299,15 @@
     </message>
     <message>
         <source>Feed the Quest Beast 🦖</source>
-        <translation>Die Quest-Bestie füttern 🦖</translation>
+        <translation>Das Auftragsbiest füttern 🦖</translation>
     </message>
     <message>
         <source>Trigger birthday 🎂</source>
         <translation>Geburtstag auslösen 🎂</translation>
     </message>
     <message>
-        <source>Farewells, the beast and birthdays play out on the zoo page — go home to watch.</source>
-        <translation>Abschiede, Bestie und Geburtstage laufen auf der Zoo-Seite ab — geh zurück, um zuzusehen.</translation>
+        <source>Farewells, the beast and birthdays play out on the zoo page. Go home to watch.</source>
+        <translation>Abschiede, das Biest und Geburtstage spielen sich auf der Zoo-Seite ab. Geh nach Hause zum Zuschauen.</translation>
     </message>
     <message>
         <source>Erase all data</source>
@@ -423,6 +447,10 @@
         <translation>🍞 %1 Krümel</translation>
     </message>
     <message>
+        <source>How are you, right now?</source>
+        <translation>Wie geht es dir gerade?</translation>
+    </message>
+    <message>
         <source>Challenge</source>
         <translation>Aufgabe</translation>
     </message>
@@ -467,12 +495,16 @@
         <translation>Füg eine hinzu, die du wirklich tust.</translation>
     </message>
     <message>
+        <source>tolerated</source>
+        <translation>geduldet</translation>
+    </message>
+    <message>
         <source>avoid</source>
         <translation>meiden</translation>
     </message>
     <message>
         <source>slipped %1 today</source>
-        <translation>%1-mal heute geschwächelt</translation>
+        <translation>heute %1 mal ausgerutscht</translation>
     </message>
     <message>
         <source>clean today, nice</source>
@@ -495,6 +527,26 @@
         <translation>noch nicht</translation>
     </message>
     <message>
+        <source>missed yesterday, today's the one that keeps it</source>
+        <translation>gestern verpasst, heute zählt</translation>
+    </message>
+    <message>
+        <source>↪ instead: %1</source>
+        <translation>↪ stattdessen: %1</translation>
+    </message>
+    <message>
+        <source>Your 'ok for now' window closed. Extend it, or let it count again?</source>
+        <translation>Dein „ok fürs Erste“-Fenster ist zu. Verlängern oder wieder zählen lassen?</translation>
+    </message>
+    <message>
+        <source>Two more weeks</source>
+        <translation>Zwei weitere Wochen</translation>
+    </message>
+    <message>
+        <source>Let it count</source>
+        <translation>Zählen lassen</translation>
+    </message>
+    <message>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
@@ -507,8 +559,32 @@
         <translation>Neue Gewohnheit</translation>
     </message>
     <message>
+        <source>When? e.g. after my morning coffee</source>
+        <translation>Wann? z. B. nach meinem Morgenkaffee</translation>
+    </message>
+    <message>
+        <source>Cue (optional)</source>
+        <translation>Auslöser (optional)</translation>
+    </message>
+    <message>
+        <source>Instead, I'll… (same payoff, kinder)</source>
+        <translation>Stattdessen … (gleicher Gewinn, sanfter)</translation>
+    </message>
+    <message>
+        <source>Replacement (optional)</source>
+        <translation>Ersatz (optional)</translation>
+    </message>
+    <message>
+        <source>tighten</source>
+        <translation>straffen</translation>
+    </message>
+    <message>
         <source>times/day</source>
-        <translation>mal/Tag</translation>
+        <translation>Mal/Tag</translation>
+    </message>
+    <message>
+        <source>ok for now</source>
+        <translation>ok fürs Erste</translation>
     </message>
     <message>
         <source>avoid this one</source>
@@ -562,6 +638,14 @@
         <translation>Wärter</translation>
     </message>
     <message>
+        <source>Almanac •</source>
+        <translation>Almanach •</translation>
+    </message>
+    <message>
+        <source>Almanac</source>
+        <translation>Almanach</translation>
+    </message>
+    <message>
         <source>Today</source>
         <translation>Heute</translation>
     </message>
@@ -580,6 +664,10 @@
     <message>
         <source>Empty. Do a habit, earn crumbs, hatch something. It helps.</source>
         <translation>Leer. Mach eine Gewohnheit, verdien Krümel, brüte etwas aus. Das hilft.</translation>
+    </message>
+    <message>
+        <source>A new page appeared in the Almanac.</source>
+        <translation>Im Almanach ist eine neue Seite aufgetaucht.</translation>
     </message>
     <message>
         <source>Hatch a blob (%1 🍞)</source>
@@ -1005,8 +1093,8 @@
         <translation>Ein herzlicher Abschied</translation>
     </message>
     <message>
-        <source>One of your blobs has set off for new adventures. It will be fine. Probably.</source>
-        <translation>Einer deiner Blobs ist zu neuen Abenteuern aufgebrochen. Es wird ihm gut gehen. Wahrscheinlich.</translation>
+        <source>A blob grew up and set off to live its own life. Not because you failed it, because it was ready. The zoo remembers.</source>
+        <translation>Ein Blob wurde groß und zog los, um sein eigenes Leben zu leben. Nicht weil du versagt hast, weil er bereit war. Der Zoo erinnert sich.</translation>
     </message>
     <message>
         <source>Well kept</source>
@@ -1022,11 +1110,111 @@
     </message>
     <message>
         <source>The whole zoo made you something. It's a blob. It's always a blob.</source>
-        <translation>Der ganze Zoo hat dir etwas gemacht. Es ist ein Blob. Es ist immer ein Blob.</translation>
+        <translation>Der ganze Zoo hat dir etwas gebastelt. Es ist ein Blob. Es ist immer ein Blob.</translation>
     </message>
     <message>
         <source>The zoo is closed for celebrations. The blobs are wearing tiny hats.</source>
         <translation>Der Zoo ist wegen Feierlichkeiten geschlossen. Die Blobs tragen winzige Hüte.</translation>
+    </message>
+    <message>
+        <source>The empty zoo</source>
+        <translation>Der leere Zoo</translation>
+    </message>
+    <message>
+        <source>It was empty when you found it, a few bare enclosures, the wind, and a ring of keys nobody had claimed. You picked them up. Nothing here is anything yet. That is the very best time to begin.</source>
+        <translation>Er war leer, als du ihn fandest, ein paar kahle Gehege, der Wind und ein Schlüsselbund, den niemand beansprucht hatte. Du hast ihn genommen. Noch ist hier nichts irgendetwas. Das ist der allerbeste Moment, um anzufangen.</translation>
+    </message>
+    <message>
+        <source>The first light</source>
+        <translation>Das erste Licht</translation>
+    </message>
+    <message>
+        <source>A handful of ordinary days, and already something stirs in the grass. You didn't build a creature; you kept a small promise, and the creature came to keep you company. Keep coming back. It watches the gate.</source>
+        <translation>Eine Handvoll gewöhnlicher Tage, und schon regt sich etwas im Gras. Du hast keine Kreatur gebaut; du hast ein kleines Versprechen gehalten, und die Kreatur kam, um dir Gesellschaft zu leisten. Komm wieder. Sie behält das Tor im Blick.</translation>
+    </message>
+    <message>
+        <source>Company</source>
+        <translation>Gesellschaft</translation>
+    </message>
+    <message>
+        <source>There's a little crowd now, each one a day you chose yourself over the easier nothing. They don't know they're a calendar. They think they're a family. Let them.</source>
+        <translation>Jetzt ist es eine kleine Schar, jeder ein Tag, an dem du dich für dich entschieden hast statt für das einfachere Nichts. Sie wissen nicht, dass sie ein Kalender sind. Sie halten sich für eine Familie. Lass sie.</translation>
+    </message>
+    <message>
+        <source>The seat, kept warm</source>
+        <translation>Der Platz, warm gehalten</translation>
+    </message>
+    <message>
+        <source>Seven days you turned up. A day will slip one day, it always does, and when it does, the gate stays open and your seat stays warm. This zoo counts arrivals, never absences. Coming back is the only rule there is.</source>
+        <translation>Sieben Tage bist du aufgetaucht. Ein Tag wird irgendwann rutschen, das passiert immer, und wenn, bleibt das Tor offen und dein Platz warm. Dieser Zoo zählt Ankünfte, nie Abwesenheiten. Wiederkommen ist die einzige Regel.</translation>
+    </message>
+    <message>
+        <source>The first goodbye</source>
+        <translation>Der erste Abschied</translation>
+    </message>
+    <message>
+        <source>One of them shouldered a little bundle and walked out the gate for good. It didn't leave because you failed it. It left because it had finally grown enough to. That small ache? That is proof it mattered. The things we tend outgrow us. Let it be the happy ending it is.</source>
+        <translation>Einer von ihnen nahm ein kleines Bündel auf die Schulter und ging für immer durchs Tor. Er ging nicht, weil du versagt hast. Er ging, weil er endlich groß genug war. Dieser kleine Schmerz? Er ist der Beweis, dass es zählte. Was wir umsorgen, wächst über uns hinaus. Lass es das glückliche Ende sein, das es ist.</translation>
+    </message>
+    <message>
+        <source>What the zoo was for</source>
+        <translation>Wozu der Zoo da war</translation>
+    </message>
+    <message>
+        <source>You thought you were collecting creatures. Look again. Every enclosure is a Tuesday you didn't waste, a promise to yourself quietly kept. The zoo was never the point. It was only ever the proof.</source>
+        <translation>Du dachtest, du sammelst Kreaturen. Schau noch einmal. Jedes Gehege ist ein Dienstag, den du nicht vergeudet hast, ein still gehaltenes Versprechen an dich selbst. Der Zoo war nie das Ziel. Er war immer nur der Beweis.</translation>
+    </message>
+    <message>
+        <source>A zoo built from Tuesdays</source>
+        <translation>Ein Zoo aus Dienstagen</translation>
+    </message>
+    <message>
+        <source>Here is the whole secret, now that you've earned it: none of this was ever about the blobs. It was about someone who kept showing up for themselves, one small day at a time, until the showing-up became who they are. That someone is you. The zoo only ever remembered it back to you.</source>
+        <translation>Hier ist das ganze Geheimnis, jetzt wo du es dir verdient hast: bei alldem ging es nie um die Blobs. Es ging um jemanden, der immer wieder für sich selbst auftauchte, einen kleinen Tag nach dem anderen, bis das Auftauchen zu dem wurde, wer er ist. Dieser Jemand bist du. Der Zoo hat es dir nur zurückerinnert.</translation>
+    </message>
+    <message>
+        <source>Not yet written</source>
+        <translation>Noch nicht geschrieben</translation>
+    </message>
+    <message>
+        <source>The Almanac keeps this page blank, for now. Keep showing up.</source>
+        <translation>Der Almanach lässt diese Seite vorerst leer. Tauch weiter auf.</translation>
+    </message>
+    <message>
+        <source>Rough one today. Then today we go tiny: one small thing, and that fully counts.</source>
+        <translation>Harter Tag heute. Dann machen wir es heute winzig: eine Kleinigkeit, und die zählt voll.</translation>
+    </message>
+    <message>
+        <source>Low tank. Pick the easiest habit and let that be plenty. Gentle is still forward.</source>
+        <translation>Wenig im Tank. Nimm die leichteste Gewohnheit, und das reicht völlig. Sanft ist trotzdem vorwärts.</translation>
+    </message>
+    <message>
+        <source>Steady. A fine day to keep the thread going, nothing heroic required.</source>
+        <translation>Stabil. Ein guter Tag, um den Faden zu halten, nichts Heroisches nötig.</translation>
+    </message>
+    <message>
+        <source>Good energy. This is a nice day to start something you've been circling.</source>
+        <translation>Gute Energie. Ein schöner Tag, um etwas anzufangen, um das du schon kreist.</translation>
+    </message>
+    <message>
+        <source>Flying. Ride it, start the thing, stack a habit. The blobs are excited.</source>
+        <translation>Voll im Flow. Nutz es, fang die Sache an, stapel eine Gewohnheit. Die Blobs sind ganz aufgeregt.</translation>
+    </message>
+    <message>
+        <source>Yesterday slipped by. Today is the one that keeps the thread, one small thing does it.</source>
+        <translation>Gestern ist entwischt. Heute ist der Tag, der den Faden hält, eine Kleinigkeit reicht.</translation>
+    </message>
+    <message>
+        <source>The gate's still open, no clock running. Pick it back up whenever you like.</source>
+        <translation>Das Tor ist noch offen, keine Uhr läuft. Nimm es wieder auf, wann du magst.</translation>
+    </message>
+    <message>
+        <source>A new month, a clean page. A good moment to swap or renegotiate one habit.</source>
+        <translation>Ein neuer Monat, ein leeres Blatt. Ein guter Moment, eine Gewohnheit zu tauschen oder neu auszuhandeln.</translation>
+    </message>
+    <message>
+        <source>New week, fresh page. Want to renegotiate one habit while it's easy?</source>
+        <translation>Neue Woche, frische Seite. Lust, eine Gewohnheit neu auszuhandeln, solange es leicht ist?</translation>
     </message>
 </context>
 </TS>

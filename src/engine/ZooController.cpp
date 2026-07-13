@@ -15,7 +15,7 @@
 
 namespace zoo {
 
-// ---- static catalogs (not state — just content) ---------------------------------------------
+// ---- static catalogs (not state, just content) ---------------------------------------------
 static const char* const kChallenges[] = {
     "Introduce yourself to a cloud. Keep it professional.",
     "Compliment an inanimate object out loud. Mean it.",
@@ -354,7 +354,7 @@ QVariantList ZooController::pendingCeremonies() const
         m.insert("id", QStringLiteral("farewell/") + QString::number(seed));
         m.insert("kind", QStringLiteral("farewell"));
         m.insert("title", tr("A fond farewell"));
-        m.insert("body", tr("A blob grew up and set off to live its own life. Not because you failed it — "
+        m.insert("body", tr("A blob grew up and set off to live its own life. Not because you failed it, "
                             "because it was ready. The zoo remembers."));
         m.insert("emoji", QStringLiteral("👋"));
         m.insert("seed", seed);
@@ -417,7 +417,7 @@ void ZooController::dismissCeremony(const QString& id)
     emit stateChanged();
 }
 
-// The Keeper's Almanac — the story's red thread ("Le zoo se souvient"). Told in the Curator's
+// The Keeper's Almanac, the story's red thread ("Le zoo se souvient"). Told in the Curator's
 // voice, in four movements (arrival · the everyday · the turn · the reveal): the zoo is not a
 // collection of creatures, it is a portrait of one person who kept a small promise to themselves.
 // Chapters unlock at real milestones; "read" is a preference (like ceremonyShown), not game state.
@@ -425,7 +425,7 @@ struct AlmanacChapter { const char* id; const char* title; const char* body; };
 static const AlmanacChapter kAlmanac[] = {
     { "arrival",
       QT_TR_NOOP("The empty zoo"),
-      QT_TR_NOOP("It was empty when you found it — a few bare enclosures, the wind, and a ring of keys "
+      QT_TR_NOOP("It was empty when you found it, a few bare enclosures, the wind, and a ring of keys "
                  "nobody had claimed. You picked them up. Nothing here is anything yet. That is the very "
                  "best time to begin.") },
     { "first_light",
@@ -435,11 +435,11 @@ static const AlmanacChapter kAlmanac[] = {
                  "coming back. It watches the gate.") },
     { "companions",
       QT_TR_NOOP("Company"),
-      QT_TR_NOOP("There's a little crowd now — each one a day you chose yourself over the easier nothing. "
+      QT_TR_NOOP("There's a little crowd now, each one a day you chose yourself over the easier nothing. "
                  "They don't know they're a calendar. They think they're a family. Let them.") },
     { "the_seat",
       QT_TR_NOOP("The seat, kept warm"),
-      QT_TR_NOOP("Seven days you turned up. A day will slip one day — it always does — and when it does, "
+      QT_TR_NOOP("Seven days you turned up. A day will slip one day, it always does, and when it does, "
                  "the gate stays open and your seat stays warm. This zoo counts arrivals, never absences. "
                  "Coming back is the only rule there is.") },
     { "first_goodbye",
@@ -635,7 +635,7 @@ QVariantList ZooController::habits() const
         const QString last = m_state.habitLast.value(h.id);
         m.insert("lastDone", last);
         // Never miss twice (per habit): the last check-in was two days ago, so yesterday slipped and
-        // today hasn't happened — the exact single-miss moment worth a gentle "today keeps it."
+        // today hasn't happened, the exact single-miss moment worth a gentle "today keeps it."
         m.insert("missedYesterday", !bad && !dayBefore.isEmpty() && last == dayBefore);
         out.append(m);
     }
@@ -720,16 +720,16 @@ void ZooController::logMood(int valence)
 int ZooController::todayMood() const { return m_state.moodByDate.value(localDate(), 0); }
 bool ZooController::moodCheckedToday() const { return m_state.moodByDate.contains(localDate()); }
 
-// Not "are you ready?" (that just hands out excuses) — a tone knob. A low check-in makes the app
+// Not "are you ready?" (that just hands out excuses), a tone knob. A low check-in makes the app
 // ask for less and mean it; a high one invites you to start something. Empty until you check in.
 QString ZooController::moodReadiness() const
 {
     switch (todayMood()) {
     case 1: return tr("Rough one today. Then today we go tiny: one small thing, and that fully counts.");
     case 2: return tr("Low tank. Pick the easiest habit and let that be plenty. Gentle is still forward.");
-    case 3: return tr("Steady. A fine day to keep the thread going — nothing heroic required.");
+    case 3: return tr("Steady. A fine day to keep the thread going, nothing heroic required.");
     case 4: return tr("Good energy. This is a nice day to start something you've been circling.");
-    case 5: return tr("Flying. Ride it — start the thing, stack a habit. The blobs are excited.");
+    case 5: return tr("Flying. Ride it, start the thing, stack a habit. The blobs are excited.");
     default: return QString();
     }
 }
@@ -748,7 +748,7 @@ QString ZooController::gentleNudge() const
     const int y = deedsOn(today.addDays(-1));
     const int d2 = deedsOn(today.addDays(-2));
     if (y == 0 && d2 > 0)
-        return tr("Yesterday slipped by. Today is the one that keeps the thread — one small thing does it.");
+        return tr("Yesterday slipped by. Today is the one that keeps the thread, one small thing does it.");
     if (y == 0 && d2 == 0)
         return tr("The gate's still open, no clock running. Pick it back up whenever you like.");
     return QString();
@@ -760,7 +760,7 @@ QString ZooController::freshStartPrompt() const
     const QDate today = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
     if (!today.isValid()) return QString();
     if (today.day() == 1)
-        return tr("A new month — a clean page. A good moment to swap or renegotiate one habit.");
+        return tr("A new month, a clean page. A good moment to swap or renegotiate one habit.");
     if (today.dayOfWeek() == 1)
         return tr("New week, fresh page. Want to renegotiate one habit while it's easy?");
     return QString();
@@ -1074,7 +1074,7 @@ void ZooController::checkMilestones()
         grantDecoration(QStringLiteral("fern"));
 }
 
-// ---- focus (pomodoro) — engine-driven -------------------------------------------------------
+// ---- focus (pomodoro), engine-driven -------------------------------------------------------
 void ZooController::startFocus(int minutes)
 {
     if (minutes <= 0) return;

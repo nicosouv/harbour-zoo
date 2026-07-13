@@ -2,14 +2,14 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="fi">
 <context>
-    <name>PredatorOverlay</name>
+    <name>CeremonyOverlay</name>
     <message>
-        <source>NOM</source>
-        <translation>NOM</translation>
+        <source>The Quest Beast</source>
+        <translation>Tehtäväpeto</translation>
     </message>
     <message>
         <source>The Quest Beast ate %1. Overdue quests have consequences. Mild ones.</source>
-        <translation>Tehtäväpeto söi %1. Myöhästyneillä tehtävillä on seurauksia. Lieviä.</translation>
+        <translation>Tehtäväpeto söi %1. Myöhässä olevilla tehtävillä on seurauksia. Lieviä.</translation>
     </message>
     <message>
         <source>a blob</source>
@@ -19,12 +19,16 @@
         <source>%1 blobs</source>
         <translation>%1 blobia</translation>
     </message>
+    <message>
+        <source>NOM</source>
+        <translation>NAM</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
     <message>
         <source>focusing</source>
-        <translation>keskittyy</translation>
+        <translation>keskitytään</translation>
     </message>
     <message>
         <source>No habits yet</source>
@@ -40,14 +44,14 @@
     </message>
     <message>
         <source>to do</source>
-        <translation>tehtävänä</translation>
+        <translation>tehtävää</translation>
     </message>
 </context>
 <context>
     <name>harbour-zoo</name>
     <message>
         <source>focusing</source>
-        <translation>keskittyy</translation>
+        <translation>keskitytään</translation>
     </message>
     <message>
         <source>Focus done</source>
@@ -59,10 +63,18 @@
     </message>
 </context>
 <context>
-    <name>CeremonyPage</name>
+    <name>AlmanacPage</name>
     <message>
-        <source>Continue</source>
-        <translation>Jatka</translation>
+        <source>The Keeper's Almanac</source>
+        <translation>Hoitajan almanakka</translation>
+    </message>
+    <message>
+        <source>The zoo remembers. Read on when a page is ready.</source>
+        <translation>Eläintarha muistaa. Jatka lukemista, kun sivu on valmis.</translation>
+    </message>
+    <message>
+        <source>Chapter %1</source>
+        <translation>Luku %1</translation>
     </message>
 </context>
 <context>
@@ -78,6 +90,18 @@
     <message>
         <source>Every resident is a day you looked after yourself. The habits are the point; the zoo just makes it visible.</source>
         <translation>Jokainen asukas on päivä, jona pidit itsestäsi huolta. Tavat ovat pointti; eläintarha vain tekee sen näkyväksi.</translation>
+    </message>
+    <message>
+        <source>The Keeper's Almanac</source>
+        <translation>Hoitajan almanakka</translation>
+    </message>
+    <message>
+        <source>A new page is waiting to be read.</source>
+        <translation>Uusi sivu odottaa lukemista.</translation>
+    </message>
+    <message>
+        <source>The story of the zoo, and of you.</source>
+        <translation>Eläintarhan tarina, ja sinun.</translation>
     </message>
     <message>
         <source>Last 7 days</source>
@@ -140,7 +164,7 @@
     </message>
     <message>
         <source>A zoo of odd little creatures, fed by the useful things you do. Two minutes to set up, then it's yours.</source>
-        <translation>Eläintarha kummallisia pikkuolentoja, jota ruokkivat hyödylliset tekosi. Kaksi minuuttia asetuksiin, sitten se on sinun.</translation>
+        <translation>Eläintarha kummallisia pikkuolentoja, jota ruokkivat hyödylliset tekosi. Kaksi minuuttia pystytykseen, sitten se on sinun.</translation>
     </message>
     <message>
         <source>Your name</source>
@@ -156,7 +180,7 @@
     </message>
     <message>
         <source>Pick one style, or Mix for a bit of everything.</source>
-        <translation>Valitse tyyli tai Sekoitus vähän kaikkea.</translation>
+        <translation>Valitse yksi tyyli, tai Sekoitus vähän kaikkea.</translation>
     </message>
     <message>
         <source>Habits</source>
@@ -164,7 +188,7 @@
     </message>
     <message>
         <source>Tap a few to add them. Or your own below. You can change these anytime.</source>
-        <translation>Napauta muutamaa lisätäksesi ne. Tai omat alla. Voit muuttaa milloin vain.</translation>
+        <translation>Napauta muutamaa lisätäksesi ne. Tai omasi alle. Voit muuttaa näitä milloin vain.</translation>
     </message>
     <message>
         <source>Custom habit</source>
@@ -172,7 +196,7 @@
     </message>
     <message>
         <source>%1 habit(s) lined up</source>
-        <translation>%1 tapaa valmiina</translation>
+        <translation>%1 tapa(a) jonossa</translation>
     </message>
     <message>
         <source>A quest (optional)</source>
@@ -267,11 +291,11 @@
     </message>
     <message>
         <source>Hatch a blob (free)</source>
-        <translation>Kuoriuta blob (ilmainen)</translation>
+        <translation>Kuori blob (ilmainen)</translation>
     </message>
     <message>
         <source>Send oldest blob off 👋</source>
-        <translation>Lähetä vanhin blob matkaan 👋</translation>
+        <translation>Hyvästele vanhin blob 👋</translation>
     </message>
     <message>
         <source>Feed the Quest Beast 🦖</source>
@@ -282,8 +306,8 @@
         <translation>Laukaise syntymäpäivä 🎂</translation>
     </message>
     <message>
-        <source>Farewells, the beast and birthdays play out on the zoo page — go home to watch.</source>
-        <translation>Jäähyväiset, peto ja syntymäpäivät tapahtuvat eläintarhasivulla — palaa kotiin katsomaan.</translation>
+        <source>Farewells, the beast and birthdays play out on the zoo page. Go home to watch.</source>
+        <translation>Jäähyväiset, peto ja syntymäpäivät tapahtuvat eläintarhasivulla. Mene kotiin katsomaan.</translation>
     </message>
     <message>
         <source>Erase all data</source>
@@ -295,7 +319,7 @@
     </message>
     <message>
         <source>For trying things out. No judgement. Well, a little.</source>
-        <translation>Kokeiluihin. Ei tuomiota. No, vähän.</translation>
+        <translation>Kokeilua varten. Ei tuomiota. No, vähän.</translation>
     </message>
     <message>
         <source>Reminders</source>
@@ -423,6 +447,10 @@
         <translation>🍞 %1 murua</translation>
     </message>
     <message>
+        <source>How are you, right now?</source>
+        <translation>Miten voit juuri nyt?</translation>
+    </message>
+    <message>
         <source>Challenge</source>
         <translation>Haaste</translation>
     </message>
@@ -467,12 +495,16 @@
         <translation>Lisää sellainen, jonka oikeasti teet.</translation>
     </message>
     <message>
+        <source>tolerated</source>
+        <translation>siedetty</translation>
+    </message>
+    <message>
         <source>avoid</source>
         <translation>vältä</translation>
     </message>
     <message>
         <source>slipped %1 today</source>
-        <translation>lipsuit %1 kertaa tänään</translation>
+        <translation>lipsahti %1 kertaa tänään</translation>
     </message>
     <message>
         <source>clean today, nice</source>
@@ -495,6 +527,26 @@
         <translation>ei vielä</translation>
     </message>
     <message>
+        <source>missed yesterday, today's the one that keeps it</source>
+        <translation>eilen jäi väliin, tänään ratkaisee</translation>
+    </message>
+    <message>
+        <source>↪ instead: %1</source>
+        <translation>↪ sen sijaan: %1</translation>
+    </message>
+    <message>
+        <source>Your 'ok for now' window closed. Extend it, or let it count again?</source>
+        <translation>”Ok toistaiseksi” -ikkunasi sulkeutui. Jatketaanko vai annetaanko sen taas laskea?</translation>
+    </message>
+    <message>
+        <source>Two more weeks</source>
+        <translation>Kaksi viikkoa lisää</translation>
+    </message>
+    <message>
+        <source>Let it count</source>
+        <translation>Anna laskea</translation>
+    </message>
+    <message>
         <source>Remove</source>
         <translation>Poista</translation>
     </message>
@@ -507,8 +559,32 @@
         <translation>Uusi tapa</translation>
     </message>
     <message>
+        <source>When? e.g. after my morning coffee</source>
+        <translation>Milloin? esim. aamukahvin jälkeen</translation>
+    </message>
+    <message>
+        <source>Cue (optional)</source>
+        <translation>Vihje (valinnainen)</translation>
+    </message>
+    <message>
+        <source>Instead, I'll… (same payoff, kinder)</source>
+        <translation>Sen sijaan minä… (sama hyöty, lempeämmin)</translation>
+    </message>
+    <message>
+        <source>Replacement (optional)</source>
+        <translation>Korvaaja (valinnainen)</translation>
+    </message>
+    <message>
+        <source>tighten</source>
+        <translation>tiukenna</translation>
+    </message>
+    <message>
         <source>times/day</source>
-        <translation>kertaa/pv</translation>
+        <translation>kertaa/päivä</translation>
+    </message>
+    <message>
+        <source>ok for now</source>
+        <translation>ok toistaiseksi</translation>
     </message>
     <message>
         <source>avoid this one</source>
@@ -562,6 +638,14 @@
         <translation>Hoitaja</translation>
     </message>
     <message>
+        <source>Almanac •</source>
+        <translation>Almanakka •</translation>
+    </message>
+    <message>
+        <source>Almanac</source>
+        <translation>Almanakka</translation>
+    </message>
+    <message>
         <source>Today</source>
         <translation>Tänään</translation>
     </message>
@@ -575,11 +659,15 @@
     </message>
     <message>
         <source>Today's tasks</source>
-        <translation>Päivän tehtävät</translation>
+        <translation>Tämän päivän tehtävät</translation>
     </message>
     <message>
         <source>Empty. Do a habit, earn crumbs, hatch something. It helps.</source>
         <translation>Tyhjä. Tee tapa, ansaitse muruja, kuori jotain. Se auttaa.</translation>
+    </message>
+    <message>
+        <source>A new page appeared in the Almanac.</source>
+        <translation>Almanakkaan ilmestyi uusi sivu.</translation>
     </message>
     <message>
         <source>Hatch a blob (%1 🍞)</source>
@@ -1002,19 +1090,19 @@
     </message>
     <message>
         <source>A fond farewell</source>
-        <translation>Lämmin jäähyväiset</translation>
+        <translation>Lämpimät jäähyväiset</translation>
     </message>
     <message>
-        <source>One of your blobs has set off for new adventures. It will be fine. Probably.</source>
-        <translation>Yksi blobeistasi lähti uusiin seikkailuihin. Kaikki hyvin. Luultavasti.</translation>
+        <source>A blob grew up and set off to live its own life. Not because you failed it, because it was ready. The zoo remembers.</source>
+        <translation>Blob kasvoi ja lähti elämään omaa elämäänsä. Ei siksi, että petit sen, vaan koska se oli valmis. Eläintarha muistaa.</translation>
     </message>
     <message>
         <source>Well kept</source>
-        <translation>Hyvin pidetty</translation>
+        <translation>Hyvin hoidettu</translation>
     </message>
     <message>
         <source>%1 habit check-ins. The blobs are quietly proud, and a little competitive.</source>
-        <translation>%1 tapakirjausta. Blobit ovat hiljaa ylpeitä, ja hieman kilpailuhenkisiä.</translation>
+        <translation>%1 tapakirjausta. Blobit ovat hiljaa ylpeitä ja hieman kilpailuhenkisiä.</translation>
     </message>
     <message>
         <source>Happy birthday</source>
@@ -1027,6 +1115,106 @@
     <message>
         <source>The zoo is closed for celebrations. The blobs are wearing tiny hats.</source>
         <translation>Eläintarha on suljettu juhlien vuoksi. Blobeilla on pienet hatut.</translation>
+    </message>
+    <message>
+        <source>The empty zoo</source>
+        <translation>Tyhjä eläintarha</translation>
+    </message>
+    <message>
+        <source>It was empty when you found it, a few bare enclosures, the wind, and a ring of keys nobody had claimed. You picked them up. Nothing here is anything yet. That is the very best time to begin.</source>
+        <translation>Se oli tyhjä, kun löysit sen, muutama paljas aitaus, tuuli ja avainnippu, jota kukaan ei ollut lunastanut. Otit sen. Täällä ei ole vielä mitään. Juuri nyt on paras hetki aloittaa.</translation>
+    </message>
+    <message>
+        <source>The first light</source>
+        <translation>Ensimmäinen valo</translation>
+    </message>
+    <message>
+        <source>A handful of ordinary days, and already something stirs in the grass. You didn't build a creature; you kept a small promise, and the creature came to keep you company. Keep coming back. It watches the gate.</source>
+        <translation>Kourallinen tavallisia päiviä, ja jo jokin liikahtaa ruohikossa. Et rakentanut olentoa; pidit pienen lupauksen, ja olento tuli pitämään sinulle seuraa. Palaa yhä uudelleen. Se vahtii porttia.</translation>
+    </message>
+    <message>
+        <source>Company</source>
+        <translation>Seuraa</translation>
+    </message>
+    <message>
+        <source>There's a little crowd now, each one a day you chose yourself over the easier nothing. They don't know they're a calendar. They think they're a family. Let them.</source>
+        <translation>Nyt on pieni joukko, jokainen on päivä, jona valitsit itsesi helpomman tyhjyyden sijaan. Ne eivät tiedä olevansa kalenteri. Ne luulevat olevansa perhe. Anna niiden olla.</translation>
+    </message>
+    <message>
+        <source>The seat, kept warm</source>
+        <translation>Paikka, pidetty lämpimänä</translation>
+    </message>
+    <message>
+        <source>Seven days you turned up. A day will slip one day, it always does, and when it does, the gate stays open and your seat stays warm. This zoo counts arrivals, never absences. Coming back is the only rule there is.</source>
+        <translation>Seitsemänä päivänä tulit paikalle. Jokin päivä lipsahtaa joskus, niin käy aina, ja kun käy, portti pysyy auki ja paikkasi lämpimänä. Tämä eläintarha laskee saapumiset, ei koskaan poissaoloja. Paluu on ainoa sääntö.</translation>
+    </message>
+    <message>
+        <source>The first goodbye</source>
+        <translation>Ensimmäiset jäähyväiset</translation>
+    </message>
+    <message>
+        <source>One of them shouldered a little bundle and walked out the gate for good. It didn't leave because you failed it. It left because it had finally grown enough to. That small ache? That is proof it mattered. The things we tend outgrow us. Let it be the happy ending it is.</source>
+        <translation>Yksi heistä otti pienen nyytin olalleen ja käveli portista ulos lopullisesti. Se ei lähtenyt siksi, että petit sen. Se lähti, koska oli vihdoin kasvanut tarpeeksi. Se pieni kipu? Se on todiste siitä, että sillä oli väliä. Se, mitä hoivaamme, kasvaa lopulta yli. Anna sen olla se onnellinen loppu, joka se on.</translation>
+    </message>
+    <message>
+        <source>What the zoo was for</source>
+        <translation>Mitä varten eläintarha oli</translation>
+    </message>
+    <message>
+        <source>You thought you were collecting creatures. Look again. Every enclosure is a Tuesday you didn't waste, a promise to yourself quietly kept. The zoo was never the point. It was only ever the proof.</source>
+        <translation>Luulit keräväsi olentoja. Katso uudelleen. Jokainen aitaus on tiistai, jota et haaskannut, hiljaa pidetty lupaus itsellesi. Eläintarha ei ollut koskaan pointti. Se oli aina vain todiste.</translation>
+    </message>
+    <message>
+        <source>A zoo built from Tuesdays</source>
+        <translation>Tiistaista rakennettu eläintarha</translation>
+    </message>
+    <message>
+        <source>Here is the whole secret, now that you've earned it: none of this was ever about the blobs. It was about someone who kept showing up for themselves, one small day at a time, until the showing-up became who they are. That someone is you. The zoo only ever remembered it back to you.</source>
+        <translation>Tässä on koko salaisuus, nyt kun olet sen ansainnut: mikään tästä ei koskaan koskenut blobeja. Se koski jotakuta, joka tuli aina uudelleen paikalle itsensä vuoksi, yksi pieni päivä kerrallaan, kunnes paikalle tulemisesta tuli se, kuka hän on. Se joku olet sinä. Eläintarha vain muistutti sinua siitä.</translation>
+    </message>
+    <message>
+        <source>Not yet written</source>
+        <translation>Vielä kirjoittamatta</translation>
+    </message>
+    <message>
+        <source>The Almanac keeps this page blank, for now. Keep showing up.</source>
+        <translation>Almanakka pitää tämän sivun tyhjänä toistaiseksi. Tule yhä paikalle.</translation>
+    </message>
+    <message>
+        <source>Rough one today. Then today we go tiny: one small thing, and that fully counts.</source>
+        <translation>Rankka päivä tänään. Tehdään sitten tänään pikkiriikkistä: yksi pieni juttu, ja se riittää täysin.</translation>
+    </message>
+    <message>
+        <source>Low tank. Pick the easiest habit and let that be plenty. Gentle is still forward.</source>
+        <translation>Tankki vähissä. Valitse helpoin tapa ja anna sen riittää. Lempeästikin mennään eteenpäin.</translation>
+    </message>
+    <message>
+        <source>Steady. A fine day to keep the thread going, nothing heroic required.</source>
+        <translation>Vakaa. Hyvä päivä pitää lanka käsissä, mitään sankarillista ei tarvita.</translation>
+    </message>
+    <message>
+        <source>Good energy. This is a nice day to start something you've been circling.</source>
+        <translation>Hyvää energiaa. Mukava päivä aloittaa jotain, jota olet kierrellyt.</translation>
+    </message>
+    <message>
+        <source>Flying. Ride it, start the thing, stack a habit. The blobs are excited.</source>
+        <translation>Lentää. Käytä se, aloita se juttu, pinoa tapa. Blobit ovat innoissaan.</translation>
+    </message>
+    <message>
+        <source>Yesterday slipped by. Today is the one that keeps the thread, one small thing does it.</source>
+        <translation>Eilinen livahti ohi. Tänään on se päivä, joka pitää langan, yksi pieni juttu riittää.</translation>
+    </message>
+    <message>
+        <source>The gate's still open, no clock running. Pick it back up whenever you like.</source>
+        <translation>Portti on yhä auki, mikään kello ei käy. Jatka milloin haluat.</translation>
+    </message>
+    <message>
+        <source>A new month, a clean page. A good moment to swap or renegotiate one habit.</source>
+        <translation>Uusi kuukausi, puhdas sivu. Hyvä hetki vaihtaa tai neuvotella tapa uusiksi.</translation>
+    </message>
+    <message>
+        <source>New week, fresh page. Want to renegotiate one habit while it's easy?</source>
+        <translation>Uusi viikko, tuore sivu. Haluatko neuvotella tavan uusiksi, kun se on helppoa?</translation>
     </message>
 </context>
 </TS>
