@@ -177,6 +177,8 @@ public:
                               bool tolerated = false);
     Q_INVOKABLE void removeHabit(const QString& id);
     Q_INVOKABLE void logHabit(const QString& id);                 // one check-in toward the target
+    Q_INVOKABLE void extendTolerance(const QString& id);          // re-open a bad habit's tolerance window
+    Q_INVOKABLE void tightenTolerance(const QString& id);         // end tolerance: slips count again
 
     // Quests: one-off tasks, optional due date (yyyy-MM-dd, "" if none). Bigger Crumb reward.
     Q_INVOKABLE void addQuest(const QString& name, const QString& due);

@@ -202,13 +202,34 @@ private slots:
     void reducer_toleratedSlipSparesMood()
     {
         ZooState s;
+        // A simple opt-in tolerates two weeks from creation, then the app re-asks (slips count).
         applyEvent(s, mkEvent("habit_created", "2026-07-11", 9,
                               "{\"id\":\"b1\",\"name\":\"Scroll\",\"kind\":\"bad\",\"tolerated\":true}"));
-        QVERIFY(s.habits[0].tolerated);
+        QCOMPARE(s.habits[0].toleratedUntil, QStringLiteral("2026-07-25"));
+        // Inside the window: counted for you, spares the zoo mood.
         applyEvent(s, mkEvent("habit_slipped", "2026-07-11", 9, "{\"habit_id\":\"b1\",\"date\":\"2026-07-11\"}"));
-        QCOMPARE(s.habitCount.value("2026-07-11/b1"), 1);  // still counted for you
-        QCOMPARE(s.slipTotal, 0);                          // but does not tint the zoo mood
+        QCOMPARE(s.habitCount.value("2026-07-11/b1"), 1);
+        QCOMPARE(s.slipTotal, 0);
         QCOMPARE(s.slipByDate.value("2026-07-11"), 0);
+        // After the window: the same slip now tints the mood again.
+        applyEvent(s, mkEvent("habit_slipped", "2026-07-26", 9, "{\"habit_id\":\"b1\",\"date\":\"2026-07-26\"}"));
+        QCOMPARE(s.slipTotal, 1);
+        QCOMPARE(s.slipByDate.value("2026-07-26"), 1);
+    }
+
+    void reducer_toleranceSetEvent()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("habit_created", "2026-07-11", 9, "{\"id\":\"b1\",\"name\":\"Scroll\",\"kind\":\"bad\"}"));
+        QVERIFY(s.habits[0].toleratedUntil.isEmpty());              // not tolerated by default
+        applyEvent(s, mkEvent("habit_tolerance_set", "2026-07-11", 9, "{\"habit_id\":\"b1\",\"until\":\"2026-08-01\"}"));
+        QCOMPARE(s.habits[0].toleratedUntil, QStringLiteral("2026-08-01"));
+        applyEvent(s, mkEvent("habit_slipped", "2026-07-20", 9, "{\"habit_id\":\"b1\",\"date\":\"2026-07-20\"}"));
+        QCOMPARE(s.slipTotal, 0);                                   // inside the extended window
+        applyEvent(s, mkEvent("habit_tolerance_set", "2026-07-20", 9, "{\"habit_id\":\"b1\",\"until\":\"\"}"));
+        QVERIFY(s.habits[0].toleratedUntil.isEmpty());             // tightened back to accountable
+        applyEvent(s, mkEvent("habit_slipped", "2026-07-20", 9, "{\"habit_id\":\"b1\",\"date\":\"2026-07-20\"}"));
+        QCOMPARE(s.slipTotal, 1);
     }
 
     void reducer_habitFieldsRoundTrip()
@@ -216,12 +237,12 @@ private slots:
         ZooState s;
         applyEvent(s, mkEvent("habit_created", "2026-07-11", 9,
                               "{\"id\":\"h9\",\"name\":\"Water\",\"kind\":\"good\",\"cue\":\"after coffee\","
-                              "\"replacement\":\"tea\",\"tolerated\":false}"));
+                              "\"replacement\":\"tea\"}"));
         const ZooState s2 = fromJson(toJson(s));
         QCOMPARE(s2.habits.size(), 1);
         QCOMPARE(s2.habits[0].cue, QStringLiteral("after coffee"));
         QCOMPARE(s2.habits[0].replacement, QStringLiteral("tea"));
-        QVERIFY(!s2.habits[0].tolerated);
+        QVERIFY(s2.habits[0].toleratedUntil.isEmpty());
     }
 
     void reducer_moodCheckIn()

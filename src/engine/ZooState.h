@@ -15,7 +15,9 @@ struct Habit {
     QString id; QString name; int target = 1; QString kind = QStringLiteral("good"); // good|bad
     QString cue;               // implementation intention / anchor ("after coffee, at my desk")
     QString replacement;       // for bad habits: a swap that gives the same reward
-    bool tolerated = false;    // bounded indulgence: slips still count for you, not for zoo mood
+    QString toleratedUntil;    // bounded indulgence: date ("yyyy-MM-dd") the tolerance window ends.
+                               // Empty = not tolerated. Slips inside the window spare the zoo mood;
+                               // once it passes, the app gently re-asks (extend or let it count).
 };
 struct Quest { QString id; QString name; QString due; };
 struct Blob  { QString id; int seed = 0; QString rarity; QString date; };

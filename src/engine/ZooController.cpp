@@ -613,6 +613,8 @@ void ZooController::skipChallenge()
 QVariantList ZooController::habits() const
 {
     const QString today = localDate();
+    const QDate td = QDate::fromString(today, QStringLiteral("yyyy-MM-dd"));
+    const QString dayBefore = td.isValid() ? td.addDays(-2).toString(QStringLiteral("yyyy-MM-dd")) : QString();
     QVariantList out;
     for (const Habit& h : m_state.habits) {
         const int cnt = m_state.habitCount.value(today + '/' + h.id, 0);
@@ -620,12 +622,21 @@ QVariantList ZooController::habits() const
         QVariantMap m;
         m.insert("id", h.id); m.insert("name", h.name); m.insert("target", h.target);
         m.insert("kind", h.kind); m.insert("bad", bad);
-        m.insert("cue", h.cue); m.insert("replacement", h.replacement); m.insert("tolerated", h.tolerated);
+        m.insert("cue", h.cue); m.insert("replacement", h.replacement);
+        // Tolerance is time-boxed: "tolerated" now, or "toleranceExpired" (window passed, re-ask).
+        const bool toleratedNow = !h.toleratedUntil.isEmpty() && today <= h.toleratedUntil;
+        m.insert("tolerated", toleratedNow);
+        m.insert("toleranceExpired", !h.toleratedUntil.isEmpty() && today > h.toleratedUntil);
+        m.insert("toleratedUntil", h.toleratedUntil);
         m.insert("doneCount", cnt);
         // Good habits are "done" when the target is met; bad habits are "clean" when never ticked.
         m.insert("doneToday", bad ? (cnt == 0) : (cnt >= h.target));
         m.insert("slips", cnt);
-        m.insert("lastDone", m_state.habitLast.value(h.id));
+        const QString last = m_state.habitLast.value(h.id);
+        m.insert("lastDone", last);
+        // Never miss twice (per habit): the last check-in was two days ago, so yesterday slipped and
+        // today hasn't happened — the exact single-miss moment worth a gentle "today keeps it."
+        m.insert("missedYesterday", !bad && !dayBefore.isEmpty() && last == dayBefore);
         out.append(m);
     }
     return out;
@@ -641,7 +652,11 @@ void ZooController::addHabit(const QString& name, int target, const QString& kin
     o.insert("kind", bad ? "bad" : "good");
     o.insert("cue", cue.trimmed());                                   // if-then / anchor (piste 1)
     o.insert("replacement", bad ? replacement.trimmed() : QString()); // swap for a bad habit (piste 3)
-    o.insert("tolerated", bad && tolerated);                          // bounded indulgence (piste 5)
+    // Bounded indulgence (piste 5): a two-week window, then the app gently re-asks.
+    if (bad && tolerated) {
+        const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+        if (d.isValid()) o.insert("toleratedUntil", d.addDays(14).toString(QStringLiteral("yyyy-MM-dd")));
+    }
     emitEvent(QStringLiteral("habit_created"), jpayload(o));
     emit stateChanged();
 }
@@ -669,6 +684,24 @@ void ZooController::logHabit(const QString& id)
     emitEvent(QStringLiteral("habit_logged"), jpayload(o));
     award(5, QStringLiteral("habit"));
     checkMilestones();
+    emit stateChanged();
+}
+
+// Re-ask outcomes when a tolerance window expires: extend it another two weeks, or tighten back to
+// accountable (slips count for the zoo mood again). Both are just a new tolerance date on the log.
+void ZooController::extendTolerance(const QString& id)
+{
+    const QDate d = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    if (!d.isValid()) return;
+    QJsonObject o; o.insert("habit_id", id);
+    o.insert("until", d.addDays(14).toString(QStringLiteral("yyyy-MM-dd")));
+    emitEvent(QStringLiteral("habit_tolerance_set"), jpayload(o));
+    emit stateChanged();
+}
+void ZooController::tightenTolerance(const QString& id)
+{
+    QJsonObject o; o.insert("habit_id", id); o.insert("until", QString());
+    emitEvent(QStringLiteral("habit_tolerance_set"), jpayload(o));
     emit stateChanged();
 }
 

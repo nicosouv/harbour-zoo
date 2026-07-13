@@ -50,7 +50,14 @@ void applyEvent(ZooState& s, const Event& e)
         h.kind = (k == QLatin1String("bad")) ? QStringLiteral("bad") : QStringLiteral("good");
         h.cue = p.value(QStringLiteral("cue")).toString();
         h.replacement = p.value(QStringLiteral("replacement")).toString();
-        h.tolerated = p.value(QStringLiteral("tolerated")).toBool();
+        const QString until = p.value(QStringLiteral("toleratedUntil")).toString();
+        if (!until.isEmpty()) {
+            h.toleratedUntil = until;
+        } else if (p.value(QStringLiteral("tolerated")).toBool()) {
+            // Simple opt-in: tolerate for two weeks from creation, then the app re-asks.
+            const QDate cd = QDate::fromString(e.localDate, QStringLiteral("yyyy-MM-dd"));
+            if (cd.isValid()) h.toleratedUntil = cd.addDays(14).toString(QStringLiteral("yyyy-MM-dd"));
+        }
         s.habits.append(h);
     } else if (t == QLatin1String("habit_archived")) {
         removeById(s.habits, p.value(QStringLiteral("id")).toString());
@@ -72,14 +79,21 @@ void applyEvent(ZooState& s, const Event& e)
         const QString key = d + QLatin1Char('/') + id;
         s.habitCount[key] = s.habitCount.value(key, 0) + 1;
         s.habitLast[id] = d;
-        // Bounded indulgence: a "tolerated" bad habit is still counted for you, but it does not
-        // tint the zoo's mood — no shame, just awareness (see docs/utility-spine.md evidence base).
-        bool tolerated = false;
-        for (const Habit& h : s.habits) if (h.id == id) { tolerated = h.tolerated; break; }
+        // Bounded indulgence: while inside its tolerance window a bad habit is still counted for
+        // you, but it does not tint the zoo's mood — no shame, just awareness. Once the window
+        // passes, slips count again (a gentle, automatic re-ask). Dates compare as strings.
+        QString until;
+        for (const Habit& h : s.habits) if (h.id == id) { until = h.toleratedUntil; break; }
+        const bool tolerated = !until.isEmpty() && d <= until;
         if (!tolerated) {
             s.slipByDate[d] = s.slipByDate.value(d, 0) + 1;
             s.slipTotal += 1;
         }
+    } else if (t == QLatin1String("habit_tolerance_set")) {
+        // Extend the tolerance window (a fresh date) or tighten it back to accountable ("" = none).
+        const QString id = p.value(QStringLiteral("habit_id")).toString();
+        const QString until = p.value(QStringLiteral("until")).toString();
+        for (Habit& h : s.habits) if (h.id == id) { h.toleratedUntil = until; break; }
     } else if (t == QLatin1String("mood_logged")) {
         // A light emotional check-in (smiley 1..5). Latest of the day wins; purely a private read
         // that lets the app sense whether now is a push day or a be-gentle day.
@@ -147,7 +161,8 @@ QJsonObject toJson(const ZooState& s)
     for (const Habit& h : s.habits) {
         QJsonObject j; j.insert("id", h.id); j.insert("name", h.name); j.insert("target", h.target);
         j.insert("kind", h.kind);
-        j.insert("cue", h.cue); j.insert("replacement", h.replacement); j.insert("tolerated", h.tolerated);
+        j.insert("cue", h.cue); j.insert("replacement", h.replacement);
+        j.insert("toleratedUntil", h.toleratedUntil);
         habits.append(j);
     }
     o.insert(QStringLiteral("habits"), habits);
@@ -198,7 +213,7 @@ ZooState fromJson(const QJsonObject& o)
         h.kind = (j.value("kind").toString() == QLatin1String("bad")) ? QStringLiteral("bad") : QStringLiteral("good");
         h.cue = j.value("cue").toString();
         h.replacement = j.value("replacement").toString();
-        h.tolerated = j.value("tolerated").toBool();
+        h.toleratedUntil = j.value("toleratedUntil").toString();
         s.habits.append(h);
     }
     for (const QJsonValue& v : o.value(QStringLiteral("quests")).toArray()) {

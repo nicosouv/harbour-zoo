@@ -245,12 +245,36 @@ Page {
                             text: "⏱ " + modelData.cue
                             color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny
                         }
+                        // Never miss twice: a warm one-liner on the single-miss day, never a scold.
+                        Label {
+                            width: parent.width; wrapMode: Text.Wrap
+                            visible: modelData.missedYesterday && !habitItem.done
+                            text: qsTr("missed yesterday — today's the one that keeps it")
+                            color: Theme.highlightColor; font.pixelSize: Theme.fontSizeTiny
+                        }
                         // The swap for a bad habit — surfaced right where the slip happens.
                         Label {
                             width: parent.width
                             visible: habitItem.bad && modelData.replacement.length > 0; wrapMode: Text.Wrap
                             text: qsTr("↪ instead: %1").arg(modelData.replacement)
                             color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeTiny
+                        }
+                        // The tolerance window has closed — a gentle re-ask, never a scold.
+                        Column {
+                            width: parent.width; visible: modelData.toleranceExpired
+                            spacing: Theme.paddingSmall
+                            Label {
+                                width: parent.width; wrapMode: Text.Wrap
+                                text: qsTr("Your 'ok for now' window closed. Extend it, or let it count again?")
+                                color: Theme.highlightColor; font.pixelSize: Theme.fontSizeTiny
+                            }
+                            Row {
+                                spacing: Theme.paddingMedium
+                                Button { text: qsTr("Two more weeks"); font.pixelSize: Theme.fontSizeTiny
+                                         onClicked: Zoo.extendTolerance(modelData.id) }
+                                Button { text: qsTr("Let it count"); font.pixelSize: Theme.fontSizeTiny
+                                         onClicked: Zoo.tightenTolerance(modelData.id) }
+                            }
                         }
                     }
                     menu: ContextMenu { MenuItem { text: qsTr("Remove"); onClicked: Zoo.removeHabit(modelData.id) } }
