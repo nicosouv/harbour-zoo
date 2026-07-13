@@ -355,13 +355,9 @@ Page {
     CeremonyOverlay {
         id: ceremonyOverlay
         blurSource: mainFlick
-        onFinished: {
-            Zoo.dismissCeremony(ceremony.id)
-            var next = Zoo.pendingCeremonies()
-            if (next.length > 0) play(next[0])
-            else page.runPendingPredator()
-        }
-        onPredatorDone: {}
+        onFinished: { Zoo.dismissCeremony(ceremony.id); page.advanceIntro() }
+        onPredatorDone: page.advanceIntro()
+        onChapterDone: { Zoo.markChapterRead(chapterId); page.advanceIntro() }
     }
 
     Connections {
@@ -378,8 +374,17 @@ Page {
 
     // Overdue-quest victims waiting for their (blurred) eat scene, once any ceremonies have played.
     property int _pendingVictims: 0
-    function runPendingPredator() {
-        if (_pendingVictims > 0) { var n = _pendingVictims; _pendingVictims = 0; ceremonyOverlay.playPredator(n) }
+
+    // Present the launch's moments one at a time, in order: pending ceremonies, then the Quest
+    // Beast, then a freshly-unlocked Almanac chapter. Re-entered after each overlay finishes.
+    function advanceIntro() {
+        var cs = Zoo.pendingCeremonies()
+        if (cs.length > 0) { ceremonyOverlay.play(cs[0]); return }
+        if (page._pendingVictims > 0) {
+            var n = page._pendingVictims; page._pendingVictims = 0; ceremonyOverlay.playPredator(n); return
+        }
+        var ch = Zoo.pendingChapter()
+        if (ch.id !== undefined) ceremonyOverlay.playChapter(ch)
     }
 
     Timer {
@@ -388,9 +393,7 @@ Page {
             if (!Zoo.onboarded) { pageStack.push(Qt.resolvedUrl("OnboardingPage.qml")); return }
             if (ceremonyOverlay.busy) return
             page._pendingVictims += Zoo.processOverdueQuests().length
-            var cs = Zoo.pendingCeremonies()
-            if (cs.length > 0) ceremonyOverlay.play(cs[0])
-            else page.runPendingPredator()
+            page.advanceIntro()
         }
     }
 }

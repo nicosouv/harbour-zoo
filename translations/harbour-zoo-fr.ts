@@ -23,6 +23,14 @@
         <source>NOM</source>
         <translation>MIAM</translation>
     </message>
+    <message>
+        <source>The Keeper's Almanac</source>
+        <translation>L'Almanach du gardien</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation>Continuer</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>

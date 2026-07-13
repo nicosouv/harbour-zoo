@@ -23,6 +23,14 @@
         <source>NOM</source>
         <translation>MAMPF</translation>
     </message>
+    <message>
+        <source>The Keeper's Almanac</source>
+        <translation>Almanach des Wärters</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation>Weiter</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>

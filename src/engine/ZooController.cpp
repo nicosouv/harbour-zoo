@@ -553,7 +553,11 @@ QVariantMap ZooController::pendingChapter() const
 
 void ZooController::markChapterRead(const QString& id)
 {
-    m_settings.setValue(QStringLiteral("almanacRead/") + id, true);
+    // First read of a chapter tucks a small crumb gift into the page; re-reading pays nothing.
+    if (!m_settings.value(QStringLiteral("almanacRead/") + id, false).toBool()) {
+        m_settings.setValue(QStringLiteral("almanacRead/") + id, true);
+        award(10, QStringLiteral("almanac"));
+    }
     emit stateChanged();
 }
 

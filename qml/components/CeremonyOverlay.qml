@@ -21,12 +21,18 @@ Item {
 
     property var ceremony: ({})
     property int predatorCount: 0
-    property string scene: ""          // "farewell" | "party" | "predator"
+    property string scene: ""          // "farewell" | "party" | "predator" | "chapter"
     property real shade: 0             // 0 hidden, 1 fully blurred+dim
     readonly property bool busy: shade > 0.001
 
+    // A revealed Almanac chapter (the story arrives as a moment, not a menu item).
+    property string chapterId: ""
+    property string chapterTitle: ""
+    property string chapterBody: ""
+
     signal finished()                  // a ceremony scene ended
     signal predatorDone()              // the eat scene ended
+    signal chapterDone()               // an Almanac chapter reveal was dismissed
 
     function play(c) {
         root.ceremony = c || ({})
@@ -38,6 +44,15 @@ Item {
         root.predatorCount = n
         root.scene = "predator"
         _begin()
+    }
+    // Chapters wait for the reader (not auto-timed), so they don't go through _begin().
+    function playChapter(ch) {
+        root.chapterId = (ch && ch.id) ? ch.id : ""
+        root.chapterTitle = (ch && ch.title) ? ch.title : ""
+        root.chapterBody = (ch && ch.body) ? ch.body : ""
+        root.scene = "chapter"
+        snapshot.scheduleUpdate()
+        chapterIn.restart()
     }
 
     function _begin() {
@@ -67,8 +82,9 @@ Item {
     // Swallow taps while a scene is running so the page underneath stays untouched.
     MouseArea { anchors.fill: parent; enabled: root.visible }
 
-    // ---- Caption ----------------------------------------------------------------------------
+    // ---- Caption (ceremony/predator scenes only; chapters have their own centred view) --------
     Column {
+        visible: root.scene !== "chapter"
         anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom
                   bottomMargin: Theme.paddingLarge * 3 }
         width: parent.width - 2 * Theme.horizontalPageMargin
@@ -225,7 +241,47 @@ Item {
 
     ConfettiBurst { id: confetti }
 
+    // ---- Chapter reveal: reflective, tap Continue to dismiss (waits for the reader) ----------
+    Item {
+        id: chapterView
+        anchors.fill: parent
+        visible: root.scene === "chapter" && root.shade > 0.01
+        opacity: root.shade
+        Column {
+            id: chapterCol
+            width: parent.width - 2 * Theme.horizontalPageMargin
+            anchors.centerIn: parent
+            spacing: Theme.paddingLarge
+            Label {
+                width: parent.width; horizontalAlignment: Text.AlignHCenter
+                text: qsTr("The Keeper's Almanac")
+                color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeExtraSmall
+            }
+            Label {
+                width: parent.width; horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap
+                text: root.chapterTitle; color: Theme.highlightColor; font.pixelSize: Theme.fontSizeExtraLarge
+            }
+            Label {
+                width: parent.width; horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap
+                text: root.chapterBody; color: "#F6EFDD"; font.pixelSize: Theme.fontSizeMedium
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Continue"); onClicked: chapterOut.restart()
+            }
+        }
+    }
+
     // ---- Scene timelines --------------------------------------------------------------------
+    SequentialAnimation {
+        id: chapterIn
+        NumberAnimation { target: root; property: "shade"; to: 1; duration: 420; easing.type: Easing.OutQuad }
+    }
+    SequentialAnimation {
+        id: chapterOut
+        NumberAnimation { target: root; property: "shade"; to: 0; duration: 360 }
+        ScriptAction { script: root.chapterDone() }
+    }
     SequentialAnimation {
         id: farewellAnim
         ScriptAction { script: { walker.x = root.width / 2 - walker.width / 2; bindle.opacity = 0 } }

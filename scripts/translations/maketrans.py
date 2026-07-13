@@ -228,6 +228,7 @@ T = {
 "Almanac": ["Almanach","Almanach","Almanacco","Almanaque","Almanakka"],
 "Almanac •": ["Almanach •","Almanach •","Almanacco •","Almanaque •","Almanakka •"],
 "A new page appeared in the Almanac.": ["Une nouvelle page est apparue dans l'Almanach.","Im Almanach ist eine neue Seite aufgetaucht.","È comparsa una nuova pagina nell'Almanacco.","Apareció una nueva página en el Almanaque.","Almanakkaan ilmestyi uusi sivu."],
+"Continue": ["Continuer","Weiter","Continua","Continuar","Jatka"],
 # --- Quest Beast overlay ---
 "The Quest Beast ate %1. Overdue quests have consequences. Mild ones.": ["La Bête des quêtes a mangé %1. Les quêtes en retard ont des conséquences. Modérées.","Das Auftragsbiest hat %1 gefressen. Überfällige Aufträge haben Folgen. Milde.","La Bestia delle missioni ha mangiato %1. Le missioni in ritardo hanno conseguenze. Lievi.","La Bestia de las misiones se comió %1. Las misiones atrasadas tienen consecuencias. Leves.","Tehtäväpeto söi %1. Myöhässä olevilla tehtävillä on seurauksia. Lieviä."],
 "a blob": ["un blob","einen Blob","un blob","un blob","blobin"],

@@ -23,6 +23,14 @@
         <source>NOM</source>
         <translation>NAM</translation>
     </message>
+    <message>
+        <source>The Keeper's Almanac</source>
+        <translation>Hoitajan almanakka</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation>Jatka</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>

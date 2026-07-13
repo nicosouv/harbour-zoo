@@ -4,7 +4,9 @@
   "The Quest Beast ate %1. Overdue quests have consequences. Mild ones.",
   "a blob",
   "%1 blobs",
-  "NOM"
+  "NOM",
+  "The Keeper's Almanac",
+  "Continue"
  ],
  "CoverPage": [
   "focusing",
