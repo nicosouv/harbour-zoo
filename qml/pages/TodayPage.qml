@@ -31,10 +31,13 @@ Page {
     }
     property int habitTarget: 1
     property string habitKind: "good"
+    property bool habitTolerated: false
     function addHabit() {
         if (habitField.text.trim().length === 0) return
-        Zoo.addHabit(habitField.text, habitTarget, habitKind)
-        habitField.text = ""; habitTarget = 1; habitKind = "good"; habitField.focus = false
+        Zoo.addHabit(habitField.text, habitTarget, habitKind,
+                     cueField.text, replacementField.text, habitTolerated)
+        habitField.text = ""; cueField.text = ""; replacementField.text = ""
+        habitTarget = 1; habitKind = "good"; habitTolerated = false; habitField.focus = false
     }
 
     SilicaFlickable {
@@ -52,6 +55,51 @@ Page {
             spacing: Theme.paddingLarge
 
             PageHeader { title: qsTr("Today"); description: qsTr("🍞 %1 crumbs").arg(Zoo.crumbs) }
+
+            // --- Emotional check-in ------------------------------------------------------------
+            // One optional tap. It never gates action — it just right-sizes today's ask (a low day
+            // means "go tiny, and tiny counts"). See the evidence base in docs/utility-spine.md.
+            Column {
+                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                spacing: Theme.paddingSmall
+                Label {
+                    text: qsTr("How are you, right now?")
+                    color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeExtraSmall
+                }
+                Row {
+                    spacing: Theme.paddingLarge
+                    Repeater {
+                        model: [ { v: 1, e: "😞" }, { v: 2, e: "🙁" }, { v: 3, e: "😐" }, { v: 4, e: "🙂" }, { v: 5, e: "😄" } ]
+                        delegate: BackgroundItem {
+                            width: Theme.iconSizeMedium; height: Theme.iconSizeMedium
+                            onClicked: Zoo.logMood(modelData.v)
+                            Label {
+                                anchors.centerIn: parent; text: modelData.e
+                                font.pixelSize: Theme.fontSizeLarge
+                                opacity: (Zoo.todayMood === 0 || Zoo.todayMood === modelData.v) ? 1.0 : 0.35
+                            }
+                        }
+                    }
+                }
+                Label {
+                    width: parent.width; visible: Zoo.moodReadiness.length > 0; wrapMode: Text.Wrap
+                    text: Zoo.moodReadiness; color: Theme.highlightColor; font.pixelSize: Theme.fontSizeSmall
+                }
+            }
+
+            // Gentle behaviour-science nudges: never-miss-twice / welcome-back, and fresh-start.
+            Label {
+                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: Zoo.gentleNudge.length > 0; wrapMode: Text.Wrap
+                text: Zoo.gentleNudge; color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeSmall; font.italic: true
+            }
+            Label {
+                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: Zoo.freshStartPrompt.length > 0; wrapMode: Text.Wrap
+                text: Zoo.freshStartPrompt; color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeSmall; font.italic: true
+            }
 
             // --- Challenge ---------------------------------------------------------------------
             SectionHeader { text: qsTr("Challenge") }
@@ -135,7 +183,8 @@ Page {
             Repeater {
                 model: Zoo.habits
                 delegate: ListItem {
-                    id: habitItem; width: content.width; contentHeight: Theme.itemSizeSmall
+                    id: habitItem; width: content.width
+                    contentHeight: Math.max(Theme.itemSizeSmall, infoCol.height + Theme.paddingMedium)
                     property bool bad: modelData.bad
                     property bool done: modelData.doneToday      // good: target met; bad: clean today
                     property bool multi: !bad && modelData.target > 1
@@ -162,6 +211,7 @@ Page {
                         }
                     }
                     Column {
+                        id: infoCol
                         anchors { left: circle.right; leftMargin: Theme.paddingMedium
                                   right: parent.right; rightMargin: Theme.horizontalPageMargin
                                   verticalCenter: parent.verticalCenter }
@@ -173,7 +223,8 @@ Page {
                                 width: Math.min(implicitWidth, parent.width - (habitItem.bad ? avoidTag.width + Theme.paddingSmall : 0))
                             }
                             Label {
-                                id: avoidTag; visible: habitItem.bad; text: qsTr("avoid")
+                                id: avoidTag; visible: habitItem.bad
+                                text: modelData.tolerated ? qsTr("tolerated") : qsTr("avoid")
                                 color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeTiny
                                 anchors.verticalCenter: parent.verticalCenter
                             }
@@ -188,6 +239,19 @@ Page {
                                                                          : qsTr("not yet"))))
                             color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny
                         }
+                        // The anchor (implementation intention) — quietly reinforces when to act.
+                        Label {
+                            width: parent.width; visible: modelData.cue.length > 0; wrapMode: Text.Wrap
+                            text: "⏱ " + modelData.cue
+                            color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeTiny
+                        }
+                        // The swap for a bad habit — surfaced right where the slip happens.
+                        Label {
+                            width: parent.width
+                            visible: habitItem.bad && modelData.replacement.length > 0; wrapMode: Text.Wrap
+                            text: qsTr("↪ instead: %1").arg(modelData.replacement)
+                            color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeTiny
+                        }
                     }
                     menu: ContextMenu { MenuItem { text: qsTr("Remove"); onClicked: Zoo.removeHabit(modelData.id) } }
                 }
@@ -199,6 +263,22 @@ Page {
                     id: habitField; width: parent.width
                     placeholderText: qsTr("New habit (+5 🍞)")
                     label: qsTr("New habit")
+                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: cueField.focus = true
+                }
+                // Implementation intention / anchor — the single strongest lever for follow-through.
+                TextField {
+                    id: cueField; width: parent.width
+                    placeholderText: qsTr("When? e.g. after my morning coffee")
+                    label: qsTr("Cue (optional)")
+                    EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                    EnterKey.onClicked: page.habitKind === "bad" ? (replacementField.focus = true) : addHabit()
+                }
+                // For a bad habit: the swap (same reward) and whether to tolerate it for now.
+                TextField {
+                    id: replacementField; width: parent.width
+                    visible: page.habitKind === "bad"
+                    placeholderText: qsTr("Instead, I'll… (same payoff, kinder)")
+                    label: qsTr("Replacement (optional)")
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: addHabit()
                 }
                 Row {
@@ -212,9 +292,16 @@ Page {
                         text: "×" + page.habitTarget
                         onClicked: page.habitTarget = page.habitTarget >= 8 ? 1 : page.habitTarget + 1
                     }
+                    Button {
+                        visible: page.habitKind === "bad"
+                        text: page.habitTolerated ? qsTr("tolerated") : qsTr("tighten")
+                        color: page.habitTolerated ? Theme.secondaryHighlightColor : Theme.primaryColor
+                        onClicked: page.habitTolerated = !page.habitTolerated
+                    }
                     Label {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: page.habitKind === "good" ? qsTr("times/day") : qsTr("avoid this one")
+                        text: page.habitKind === "good" ? qsTr("times/day")
+                              : (page.habitTolerated ? qsTr("ok for now") : qsTr("avoid this one"))
                         color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
                     }
                     IconButton {

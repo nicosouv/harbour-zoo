@@ -11,7 +11,12 @@
 
 namespace zoo {
 
-struct Habit { QString id; QString name; int target = 1; QString kind = QStringLiteral("good"); }; // good|bad
+struct Habit {
+    QString id; QString name; int target = 1; QString kind = QStringLiteral("good"); // good|bad
+    QString cue;               // implementation intention / anchor ("after coffee, at my desk")
+    QString replacement;       // for bad habits: a swap that gives the same reward
+    bool tolerated = false;    // bounded indulgence: slips still count for you, not for zoo mood
+};
 struct Quest { QString id; QString name; QString due; };
 struct Blob  { QString id; int seed = 0; QString rarity; QString date; };
 
@@ -31,8 +36,10 @@ struct ZooState {
     QMap<QString, int>     deedByDate;      // date -> useful-actions that day (activity graph)
     QMap<QString, int>     slipByDate;      // date -> bad-habit slips that day (zoo mood)
     QMap<QString, QString> challengeStatus; // date -> "completed" | "skipped"
+    QMap<QString, int>     moodByDate;      // date -> latest emotional check-in valence (1..5)
 
     int slipTotal = 0;
+    int moodLogTotal = 0;
 
     int habitLogTotal = 0;
     int questCompletedTotal = 0;

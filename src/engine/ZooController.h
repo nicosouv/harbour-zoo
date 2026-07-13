@@ -50,6 +50,11 @@ class ZooController : public QObject
     Q_PROPERTY(int habitsKeptToday READ habitsKeptToday NOTIFY stateChanged)
     Q_PROPERTY(QString funFact READ funFact NOTIFY stateChanged)         // goofy fact of the day
     Q_PROPERTY(QString statusPhrase READ statusPhrase NOTIFY stateChanged) // adapts to today's effort
+    Q_PROPERTY(int todayMood READ todayMood NOTIFY stateChanged)              // emotional check-in 1..5, 0 = none
+    Q_PROPERTY(bool moodCheckedToday READ moodCheckedToday NOTIFY stateChanged)
+    Q_PROPERTY(QString moodReadiness READ moodReadiness NOTIFY stateChanged)  // adapts the ask to your mood
+    Q_PROPERTY(QString gentleNudge READ gentleNudge NOTIFY stateChanged)      // never-miss-twice / welcome back
+    Q_PROPERTY(QString freshStartPrompt READ freshStartPrompt NOTIFY stateChanged)
     Q_PROPERTY(QVariantList badges READ badges NOTIFY stateChanged)      // { id, name, desc, emoji, earned }
     Q_PROPERTY(QVariantList activity7 READ activity7 NOTIFY stateChanged) // last 7 days of deed counts
     Q_PROPERTY(QString reflection READ reflection NOTIFY stateChanged)   // quiet self-care line, deepens
@@ -138,6 +143,14 @@ public:
     int habitsKeptToday() const;
     QString funFact() const;
     QString statusPhrase() const;
+
+    // Readiness & behaviour-science nudges (all optional, all gentle).
+    Q_INVOKABLE void logMood(int valence);   // emotional check-in, smiley 1..5
+    int todayMood() const;                   // 0 if not checked in yet today
+    bool moodCheckedToday() const;
+    QString moodReadiness() const;           // adapts the app's ask to how you feel
+    QString gentleNudge() const;             // "never miss twice" / warm welcome-back
+    QString freshStartPrompt() const;        // week/month boundary renegotiation prompt
     QVariantList badges() const;
     QVariantList activity7() const;
     QString reflection() const;
@@ -157,7 +170,11 @@ public:
     // Daily loop (each rewards Crumbs and records an event).
     Q_INVOKABLE void completeChallenge();
     Q_INVOKABLE void skipChallenge();
-    Q_INVOKABLE void addHabit(const QString& name, int target, const QString& kind); // kind = good|bad
+    // kind = good|bad. cue = implementation intention/anchor; replacement + tolerated apply to bad
+    // habits (a same-reward swap, and bounded indulgence that spares the zoo mood). All optional.
+    Q_INVOKABLE void addHabit(const QString& name, int target, const QString& kind,
+                              const QString& cue = QString(), const QString& replacement = QString(),
+                              bool tolerated = false);
     Q_INVOKABLE void removeHabit(const QString& id);
     Q_INVOKABLE void logHabit(const QString& id);                 // one check-in toward the target
 

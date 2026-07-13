@@ -620,6 +620,7 @@ QVariantList ZooController::habits() const
         QVariantMap m;
         m.insert("id", h.id); m.insert("name", h.name); m.insert("target", h.target);
         m.insert("kind", h.kind); m.insert("bad", bad);
+        m.insert("cue", h.cue); m.insert("replacement", h.replacement); m.insert("tolerated", h.tolerated);
         m.insert("doneCount", cnt);
         // Good habits are "done" when the target is met; bad habits are "clean" when never ticked.
         m.insert("doneToday", bad ? (cnt == 0) : (cnt >= h.target));
@@ -629,13 +630,18 @@ QVariantList ZooController::habits() const
     }
     return out;
 }
-void ZooController::addHabit(const QString& name, int target, const QString& kind)
+void ZooController::addHabit(const QString& name, int target, const QString& kind,
+                            const QString& cue, const QString& replacement, bool tolerated)
 {
     const QString t = name.trimmed();
     if (t.isEmpty()) return;
+    const bool bad = (kind == QLatin1String("bad"));
     QJsonObject o; o.insert("id", QString::number(QDateTime::currentMSecsSinceEpoch()));
     o.insert("name", t); o.insert("target", qMax(1, target));
-    o.insert("kind", kind == QLatin1String("bad") ? "bad" : "good");
+    o.insert("kind", bad ? "bad" : "good");
+    o.insert("cue", cue.trimmed());                                   // if-then / anchor (piste 1)
+    o.insert("replacement", bad ? replacement.trimmed() : QString()); // swap for a bad habit (piste 3)
+    o.insert("tolerated", bad && tolerated);                          // bounded indulgence (piste 5)
     emitEvent(QStringLiteral("habit_created"), jpayload(o));
     emit stateChanged();
 }
@@ -664,6 +670,67 @@ void ZooController::logHabit(const QString& id)
     award(5, QStringLiteral("habit"));
     checkMilestones();
     emit stateChanged();
+}
+
+// ---- readiness & gentle behaviour-science nudges --------------------------------------------
+// A light emotional check-in and a couple of evidence-based nudges. All derived, all optional,
+// none of them ever a scold (see the evidence base in docs/utility-spine.md).
+
+void ZooController::logMood(int valence)
+{
+    if (valence < 1) valence = 1;
+    if (valence > 5) valence = 5;
+    QJsonObject o; o.insert("date", localDate()); o.insert("valence", valence);
+    emitEvent(QStringLiteral("mood_logged"), jpayload(o));
+    emit stateChanged();
+}
+int ZooController::todayMood() const { return m_state.moodByDate.value(localDate(), 0); }
+bool ZooController::moodCheckedToday() const { return m_state.moodByDate.contains(localDate()); }
+
+// Not "are you ready?" (that just hands out excuses) — a tone knob. A low check-in makes the app
+// ask for less and mean it; a high one invites you to start something. Empty until you check in.
+QString ZooController::moodReadiness() const
+{
+    switch (todayMood()) {
+    case 1: return tr("Rough one today. Then today we go tiny: one small thing, and that fully counts.");
+    case 2: return tr("Low tank. Pick the easiest habit and let that be plenty. Gentle is still forward.");
+    case 3: return tr("Steady. A fine day to keep the thread going — nothing heroic required.");
+    case 4: return tr("Good energy. This is a nice day to start something you've been circling.");
+    case 5: return tr("Flying. Ride it — start the thing, stack a habit. The blobs are excited.");
+    default: return QString();
+    }
+}
+
+// "Never miss twice": a warm nudge only after a *single* missed day. A longer gap gets an even
+// softer welcome-back, never a guilt trip. Silent once you've done anything today.
+QString ZooController::gentleNudge() const
+{
+    const QDate today = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    if (!today.isValid()) return QString();
+    auto deedsOn = [this](const QDate& d) {
+        return m_state.deedByDate.value(d.toString(QStringLiteral("yyyy-MM-dd")), 0);
+    };
+    if (deedsOn(today) > 0) return QString();                 // already showed up; no nudge needed
+    if (m_state.deeds == 0) return QString();                 // brand new; onboarding handles this
+    const int y = deedsOn(today.addDays(-1));
+    const int d2 = deedsOn(today.addDays(-2));
+    if (y == 0 && d2 > 0)
+        return tr("Yesterday slipped by. Today is the one that keeps the thread — one small thing does it.");
+    if (y == 0 && d2 == 0)
+        return tr("The gate's still open, no clock running. Pick it back up whenever you like.");
+    return QString();
+}
+
+// Fresh-start effect: week/month boundaries read as clean pages to renegotiate one habit.
+QString ZooController::freshStartPrompt() const
+{
+    const QDate today = QDate::fromString(localDate(), QStringLiteral("yyyy-MM-dd"));
+    if (!today.isValid()) return QString();
+    if (today.day() == 1)
+        return tr("A new month — a clean page. A good moment to swap or renegotiate one habit.");
+    if (today.dayOfWeek() == 1)
+        return tr("New week, fresh page. Want to renegotiate one habit while it's easy?");
+    return QString();
 }
 
 // ---- quests ---------------------------------------------------------------------------------

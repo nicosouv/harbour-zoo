@@ -48,6 +48,9 @@ void applyEvent(ZooState& s, const Event& e)
         h.target = qMax(1, p.value(QStringLiteral("target")).toInt(1));
         const QString k = p.value(QStringLiteral("kind")).toString();
         h.kind = (k == QLatin1String("bad")) ? QStringLiteral("bad") : QStringLiteral("good");
+        h.cue = p.value(QStringLiteral("cue")).toString();
+        h.replacement = p.value(QStringLiteral("replacement")).toString();
+        h.tolerated = p.value(QStringLiteral("tolerated")).toBool();
         s.habits.append(h);
     } else if (t == QLatin1String("habit_archived")) {
         removeById(s.habits, p.value(QStringLiteral("id")).toString());
@@ -68,9 +71,22 @@ void applyEvent(ZooState& s, const Event& e)
         if (d.isEmpty()) d = e.localDate;
         const QString key = d + QLatin1Char('/') + id;
         s.habitCount[key] = s.habitCount.value(key, 0) + 1;
-        s.slipByDate[d] = s.slipByDate.value(d, 0) + 1;
-        s.slipTotal += 1;
         s.habitLast[id] = d;
+        // Bounded indulgence: a "tolerated" bad habit is still counted for you, but it does not
+        // tint the zoo's mood — no shame, just awareness (see docs/utility-spine.md evidence base).
+        bool tolerated = false;
+        for (const Habit& h : s.habits) if (h.id == id) { tolerated = h.tolerated; break; }
+        if (!tolerated) {
+            s.slipByDate[d] = s.slipByDate.value(d, 0) + 1;
+            s.slipTotal += 1;
+        }
+    } else if (t == QLatin1String("mood_logged")) {
+        // A light emotional check-in (smiley 1..5). Latest of the day wins; purely a private read
+        // that lets the app sense whether now is a push day or a be-gentle day.
+        QString d = p.value(QStringLiteral("date")).toString();
+        if (d.isEmpty()) d = e.localDate;
+        const int v = p.value(QStringLiteral("valence")).toInt();
+        if (v >= 1 && v <= 5) { s.moodByDate[d] = v; s.moodLogTotal += 1; }
     } else if (t == QLatin1String("quest_created")) {
         Quest q;
         q.id = p.value(QStringLiteral("id")).toString();
@@ -131,6 +147,7 @@ QJsonObject toJson(const ZooState& s)
     for (const Habit& h : s.habits) {
         QJsonObject j; j.insert("id", h.id); j.insert("name", h.name); j.insert("target", h.target);
         j.insert("kind", h.kind);
+        j.insert("cue", h.cue); j.insert("replacement", h.replacement); j.insert("tolerated", h.tolerated);
         habits.append(j);
     }
     o.insert(QStringLiteral("habits"), habits);
@@ -156,6 +173,8 @@ QJsonObject toJson(const ZooState& s)
     o.insert(QStringLiteral("slipByDate"), intMapToJson(s.slipByDate));
     o.insert(QStringLiteral("slipTotal"), s.slipTotal);
     o.insert(QStringLiteral("challengeStatus"), strMapToJson(s.challengeStatus));
+    o.insert(QStringLiteral("moodByDate"), intMapToJson(s.moodByDate));
+    o.insert(QStringLiteral("moodLogTotal"), s.moodLogTotal);
     o.insert(QStringLiteral("habitLogTotal"), s.habitLogTotal);
     o.insert(QStringLiteral("questCompletedTotal"), s.questCompletedTotal);
     o.insert(QStringLiteral("focusTotal"), s.focusTotal);
@@ -177,6 +196,9 @@ ZooState fromJson(const QJsonObject& o)
         Habit h; h.id = j.value("id").toString(); h.name = j.value("name").toString();
         h.target = qMax(1, j.value("target").toInt(1));
         h.kind = (j.value("kind").toString() == QLatin1String("bad")) ? QStringLiteral("bad") : QStringLiteral("good");
+        h.cue = j.value("cue").toString();
+        h.replacement = j.value("replacement").toString();
+        h.tolerated = j.value("tolerated").toBool();
         s.habits.append(h);
     }
     for (const QJsonValue& v : o.value(QStringLiteral("quests")).toArray()) {
@@ -203,6 +225,9 @@ ZooState fromJson(const QJsonObject& o)
     s.slipTotal = o.value(QStringLiteral("slipTotal")).toInt();
     const QJsonObject cs = o.value(QStringLiteral("challengeStatus")).toObject();
     for (auto it = cs.begin(); it != cs.end(); ++it) s.challengeStatus.insert(it.key(), it.value().toString());
+    const QJsonObject md = o.value(QStringLiteral("moodByDate")).toObject();
+    for (auto it = md.begin(); it != md.end(); ++it) s.moodByDate.insert(it.key(), it.value().toInt());
+    s.moodLogTotal = o.value(QStringLiteral("moodLogTotal")).toInt();
     s.habitLogTotal = o.value(QStringLiteral("habitLogTotal")).toInt();
     s.questCompletedTotal = o.value(QStringLiteral("questCompletedTotal")).toInt();
     s.focusTotal = o.value(QStringLiteral("focusTotal")).toInt();

@@ -199,6 +199,44 @@ private slots:
         QCOMPARE(s.habitLogTotal, 0);  // and isn't a check-in
     }
 
+    void reducer_toleratedSlipSparesMood()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("habit_created", "2026-07-11", 9,
+                              "{\"id\":\"b1\",\"name\":\"Scroll\",\"kind\":\"bad\",\"tolerated\":true}"));
+        QVERIFY(s.habits[0].tolerated);
+        applyEvent(s, mkEvent("habit_slipped", "2026-07-11", 9, "{\"habit_id\":\"b1\",\"date\":\"2026-07-11\"}"));
+        QCOMPARE(s.habitCount.value("2026-07-11/b1"), 1);  // still counted for you
+        QCOMPARE(s.slipTotal, 0);                          // but does not tint the zoo mood
+        QCOMPARE(s.slipByDate.value("2026-07-11"), 0);
+    }
+
+    void reducer_habitFieldsRoundTrip()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("habit_created", "2026-07-11", 9,
+                              "{\"id\":\"h9\",\"name\":\"Water\",\"kind\":\"good\",\"cue\":\"after coffee\","
+                              "\"replacement\":\"tea\",\"tolerated\":false}"));
+        const ZooState s2 = fromJson(toJson(s));
+        QCOMPARE(s2.habits.size(), 1);
+        QCOMPARE(s2.habits[0].cue, QStringLiteral("after coffee"));
+        QCOMPARE(s2.habits[0].replacement, QStringLiteral("tea"));
+        QVERIFY(!s2.habits[0].tolerated);
+    }
+
+    void reducer_moodCheckIn()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("mood_logged", "2026-07-11", 9, "{\"date\":\"2026-07-11\",\"valence\":2}"));
+        QCOMPARE(s.moodByDate.value("2026-07-11"), 2);
+        applyEvent(s, mkEvent("mood_logged", "2026-07-11", 20, "{\"date\":\"2026-07-11\",\"valence\":4}"));
+        QCOMPARE(s.moodByDate.value("2026-07-11"), 4);   // latest of the day wins
+        QCOMPARE(s.moodLogTotal, 2);
+        applyEvent(s, mkEvent("mood_logged", "2026-07-11", 21, "{\"date\":\"2026-07-11\",\"valence\":9}"));
+        QCOMPARE(s.moodByDate.value("2026-07-11"), 4);   // out-of-range ignored
+        QCOMPARE(fromJson(toJson(s)).moodByDate.value("2026-07-11"), 4);
+    }
+
     void reducer_retireBlob()
     {
         ZooState s;

@@ -108,7 +108,7 @@ Page {
                     model: page.suggested
                     delegate: BackgroundItem {
                         width: chip.width + Theme.paddingLarge; height: Theme.itemSizeExtraSmall
-                        onClicked: Zoo.addHabit(modelData.name, modelData.target, "good")
+                        onClicked: Zoo.addHabit(modelData.name, modelData.target, "good", "", "", false)
                         Rectangle { anchors.fill: parent; radius: height / 2
                                     color: Theme.rgba(Theme.highlightBackgroundColor, 0.16) }
                         Label {
@@ -127,13 +127,13 @@ Page {
                     id: habitField; width: parent.width - habTarget.width - habAdd.width - 2 * Theme.paddingSmall
                     placeholderText: qsTr("Custom habit")
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                    EnterKey.onClicked: { if (text.trim().length) { Zoo.addHabit(text, parent.t, "good"); text = ""; parent.t = 1 } }
+                    EnterKey.onClicked: { if (text.trim().length) { Zoo.addHabit(text, parent.t, "good", "", "", false); text = ""; parent.t = 1 } }
                 }
                 Button { id: habTarget; anchors.verticalCenter: habitField.verticalCenter
                          text: "×" + parent.t; onClicked: parent.t = parent.t >= 8 ? 1 : parent.t + 1 }
                 IconButton { id: habAdd; anchors.verticalCenter: habitField.verticalCenter
                              icon.source: "image://theme/icon-m-add"
-                             onClicked: { if (habitField.text.trim().length) { Zoo.addHabit(habitField.text, parent.t, "good"); habitField.text = ""; parent.t = 1 } } }
+                             onClicked: { if (habitField.text.trim().length) { Zoo.addHabit(habitField.text, parent.t, "good", "", "", false); habitField.text = ""; parent.t = 1 } } }
             }
             Label {
                 x: Theme.horizontalPageMargin

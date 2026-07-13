@@ -91,3 +91,63 @@ Extends spec §4.2 (append-only, projectable, testable):
 
 All fold into the projection; per-habit streaks and Keeper level are derived state, never
 authoritative — reproducible by replay (DoD §9.8).
+
+## The evidence base (why the spine is shaped this way)
+
+The utility spine is not vibes — it tracks the behaviour-change literature. This section is the
+reference the features answer to; keep new features aligned with it.
+
+**What makes a habit stick**
+- **Lally et al. (2010)** — automaticity takes a *median 66 days* (18–254), not "21." Crucially,
+  *missing one occasion does not derail formation.* → streak grace, "never miss twice," lapse
+  tolerance are evidence-based, not just kind.
+- **Wendy Wood — context + friction.** ~43% of daily acts are context-cued automaticity. The
+  strongest levers are **context stability, repetition, friction** (make good easy / bad hard),
+  and **reward**. → implementation intentions & anchoring; friction/replacement for bad habits.
+- **Gollwitzer — implementation intentions.** "If [situation], then I will [action]" reliably
+  lifts follow-through (robust meta-analytic effect). → the habit **cue** field.
+- **Immediate reward beats delayed** (temporal discounting). → crumbs/blob mint *now*, on the spot.
+- **Clear — identity-based habits** ("become someone who…") persist longest. → the Almanac's fil
+  rouge ("you are becoming someone who shows up") is the durability lever, not a decoration.
+- **Fogg — Tiny Habits** (B=MAP): start tiny, anchor to an existing routine, celebrate at once.
+
+**Why we pick up bad habits**
+- **Reward-timing asymmetry**: the "bad" soothes *immediately*; the cost is *deferred*.
+- **Stress + depleted self-control** → fallback to automaticity (Wood). Cue-rich environments and
+  **intermittent/variable reward** (Skinner) are the stickiest. A bad habit usually *serves a
+  function* (emotion regulation) — it's a flawed solution, not a moral failing.
+
+**How we get out of them**
+- **You replace, you don't erase** (Duhigg's golden rule): keep the cue & reward, swap the routine.
+  → bad habits carry a **replacement**.
+- **Add friction**; **change context / fresh start** (Milkman's fresh-start effect). → fresh-start
+  prompts at week/month boundaries.
+- **Self-compassion beats shame** (Neff; Marlatt's relapse prevention). Shame *predicts* relapse.
+  The **abstinence-violation effect** ("one slip = I've blown it") is the real enemy. → "never miss
+  twice," warm reframes, no red counts.
+
+**Is a mild bad habit OK for a while?**
+- Yes: **rigid** restraint does *worse* than **flexible** restraint (eating research); all-or-
+  nothing is a risk factor, not a virtue. Lapses are tolerated by formation. **Harm reduction**
+  (reduce/bound) is often more durable than eradication. The trap is *unbounded self-licensing*,
+  not the indulgence itself. → **bounded indulgence**: a bad habit can be marked *tolerated for
+  now* — still tracked, but it doesn't tint the zoo mood. Conscious & bounded beats hidden & shamed.
+
+**Readiness (the emotional check-in)**
+- Self-control and habit follow-through collapse under low mood / stress (Wood; ego-depletion
+  debates aside, the direction holds). So a light **smiley mood check-in** senses whether *now* is
+  a push day or a be-gentle day, and the app adapts its ask accordingly — never diagnostic, never
+  stored as anything but a private valence.
+
+### The five levers, mapped to features
+1. **Implementation intentions + anchoring** — a `cue` on each habit ("after coffee, at my desk").
+2. **Never miss twice** — a gentle nudge only after a *single* missed day (never a scold, never
+   after a long absence — that gets an even warmer "welcome back").
+3. **Friction / replacement** — bad habits carry a `replacement` swap surfaced on a slip.
+4. **Fresh start** — week/month boundaries are framed as clean pages to renegotiate a habit.
+5. **Bounded indulgence** — a bad habit can be `tolerated`; slips still count for the person, but
+   don't tint the zoo mood.
+
+New events for the above (append-only, projectable, testable):
+- `mood_logged` — { date, valence } (1–5 smiley; latest of the day wins)
+- `habit_created` gains { cue, replacement, tolerated } (all optional, back-compatible)
