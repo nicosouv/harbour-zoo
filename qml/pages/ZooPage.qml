@@ -30,6 +30,13 @@ Page {
 
     // Enclosure props: biome objects + your owned decorations, at stable positions.
     property var props: buildProps(Zoo.selectedTheme, Zoo.shopItems)
+
+    // A single looping phase drives the gentle sway of foliage (each prop offsets it, so they don't
+    // move in lockstep). Cheap: one animated number, read by every swaying prop.
+    property real swayPhase: 0
+    NumberAnimation on swayPhase {
+        from: 0; to: 6.2831853; duration: 6000; loops: Animation.Infinite; running: true
+    }
     function _pf(i, a) {
         var h = Math.sin((i + 1) * (a === 0 ? 12.9898 : 78.233)) * 43758.5453
         h = h - Math.floor(h)
@@ -37,19 +44,19 @@ Page {
     }
     function _imgProp(name, idx) {
         var A = {
-            tree:     { sizeF: 0.22, overhead: true,  solid: false, cr: 0 },
-            pine:     { sizeF: 0.20, overhead: true,  solid: false, cr: 0 },
-            building: { sizeF: 0.26, overhead: true,  solid: true,  cr: 0.11 },
-            house:    { sizeF: 0.26, overhead: true,  solid: true,  cr: 0.11 },
-            rock:     { sizeF: 0.13, overhead: false, solid: true,  cr: 0.06 },
-            bush:     { sizeF: 0.13, overhead: false, solid: true,  cr: 0.05 },
-            cactus:   { sizeF: 0.14, overhead: false, solid: true,  cr: 0.05 },
-            lantern:  { sizeF: 0.08, overhead: false, solid: true,  cr: 0.04 }
+            tree:     { sizeF: 0.22, overhead: true,  solid: false, cr: 0,    sway: true },
+            pine:     { sizeF: 0.20, overhead: true,  solid: false, cr: 0,    sway: true },
+            building: { sizeF: 0.26, overhead: true,  solid: true,  cr: 0.11, sway: false },
+            house:    { sizeF: 0.26, overhead: true,  solid: true,  cr: 0.11, sway: false },
+            rock:     { sizeF: 0.13, overhead: false, solid: true,  cr: 0.06, sway: false },
+            bush:     { sizeF: 0.13, overhead: false, solid: true,  cr: 0.05, sway: true },
+            cactus:   { sizeF: 0.14, overhead: false, solid: true,  cr: 0.05, sway: true },
+            lantern:  { sizeF: 0.08, overhead: false, solid: true,  cr: 0.04, sway: false }
         }
         var a = A[name] || A.rock
         return { kind: "img", src: Qt.resolvedUrl("../images/props/" + name + ".png"),
                  xf: _pf(idx, 0), yf: _pf(idx, 1),
-                 sizeF: a.sizeF, overhead: a.overhead, solid: a.solid, cr: a.cr }
+                 sizeF: a.sizeF, overhead: a.overhead, solid: a.solid, cr: a.cr, sway: a.sway }
     }
     function buildProps(theme, shopItems) {
         var TP = {
@@ -65,7 +72,7 @@ Page {
         if (shopItems) for (var j = 0; j < shopItems.length; j++) {
             if (!shopItems[j].owned) continue
             out.push({ kind: "img", src: Qt.resolvedUrl("../images/props/deco_" + shopItems[j].id + ".png"),
-                       xf: _pf(idx, 0), yf: _pf(idx, 1), sizeF: 0.13, overhead: false, solid: true, cr: 0.05 })
+                       xf: _pf(idx, 0), yf: _pf(idx, 1), sizeF: 0.13, overhead: false, solid: true, cr: 0.05, sway: false })
             idx++
         }
         return out
@@ -183,6 +190,11 @@ Page {
                         width: biome.width * modelData.sizeF; height: width
                         x: biome.width * modelData.xf - width / 2
                         y: biome.height * modelData.yf - height / 2
+                        // Low foliage sways a touch, from its base; solid objects stay put.
+                        transform: Rotation {
+                            origin.x: width / 2; origin.y: height
+                            angle: modelData.sway ? Math.sin(page.swayPhase + index * 1.7) * 1.6 : 0
+                        }
                         Image { visible: modelData.kind === "img"; anchors.fill: parent
                                 source: modelData.src; fillMode: Image.PreserveAspectFit; smooth: false }
                         Text { visible: modelData.kind === "emoji"; anchors.centerIn: parent
@@ -243,8 +255,38 @@ Page {
                         width: biome.width * modelData.sizeF; height: width
                         x: biome.width * modelData.xf - width / 2
                         y: biome.height * modelData.yf - height * 0.72
+                        // Trees rock their canopy gently from the trunk base; buildings don't sway.
+                        transform: Rotation {
+                            origin.x: width / 2; origin.y: height
+                            angle: modelData.sway ? Math.sin(page.swayPhase + index * 1.3) * 2.6 : 0
+                        }
                         Image { visible: modelData.kind === "img"; anchors.fill: parent
                                 source: modelData.src; fillMode: Image.PreserveAspectFit; smooth: false }
+                    }
+                }
+
+                // Tiny wandering insects — ambient life, drifting on soft looping paths. Cheap: a few
+                // small dots, no particle system. Positions are ephemeral (not part of any identity).
+                Repeater {
+                    model: 3
+                    delegate: Item {
+                        id: bug
+                        z: 5
+                        width: Math.max(3, biome.width * 0.014); height: width
+                        property int dur: 3000
+                        function bx() { return Math.random() * Math.max(1, biome.width - width) }
+                        function by() { return biome.height * 0.26 + Math.random() * Math.max(1, biome.height * 0.60) }
+                        Component.onCompleted: { x = bx(); y = by() }
+                        Behavior on x { NumberAnimation { duration: bug.dur; easing.type: Easing.InOutSine } }
+                        Behavior on y { NumberAnimation { duration: bug.dur; easing.type: Easing.InOutSine } }
+                        Timer {
+                            interval: 1600 + Math.random() * 2600; running: true; repeat: true
+                            onTriggered: { bug.dur = 2200 + Math.random() * 2600; bug.x = bug.bx(); bug.y = bug.by() }
+                        }
+                        Rectangle {
+                            anchors.centerIn: parent; width: parent.width * 0.7; height: width * 0.7
+                            radius: width; color: "#1D1F17"; opacity: 0.7; antialiasing: false
+                        }
                     }
                 }
 
