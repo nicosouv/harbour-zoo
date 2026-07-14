@@ -1,109 +1,121 @@
 # OpenRepos publication assets
 
 Ready-to-paste copy for the OpenRepos listing. Screenshots are taken on-device (see the shot list).
-House style: dry and unserious, but a store listing must also be clear to a stranger. No em-dashes.
+House style: dry and unserious for the pitch, straight for privacy. No em-dashes.
 
 ## Title
 
-**Zoo** (package: `harbour-zoo`)
+**Zoo** (package: `harbour-zoo`) · tagline: *A tiny living zoo for the small things you do.*
 
-Tagline options (pick one):
-- A tiny living zoo for the small things you do.
-- Do one small thing a day. Grow a zoo of odd little creatures.
-- A gentle habit tracker in a zoo costume.
+## Full description (paste this)
 
-## Short summary (one line)
+Zoo is a small, strange, living zoo for the little things you do.
 
-Do one small thing a day and grow a zoo of strange little creatures. Offline, private, never a scold.
+What is this, and what is it for? It is a habit tracker that refused to look like a habit tracker.
+You do one little (often absurd) thing a day, keep a few habits, run the odd focus session, and in
+return a cabinet of pixel creatures slowly fills up with blobs, potted sprouts and other oddities
+that live in animated enclosures you can theme and poke. The useful part (habits, focus, a daily
+challenge) is the fuel. The zoo is the fire. It is as unserious as it is useful.
 
-## Full description (English)
+There is no shaming here. No streak-guilt, no red numbers, no timers built to spike your anxiety.
+Miss a day and you get a shrug and a warm hand, never a scold. It is entirely offline and private:
+no accounts, no network, no trackers, no ads, and no in-app purchases, ever. Nothing leaves your
+device, because the app never once asks the internet for anything.
 
-Zoo is a gentle habit tracker wearing a zoo costume. Do one small thing a day (a habit, a
-two-minute daily challenge, a focus session) and odd little pixel creatures move into an animated
-enclosure you can theme, decorate and poke. That is the whole game: the useful part is the fuel,
-the zoo is the fire.
+This is an early public release. It works, it speaks six languages, and it will still have rough
+edges. Bring a Tuesday.
 
-No shaming, no streak-guilt, no timers built to stress you. A missed day gets a shrug and a warm
-hand, never a scold. Fully offline and entirely private: no accounts, no network, no trackers, no
-ads, and no in-app purchases, ever.
+Source code: https://github.com/nicosouv/harbour-zoo
 
-What you do:
-- Keep habits (good ones to grow, bad ones to gently starve, with a two-week amnesty if you want).
-- Do a small, slightly absurd daily challenge.
-- Run a calm focus timer.
-- Earn crumbs, hatch strange creatures, and decorate their world.
+Features
 
-What you get:
-- A living enclosure where pixel blobs (and the odd potted sprout) roam, blink, sway, and bump
-  into each other, with trees that sway and insects that wander.
-- A quiet story that unfolds as you keep showing up. The zoo turns out to be a portrait of you.
-- Little ceremonies: a creature shoulders its bindle and wanders off, a birthday, a milestone, the
-  occasional Quest Beast.
+The daily loop (the useful bit):
+- A daily challenge: one small, slightly absurd, under-two-minutes thing.
+- Habits: good ones with a times-per-day target, and bad ones you gently starve. Each can carry a
+  cue ("after my morning coffee"); a bad habit can carry a kinder swap to do instead, and a
+  "tolerate it for now" two-week amnesty so a single slip does not sour everything.
+- A "never miss twice" nudge that only appears after one missed day, never a scold.
+- Quests: one-off tasks with an optional deadline. Leave one overdue too long and the Quest Beast
+  turns up to deal with it.
+- A calm focus timer (pomodoro) that keeps running while you wander the app.
+- An optional emotional check-in: tap a smiley and the app right-sizes what it asks of you today.
+  It never gates anything; a low day just means "go tiny, and tiny counts".
+- Gentle fresh-start nudges at the start of a week or month.
+
+The zoo (the reward):
+- Earn crumbs by doing the useful things; spend them to hatch creatures, buy decorations, and
+  unlock biomes.
+- Procedural pixel creatures: no two blobs are alike (seeded bodies, eyes, wobble and quirks; four
+  rarities up to a humming mythic), plus potted Sprout plants that bloom if you fuss over them.
+  Poke them and they react.
+- A living enclosure: theme it, decorate it, and watch the foliage sway and tiny insects wander.
+  The whole scene warms or cools with how your habits are going.
+- Keeper progression: levels, titles, commendation badges, a seven-day activity graph, and weekly
+  and monthly stats.
+
+The story and the ceremonies:
+- The Keeper's Almanac: a quiet story that unfolds at real milestones and arrives as a gentle
+  full-screen reveal. It turns out the zoo was a portrait of you all along.
+- In-place ceremonies over a blurred zoo: a creature shoulders a little bindle and wanders off, a
+  birthday, a milestone, a national holiday, and the occasional Quest Beast eating a blob.
+- Confetti. A generous amount of confetti.
+
+The rest:
+- A living-zoo onboarding, with a free first creature handed to you on the way in.
 - Six languages: English, French, German, Italian, Spanish, Finnish.
+- An optional, gentle daily reminder (off by default; the zoo waits for you, it never nags).
+- Hidden easter eggs and dubious "fun facts".
 
-It is as unserious as it is useful. Bring a Tuesday.
+About this project
 
-Offline. Private. MIT-licensed. Source: https://github.com/nicosouv/harbour-zoo
+Written by a human developer with an LLM (Claude). The engine is event-sourced and deterministic:
+everything you see is a fold of an append-only local log, so your zoo is reproducible and unit
+tested, and the app contains no network code whatsoever.
 
-## Description courte (français)
+Privacy and data
 
-Fais un petit truc par jour et fais grandir un zoo de drôles de créatures. Hors ligne, privé,
-jamais moralisateur.
+- Everything is stored locally: an append-only SQLite log plus a small preferences file, on your
+  device only. Nothing is ever uploaded; the app makes no network requests at runtime.
+- No accounts, no trackers, no analytics, no ads, no in-app purchases.
+- No intrusive permissions: Zoo does not read your photos, contacts, or location.
+- One-tap "Erase all data" (in Settings, with a confirmation) wipes everything and drops you back
+  at the start.
 
-## Description complète (français)
+Feedback
 
-Zoo est un tracker d'habitudes déguisé en zoo. Fais une petite chose par jour (une habitude, un
-défi quotidien de deux minutes, une session de concentration) et de drôles de créatures en
-pixel-art emménagent dans un enclos animé que tu peux thématiser, décorer et titiller. C'est tout
-le jeu : l'utile est le carburant, le zoo est le feu.
+This is an early version. If it does not work for you, or you dislike something, I am genuinely
+open to constructive criticism. Issues and ideas: https://github.com/nicosouv/harbour-zoo/issues
 
-Pas de honte, pas de culpabilité de série, pas de minuteurs faits pour te stresser. Un jour manqué,
-c'est un haussement d'épaules et une main tendue, jamais un sermon. Entièrement hors ligne et privé :
-pas de compte, pas de réseau, pas de traqueurs, pas de pub, jamais d'achat intégré.
+## Description courte (français, si besoin)
 
-Ce que tu fais : des habitudes (bonnes à faire grandir, mauvaises à affamer en douceur), un petit
-défi absurde du jour, un minuteur de concentration tout calme. Tu gagnes des miettes, tu fais
-éclore d'étranges créatures et tu décores leur monde.
-
-Ce que tu obtiens : un enclos vivant où des blobs (et l'occasionnelle plante en pot) se baladent,
-clignent des yeux et se bousculent ; une histoire discrète qui se révèle à mesure que tu reviens
-(le zoo est un portrait de toi) ; de petites cérémonies ; et six langues.
-
-Aussi peu sérieux qu'utile. Amène un mardi.
-
-Hors ligne. Privé. Licence MIT. Code : https://github.com/nicosouv/harbour-zoo
+Zoo est un petit zoo vivant et étrange pour les petites choses que tu fais. Un tracker d'habitudes
+qui refuse d'en avoir l'air : fais un petit truc par jour, tiens quelques habitudes, et de drôles
+de créatures en pixel-art emménagent dans des enclos animés. Hors ligne, privé, jamais moralisateur.
+Code : https://github.com/nicosouv/harbour-zoo
 
 ## Category and tags
 
-- Category: **Games** (it is a toy first; Applications also works if you prefer the tracker angle).
+- Category: **Games** (a toy first; Applications also works if you prefer the tracker angle).
 - Tags: `habit tracker`, `habits`, `focus`, `pomodoro`, `productivity`, `offline`, `privacy`,
   `pixel art`, `creatures`, `gentle`, `sailfish`.
 
-## Changelog
+## Changelog (v0.5.3)
 
-### v0.5.3
 - New onboarding: a living-zoo preview that reacts to your choices, confetti, and a free first creature.
 - Add habits and quests on their own tidy pages; Today stays an uncluttered glance.
-- Sprout creatures join the blobs; the enclosure now sways and hosts a few wandering insects.
+- Sprout creatures join the blobs; the enclosure sways and hosts a few wandering insects.
 - Confetti properly arcs up and falls back down.
 - Development shortcuts hidden.
 
-### Earlier in 0.5.x
-- A quiet story (the Keeper's Almanac) that unfolds at real milestones and arrives as a gentle reveal.
-- An emotional check-in and evidence-based habit tools (cues, "never miss twice", swaps, a bounded amnesty).
-- In-place ceremonies over a blurred zoo (a farewell with a bindle, milestones, the Quest Beast).
-- Full six-language translation.
+## Screenshot shot list (on-device, portrait, 4 to 5)
 
-## Screenshot shot list (capture on-device, portrait, 4 to 5)
-
-1. The zoo page with a few creatures roaming and a tree swaying. The hero shot.
+1. The zoo page with creatures roaming and a tree swaying. The hero shot.
 2. Onboarding: the living preview with confetti (the "into the zoo" moment).
-3. A ceremony or an Almanac chapter reveal (blurred zoo, foreground text/scene).
+3. A ceremony or an Almanac chapter reveal (blurred zoo, foreground scene).
 4. Today: the daily challenge, a habit or two, the focus timer.
-5. A Sprout or a rare blob full-screen on the specimen page (show off a creature).
+5. A Sprout or a rare blob full-screen on the specimen page.
 
-## Notes for the upload form
+## Upload form notes
 
-- Version: 0.5.3. RPMs: aarch64, armv7hl, i486 (attach all three from the GitHub release).
-- License: MIT. Source URL: https://github.com/nicosouv/harbour-zoo
-- No network permission needed; mention "fully offline, no trackers" in the listing (users care).
+- Version 0.5.3. Attach all three RPMs (aarch64, armv7hl, i486) from the GitHub release.
+- License: MIT. Source: https://github.com/nicosouv/harbour-zoo
