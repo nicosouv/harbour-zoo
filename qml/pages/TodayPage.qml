@@ -32,12 +32,14 @@ Page {
     property int habitTarget: 1
     property string habitKind: "good"
     property bool habitTolerated: false
+    property bool habitDetails: false        // progressive disclosure: cue/swap hidden by default
     function addHabit() {
         if (habitField.text.trim().length === 0) return
         Zoo.addHabit(habitField.text, habitTarget, habitKind,
                      cueField.text, replacementField.text, habitTolerated)
         habitField.text = ""; cueField.text = ""; replacementField.text = ""
-        habitTarget = 1; habitKind = "good"; habitTolerated = false; habitField.focus = false
+        habitTarget = 1; habitKind = "good"; habitTolerated = false; habitDetails = false
+        habitField.focus = false
     }
 
     SilicaFlickable {
@@ -87,17 +89,13 @@ Page {
                 }
             }
 
-            // Gentle behaviour-science nudges: never-miss-twice / welcome-back, and fresh-start.
+            // One gentle nudge at a time (never-miss-twice takes priority over fresh-start), so the
+            // top of Today stays light and the challenge is the thing you see.
             Label {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
-                visible: Zoo.gentleNudge.length > 0; wrapMode: Text.Wrap
-                text: Zoo.gentleNudge; color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeSmall; font.italic: true
-            }
-            Label {
-                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
-                visible: Zoo.freshStartPrompt.length > 0; wrapMode: Text.Wrap
-                text: Zoo.freshStartPrompt; color: Theme.secondaryHighlightColor
+                visible: text.length > 0; wrapMode: Text.Wrap
+                text: Zoo.gentleNudge.length > 0 ? Zoo.gentleNudge : Zoo.freshStartPrompt
+                color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeSmall; font.italic: true
             }
 
@@ -285,11 +283,23 @@ Page {
                     id: habitField; width: parent.width
                     placeholderText: qsTr("New habit (+5 🍞)")
                     label: qsTr("New habit")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: cueField.focus = true
+                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                    EnterKey.onClicked: page.habitDetails ? (cueField.focus = true) : addHabit()
+                }
+                // Default add is a single field. The cue/swap levers hide behind this until wanted.
+                BackgroundItem {
+                    width: parent.width; height: Theme.itemSizeExtraSmall
+                    visible: !page.habitDetails
+                    onClicked: page.habitDetails = true
+                    Label {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: qsTr("＋ add a cue or a swap")
+                        color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
+                    }
                 }
                 // Implementation intention / anchor, the single strongest lever for follow-through.
                 TextField {
-                    id: cueField; width: parent.width
+                    id: cueField; width: parent.width; visible: page.habitDetails
                     placeholderText: qsTr("When? e.g. after my morning coffee")
                     label: qsTr("Cue (optional)")
                     EnterKey.iconSource: "image://theme/icon-m-enter-next"
@@ -298,7 +308,7 @@ Page {
                 // For a bad habit: the swap (same reward) and whether to tolerate it for now.
                 TextField {
                     id: replacementField; width: parent.width
-                    visible: page.habitKind === "bad"
+                    visible: page.habitDetails && page.habitKind === "bad"
                     placeholderText: qsTr("Instead, I'll… (same payoff, kinder)")
                     label: qsTr("Replacement (optional)")
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: addHabit()
