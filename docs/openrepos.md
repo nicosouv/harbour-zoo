@@ -69,13 +69,18 @@ Code : https://github.com/nicosouv/harbour-zoo
 - Tags: `habit tracker`, `habits`, `focus`, `pomodoro`, `productivity`, `offline`, `privacy`,
   `pixel art`, `creatures`, `gentle`, `sailfish`.
 
-## Changelog (v0.5.3)
+## Changelog (v0.5.3, first public release)
 
-- New onboarding: a living-zoo preview that reacts to your choices, confetti, and a free first creature.
-- Add habits and quests on their own tidy pages; Today stays an uncluttered glance.
-- Sprout creatures join the blobs; the enclosure sways and hosts a few wandering insects.
-- Confetti properly arcs up and falls back down.
-- Development shortcuts hidden.
+First public release. What it does:
+- Track habits (good ones to grow, bad ones to gently starve), a small daily challenge, a focus
+  timer, and one-off quests.
+- Earn crumbs and hatch procedural pixel creatures that roam an animated, themeable enclosure you
+  can decorate.
+- An optional emotional check-in and gentle, never-shaming nudges. No streak-guilt, no red numbers.
+- Keeper progression: levels, titles, badges, and weekly and monthly stats.
+- Fully offline and private: no network, no accounts, no trackers. Six languages. An optional daily
+  reminder, off by default.
+- Plus a handful of surprises best left undiscovered here.
 
 ## Screenshot shot list (on-device, portrait, 4 to 5)
 
