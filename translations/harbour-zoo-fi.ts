@@ -293,8 +293,8 @@
         <translation>Napauta muutamaa lisätäksesi ne. Tai omasi alle. Voit muuttaa näitä milloin vain.</translation>
     </message>
     <message>
-        <source>Custom habit</source>
-        <translation>Oma tapa</translation>
+        <source>Add your own</source>
+        <translation>Lisää omasi</translation>
     </message>
     <message>
         <source>%1 habit(s) lined up</source>
@@ -305,8 +305,8 @@
         <translation>Tehtävä (valinnainen)</translation>
     </message>
     <message>
-        <source>Something one-off</source>
-        <translation>Jokin kertaluontoinen</translation>
+        <source>New quest</source>
+        <translation>Uusi tehtävä</translation>
     </message>
     <message>
         <source>Into the zoo</source>

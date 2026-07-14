@@ -230,6 +230,7 @@ T = {
 "A new page appeared in the Almanac.": ["Une nouvelle page est apparue dans l'Almanach.","Im Almanach ist eine neue Seite aufgetaucht.","È comparsa una nuova pagina nell'Almanacco.","Apareció una nueva página en el Almanaque.","Almanakkaan ilmestyi uusi sivu."],
 "Continue": ["Continuer","Weiter","Continua","Continuar","Jatka"],
 "Data": ["Données","Daten","Dati","Datos","Tiedot"],
+"Add your own": ["Ajoute la tienne","Eigene hinzufügen","Aggiungi la tua","Añade el tuyo","Lisää omasi"],
 "Wipes the lot and starts over. No undo, no hard feelings.": ["Efface tout et repart de zéro. Pas de retour en arrière, sans rancune.","Löscht alles und fängt neu an. Kein Zurück, nichts für ungut.","Cancella tutto e ricomincia. Nessun ripensamento, senza rancore.","Borra todo y empieza de cero. Sin deshacer, sin rencores.","Pyyhkii kaiken ja aloittaa alusta. Ei paluuta, ei kaunaa."],
 # --- Add-habit / add-quest pages + mood prompt (dry, unserious voice) ---
 "How are you bearing up?": ["Tu tiens le coup ?","Wie hältst du dich so?","Come reggi?","¿Cómo lo llevas?","Miten jaksat?"],

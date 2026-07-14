@@ -915,6 +915,20 @@ void ZooController::hatchBlob()
     emit stateChanged();
 }
 
+// A free blob, handed over right after onboarding — just because we're generous. Only fires on a
+// genuinely empty zoo (so it can't be farmed), and quietly, without the full hatch reveal.
+void ZooController::grantWelcomeBlob()
+{
+    if (!m_state.blobs.isEmpty()) return;
+    Rng r(Rng::mix(m_store.installSalt(), 424242ULL));
+    const int seed = static_cast<int>(r.next() & 0x7FFFFFFF);
+    QJsonObject o; o.insert("id", QString::number(QDateTime::currentMSecsSinceEpoch()));
+    o.insert("seed", seed); o.insert("rarity", QStringLiteral("common"));
+    o.insert("date", localDate()); o.insert("species", QStringLiteral("blob"));
+    emitEvent(QStringLiteral("egg_hatched"), jpayload(o));
+    emit stateChanged();
+}
+
 QVariantList ZooController::shopItems() const
 {
     QVariantList out;

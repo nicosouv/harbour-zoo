@@ -293,8 +293,8 @@
         <translation>Touches-en quelques-unes pour les ajouter. Ou les tiennes en dessous. Tu peux changer quand tu veux.</translation>
     </message>
     <message>
-        <source>Custom habit</source>
-        <translation>Habitude perso</translation>
+        <source>Add your own</source>
+        <translation>Ajoute la tienne</translation>
     </message>
     <message>
         <source>%1 habit(s) lined up</source>
@@ -305,8 +305,8 @@
         <translation>Une quête (facultatif)</translation>
     </message>
     <message>
-        <source>Something one-off</source>
-        <translation>Un truc ponctuel</translation>
+        <source>New quest</source>
+        <translation>Nouvelle quête</translation>
     </message>
     <message>
         <source>Into the zoo</source>

@@ -193,6 +193,7 @@ public:
 
     // The zoo: spend Crumbs to hatch a blob into the collection; buy decorations & biomes.
     Q_INVOKABLE void hatchBlob();
+    Q_INVOKABLE void grantWelcomeBlob();     // a free first blob after onboarding, once, if empty
     Q_INVOKABLE void buyObject(const QString& id);
     Q_INVOKABLE void buyTheme(const QString& id);
     Q_INVOKABLE void selectTheme(const QString& id);

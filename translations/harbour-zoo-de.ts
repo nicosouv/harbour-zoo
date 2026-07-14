@@ -293,8 +293,8 @@
         <translation>Tipp ein paar an, um sie hinzuzufügen. Oder eigene unten. Du kannst das jederzeit ändern.</translation>
     </message>
     <message>
-        <source>Custom habit</source>
-        <translation>Eigene Gewohnheit</translation>
+        <source>Add your own</source>
+        <translation>Eigene hinzufügen</translation>
     </message>
     <message>
         <source>%1 habit(s) lined up</source>
@@ -305,8 +305,8 @@
         <translation>Ein Auftrag (optional)</translation>
     </message>
     <message>
-        <source>Something one-off</source>
-        <translation>Etwas Einmaliges</translation>
+        <source>New quest</source>
+        <translation>Neuer Auftrag</translation>
     </message>
     <message>
         <source>Into the zoo</source>

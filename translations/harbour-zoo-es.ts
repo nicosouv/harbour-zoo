@@ -293,8 +293,8 @@
         <translation>Toca algunas para añadirlas. O las tuyas abajo. Puedes cambiarlas cuando quieras.</translation>
     </message>
     <message>
-        <source>Custom habit</source>
-        <translation>Hábito propio</translation>
+        <source>Add your own</source>
+        <translation>Añade el tuyo</translation>
     </message>
     <message>
         <source>%1 habit(s) lined up</source>
@@ -305,8 +305,8 @@
         <translation>Una misión (opcional)</translation>
     </message>
     <message>
-        <source>Something one-off</source>
-        <translation>Algo puntual</translation>
+        <source>New quest</source>
+        <translation>Nueva misión</translation>
     </message>
     <message>
         <source>Into the zoo</source>

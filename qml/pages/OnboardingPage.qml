@@ -119,21 +119,17 @@ Page {
                     }
                 }
             }
-            Row {
-                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
-                spacing: Theme.paddingSmall
-                property int t: 1
-                TextField {
-                    id: habitField; width: parent.width - habTarget.width - habAdd.width - 2 * Theme.paddingSmall
-                    placeholderText: qsTr("Custom habit")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                    EnterKey.onClicked: { if (text.trim().length) { Zoo.addHabit(text, parent.t, "good", "", "", false); text = ""; parent.t = 1 } }
+            // Your own habit goes through the same page as everywhere else (consistency > cleverness).
+            BackgroundItem {
+                width: parent.width; height: Theme.itemSizeSmall
+                onClicked: pageStack.push(Qt.resolvedUrl("NewHabitPage.qml"))
+                Row {
+                    anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                    spacing: Theme.paddingSmall
+                    Image { source: "image://theme/icon-m-add"; anchors.verticalCenter: parent.verticalCenter }
+                    Label { text: qsTr("Add your own"); anchors.verticalCenter: parent.verticalCenter
+                            color: Theme.highlightColor; font.pixelSize: Theme.fontSizeSmall }
                 }
-                Button { id: habTarget; anchors.verticalCenter: habitField.verticalCenter
-                         text: "×" + parent.t; onClicked: parent.t = parent.t >= 8 ? 1 : parent.t + 1 }
-                IconButton { id: habAdd; anchors.verticalCenter: habitField.verticalCenter
-                             icon.source: "image://theme/icon-m-add"
-                             onClicked: { if (habitField.text.trim().length) { Zoo.addHabit(habitField.text, parent.t, "good", "", "", false); habitField.text = ""; parent.t = 1 } } }
             }
             Label {
                 x: Theme.horizontalPageMargin
@@ -143,18 +139,16 @@ Page {
 
             // --- One quest (optional) ----------------------------------------------------------
             SectionHeader { text: qsTr("A quest (optional)") }
-            Row {
-                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
-                spacing: Theme.paddingSmall
-                TextField {
-                    id: questField; width: parent.width - questAdd.width - Theme.paddingSmall
-                    placeholderText: qsTr("Something one-off")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                    EnterKey.onClicked: { if (text.trim().length) { Zoo.addQuest(text, ""); text = "" } }
+            BackgroundItem {
+                width: parent.width; height: Theme.itemSizeSmall
+                onClicked: pageStack.push(Qt.resolvedUrl("NewQuestPage.qml"))
+                Row {
+                    anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                    spacing: Theme.paddingSmall
+                    Image { source: "image://theme/icon-m-add"; anchors.verticalCenter: parent.verticalCenter }
+                    Label { text: qsTr("New quest"); anchors.verticalCenter: parent.verticalCenter
+                            color: Theme.highlightColor; font.pixelSize: Theme.fontSizeSmall }
                 }
-                IconButton { id: questAdd; anchors.verticalCenter: questField.verticalCenter
-                             icon.source: "image://theme/icon-m-add"
-                             onClicked: { if (questField.text.trim().length) { Zoo.addQuest(questField.text, ""); questField.text = "" } } }
             }
 
             Item { width: 1; height: Theme.paddingMedium }
@@ -166,6 +160,7 @@ Page {
                     if (nameField.text.trim().length > 0) Zoo.playerName = nameField.text.trim()
                     Zoo.blobStyle = page.selectedStyle
                     Zoo.onboarded = true
+                    Zoo.grantWelcomeBlob()      // a free first resident, on the house
                     pageStack.pop()
                 }
             }
