@@ -1462,6 +1462,153 @@
 "Continuar",
 "Jatka"
 ],
+"How are you bearing up?": [
+"Tu tiens le coup ?",
+"Wie hältst du dich so?",
+"Come reggi?",
+"¿Cómo lo llevas?",
+"Miten jaksat?"
+],
+"A small promise to future-you. Future-you is unreliable, but we press on regardless.": [
+"Une petite promesse au toi de demain. Le toi de demain n'est pas fiable, mais on persévère quand même.",
+"Ein kleines Versprechen an das Zukunfts-Du. Das Zukunfts-Du ist unzuverlässig, aber wir machen trotzdem weiter.",
+"Una piccola promessa al te-del-futuro. Il te-del-futuro è inaffidabile, ma andiamo avanti lo stesso.",
+"Una pequeña promesa a tu yo del futuro. Tu yo del futuro es poco fiable, pero seguimos igualmente.",
+"Pieni lupaus tulevalle sinulle. Tuleva sinä on epäluotettava, mutta jatketaan silti."
+],
+"The habit": [
+"L'habitude",
+"Die Gewohnheit",
+"L'abitudine",
+"El hábito",
+"Tapa"
+],
+"Something you'll actually do. In theory.": [
+"Un truc que tu feras vraiment. En théorie.",
+"Etwas, das du wirklich tun wirst. Theoretisch.",
+"Qualcosa che farai davvero. In teoria.",
+"Algo que harás de verdad. En teoría.",
+"Jotain, minkä oikeasti teet. Teoriassa."
+],
+"Sort": [
+"Genre",
+"Art",
+"Tipo",
+"Tipo",
+"Laji"
+],
+"One to keep": [
+"À garder",
+"Eine zum Behalten",
+"Da tenere",
+"Uno para mantener",
+"Pidettävä"
+],
+"One to quit": [
+"À arrêter",
+"Eine zum Aufgeben",
+"Da smettere",
+"Uno para dejar",
+"Lopetettava"
+],
+"When, exactly?": [
+"Quand, précisément ?",
+"Wann genau?",
+"Quando, di preciso?",
+"¿Cuándo, exactamente?",
+"Milloin, tarkalleen?"
+],
+"after my morning coffee (anchors work; willpower sulks)": [
+"après mon café du matin (les ancres marchent ; la volonté boude)",
+"nach meinem Morgenkaffee (Anker wirken; Willenskraft schmollt)",
+"dopo il caffè del mattino (gli ancoraggi funzionano; la forza di volontà fa il broncio)",
+"después del café de la mañana (los anclajes funcionan; la fuerza de voluntad se enfurruña)",
+"aamukahvin jälkeen (ankkurit toimivat; tahdonvoima mököttää)"
+],
+"How many times a day?": [
+"Combien de fois par jour ?",
+"Wie oft am Tag?",
+"Quante volte al giorno?",
+"¿Cuántas veces al día?",
+"Montako kertaa päivässä?"
+],
+"Do this instead": [
+"Fais plutôt ça",
+"Mach stattdessen das",
+"Fai invece questo",
+"Haz esto en su lugar",
+"Tee tämä sen sijaan"
+],
+"same payoff, fewer regrets": [
+"même bénéfice, moins de regrets",
+"gleicher Gewinn, weniger Reue",
+"stesso beneficio, meno rimpianti",
+"mismo beneficio, menos arrepentimientos",
+"sama hyöty, vähemmän katumusta"
+],
+"Tolerate it, for now": [
+"Le tolérer, pour l'instant",
+"Vorerst dulden",
+"Tollerarla, per ora",
+"Tolerarlo, por ahora",
+"Siedä sitä, toistaiseksi"
+],
+"Slips won't sour the zoo. Two weeks' grace, then it quietly counts again.": [
+"Les écarts ne gâcheront pas le zoo. Deux semaines de répit, puis ça recompte discrètement.",
+"Ausrutscher trüben den Zoo nicht. Zwei Wochen Gnade, dann zählt es leise wieder.",
+"Le ricadute non guasteranno lo zoo. Due settimane di tregua, poi conta di nuovo, in sordina.",
+"Los deslices no amargarán el zoo. Dos semanas de gracia, y luego vuelve a contar sin ruido.",
+"Lipsahdukset eivät happamoita eläintarhaa. Kaksi viikkoa armoa, sitten se laskee taas hiljaa."
+],
+"Add it to the pile": [
+"Ajoute-la à la pile",
+"Auf den Stapel damit",
+"Aggiungila al mucchio",
+"Añádelo al montón",
+"Lisää se pinoon"
+],
+"A one-off thing. The blobs will pretend to be impressed.": [
+"Un truc ponctuel. Les blobs feront semblant d'être impressionnés.",
+"Eine einmalige Sache. Die Blobs tun so, als wären sie beeindruckt.",
+"Una cosa una tantum. I blob faranno finta di essere colpiti.",
+"Algo puntual. Los blobs fingirán estar impresionados.",
+"Kertaluontoinen juttu. Blobit teeskentelevät olevansa vaikuttuneita."
+],
+"The quest": [
+"La quête",
+"Der Auftrag",
+"La missione",
+"La misión",
+"Tehtävä"
+],
+"That thing you keep not doing": [
+"Ce truc que tu continues de ne pas faire",
+"Das Ding, das du ständig nicht tust",
+"Quella cosa che continui a non fare",
+"Esa cosa que sigues sin hacer",
+"Se juttu, jota jatkuvasti jätät tekemättä"
+],
+"Deadline": [
+"Échéance",
+"Frist",
+"Scadenza",
+"Fecha límite",
+"Määräaika"
+],
+"none, live dangerously": [
+"aucune, vis dangereusement",
+"keine, leb gefährlich",
+"nessuna, vivi pericolosamente",
+"ninguna, vive peligrosamente",
+"ei mitään, elä vaarallisesti"
+],
+"Set it in motion": [
+"Lance-la",
+"In Gang bringen",
+"Mettila in moto",
+"Ponla en marcha",
+"Pane liikkeelle"
+],
 "The Quest Beast ate %1. Overdue quests have consequences. Mild ones.": [
 "La Bête des quêtes a mangé %1. Les quêtes en retard ont des conséquences. Modérées.",
 "Das Auftragsbiest hat %1 gefressen. Überfällige Aufträge haben Folgen. Milde.",

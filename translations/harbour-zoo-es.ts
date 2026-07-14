@@ -145,6 +145,100 @@
     </message>
 </context>
 <context>
+    <name>NewHabitPage</name>
+    <message>
+        <source>New habit</source>
+        <translation>Nuevo hábito</translation>
+    </message>
+    <message>
+        <source>A small promise to future-you. Future-you is unreliable, but we press on regardless.</source>
+        <translation>Una pequeña promesa a tu yo del futuro. Tu yo del futuro es poco fiable, pero seguimos igualmente.</translation>
+    </message>
+    <message>
+        <source>The habit</source>
+        <translation>El hábito</translation>
+    </message>
+    <message>
+        <source>Something you'll actually do. In theory.</source>
+        <translation>Algo que harás de verdad. En teoría.</translation>
+    </message>
+    <message>
+        <source>Sort</source>
+        <translation>Tipo</translation>
+    </message>
+    <message>
+        <source>One to keep</source>
+        <translation>Uno para mantener</translation>
+    </message>
+    <message>
+        <source>One to quit</source>
+        <translation>Uno para dejar</translation>
+    </message>
+    <message>
+        <source>When, exactly?</source>
+        <translation>¿Cuándo, exactamente?</translation>
+    </message>
+    <message>
+        <source>after my morning coffee (anchors work; willpower sulks)</source>
+        <translation>después del café de la mañana (los anclajes funcionan; la fuerza de voluntad se enfurruña)</translation>
+    </message>
+    <message>
+        <source>How many times a day?</source>
+        <translation>¿Cuántas veces al día?</translation>
+    </message>
+    <message>
+        <source>Do this instead</source>
+        <translation>Haz esto en su lugar</translation>
+    </message>
+    <message>
+        <source>same payoff, fewer regrets</source>
+        <translation>mismo beneficio, menos arrepentimientos</translation>
+    </message>
+    <message>
+        <source>Tolerate it, for now</source>
+        <translation>Tolerarlo, por ahora</translation>
+    </message>
+    <message>
+        <source>Slips won't sour the zoo. Two weeks' grace, then it quietly counts again.</source>
+        <translation>Los deslices no amargarán el zoo. Dos semanas de gracia, y luego vuelve a contar sin ruido.</translation>
+    </message>
+    <message>
+        <source>Add it to the pile</source>
+        <translation>Añádelo al montón</translation>
+    </message>
+</context>
+<context>
+    <name>NewQuestPage</name>
+    <message>
+        <source>New quest</source>
+        <translation>Nueva misión</translation>
+    </message>
+    <message>
+        <source>A one-off thing. The blobs will pretend to be impressed.</source>
+        <translation>Algo puntual. Los blobs fingirán estar impresionados.</translation>
+    </message>
+    <message>
+        <source>The quest</source>
+        <translation>La misión</translation>
+    </message>
+    <message>
+        <source>That thing you keep not doing</source>
+        <translation>Esa cosa que sigues sin hacer</translation>
+    </message>
+    <message>
+        <source>Deadline</source>
+        <translation>Fecha límite</translation>
+    </message>
+    <message>
+        <source>none, live dangerously</source>
+        <translation>ninguna, vive peligrosamente</translation>
+    </message>
+    <message>
+        <source>Set it in motion</source>
+        <translation>Ponla en marcha</translation>
+    </message>
+</context>
+<context>
     <name>OnboardingPage</name>
     <message>
         <source>Mix</source>
@@ -455,8 +549,8 @@
         <translation>🍞 %1 migas</translation>
     </message>
     <message>
-        <source>How are you, right now?</source>
-        <translation>¿Cómo estás, ahora mismo?</translation>
+        <source>How are you bearing up?</source>
+        <translation>¿Cómo lo llevas?</translation>
     </message>
     <message>
         <source>Challenge</source>
@@ -559,44 +653,8 @@
         <translation>Quitar</translation>
     </message>
     <message>
-        <source>New habit (+5 🍞)</source>
-        <translation>Nuevo hábito (+5 🍞)</translation>
-    </message>
-    <message>
         <source>New habit</source>
         <translation>Nuevo hábito</translation>
-    </message>
-    <message>
-        <source>When? e.g. after my morning coffee</source>
-        <translation>¿Cuándo? p. ej. después del café de la mañana</translation>
-    </message>
-    <message>
-        <source>Cue (optional)</source>
-        <translation>Señal (opcional)</translation>
-    </message>
-    <message>
-        <source>Instead, I'll… (same payoff, kinder)</source>
-        <translation>En su lugar, yo… (mismo beneficio, más amable)</translation>
-    </message>
-    <message>
-        <source>Replacement (optional)</source>
-        <translation>Sustituto (opcional)</translation>
-    </message>
-    <message>
-        <source>tighten</source>
-        <translation>apretar</translation>
-    </message>
-    <message>
-        <source>times/day</source>
-        <translation>veces/día</translation>
-    </message>
-    <message>
-        <source>ok for now</source>
-        <translation>vale por ahora</translation>
-    </message>
-    <message>
-        <source>avoid this one</source>
-        <translation>evita este</translation>
     </message>
     <message>
         <source>Quests</source>
@@ -621,14 +679,6 @@
     <message>
         <source>New quest</source>
         <translation>Nueva misión</translation>
-    </message>
-    <message>
-        <source>New quest (+20 🍞)</source>
-        <translation>Nueva misión (+20 🍞)</translation>
-    </message>
-    <message>
-        <source>no deadline</source>
-        <translation>sin fecha límite</translation>
     </message>
 </context>
 <context>

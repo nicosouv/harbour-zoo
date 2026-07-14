@@ -16,31 +16,7 @@ Page {
     // Pomodoro selection only, the timer itself runs in the engine (survives navigation).
     property int focusMin: 25
     function mmss(s) { var m = Math.floor(s / 60), r = s % 60; return m + ":" + (r < 10 ? "0" + r : r) }
-
-    property string pendingDue: ""
-
-    Component { id: dueDialog; DatePickerDialog { } }
-    function pickDue() {
-        var d = pageStack.push(dueDialog)
-        d.accepted.connect(function () { page.pendingDue = Qt.formatDate(d.date, "yyyy-MM-dd") })
-    }
-    function addQuest() {
-        if (questField.text.trim().length === 0) return
-        Zoo.addQuest(questField.text, page.pendingDue)
-        questField.text = ""; page.pendingDue = ""; questField.focus = false
-    }
-    property int habitTarget: 1
-    property string habitKind: "good"
-    property bool habitTolerated: false
-    property bool habitDetails: false        // progressive disclosure: cue/swap hidden by default
-    function addHabit() {
-        if (habitField.text.trim().length === 0) return
-        Zoo.addHabit(habitField.text, habitTarget, habitKind,
-                     cueField.text, replacementField.text, habitTolerated)
-        habitField.text = ""; cueField.text = ""; replacementField.text = ""
-        habitTarget = 1; habitKind = "good"; habitTolerated = false; habitDetails = false
-        habitField.focus = false
-    }
+    // Adding a habit or quest happens on its own page now (keeps Today an uncluttered glance).
 
     SilicaFlickable {
         anchors.fill: parent
@@ -62,18 +38,20 @@ Page {
             // One optional tap. It never gates action, it just right-sizes today's ask (a low day
             // means "go tiny, and tiny counts"). See the evidence base in docs/utility-spine.md.
             Column {
+                id: checkin
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 spacing: Theme.paddingSmall
                 Label {
-                    text: qsTr("How are you, right now?")
+                    text: qsTr("How are you bearing up?")
                     color: Theme.secondaryHighlightColor; font.pixelSize: Theme.fontSizeExtraSmall
                 }
+                // Five smileys spread across the width (fixed spacing used to overflow the screen).
                 Row {
-                    spacing: Theme.paddingLarge
+                    width: parent.width
                     Repeater {
                         model: [ { v: 1, e: "😞" }, { v: 2, e: "🙁" }, { v: 3, e: "😐" }, { v: 4, e: "🙂" }, { v: 5, e: "😄" } ]
                         delegate: BackgroundItem {
-                            width: Theme.iconSizeMedium; height: Theme.iconSizeMedium
+                            width: checkin.width / 5; height: Theme.iconSizeMedium
                             onClicked: Zoo.logMood(modelData.v)
                             Label {
                                 anchors.centerIn: parent; text: modelData.e
@@ -276,70 +254,15 @@ Page {
                     menu: ContextMenu { MenuItem { text: qsTr("Remove"); onClicked: Zoo.removeHabit(modelData.id) } }
                 }
             }
-            Column {
-                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
-                spacing: Theme.paddingSmall
-                TextField {
-                    id: habitField; width: parent.width
-                    placeholderText: qsTr("New habit (+5 🍞)")
-                    label: qsTr("New habit")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"
-                    EnterKey.onClicked: page.habitDetails ? (cueField.focus = true) : addHabit()
-                }
-                // Default add is a single field. The cue/swap levers hide behind this until wanted.
-                BackgroundItem {
-                    width: parent.width; height: Theme.itemSizeExtraSmall
-                    visible: !page.habitDetails
-                    onClicked: page.habitDetails = true
-                    Label {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: qsTr("＋ add a cue or a swap")
-                        color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
-                    }
-                }
-                // Implementation intention / anchor, the single strongest lever for follow-through.
-                TextField {
-                    id: cueField; width: parent.width; visible: page.habitDetails
-                    placeholderText: qsTr("When? e.g. after my morning coffee")
-                    label: qsTr("Cue (optional)")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                    EnterKey.onClicked: page.habitKind === "bad" ? (replacementField.focus = true) : addHabit()
-                }
-                // For a bad habit: the swap (same reward) and whether to tolerate it for now.
-                TextField {
-                    id: replacementField; width: parent.width
-                    visible: page.habitDetails && page.habitKind === "bad"
-                    placeholderText: qsTr("Instead, I'll… (same payoff, kinder)")
-                    label: qsTr("Replacement (optional)")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: addHabit()
-                }
+            BackgroundItem {
+                width: content.width; height: Theme.itemSizeSmall
+                onClicked: pageStack.push(Qt.resolvedUrl("NewHabitPage.qml"))
                 Row {
-                    spacing: Theme.paddingMedium
-                    Button {
-                        text: page.habitKind === "good" ? "🙂" : "⚠️"
-                        onClicked: page.habitKind = page.habitKind === "good" ? "bad" : "good"
-                    }
-                    Button {
-                        visible: page.habitKind === "good"
-                        text: "×" + page.habitTarget
-                        onClicked: page.habitTarget = page.habitTarget >= 8 ? 1 : page.habitTarget + 1
-                    }
-                    Button {
-                        visible: page.habitKind === "bad"
-                        text: page.habitTolerated ? qsTr("tolerated") : qsTr("tighten")
-                        color: page.habitTolerated ? Theme.secondaryHighlightColor : Theme.primaryColor
-                        onClicked: page.habitTolerated = !page.habitTolerated
-                    }
-                    Label {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: page.habitKind === "good" ? qsTr("times/day")
-                              : (page.habitTolerated ? qsTr("ok for now") : qsTr("avoid this one"))
-                        color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
-                    }
-                    IconButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        icon.source: "image://theme/icon-m-add"; onClicked: addHabit()
-                    }
+                    anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                    spacing: Theme.paddingSmall
+                    Image { source: "image://theme/icon-m-add"; anchors.verticalCenter: parent.verticalCenter }
+                    Label { text: qsTr("New habit"); anchors.verticalCenter: parent.verticalCenter
+                            color: Theme.highlightColor; font.pixelSize: Theme.fontSizeSmall }
                 }
             }
 
@@ -376,30 +299,15 @@ Page {
                     menu: ContextMenu { MenuItem { text: qsTr("Bin it"); onClicked: Zoo.removeQuest(modelData.id) } }
                 }
             }
-            Column {
-                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
-                spacing: Theme.paddingSmall
-                TextField {
-                    id: questField; width: parent.width
-                    label: qsTr("New quest")
-                    placeholderText: qsTr("New quest (+20 🍞)")
-                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"; EnterKey.onClicked: addQuest()
-                }
+            BackgroundItem {
+                width: content.width; height: Theme.itemSizeSmall
+                onClicked: pageStack.push(Qt.resolvedUrl("NewQuestPage.qml"))
                 Row {
-                    spacing: Theme.paddingMedium
-                    IconButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        icon.source: "image://theme/icon-m-date"; onClicked: pickDue()
-                    }
-                    Label {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: page.pendingDue.length > 0 ? page.pendingDue : qsTr("no deadline")
-                        color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
-                    }
-                    IconButton {
-                        anchors.verticalCenter: parent.verticalCenter
-                        icon.source: "image://theme/icon-m-add"; onClicked: addQuest()
-                    }
+                    anchors { left: parent.left; leftMargin: Theme.horizontalPageMargin; verticalCenter: parent.verticalCenter }
+                    spacing: Theme.paddingSmall
+                    Image { source: "image://theme/icon-m-add"; anchors.verticalCenter: parent.verticalCenter }
+                    Label { text: qsTr("New quest"); anchors.verticalCenter: parent.verticalCenter
+                            color: Theme.highlightColor; font.pixelSize: Theme.fontSizeSmall }
                 }
             }
         }

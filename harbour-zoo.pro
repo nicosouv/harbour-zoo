@@ -35,6 +35,8 @@ DISTFILES += qml/harbour-zoo.qml \
     qml/pages/KeeperPage.qml \
     qml/pages/OnboardingPage.qml \
     qml/pages/AlmanacPage.qml \
+    qml/pages/NewHabitPage.qml \
+    qml/pages/NewQuestPage.qml \
     qml/components/ConfettiBurst.qml \
     qml/components/BiomeBackground.qml \
     qml/components/CeremonyOverlay.qml \

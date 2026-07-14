@@ -145,6 +145,100 @@
     </message>
 </context>
 <context>
+    <name>NewHabitPage</name>
+    <message>
+        <source>New habit</source>
+        <translation>Uusi tapa</translation>
+    </message>
+    <message>
+        <source>A small promise to future-you. Future-you is unreliable, but we press on regardless.</source>
+        <translation>Pieni lupaus tulevalle sinulle. Tuleva sinä on epäluotettava, mutta jatketaan silti.</translation>
+    </message>
+    <message>
+        <source>The habit</source>
+        <translation>Tapa</translation>
+    </message>
+    <message>
+        <source>Something you'll actually do. In theory.</source>
+        <translation>Jotain, minkä oikeasti teet. Teoriassa.</translation>
+    </message>
+    <message>
+        <source>Sort</source>
+        <translation>Laji</translation>
+    </message>
+    <message>
+        <source>One to keep</source>
+        <translation>Pidettävä</translation>
+    </message>
+    <message>
+        <source>One to quit</source>
+        <translation>Lopetettava</translation>
+    </message>
+    <message>
+        <source>When, exactly?</source>
+        <translation>Milloin, tarkalleen?</translation>
+    </message>
+    <message>
+        <source>after my morning coffee (anchors work; willpower sulks)</source>
+        <translation>aamukahvin jälkeen (ankkurit toimivat; tahdonvoima mököttää)</translation>
+    </message>
+    <message>
+        <source>How many times a day?</source>
+        <translation>Montako kertaa päivässä?</translation>
+    </message>
+    <message>
+        <source>Do this instead</source>
+        <translation>Tee tämä sen sijaan</translation>
+    </message>
+    <message>
+        <source>same payoff, fewer regrets</source>
+        <translation>sama hyöty, vähemmän katumusta</translation>
+    </message>
+    <message>
+        <source>Tolerate it, for now</source>
+        <translation>Siedä sitä, toistaiseksi</translation>
+    </message>
+    <message>
+        <source>Slips won't sour the zoo. Two weeks' grace, then it quietly counts again.</source>
+        <translation>Lipsahdukset eivät happamoita eläintarhaa. Kaksi viikkoa armoa, sitten se laskee taas hiljaa.</translation>
+    </message>
+    <message>
+        <source>Add it to the pile</source>
+        <translation>Lisää se pinoon</translation>
+    </message>
+</context>
+<context>
+    <name>NewQuestPage</name>
+    <message>
+        <source>New quest</source>
+        <translation>Uusi tehtävä</translation>
+    </message>
+    <message>
+        <source>A one-off thing. The blobs will pretend to be impressed.</source>
+        <translation>Kertaluontoinen juttu. Blobit teeskentelevät olevansa vaikuttuneita.</translation>
+    </message>
+    <message>
+        <source>The quest</source>
+        <translation>Tehtävä</translation>
+    </message>
+    <message>
+        <source>That thing you keep not doing</source>
+        <translation>Se juttu, jota jatkuvasti jätät tekemättä</translation>
+    </message>
+    <message>
+        <source>Deadline</source>
+        <translation>Määräaika</translation>
+    </message>
+    <message>
+        <source>none, live dangerously</source>
+        <translation>ei mitään, elä vaarallisesti</translation>
+    </message>
+    <message>
+        <source>Set it in motion</source>
+        <translation>Pane liikkeelle</translation>
+    </message>
+</context>
+<context>
     <name>OnboardingPage</name>
     <message>
         <source>Mix</source>
@@ -455,8 +549,8 @@
         <translation>🍞 %1 murua</translation>
     </message>
     <message>
-        <source>How are you, right now?</source>
-        <translation>Miten voit juuri nyt?</translation>
+        <source>How are you bearing up?</source>
+        <translation>Miten jaksat?</translation>
     </message>
     <message>
         <source>Challenge</source>
@@ -559,44 +653,8 @@
         <translation>Poista</translation>
     </message>
     <message>
-        <source>New habit (+5 🍞)</source>
-        <translation>Uusi tapa (+5 🍞)</translation>
-    </message>
-    <message>
         <source>New habit</source>
         <translation>Uusi tapa</translation>
-    </message>
-    <message>
-        <source>When? e.g. after my morning coffee</source>
-        <translation>Milloin? esim. aamukahvin jälkeen</translation>
-    </message>
-    <message>
-        <source>Cue (optional)</source>
-        <translation>Vihje (valinnainen)</translation>
-    </message>
-    <message>
-        <source>Instead, I'll… (same payoff, kinder)</source>
-        <translation>Sen sijaan minä… (sama hyöty, lempeämmin)</translation>
-    </message>
-    <message>
-        <source>Replacement (optional)</source>
-        <translation>Korvaaja (valinnainen)</translation>
-    </message>
-    <message>
-        <source>tighten</source>
-        <translation>tiukenna</translation>
-    </message>
-    <message>
-        <source>times/day</source>
-        <translation>kertaa/päivä</translation>
-    </message>
-    <message>
-        <source>ok for now</source>
-        <translation>ok toistaiseksi</translation>
-    </message>
-    <message>
-        <source>avoid this one</source>
-        <translation>vältä tätä</translation>
     </message>
     <message>
         <source>Quests</source>
@@ -621,14 +679,6 @@
     <message>
         <source>New quest</source>
         <translation>Uusi tehtävä</translation>
-    </message>
-    <message>
-        <source>New quest (+20 🍞)</source>
-        <translation>Uusi tehtävä (+20 🍞)</translation>
-    </message>
-    <message>
-        <source>no deadline</source>
-        <translation>ei määräaikaa</translation>
     </message>
 </context>
 <context>
