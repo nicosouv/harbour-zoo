@@ -11,6 +11,7 @@ Page {
     property int seed: 1
     property string rarity: ""
     property string date: ""
+    property string species: "blob"
 
     readonly property var _rarities: ["common", "uncommon", "rare", "mythic"]
     readonly property string shownRarity: rarity.length > 0
@@ -32,13 +33,14 @@ Page {
 
             PageHeader { title: blob.displayName }
 
-            BlobSpecimen {
+            SpecimenView {
                 id: blob
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Math.min(page.width, page.height) * 0.72
                 height: width
                 seed: page.seed
                 rarity: page.shownRarity
+                species: page.species
                 voice: Zoo.playerName
                 styleOverride: Zoo.blobStyle
                 lodLevel: 0

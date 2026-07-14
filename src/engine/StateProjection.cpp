@@ -119,6 +119,8 @@ void applyEvent(ZooState& s, const Event& e)
         b.seed = p.value(QStringLiteral("seed")).toInt();
         b.rarity = p.value(QStringLiteral("rarity")).toString();
         b.date = p.value(QStringLiteral("date")).toString();
+        const QString sp = p.value(QStringLiteral("species")).toString();
+        b.species = sp.isEmpty() ? QStringLiteral("blob") : sp;
         s.blobs.append(b);
         if (b.rarity == QLatin1String("mythic")) s.mythicSeen = true;
     } else if (t == QLatin1String("egg_retired")) {
@@ -175,7 +177,7 @@ QJsonObject toJson(const ZooState& s)
     QJsonArray blobs;
     for (const Blob& b : s.blobs) {
         QJsonObject j; j.insert("id", b.id); j.insert("seed", b.seed);
-        j.insert("rarity", b.rarity); j.insert("date", b.date);
+        j.insert("rarity", b.rarity); j.insert("date", b.date); j.insert("species", b.species);
         blobs.append(j);
     }
     o.insert(QStringLiteral("blobs"), blobs);
@@ -224,7 +226,9 @@ ZooState fromJson(const QJsonObject& o)
     for (const QJsonValue& v : o.value(QStringLiteral("blobs")).toArray()) {
         const QJsonObject j = v.toObject();
         Blob b; b.id = j.value("id").toString(); b.seed = j.value("seed").toInt();
-        b.rarity = j.value("rarity").toString(); b.date = j.value("date").toString(); s.blobs.append(b);
+        b.rarity = j.value("rarity").toString(); b.date = j.value("date").toString();
+        const QString sp = j.value("species").toString(); b.species = sp.isEmpty() ? QStringLiteral("blob") : sp;
+        s.blobs.append(b);
     }
     s.decorations = jsonToStrSet(o.value(QStringLiteral("decorations")).toArray());
     s.themesOwned = jsonToStrSet(o.value(QStringLiteral("themesOwned")).toArray());

@@ -212,7 +212,7 @@ signals:
     void blobScaleChanged();
     void focusChanged();
     void focusFinished(int minutes);   // for a celebratory UI moment (confetti)
-    void hatched(int seed, const QString& rarity);   // for a celebratory UI moment
+    void hatched(int seed, const QString& rarity, const QString& species);   // for a celebratory UI moment
 
 private:
     // Append an event to the log AND fold it into m_state. The single way state ever changes.

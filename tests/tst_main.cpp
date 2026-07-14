@@ -273,6 +273,17 @@ private slots:
         QCOMPARE(s.retiredTotal, 2);
         QCOMPARE(fromJson(toJson(s)).retiredTotal, 2);   // survives the snapshot round-trip
     }
+
+    void reducer_blobSpecies()
+    {
+        ZooState s;
+        applyEvent(s, mkEvent("egg_hatched", "2026-07-14", 9, "{\"id\":\"x\",\"seed\":5,\"rarity\":\"common\"}"));
+        QCOMPARE(s.blobs[0].species, QStringLiteral("blob"));   // default when absent (back-compat)
+        applyEvent(s, mkEvent("egg_hatched", "2026-07-14", 9,
+                              "{\"id\":\"y\",\"seed\":6,\"rarity\":\"common\",\"species\":\"sprout\"}"));
+        QCOMPARE(s.blobs[1].species, QStringLiteral("sprout"));
+        QCOMPARE(fromJson(toJson(s)).blobs[1].species, QStringLiteral("sprout"));   // survives snapshot
+    }
 };
 
 QTEST_GUILESS_MAIN(ZooEngineTest)

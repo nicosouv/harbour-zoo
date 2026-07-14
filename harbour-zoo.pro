@@ -40,6 +40,8 @@ DISTFILES += qml/harbour-zoo.qml \
     qml/components/CeremonyOverlay.qml \
     qml/specimens/Specimen.qml \
     qml/specimens/BlobSpecimen.qml \
+    qml/specimens/SproutSpecimen.qml \
+    qml/specimens/SpecimenView.qml \
     rpm/harbour-zoo.spec \
     harbour-zoo.desktop
 

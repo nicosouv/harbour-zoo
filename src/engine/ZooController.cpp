@@ -875,7 +875,8 @@ QVariantList ZooController::ownedBlobs() const
     QVariantList out;
     for (const Blob& b : m_state.blobs) {
         QVariantMap m;
-        m.insert("id", b.id); m.insert("seed", b.seed); m.insert("rarity", b.rarity); m.insert("date", b.date);
+        m.insert("id", b.id); m.insert("seed", b.seed); m.insert("rarity", b.rarity);
+        m.insert("date", b.date); m.insert("species", b.species);
         out.append(m);
     }
     return out;
@@ -888,6 +889,8 @@ void ZooController::hatchBlob()
     const QString rarity = roll < 1.0 ? QStringLiteral("mythic") : roll < 10.0 ? QStringLiteral("rare")
                          : roll < 36.0 ? QStringLiteral("uncommon") : QStringLiteral("common");
     const int seed = static_cast<int>(r.next() & 0x7FFFFFFF);
+    // Which creature? Seeded so it's reproducible. Blobs stay the majority; sprouts add variety.
+    const QString species = r.nextDouble() < 0.35 ? QStringLiteral("sprout") : QStringLiteral("blob");
 
     if (!spend(hatchCost(), QStringLiteral("hatch"))) return;
 
@@ -905,9 +908,10 @@ void ZooController::hatchBlob()
 
     QJsonObject o; o.insert("id", QString::number(QDateTime::currentMSecsSinceEpoch()));
     o.insert("seed", seed); o.insert("rarity", rarity); o.insert("date", localDate());
+    o.insert("species", species);
     emitEvent(QStringLiteral("egg_hatched"), jpayload(o));
     checkMilestones();
-    emit hatched(seed, rarity);
+    emit hatched(seed, rarity, species);
     emit stateChanged();
 }
 

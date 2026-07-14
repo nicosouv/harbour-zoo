@@ -220,15 +220,16 @@ Page {
                             y = clampy(y + dy / d * blobSize * 0.7)
                         }
                         function react() { blob.react() }
-                        BlobSpecimen {
+                        SpecimenView {
                             id: blob
                             anchors.fill: parent
-                            seed: modelData.seed; rarity: modelData.rarity
+                            seed: modelData.seed; rarity: modelData.rarity; species: modelData.species
                             voice: Zoo.playerName; styleOverride: Zoo.blobStyle; lodLevel: 1
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: pageStack.push(Qt.resolvedUrl("SpecimenPage.qml"),
-                                                          { seed: modelData.seed, rarity: modelData.rarity, date: modelData.date })
+                                                          { seed: modelData.seed, rarity: modelData.rarity,
+                                                            date: modelData.date, species: modelData.species })
                             }
                         }
                     }
@@ -362,7 +363,7 @@ Page {
 
     Connections {
         target: Zoo
-        onHatched: pageStack.push(Qt.resolvedUrl("SpecimenPage.qml"), { seed: seed, rarity: rarity })
+        onHatched: pageStack.push(Qt.resolvedUrl("SpecimenPage.qml"), { seed: seed, rarity: rarity, species: species })
     }
 
     // First launch: onboarding. Otherwise, show any pending ceremonies (farewells, milestones,

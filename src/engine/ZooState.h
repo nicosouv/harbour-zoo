@@ -20,7 +20,7 @@ struct Habit {
                                // once it passes, the app gently re-asks (extend or let it count).
 };
 struct Quest { QString id; QString name; QString due; };
-struct Blob  { QString id; int seed = 0; QString rarity; QString date; };
+struct Blob  { QString id; int seed = 0; QString rarity; QString date; QString species = QStringLiteral("blob"); };
 
 struct ZooState {
     int crumbs = 0;
