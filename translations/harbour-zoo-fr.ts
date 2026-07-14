@@ -265,8 +265,12 @@
         <translation>Bienvenue</translation>
     </message>
     <message>
-        <source>A zoo of odd little creatures, fed by the useful things you do. Two minutes to set up, then it's yours.</source>
-        <translation>Un zoo de petites créatures bizarres, nourri par les choses utiles que tu fais. Deux minutes pour le configurer, puis il est à toi.</translation>
+        <source>This is your zoo. Currently empty, faintly judgemental. Let's fix that.</source>
+        <translation>Voici ton zoo. Vide pour l'instant, et un peu moqueur. Réglons ça.</translation>
+    </message>
+    <message>
+        <source>Do one small thing a day, earn crumbs, and odd little creatures move in. That is the entire game.</source>
+        <translation>Fais un petit truc par jour, gagne des miettes, et de drôles de créatures emménagent. C'est tout le jeu.</translation>
     </message>
     <message>
         <source>Your name</source>
@@ -277,20 +281,12 @@
         <translation>Facultatif. Pour que les créatures le crient.</translation>
     </message>
     <message>
-        <source>Blob style</source>
-        <translation>Style de blob</translation>
+        <source>Pick a habit or two</source>
+        <translation>Choisis une habitude ou deux</translation>
     </message>
     <message>
-        <source>Pick one style, or Mix for a bit of everything.</source>
-        <translation>Choisis un style, ou Mélange pour un peu de tout.</translation>
-    </message>
-    <message>
-        <source>Habits</source>
-        <translation>Habitudes</translation>
-    </message>
-    <message>
-        <source>Tap a few to add them. Or your own below. You can change these anytime.</source>
-        <translation>Touches-en quelques-unes pour les ajouter. Ou les tiennes en dessous. Tu peux changer quand tu veux.</translation>
+        <source>The zoo runs on these. Tap a few, or bring your own.</source>
+        <translation>Le zoo tourne là-dessus. Touches-en quelques-unes, ou apporte les tiennes.</translation>
     </message>
     <message>
         <source>Add your own</source>
@@ -301,12 +297,24 @@
         <translation>%1 habitude(s) en file</translation>
     </message>
     <message>
-        <source>A quest (optional)</source>
-        <translation>Une quête (facultatif)</translation>
+        <source>Your blobs' look</source>
+        <translation>Le look de tes blobs</translation>
+    </message>
+    <message>
+        <source>Purely cosmetic. Pick a vibe, or Mix and let chaos decide.</source>
+        <translation>Purement cosmétique. Choisis une ambiance, ou Mélange et laisse le chaos décider.</translation>
+    </message>
+    <message>
+        <source>A quest? (optional)</source>
+        <translation>Une quête ? (facultatif)</translation>
     </message>
     <message>
         <source>New quest</source>
         <translation>Nouvelle quête</translation>
+    </message>
+    <message>
+        <source>Step inside and we'll hand you your first creature. Free. Because we're generous, apparently.</source>
+        <translation>Entre, et on te file ta première créature. Gratuite. Parce qu'on est généreux, paraît-il.</translation>
     </message>
     <message>
         <source>Into the zoo</source>

@@ -265,8 +265,12 @@
         <translation>Tervetuloa</translation>
     </message>
     <message>
-        <source>A zoo of odd little creatures, fed by the useful things you do. Two minutes to set up, then it's yours.</source>
-        <translation>Eläintarha kummallisia pikkuolentoja, jota ruokkivat hyödylliset tekosi. Kaksi minuuttia pystytykseen, sitten se on sinun.</translation>
+        <source>This is your zoo. Currently empty, faintly judgemental. Let's fix that.</source>
+        <translation>Tässä on eläintarhasi. Toistaiseksi tyhjä ja hieman tuomitseva. Korjataan se.</translation>
+    </message>
+    <message>
+        <source>Do one small thing a day, earn crumbs, and odd little creatures move in. That is the entire game.</source>
+        <translation>Tee yksi pieni asia päivässä, ansaitse muruja, ja kummalliset pikkuolennot muuttavat sisään. Siinä koko peli.</translation>
     </message>
     <message>
         <source>Your name</source>
@@ -277,20 +281,12 @@
         <translation>Valinnainen. Jotta oliot voivat huutaa sen.</translation>
     </message>
     <message>
-        <source>Blob style</source>
-        <translation>Blobin tyyli</translation>
+        <source>Pick a habit or two</source>
+        <translation>Valitse tapa tai kaksi</translation>
     </message>
     <message>
-        <source>Pick one style, or Mix for a bit of everything.</source>
-        <translation>Valitse yksi tyyli, tai Sekoitus vähän kaikkea.</translation>
-    </message>
-    <message>
-        <source>Habits</source>
-        <translation>Tavat</translation>
-    </message>
-    <message>
-        <source>Tap a few to add them. Or your own below. You can change these anytime.</source>
-        <translation>Napauta muutamaa lisätäksesi ne. Tai omasi alle. Voit muuttaa näitä milloin vain.</translation>
+        <source>The zoo runs on these. Tap a few, or bring your own.</source>
+        <translation>Eläintarha pyörii näillä. Napauta muutamaa, tai tuo omasi.</translation>
     </message>
     <message>
         <source>Add your own</source>
@@ -301,12 +297,24 @@
         <translation>%1 tapa(a) jonossa</translation>
     </message>
     <message>
-        <source>A quest (optional)</source>
-        <translation>Tehtävä (valinnainen)</translation>
+        <source>Your blobs' look</source>
+        <translation>Blobiesi ulkonäkö</translation>
+    </message>
+    <message>
+        <source>Purely cosmetic. Pick a vibe, or Mix and let chaos decide.</source>
+        <translation>Puhtaasti kosmeettista. Valitse tunnelma, tai Sekoitus ja anna kaaoksen päättää.</translation>
+    </message>
+    <message>
+        <source>A quest? (optional)</source>
+        <translation>Tehtävä? (valinnainen)</translation>
     </message>
     <message>
         <source>New quest</source>
         <translation>Uusi tehtävä</translation>
+    </message>
+    <message>
+        <source>Step inside and we'll hand you your first creature. Free. Because we're generous, apparently.</source>
+        <translation>Astu sisään, niin ojennamme sinulle ensimmäisen olentosi. Ilmaiseksi. Koska olemme kuulemma anteliaita.</translation>
     </message>
     <message>
         <source>Into the zoo</source>
