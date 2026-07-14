@@ -412,6 +412,10 @@
         <translation>Addii, la bestia e i compleanni si svolgono sulla pagina dello zoo. Torna a casa per guardare.</translation>
     </message>
     <message>
+        <source>Data</source>
+        <translation>Dati</translation>
+    </message>
+    <message>
         <source>Erase all data</source>
         <translation>Cancella tutti i dati</translation>
     </message>
@@ -420,8 +424,8 @@
         <translation>Cancellare tutto</translation>
     </message>
     <message>
-        <source>For trying things out. No judgement. Well, a little.</source>
-        <translation>Per fare prove. Nessun giudizio. Beh, un po'.</translation>
+        <source>Wipes the lot and starts over. No undo, no hard feelings.</source>
+        <translation>Cancella tutto e ricomincia. Nessun ripensamento, senza rancore.</translation>
     </message>
     <message>
         <source>Reminders</source>

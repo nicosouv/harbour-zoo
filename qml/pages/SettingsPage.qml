@@ -7,6 +7,9 @@ Page {
     id: page
     allowedOrientations: Orientation.All
 
+    // Debug shortcuts are hidden in release. Flip this to true to bring them back for development.
+    property bool _testing: false
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: content.height + Theme.paddingLarge
@@ -109,41 +112,48 @@ Page {
                 onCurrentIndexChanged: { var s = sizes[currentIndex]; if (s !== Zoo.blobScale) Zoo.blobScale = s }
             }
 
-            // --- Testing ---------------------------------------------------------------------
-            SectionHeader { text: qsTr("Testing") }
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Give me 1000 🍞 (testing)")
-                onClicked: Zoo.grantCrumbs(1000)
+            // --- Testing (hidden in release; flip page._testing to bring it back for dev) -------
+            Column {
+                width: parent.width; spacing: Theme.paddingSmall
+                visible: page._testing
+                SectionHeader { text: qsTr("Testing") }
+                Button {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Give me 1000 🍞 (testing)")
+                    onClicked: Zoo.grantCrumbs(1000)
+                }
+                Button {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Hatch a blob (free)")
+                    onClicked: Zoo.debugHatch()
+                }
+                Button {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Send oldest blob off 👋")
+                    enabled: Zoo.ownedBlobs.length > 0
+                    onClicked: Zoo.debugFarewell()
+                }
+                Button {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Feed the Quest Beast 🦖")
+                    enabled: Zoo.ownedBlobs.length > 0
+                    onClicked: Zoo.debugBaitPredator()
+                }
+                Button {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("Trigger birthday 🎂")
+                    onClicked: Zoo.debugBirthday()
+                }
+                Label {
+                    x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
+                    wrapMode: Text.Wrap
+                    text: qsTr("Farewells, the beast and birthdays play out on the zoo page. Go home to watch.")
+                    color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
+                }
             }
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Hatch a blob (free)")
-                onClicked: Zoo.debugHatch()
-            }
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Send oldest blob off 👋")
-                enabled: Zoo.ownedBlobs.length > 0
-                onClicked: Zoo.debugFarewell()
-            }
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Feed the Quest Beast 🦖")
-                enabled: Zoo.ownedBlobs.length > 0
-                onClicked: Zoo.debugBaitPredator()
-            }
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Trigger birthday 🎂")
-                onClicked: Zoo.debugBirthday()
-            }
-            Label {
-                x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
-                wrapMode: Text.Wrap
-                text: qsTr("Farewells, the beast and birthdays play out on the zoo page. Go home to watch.")
-                color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
-            }
+
+            // --- Data --------------------------------------------------------------------------
+            SectionHeader { text: qsTr("Data") }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Erase all data")
@@ -156,7 +166,7 @@ Page {
             Label {
                 x: Theme.horizontalPageMargin; width: parent.width - 2 * Theme.horizontalPageMargin
                 wrapMode: Text.Wrap
-                text: qsTr("For trying things out. No judgement. Well, a little.")
+                text: qsTr("Wipes the lot and starts over. No undo, no hard feelings.")
                 color: Theme.secondaryColor; font.pixelSize: Theme.fontSizeExtraSmall
             }
 

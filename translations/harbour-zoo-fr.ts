@@ -412,6 +412,10 @@
         <translation>Les adieux, la bête et les anniversaires se jouent sur la page du zoo. Rentre pour regarder.</translation>
     </message>
     <message>
+        <source>Data</source>
+        <translation>Données</translation>
+    </message>
+    <message>
         <source>Erase all data</source>
         <translation>Effacer toutes les données</translation>
     </message>
@@ -420,8 +424,8 @@
         <translation>Tout effacer</translation>
     </message>
     <message>
-        <source>For trying things out. No judgement. Well, a little.</source>
-        <translation>Pour faire des essais. Aucun jugement. Bon, un peu.</translation>
+        <source>Wipes the lot and starts over. No undo, no hard feelings.</source>
+        <translation>Efface tout et repart de zéro. Pas de retour en arrière, sans rancune.</translation>
     </message>
     <message>
         <source>Reminders</source>

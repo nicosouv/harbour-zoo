@@ -1462,6 +1462,20 @@
 "Continuar",
 "Jatka"
 ],
+"Data": [
+"Données",
+"Daten",
+"Dati",
+"Datos",
+"Tiedot"
+],
+"Wipes the lot and starts over. No undo, no hard feelings.": [
+"Efface tout et repart de zéro. Pas de retour en arrière, sans rancune.",
+"Löscht alles und fängt neu an. Kein Zurück, nichts für ungut.",
+"Cancella tutto e ricomincia. Nessun ripensamento, senza rancore.",
+"Borra todo y empieza de cero. Sin deshacer, sin rencores.",
+"Pyyhkii kaiken ja aloittaa alusta. Ei paluuta, ei kaunaa."
+],
 "How are you bearing up?": [
 "Tu tiens le coup ?",
 "Wie hältst du dich so?",

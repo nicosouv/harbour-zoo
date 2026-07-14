@@ -412,6 +412,10 @@
         <translation>Abschiede, das Biest und Geburtstage spielen sich auf der Zoo-Seite ab. Geh nach Hause zum Zuschauen.</translation>
     </message>
     <message>
+        <source>Data</source>
+        <translation>Daten</translation>
+    </message>
+    <message>
         <source>Erase all data</source>
         <translation>Alle Daten löschen</translation>
     </message>
@@ -420,8 +424,8 @@
         <translation>Alles wird gelöscht</translation>
     </message>
     <message>
-        <source>For trying things out. No judgement. Well, a little.</source>
-        <translation>Zum Ausprobieren. Kein Urteil. Na ja, ein bisschen.</translation>
+        <source>Wipes the lot and starts over. No undo, no hard feelings.</source>
+        <translation>Löscht alles und fängt neu an. Kein Zurück, nichts für ungut.</translation>
     </message>
     <message>
         <source>Reminders</source>

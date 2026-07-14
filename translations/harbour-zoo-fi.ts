@@ -412,6 +412,10 @@
         <translation>Jäähyväiset, peto ja syntymäpäivät tapahtuvat eläintarhasivulla. Mene kotiin katsomaan.</translation>
     </message>
     <message>
+        <source>Data</source>
+        <translation>Tiedot</translation>
+    </message>
+    <message>
         <source>Erase all data</source>
         <translation>Poista kaikki tiedot</translation>
     </message>
@@ -420,8 +424,8 @@
         <translation>Poistetaan kaikki</translation>
     </message>
     <message>
-        <source>For trying things out. No judgement. Well, a little.</source>
-        <translation>Kokeilua varten. Ei tuomiota. No, vähän.</translation>
+        <source>Wipes the lot and starts over. No undo, no hard feelings.</source>
+        <translation>Pyyhkii kaiken ja aloittaa alusta. Ei paluuta, ei kaunaa.</translation>
     </message>
     <message>
         <source>Reminders</source>
