@@ -32,7 +32,7 @@ A few things it would rather show you than list:
 There are also consequences (mild ones), ceremonies, secrets, and an unreasonable amount of
 confetti. You will meet them when you meet them.
 
-This is an early public release. It works, it speaks six languages, and it will still have rough
+This is an early public release. It works, it speaks eight languages, and it will still have rough
 edges. Bring a Tuesday.
 
 Source code: https://github.com/nicosouv/harbour-zoo
@@ -103,5 +103,5 @@ timer; an optional smiley check-in; fresh-start nudges.
 The zoo: crumbs economy; procedural pixel creatures (four rarities) plus Sprout plants; a themeable,
 decoratable enclosure with swaying foliage and wandering insects; Keeper levels, badges and stats.
 The story and ceremonies: the Keeper's Almanac; in-place blurred-zoo ceremonies; lots of confetti.
-The rest: living-zoo onboarding with a free first creature; six languages; an optional gentle
+The rest: living-zoo onboarding with a free first creature; eight languages; an optional gentle
 reminder (off by default); hidden easter eggs and dubious "fun facts".

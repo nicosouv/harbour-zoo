@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import json, os, html
-ROOT = "/Users/nico/Documents/Dev/Personal/harbour-zoo"
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SCRATCH = os.path.dirname(__file__)
-LANGS = ["fr", "de", "it", "es", "fi"]
+LANGS = ["fr", "de", "it", "es", "fi", "zh_CN", "zh_TW"]
 qml = json.load(open(os.path.join(SCRATCH, "qml_strings.json"), encoding="utf-8"))
 
 zc_src = [
@@ -82,7 +82,7 @@ zc_src = [
  "New week, fresh page. Want to renegotiate one habit while it's easy?",
 ]
 
-# Flat translation dict: source -> [fr, de, it, es, fi]
+# Flat translation dict: source -> [fr, de, it, es, fi, zh_CN, zh_TW]
 T = json.load(open(os.path.join(SCRATCH, "translations.json"), encoding="utf-8"))
 
 contexts = dict(qml)

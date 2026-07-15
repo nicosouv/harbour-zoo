@@ -61,4 +61,6 @@ TRANSLATIONS += translations/harbour-zoo-en.ts \
                 translations/harbour-zoo-de.ts \
                 translations/harbour-zoo-it.ts \
                 translations/harbour-zoo-es.ts \
-                translations/harbour-zoo-fi.ts
+                translations/harbour-zoo-fi.ts \
+                translations/harbour-zoo-zh_CN.ts \
+                translations/harbour-zoo-zh_TW.ts

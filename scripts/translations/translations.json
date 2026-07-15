@@ -4,2155 +4,2771 @@
 "Zoo",
 "Zoo",
 "Zoo",
-"Zoo"
+"Zoo",
+"动物园",
+"動物園"
 ],
 "Keeper": [
 "Gardien",
 "Wärter",
 "Custode",
 "Guardián",
-"Hoitaja"
+"Hoitaja",
+"饲养员",
+"飼養員"
 ],
 "Settings": [
 "Réglages",
 "Einstellungen",
 "Impostazioni",
 "Ajustes",
-"Asetukset"
+"Asetukset",
+"设置",
+"設定"
 ],
 "Today": [
 "Aujourd'hui",
 "Heute",
 "Oggi",
 "Hoy",
-"Tänään"
+"Tänään",
+"今天",
+"今天"
 ],
 "Shop": [
 "Boutique",
 "Laden",
 "Negozio",
 "Tienda",
-"Kauppa"
+"Kauppa",
+"商店",
+"商店"
 ],
 "Your zoo": [
 "Ton zoo",
 "Dein Zoo",
 "Il tuo zoo",
 "Tu zoo",
-"Eläintarhasi"
+"Eläintarhasi",
+"你的动物园",
+"你的動物園"
 ],
 "Challenge": [
 "Défi",
 "Aufgabe",
 "Sfida",
 "Reto",
-"Haaste"
+"Haaste",
+"挑战",
+"挑戰"
 ],
 "Focus": [
 "Concentration",
 "Fokus",
 "Concentrazione",
 "Concentración",
-"Keskittyminen"
+"Keskittyminen",
+"专注",
+"專注"
 ],
 "Habits": [
 "Habitudes",
 "Gewohnheiten",
 "Abitudini",
 "Hábitos",
-"Tavat"
+"Tavat",
+"习惯",
+"習慣"
 ],
 "Quests": [
 "Quêtes",
 "Aufträge",
 "Missioni",
 "Misiones",
-"Tehtävät"
+"Tehtävät",
+"任务",
+"任務"
 ],
 "Done": [
 "Fait",
 "Erledigt",
 "Fatto",
 "Hecho",
-"Valmis"
+"Valmis",
+"完成",
+"完成"
 ],
 "Skip": [
 "Passer",
 "Überspringen",
 "Salta",
 "Saltar",
-"Ohita"
+"Ohita",
+"跳过",
+"跳過"
 ],
 "Go": [
 "C'est parti",
 "Los",
 "Via",
 "Vamos",
-"Menoksi"
+"Menoksi",
+"出发",
+"出發"
 ],
 "Buy": [
 "Acheter",
 "Kaufen",
 "Compra",
 "Comprar",
-"Osta"
+"Osta",
+"购买",
+"購買"
 ],
 "Use": [
 "Utiliser",
 "Nutzen",
 "Usa",
 "Usar",
-"Käytä"
+"Käytä",
+"使用",
+"使用"
 ],
 "Using": [
 "Actif",
 "Aktiv",
 "In uso",
 "En uso",
-"Käytössä"
+"Käytössä",
+"使用中",
+"使用中"
 ],
 "owned": [
 "possédé",
 "im Besitz",
 "posseduto",
 "en posesión",
-"omistettu"
+"omistettu",
+"已拥有",
+"已擁有"
 ],
 "in use": [
 "actif",
 "aktiv",
 "in uso",
 "en uso",
-"käytössä"
+"käytössä",
+"使用中",
+"使用中"
 ],
 "Owned": [
 "Possédé",
 "Im Besitz",
 "Posseduto",
 "En posesión",
-"Omistettu"
+"Omistettu",
+"已拥有",
+"已擁有"
 ],
 "Objects": [
 "Objets",
 "Objekte",
 "Oggetti",
 "Objetos",
-"Esineet"
+"Esineet",
+"物件",
+"物件"
 ],
 "Biomes": [
 "Biomes",
 "Biome",
 "Biomi",
 "Biomas",
-"Biomit"
+"Biomit",
+"生态区",
+"生態區"
 ],
 "Remove": [
 "Retirer",
 "Entfernen",
 "Rimuovi",
 "Quitar",
-"Poista"
+"Poista",
+"移除",
+"移除"
 ],
 "Bin it": [
 "À la poubelle",
 "Wegwerfen",
 "Cestìnala",
 "A la basura",
-"Roskiin"
+"Roskiin",
+"扔了它",
+"扔了它"
 ],
 "Badges": [
 "Badges",
 "Abzeichen",
 "Distintivi",
 "Insignias",
-"Merkit"
+"Merkit",
+"徽章",
+"徽章"
 ],
 "Language": [
 "Langue",
 "Sprache",
 "Lingua",
 "Idioma",
-"Kieli"
+"Kieli",
+"语言",
+"語言"
 ],
 "System default": [
 "Langue du système",
 "Systemsprache",
 "Predefinita di sistema",
 "Idioma del sistema",
-"Järjestelmän oletus"
+"Järjestelmän oletus",
+"系统默认",
+"系統預設"
 ],
 "You": [
 "Toi",
 "Du",
 "Tu",
 "Tú",
-"Sinä"
+"Sinä",
+"你",
+"你"
 ],
 "About": [
 "À propos",
 "Über",
 "Informazioni",
 "Acerca de",
-"Tietoja"
+"Tietoja",
+"关于",
+"關於"
 ],
 "Reminders": [
 "Rappels",
 "Erinnerungen",
 "Promemoria",
 "Recordatorios",
-"Muistutukset"
+"Muistutukset",
+"提醒",
+"提醒"
 ],
 "Meet another": [
 "En voir un autre",
 "Noch einen",
 "Un altro",
 "Ver otro",
-"Katso toinen"
+"Katso toinen",
+"再看一个",
+"再看一個"
 ],
 "Last 7 days": [
 "7 derniers jours",
 "Letzte 7 Tage",
 "Ultimi 7 giorni",
 "Últimos 7 días",
-"Viimeiset 7 päivää"
+"Viimeiset 7 päivää",
+"最近7天",
+"最近7天"
 ],
 "day streak": [
 "jours d'affilée",
 "Tage in Folge",
 "giorni di fila",
 "días seguidos",
-"päivän putki"
+"päivän putki",
+"天连续记录",
+"天連續記錄"
 ],
 "residents": [
 "résidents",
 "Bewohner",
 "residenti",
 "residentes",
-"asukkaat"
+"asukkaat",
+"住户",
+"住戶"
 ],
 "crumbs, unspent": [
 "miettes en réserve",
 "übrige Krümel",
 "briciole da spendere",
 "migas sin gastar",
-"murut tallessa"
+"murut tallessa",
+"尚未花掉的面包屑",
+"尚未花掉的麵包屑"
 ],
 "habits kept today": [
 "habitudes tenues aujourd'hui",
 "heute gehaltene Gewohnheiten",
 "abitudini mantenute oggi",
 "hábitos cumplidos hoy",
-"tänään pidetyt tavat"
+"tänään pidetyt tavat",
+"今天坚持的习惯",
+"今天堅持的習慣"
 ],
 "not yet": [
 "pas encore",
 "noch nicht",
 "non ancora",
 "todavía no",
-"ei vielä"
+"ei vielä",
+"还没有",
+"還沒有"
 ],
 "✓ today": [
 "✓ aujourd'hui",
 "✓ heute",
 "✓ oggi",
 "✓ hoy",
-"✓ tänään"
+"✓ tänään",
+"✓ 今天",
+"✓ 今天"
 ],
 "Give up (no shame)": [
 "Abandonner (sans honte)",
 "Aufgeben (ohne Scham)",
 "Rinuncia (nessuna vergogna)",
 "Rendirse (sin vergüenza)",
-"Luovuta (ei häpeää)"
+"Luovuta (ei häpeää)",
+"放弃(不丢人)",
+"放棄(不丟人)"
 ],
 "Add one you'll actually do.": [
 "Ajoutes-en une que tu feras vraiment.",
 "Füg eine hinzu, die du wirklich tust.",
 "Aggiungine una che farai davvero.",
 "Añade uno que vayas a hacer de verdad.",
-"Lisää sellainen, jonka oikeasti teet."
+"Lisää sellainen, jonka oikeasti teet.",
+"添加一个你真的会做的。",
+"新增一個你真的會做的。"
 ],
 "One-off things go here.": [
 "Les trucs ponctuels vont ici.",
 "Einmalige Dinge kommen hierher.",
 "Le cose una tantum vanno qui.",
 "Las cosas puntuales van aquí.",
-"Kertaluontoiset jutut tänne."
+"Kertaluontoiset jutut tänne.",
+"一次性的事就放这儿。",
+"一次性的事就放這兒。"
 ],
 "So they can shout it": [
 "Pour qu'ils le crient",
 "Damit sie ihn rufen",
 "Così possono urlarlo",
 "Para que lo griten",
-"Jotta ne huutavat sen"
+"Jotta ne huutavat sen",
+"好让它们喊出来",
+"好讓它們喊出來"
 ],
 "Name? (optional)": [
 "Prénom ? (facultatif)",
 "Name? (optional)",
 "Nome? (facoltativo)",
 "¿Nombre? (opcional)",
-"Nimi? (valinnainen)"
+"Nimi? (valinnainen)",
+"名字?(可选)",
+"名字?(可選)"
 ],
 "Focusing. The blobs are being very quiet for you.": [
 "Concentration. Les blobs se font tout petits pour toi.",
 "Fokus. Die Blobs sind ganz still für dich.",
 "Concentrazione. I blob fanno silenzio per te.",
 "Concentración. Los blobs se quedan callados por ti.",
-"Keskitytään. Blobit ovat aivan hiljaa vuoksesi."
+"Keskitytään. Blobit ovat aivan hiljaa vuoksesi.",
+"专注中。小滴们为你安静得不得了。",
+"專注中。小滴們為你安靜得不得了。"
 ],
 "Fun fact, allegedly": [
 "Anecdote, paraît-il",
 "Angeblich ein Fakt",
 "Curiosità, a quanto pare",
 "Dato curioso, supuestamente",
-"Hauska fakta, kuulemma"
+"Hauska fakta, kuulemma",
+"冷知识,据说是真的",
+"冷知識,據說是真的"
 ],
 "In your zoo": [
 "Dans ton zoo",
 "In deinem Zoo",
 "Nel tuo zoo",
 "En tu zoo",
-"Eläintarhassasi"
+"Eläintarhassasi",
+"在你的动物园里",
+"在你的動物園裡"
 ],
 "Empty. Do a habit, earn crumbs, hatch something. It helps.": [
 "Vide. Fais une habitude, gagne des miettes, fais éclore un truc. Ça aide.",
 "Leer. Mach eine Gewohnheit, verdien Krümel, brüte etwas aus. Das hilft.",
 "Vuoto. Fai un'abitudine, guadagna briciole, fai schiudere qualcosa. Aiuta.",
 "Vacío. Haz un hábito, gana migas, incuba algo. Ayuda.",
-"Tyhjä. Tee tapa, ansaitse muruja, kuori jotain. Se auttaa."
+"Tyhjä. Tee tapa, ansaitse muruja, kuori jotain. Se auttaa.",
+"空空如也。做个习惯,赚点面包屑,孵点什么出来。会有帮助的。",
+"空空如也。做個習慣,賺點麵包屑,孵點什麼出來。會有幫助的。"
 ],
 "Gentle daily reminder": [
 "Rappel quotidien tout doux",
 "Sanfte tägliche Erinnerung",
 "Gentile promemoria quotidiano",
 "Recordatorio diario suave",
-"Lempeä päivittäinen muistutus"
+"Lempeä päivittäinen muistutus",
+"温柔的每日提醒",
+"溫柔的每日提醒"
 ],
 "Optional. They'll manage either way.": [
 "Facultatif. Ils s'en sortiront quand même.",
 "Optional. Sie kommen auch so klar.",
 "Facoltativo. Se la caveranno comunque.",
 "Opcional. Se las arreglarán igual.",
-"Valinnainen. Ne pärjäävät silti."
+"Valinnainen. Ne pärjäävät silti.",
+"可选。反正它们都能应付。",
+"可選。反正它們都能應付。"
 ],
 "Your name (so the creatures can shout it)": [
 "Ton prénom (pour que les créatures le crient)",
 "Dein Name (damit die Kreaturen ihn rufen)",
 "Il tuo nome (così le creature lo urlano)",
 "Tu nombre (para que las criaturas lo griten)",
-"Nimesi (jotta oliot voivat huutaa sen)"
+"Nimesi (jotta oliot voivat huutaa sen)",
+"你的名字(好让生物们喊出来)",
+"你的名字(好讓生物們喊出來)"
 ],
 "Takes effect next time you open Zoo.": [
 "Prend effet au prochain lancement de Zoo.",
 "Wird beim nächsten Start von Zoo wirksam.",
 "Ha effetto al prossimo avvio di Zoo.",
 "Se aplica la próxima vez que abras Zoo.",
-"Tulee voimaan, kun avaat Zoon seuraavan kerran."
+"Tulee voimaan, kun avaat Zoon seuraavan kerran.",
+"下次打开动物园时生效。",
+"下次開啟動物園時生效。"
 ],
 "A soft nudge once a day. Off by default. The zoo waits for you, it never nags.": [
 "Un petit coup de pouce par jour. Désactivé par défaut. Le zoo t'attend, il ne te harcèle jamais.",
 "Ein sanfter Anstoß pro Tag. Standardmäßig aus. Der Zoo wartet auf dich, er nörgelt nie.",
 "Una piccola spinta al giorno. Disattivata di default. Lo zoo ti aspetta, non insiste mai.",
 "Un empujoncito al día. Desactivado por defecto. El zoo te espera, nunca insiste.",
-"Pieni tönäisy kerran päivässä. Oletuksena pois. Eläintarha odottaa sinua, ei koskaan jankuta."
+"Pieni tönäisy kerran päivässä. Oletuksena pois. Eläintarha odottaa sinua, ei koskaan jankuta.",
+"每天一次温柔提醒。默认关闭。动物园会等你,从不催促。",
+"每天一次溫柔提醒。預設關閉。動物園會等你,從不催促。"
 ],
 "version %1": [
 "version %1",
 "Version %1",
 "versione %1",
 "versión %1",
-"versio %1"
+"versio %1",
+"版本 %1",
+"版本 %1"
 ],
 "A small, strange, living zoo. Do one little thing a day, keep your habits, and grow a collection of odd creatures you actually want to visit. Offline, private, and gentle. No shame, no timers built to stress you.": [
 "Un petit zoo vivant et étrange. Fais une petite chose par jour, tiens tes habitudes, et fais grandir une collection de créatures bizarres que tu as vraiment envie de revoir. Hors ligne, privé et tout doux. Pas de honte, pas de minuteurs faits pour te stresser.",
 "Ein kleiner, seltsamer, lebendiger Zoo. Tu jeden Tag eine Kleinigkeit, halte deine Gewohnheiten und lass eine Sammlung schrulliger Kreaturen wachsen, die du wirklich besuchen willst. Offline, privat und sanft. Keine Scham, keine stressigen Timer.",
 "Un piccolo zoo vivo e strano. Fai una piccola cosa al giorno, mantieni le tue abitudini e fai crescere una collezione di creature strane che vuoi davvero rivedere. Offline, privato e gentile. Nessuna vergogna, nessun timer stressante.",
 "Un pequeño zoo vivo y extraño. Haz una cosita al día, mantén tus hábitos y haz crecer una colección de criaturas raras que de verdad quieras visitar. Sin conexión, privado y amable. Sin vergüenza, sin temporizadores que te estresen.",
-"Pieni, outo, elävä eläintarha. Tee joka päivä yksi pieni asia, pidä tavoistasi kiinni ja kasvata kokoelma kummallisia olentoja, joiden luo oikeasti haluat palata. Offline, yksityinen ja lempeä. Ei häpeää, ei stressaavia ajastimia."
+"Pieni, outo, elävä eläintarha. Tee joka päivä yksi pieni asia, pidä tavoistasi kiinni ja kasvata kokoelma kummallisia olentoja, joiden luo oikeasti haluat palata. Offline, yksityinen ja lempeä. Ei häpeää, ei stressaavia ajastimia.",
+"一个小小的、古怪的、活生生的动物园。每天做一件小事,坚持你的习惯,养出一群你真心想去看看的怪生物。离线、私密、温柔。没有羞耻感,没有故意让你焦虑的计时器。",
+"一個小小的、古怪的、活生生的動物園。每天做一件小事,堅持你的習慣,養出一群你真心想去看看的怪生物。離線、私密、溫柔。沒有羞恥感,沒有故意讓你焦慮的計時器。"
 ],
 "© 2026 Nicolas Souveton, MIT licensed": [
 "© 2026 Nicolas Souveton, sous licence MIT",
 "© 2026 Nicolas Souveton, MIT-Lizenz",
 "© 2026 Nicolas Souveton, licenza MIT",
 "© 2026 Nicolas Souveton, licencia MIT",
-"© 2026 Nicolas Souveton, MIT-lisenssi"
+"© 2026 Nicolas Souveton, MIT-lisenssi",
+"© 2026 Nicolas Souveton,MIT 许可",
+"© 2026 Nicolas Souveton,MIT 許可"
 ],
 "Source on GitHub": [
 "Code sur GitHub",
 "Quellcode auf GitHub",
 "Codice su GitHub",
 "Código en GitHub",
-"Lähdekoodi GitHubissa"
+"Lähdekoodi GitHubissa",
+"GitHub 上的源代码",
+"GitHub 上的原始碼"
 ],
 "Made with ❤️ for Sailfish OS": [
 "Fait avec ❤️ pour Sailfish OS",
 "Mit ❤️ für Sailfish OS",
 "Fatto con ❤️ per Sailfish OS",
 "Hecho con ❤️ para Sailfish OS",
-"Tehty ❤️:lla Sailfish OS:lle"
+"Tehty ❤️:lla Sailfish OS:lle",
+"为 Sailfish OS 用 ❤️ 制作",
+"為 Sailfish OS 用 ❤️ 製作"
 ],
 "%1 crumbs to your name": [
 "%1 miettes à ton nom",
 "%1 Krümel auf deinem Konto",
 "%1 briciole a tuo nome",
 "%1 migas a tu nombre",
-"%1 murua nimissäsi"
+"%1 murua nimissäsi",
+"名下有 %1 个面包屑",
+"名下有 %1 個麵包屑"
 ],
 "%1 crumbs": [
 "%1 miettes",
 "%1 Krümel",
 "%1 briciole",
 "%1 migas",
-"%1 murua"
+"%1 murua",
+"%1 个面包屑",
+"%1 個麵包屑"
 ],
 "Some objects turn up for free when you hit a milestone: your first hatch, a week of habits, that sort of thing. No need to thank us.": [
 "Certains objets arrivent gratuitement quand tu atteins un jalon : ta première éclosion, une semaine d'habitudes, ce genre de choses. Pas besoin de nous remercier.",
 "Manche Objekte gibt es gratis, wenn du einen Meilenstein erreichst: dein erstes Ausbrüten, eine Woche Gewohnheiten, so etwas. Kein Dank nötig.",
 "Alcuni oggetti arrivano gratis quando raggiungi un traguardo: la tua prima schiusa, una settimana di abitudini, cose così. Non serve ringraziare.",
 "Algunos objetos llegan gratis cuando alcanzas un hito: tu primera incubación, una semana de hábitos, ese tipo de cosas. No hace falta que nos des las gracias.",
-"Osa esineistä ilmestyy ilmaiseksi, kun saavutat virstanpylvään: ensimmäinen kuoriutuminen, viikko tapoja, sen tyylistä. Ei tarvitse kiittää."
+"Osa esineistä ilmestyy ilmaiseksi, kun saavutat virstanpylvään: ensimmäinen kuoriutuminen, viikko tapoja, sen tyylistä. Ei tarvitse kiittää.",
+"达成某些里程碑时,一些物件会免费出现:你的第一次孵化、坚持一周的习惯,诸如此类。不用谢我们。",
+"達成某些里程碑時,一些物件會免費出現:你的第一次孵化、堅持一週的習慣,諸如此類。不用謝我們。"
 ],
 "moved in on %1, a day you showed up": [
 "arrivé le %1, un jour où tu étais là",
 "eingezogen am %1, ein Tag, an dem du da warst",
 "arrivato il %1, un giorno in cui c'eri",
 "llegó el %1, un día que apareciste",
-"muutti sisään %1, päivänä jona olit paikalla"
+"muutti sisään %1, päivänä jona olit paikalla",
+"%1 搬进来的,那天你出现了",
+"%1 搬進來的,那天你出現了"
 ],
 "Level %1 · %2 useful things done": [
 "Niveau %1 · %2 choses utiles faites",
 "Level %1 · %2 nützliche Dinge getan",
 "Livello %1 · %2 cose utili fatte",
 "Nivel %1 · %2 cosas útiles hechas",
-"Taso %1 · %2 hyödyllistä tehtynä"
+"Taso %1 · %2 hyödyllistä tehtynä",
+"等级 %1 · 完成了 %2 件有用的事",
+"等級 %1 · 完成了 %2 件有用的事"
 ],
 "🍞 %1 crumbs": [
 "🍞 %1 miettes",
 "🍞 %1 Krümel",
 "🍞 %1 briciole",
 "🍞 %1 migas",
-"🍞 %1 murua"
+"🍞 %1 murua",
+"🍞 %1 个面包屑",
+"🍞 %1 個麵包屑"
 ],
 "%1 · level %2": [
 "%1 · niveau %2",
 "%1 · Level %2",
 "%1 · livello %2",
 "%1 · nivel %2",
-"%1 · taso %2"
+"%1 · taso %2",
+"%1 · 等级 %2",
+"%1 · 等級 %2"
 ],
 "Start %1 min": [
 "Démarrer %1 min",
 "%1 Min starten",
 "Avvia %1 min",
 "Iniciar %1 min",
-"Aloita %1 min"
+"Aloita %1 min",
+"开始 %1 分钟",
+"開始 %1 分鐘"
 ],
 "last: %1": [
 "dernier : %1",
 "zuletzt: %1",
 "ultima: %1",
 "última: %1",
-"viimeksi: %1"
+"viimeksi: %1",
+"上次:%1",
+"上次:%1"
 ],
 "was due %1": [
 "était pour le %1",
 "war fällig am %1",
 "scadeva il %1",
 "vencía el %1",
-"eräpäivä oli %1"
+"eräpäivä oli %1",
+"本该 %1 完成",
+"本該 %1 完成"
 ],
 "by %1": [
 "pour le %1",
 "bis %1",
 "entro il %1",
 "para el %1",
-"%1 mennessä"
+"%1 mennessä",
+"截止 %1",
+"截止 %1"
 ],
 "New quest · %1": [
 "Nouvelle quête · %1",
 "Neuer Auftrag · %1",
 "Nuova missione · %1",
 "Nueva misión · %1",
-"Uusi tehtävä · %1"
+"Uusi tehtävä · %1",
+"新任务 · %1",
+"新任務 · %1"
 ],
 "New quest (+20 🍞)": [
 "Nouvelle quête (+20 🍞)",
 "Neuer Auftrag (+20 🍞)",
 "Nuova missione (+20 🍞)",
 "Nueva misión (+20 🍞)",
-"Uusi tehtävä (+20 🍞)"
+"Uusi tehtävä (+20 🍞)",
+"新任务(+20 🍞)",
+"新任務(+20 🍞)"
 ],
 "New habit (+5 🍞)": [
 "Nouvelle habitude (+5 🍞)",
 "Neue Gewohnheit (+5 🍞)",
 "Nuova abitudine (+5 🍞)",
 "Nuevo hábito (+5 🍞)",
-"Uusi tapa (+5 🍞)"
+"Uusi tapa (+5 🍞)",
+"新习惯(+5 🍞)",
+"新習慣(+5 🍞)"
 ],
 "Done. +15 🍞": [
 "Fait. +15 🍞",
 "Erledigt. +15 🍞",
 "Fatto. +15 🍞",
 "Hecho. +15 🍞",
-"Valmis. +15 🍞"
+"Valmis. +15 🍞",
+"完成。+15 🍞",
+"完成。+15 🍞"
 ],
 "Skipped. Bold.": [
 "Passé. Audacieux.",
 "Übersprungen. Mutig.",
 "Saltato. Coraggioso.",
 "Saltado. Atrevido.",
-"Ohitettu. Rohkeaa."
+"Ohitettu. Rohkeaa.",
+"跳过了。真大胆。",
+"跳過了。真大膽。"
 ],
 "Hatch a blob (%1 🍞)": [
 "Faire éclore un blob (%1 🍞)",
 "Einen Blob ausbrüten (%1 🍞)",
 "Fai schiudere un blob (%1 🍞)",
 "Incubar un blob (%1 🍞)",
-"Kuori blob (%1 🍞)"
+"Kuori blob (%1 🍞)",
+"孵化一只小滴(%1 🍞)",
+"孵化一隻小滴(%1 🍞)"
 ],
 "A zoo. Empty, judgemental. Do useful things under 'Today' → earn crumbs → hatch odd little creatures here.": [
 "Un zoo. Vide, moqueur. Fais des trucs utiles dans « Aujourd'hui » → gagne des miettes → fais éclore de drôles de petites créatures ici.",
 "Ein Zoo. Leer, urteilend. Tu nützliche Dinge unter „Heute“ → verdien Krümel → brüte hier schräge kleine Kreaturen aus.",
 "Uno zoo. Vuoto, giudicante. Fai cose utili in «Oggi» → guadagna briciole → fai schiudere qui buffe creaturine.",
 "Un zoo. Vacío, juzgón. Haz cosas útiles en «Hoy» → gana migas → incuba aquí criaturas raras.",
-"Eläintarha. Tyhjä, tuomitseva. Tee hyödyllisiä juttuja kohdassa ”Tänään” → ansaitse muruja → kuori tänne kummia pikkuolentoja."
+"Eläintarha. Tyhjä, tuomitseva. Tee hyödyllisiä juttuja kohdassa ”Tänään” → ansaitse muruja → kuori tänne kummia pikkuolentoja.",
+"一个动物园。空的,还带着点嫌弃。在「今天」里做点有用的事 → 赚面包屑 → 在这里孵出古怪的小生物。",
+"一個動物園。空的,還帶著點嫌棄。在「今天」裡做點有用的事 → 賺麵包屑 → 在這裡孵出古怪的小生物。"
 ],
 "Introduce yourself to a cloud. Keep it professional.": [
 "Présente-toi à un nuage. Reste professionnel.",
 "Stell dich einer Wolke vor. Bleib professionell.",
 "Presentati a una nuvola. Resta professionale.",
 "Preséntate a una nube. Sé profesional.",
-"Esittäydy pilvelle. Pysy asiallisena."
+"Esittäydy pilvelle. Pysy asiallisena.",
+"向一朵云自我介绍。保持专业。",
+"向一朵雲自我介紹。保持專業。"
 ],
 "Compliment an inanimate object out loud. Mean it.": [
 "Complimente un objet inanimé à voix haute. Sincèrement.",
 "Mach einem leblosen Gegenstand laut ein Kompliment. Ernsthaft.",
 "Fai un complimento a voce alta a un oggetto inanimato. Sul serio.",
 "Halaga en voz alta a un objeto inanimado. De verdad.",
-"Kehu elotonta esinettä ääneen. Ihan oikeasti."
+"Kehu elotonta esinettä ääneen. Ihan oikeasti.",
+"大声夸奖一件没有生命的物品。要真心。",
+"大聲誇獎一件沒有生命的物品。要真心。"
 ],
 "Photograph three triangular things. They know what they did.": [
 "Photographie trois choses triangulaires. Elles savent ce qu'elles ont fait.",
 "Fotografiere drei dreieckige Dinge. Sie wissen, was sie getan haben.",
 "Fotografa tre cose triangolari. Sanno cos'hanno fatto.",
 "Fotografía tres cosas triangulares. Saben lo que hicieron.",
-"Kuvaa kolme kolmikulmaista asiaa. Ne tietävät, mitä tekivät."
+"Kuvaa kolme kolmikulmaista asiaa. Ne tietävät, mitä tekivät.",
+"拍三个三角形的东西。它们心里有数。",
+"拍三個三角形的東西。它們心裡有數。"
 ],
 "Name a pigeon. Do NOT tell it its name. It must never know.": [
 "Donne un nom à un pigeon. Ne le lui dis SURTOUT pas. Il ne doit jamais savoir.",
 "Gib einer Taube einen Namen. Sag ihn ihr NICHT. Sie darf es nie erfahren.",
 "Dai un nome a un piccione. NON dirglielo. Non deve mai saperlo.",
 "Ponle nombre a una paloma. NO se lo digas. Nunca debe saberlo.",
-"Anna kyyhkylle nimi. ÄLÄ kerro sitä sille. Se ei saa koskaan tietää."
+"Anna kyyhkylle nimi. ÄLÄ kerro sitä sille. Se ei saa koskaan tietää.",
+"给一只鸽子起名字。千万别告诉它。它绝不能知道。",
+"給一隻鴿子起名字。千萬別告訴它。它絕不能知道。"
 ],
 "Walk somewhere you've never walked. Ten whole metres counts.": [
 "Marche là où tu n'as jamais marché. Dix mètres, ça compte.",
 "Geh irgendwo, wo du noch nie warst. Zehn Meter zählen schon.",
 "Cammina dove non hai mai camminato. Dieci metri contano.",
 "Camina por donde nunca has caminado. Diez metros cuentan.",
-"Kävele jonnekin, missä et ole ennen käynyt. Kymmenen metriä riittää."
+"Kävele jonnekin, missä et ole ennen käynyt. Kymmenen metriä riittää.",
+"走一段你从没走过的路。整整十米也算数。",
+"走一段你從沒走過的路。整整十米也算數。"
 ],
 "Do your best impression of a door. Nobody's watching. Probably.": [
 "Fais ta meilleure imitation d'une porte. Personne ne regarde. Sans doute.",
 "Mach deine beste Tür-Imitation. Keiner schaut zu. Wahrscheinlich.",
 "Fai la tua migliore imitazione di una porta. Nessuno guarda. Forse.",
 "Haz tu mejor imitación de una puerta. Nadie mira. Probablemente.",
-"Esitä ovea parhaasi mukaan. Kukaan ei katso. Luultavasti."
+"Esitä ovea parhaasi mukaan. Kukaan ei katso. Luultavasti.",
+"尽力模仿一扇门。没人在看。大概吧。",
+"盡力模仿一扇門。沒人在看。大概吧。"
 ],
 "Find a face in something that isn't a face. Say hi. Be normal about it.": [
 "Trouve un visage dans un truc qui n'en est pas un. Dis bonjour. Reste normal.",
 "Finde ein Gesicht in etwas, das keins ist. Sag Hallo. Bleib dabei normal.",
 "Trova un volto in qualcosa che non lo è. Saluta. Fai il normale.",
 "Encuentra una cara en algo que no lo es. Salúdala. Con naturalidad.",
-"Löydä kasvot jostain, mikä ei ole kasvot. Tervehdi. Ole luonteva."
+"Löydä kasvot jostain, mikä ei ole kasvot. Tervehdi. Ole luonteva.",
+"在不是脸的东西上找出一张脸。打个招呼。表现自然点。",
+"在不是臉的東西上找出一張臉。打個招呼。表現自然點。"
 ],
 "Hum a dramatic theme for a boring task. Commit like your life depends on it.": [
 "Fredonne un thème dramatique pour une tâche ennuyeuse. Investis-toi comme si ta vie en dépendait.",
 "Summ ein dramatisches Thema für eine langweilige Aufgabe. Gib alles, als hinge dein Leben davon ab.",
 "Canticchia un tema drammatico per un compito noioso. Impegnati come se ne andasse della vita.",
 "Tararea un tema dramático para una tarea aburrida. Entrégate como si te fuera la vida.",
-"Hyräile dramaattinen teema tylsälle askareelle. Uppoudu kuin henkesi riippuisi siitä."
+"Hyräile dramaattinen teema tylsälle askareelle. Uppoudu kuin henkesi riippuisi siitä.",
+"为一件无聊的事哼一段戏剧化的主题曲。投入得像性命攸关。",
+"為一件無聊的事哼一段戲劇化的主題曲。投入得像性命攸關。"
 ],
 "Reorganise something by colour for absolutely no reason.": [
 "Réorganise un truc par couleur, sans aucune raison.",
 "Sortier irgendetwas nach Farbe, völlig grundlos.",
 "Riordina qualcosa per colore, senza alcun motivo.",
 "Reorganiza algo por color, sin razón alguna.",
-"Järjestä jotain värin mukaan, ilman mitään syytä."
+"Järjestä jotain värin mukaan, ilman mitään syytä.",
+"毫无理由地按颜色重新整理点什么。",
+"毫無理由地按顏色重新整理點什麼。"
 ],
 "Thank a tool that helped you today. Out loud. Yes, really.": [
 "Remercie un outil qui t'a aidé aujourd'hui. À voix haute. Oui, vraiment.",
 "Bedank dich bei einem Werkzeug, das dir heute geholfen hat. Laut. Ja, wirklich.",
 "Ringrazia un attrezzo che ti ha aiutato oggi. A voce alta. Sì, davvero.",
 "Da las gracias a una herramienta que te ayudó hoy. En voz alta. Sí, en serio.",
-"Kiitä työkalua, joka auttoi sinua tänään. Ääneen. Kyllä, oikeasti."
+"Kiitä työkalua, joka auttoi sinua tänään. Ääneen. Kyllä, oikeasti.",
+"感谢今天帮到你的一件工具。大声说出来。对,是认真的。",
+"感謝今天幫到你的一件工具。大聲說出來。對,是認真的。"
 ],
 "Invent a word for how you feel right now. Use it once, aggressively.": [
 "Invente un mot pour ce que tu ressens là. Utilise-le une fois, agressivement.",
 "Erfinde ein Wort für dein aktuelles Gefühl. Benutz es einmal, aggressiv.",
 "Inventa una parola per come ti senti ora. Usala una volta, con aggressività.",
 "Inventa una palabra para lo que sientes ahora. Úsala una vez, con agresividad.",
-"Keksi sana sille, miltä sinusta nyt tuntuu. Käytä sitä kerran, aggressiivisesti."
+"Keksi sana sille, miltä sinusta nyt tuntuu. Käytä sitä kerran, aggressiivisesti.",
+"为你此刻的感受发明一个词。用力用一次。",
+"為你此刻的感受發明一個詞。用力用一次。"
 ],
 "Stand like a superhero for one full breath. Feel the power. Leave.": [
 "Tiens-toi comme un super-héros le temps d'une respiration. Ressens la puissance. Pars.",
 "Steh eine ganze Atemzuglang wie ein Superheld. Spür die Kraft. Geh.",
 "Mettiti in posa da supereroe per un respiro intero. Senti il potere. Vattene.",
 "Ponte como un superhéroe durante una respiración entera. Siente el poder. Vete.",
-"Seiso yhden hengenvedon ajan kuin supersankari. Tunne voima. Poistu."
+"Seiso yhden hengenvedon ajan kuin supersankari. Tunne voima. Poistu.",
+"像超级英雄一样站一整口气的时间。感受力量。然后走开。",
+"像超級英雄一樣站一整口氣的時間。感受力量。然後走開。"
 ],
 "A group of blobs is called a 'mild concern'.": [
 "Un groupe de blobs s'appelle une « légère inquiétude ».",
 "Eine Gruppe Blobs nennt man eine „leichte Sorge“.",
 "Un gruppo di blob si chiama «lieve preoccupazione».",
 "A un grupo de blobs se le llama «leve preocupación».",
-"Blobijoukkoa kutsutaan ”lieväksi huoleksi”."
+"Blobijoukkoa kutsutaan ”lieväksi huoleksi”.",
+"一群小滴被称为一次「轻微的担忧」。",
+"一群小滴被稱為一次「輕微的擔憂」。"
 ],
 "No blob has ever finished a to-do list. They find it aspirational.": [
 "Aucun blob n'a jamais fini une liste de tâches. Ils trouvent ça inspirant.",
 "Kein Blob hat je eine To-do-Liste beendet. Sie finden das erstrebenswert.",
 "Nessun blob ha mai finito una lista di cose da fare. La trovano stimolante.",
 "Ningún blob ha terminado nunca una lista de tareas. Les parece aspiracional.",
-"Yksikään blob ei ole koskaan saanut tehtävälistaa valmiiksi. Ne pitävät sitä tavoitteena."
+"Yksikään blob ei ole koskaan saanut tehtävälistaa valmiiksi. Ne pitävät sitä tavoitteena.",
+"从没有小滴完成过待办清单。它们觉得那只是个理想。",
+"從沒有小滴完成過待辦清單。它們覺得那只是個理想。"
 ],
 "The average blob blinks four times before deciding you're fine.": [
 "Un blob moyen cligne quatre fois avant de décider que tu vas bien.",
 "Ein durchschnittlicher Blob blinzelt viermal, bevor er dich okay findet.",
 "Un blob medio sbatte le palpebre quattro volte prima di decidere che stai bene.",
 "Un blob medio parpadea cuatro veces antes de decidir que estás bien.",
-"Keskivertoblob räpäyttää neljästi ennen kuin päättää, että olet kunnossa."
+"Keskivertoblob räpäyttää neljästi ennen kuin päättää, että olet kunnossa.",
+"普通小滴要眨四次眼,才能确定你没事。",
+"普通小滴要眨四次眼,才能確定你沒事。"
 ],
 "Every blob believes it is slightly larger than it actually is.": [
 "Chaque blob se croit un peu plus gros qu'il ne l'est.",
 "Jeder Blob hält sich für etwas größer, als er ist.",
 "Ogni blob si crede un po' più grande di quanto sia.",
 "Cada blob se cree un poco más grande de lo que es.",
-"Jokainen blob luulee olevansa hieman isompi kuin on."
+"Jokainen blob luulee olevansa hieman isompi kuin on.",
+"每只小滴都相信自己比实际稍微大一点。",
+"每隻小滴都相信自己比實際稍微大一點。"
 ],
 "Blobs hop to think. They think rarely.": [
 "Les blobs sautillent pour réfléchir. Ils réfléchissent rarement.",
 "Blobs hüpfen, um zu denken. Sie denken selten.",
 "I blob saltellano per pensare. Pensano di rado.",
 "Los blobs saltan para pensar. Piensan poco.",
-"Blobit hyppivät ajatellakseen. Ne ajattelevat harvoin."
+"Blobit hyppivät ajatellakseen. Ne ajattelevat harvoin.",
+"小滴靠跳来思考。它们很少思考。",
+"小滴靠跳來思考。它們很少思考。"
 ],
 "A blob's favourite colour is 'the grey one'.": [
 "La couleur préférée d'un blob, c'est « le gris ».",
 "Die Lieblingsfarbe eines Blobs ist „das Graue“.",
 "Il colore preferito di un blob è «quello grigio».",
 "El color favorito de un blob es «el gris».",
-"Blobin lempiväri on ”se harmaa”."
+"Blobin lempiväri on ”se harmaa”.",
+"小滴最喜欢的颜色是「那个灰色的」。",
+"小滴最喜歡的顏色是「那個灰色的」。"
 ],
 "Statistically, you are someone's favourite. The blobs took a vote.": [
 "Statistiquement, tu es le préféré de quelqu'un. Les blobs ont voté.",
 "Statistisch gesehen bist du jemandes Liebling. Die Blobs haben abgestimmt.",
 "Statisticamente, sei il preferito di qualcuno. I blob hanno votato.",
 "Estadísticamente, eres el favorito de alguien. Los blobs lo votaron.",
-"Tilastollisesti olet jonkun suosikki. Blobit äänestivät."
+"Tilastollisesti olet jonkun suosikki. Blobit äänestivät.",
+"从统计上讲,你是某人的最爱。小滴们投过票了。",
+"從統計上講,你是某人的最愛。小滴們投過票了。"
 ],
 "Blobs do not dream. They simply buffer.": [
 "Les blobs ne rêvent pas. Ils mettent juste en mémoire tampon.",
 "Blobs träumen nicht. Sie puffern einfach.",
 "I blob non sognano. Vanno solo in buffering.",
 "Los blobs no sueñan. Solo hacen buffering.",
-"Blobit eivät näe unia. Ne vain puskuroivat."
+"Blobit eivät näe unia. Ne vain puskuroivat.",
+"小滴不做梦。它们只是在缓冲。",
+"小滴不做夢。它們只是在緩衝。"
 ],
 "It is considered rude to count a blob's pixels aloud.": [
 "Il est mal vu de compter les pixels d'un blob à voix haute.",
 "Es gilt als unhöflich, die Pixel eines Blobs laut zu zählen.",
 "È scortese contare ad alta voce i pixel di un blob.",
 "Se considera de mala educación contar los píxeles de un blob en voz alta.",
-"Blobin pikselien ääneen laskeminen on epäkohteliasta."
+"Blobin pikselien ääneen laskeminen on epäkohteliasta.",
+"大声数一只小滴的像素被认为是不礼貌的。",
+"大聲數一隻小滴的畫素被認為是不禮貌的。"
 ],
 "Blobs are 90% vibes and 10% structural concern.": [
 "Les blobs, c'est 90 % d'ambiance et 10 % de souci structurel.",
 "Blobs bestehen zu 90 % aus Vibes und zu 10 % aus statischer Sorge.",
 "I blob sono per il 90% vibrazioni e per il 10% preoccupazione strutturale.",
 "Los blobs son 90% vibra y 10% preocupación estructural.",
-"Blobit ovat 90 % fiilistä ja 10 % rakenteellista huolta."
+"Blobit ovat 90 % fiilistä ja 10 % rakenteellista huolta.",
+"小滴90%是氛围,10%是结构性担忧。",
+"小滴90%是氛圍,10%是結構性擔憂。"
 ],
 "The oldest known blob is three weeks old and unbearably smug.": [
 "Le plus vieux blob connu a trois semaines et est insupportablement suffisant.",
 "Der älteste bekannte Blob ist drei Wochen alt und unerträglich selbstgefällig.",
 "Il blob più vecchio conosciuto ha tre settimane ed è insopportabilmente compiaciuto.",
 "El blob más viejo que se conoce tiene tres semanas y es insoportablemente engreído.",
-"Vanhin tunnettu blob on kolmen viikon ikäinen ja sietämättömän omahyväinen."
+"Vanhin tunnettu blob on kolmen viikon ikäinen ja sietämättömän omahyväinen.",
+"已知最老的小滴三周大,得意得让人受不了。",
+"已知最老的小滴三週大,得意得讓人受不了。"
 ],
 "Crumbs aren't currency anywhere reputable. Here, they're everything.": [
 "Les miettes ne sont une monnaie nulle part de sérieux. Ici, c'est tout.",
 "Krümel sind nirgendwo Seriösem eine Währung. Hier sind sie alles.",
 "Le briciole non sono valuta in nessun posto serio. Qui sono tutto.",
 "Las migas no son moneda en ningún sitio serio. Aquí lo son todo.",
-"Murut eivät ole valuuttaa missään arvostetussa paikassa. Täällä ne ovat kaikki."
+"Murut eivät ole valuuttaa missään arvostetussa paikassa. Täällä ne ovat kaikki.",
+"面包屑在任何正经地方都不算货币。在这儿,它们就是一切。",
+"麵包屑在任何正經地方都不算貨幣。在這兒,它們就是一切。"
 ],
 "Blobs experience Tuesdays more intensely than other creatures.": [
 "Les blobs vivent les mardis plus intensément que les autres créatures.",
 "Blobs erleben Dienstage intensiver als andere Kreaturen.",
 "I blob vivono i martedì più intensamente di altre creature.",
 "Los blobs viven los martes más intensamente que otras criaturas.",
-"Blobit kokevat tiistait intensiivisemmin kuin muut olennot."
+"Blobit kokevat tiistait intensiivisemmin kuin muut olennot.",
+"小滴对周二的感受比其他生物强烈得多。",
+"小滴對週二的感受比其他生物強烈得多。"
 ],
 "The word 'blep' predates language. Probably.": [
 "Le mot « blep » est antérieur au langage. Sans doute.",
 "Das Wort „blep“ ist älter als die Sprache. Wahrscheinlich.",
 "La parola «blep» precede il linguaggio. Probabilmente.",
 "La palabra «blep» es anterior al lenguaje. Probablemente.",
-"Sana ”blep” on kieltä vanhempi. Luultavasti."
+"Sana ”blep” on kieltä vanhempi. Luultavasti.",
+"「blep」这个词比语言本身还古老。大概吧。",
+"「blep」這個詞比語言本身還古老。大概吧。"
 ],
 "You've done precisely nothing today. Magnificent restraint.": [
 "Tu n'as strictement rien fait aujourd'hui. Quelle magnifique retenue.",
 "Du hast heute exakt nichts getan. Großartige Zurückhaltung.",
 "Oggi non hai fatto assolutamente nulla. Magnifico autocontrollo.",
 "Hoy no has hecho absolutamente nada. Magnífica contención.",
-"Et ole tehnyt tänään yhtään mitään. Suurenmoista pidättyväisyyttä."
+"Et ole tehnyt tänään yhtään mitään. Suurenmoista pidättyväisyyttä.",
+"你今天精准地什么都没做。真是了不起的克制。",
+"你今天精準地什麼都沒做。真是了不起的剋制。"
 ],
 "A blank slate. The blobs are pretending not to notice.": [
 "Page blanche. Les blobs font semblant de ne pas remarquer.",
 "Ein leeres Blatt. Die Blobs tun, als merkten sie es nicht.",
 "Una pagina bianca. I blob fingono di non notarlo.",
 "Una hoja en blanco. Los blobs fingen no darse cuenta.",
-"Puhdas pöytä. Blobit ovat huomaavinaan mitään."
+"Puhdas pöytä. Blobit ovat huomaavinaan mitään.",
+"一片空白。小滴们假装没注意到。",
+"一片空白。小滴們假裝沒注意到。"
 ],
 "Nothing yet. Bold. We admire the commitment to leisure.": [
 "Rien pour l'instant. Audacieux. On admire ce dévouement au farniente.",
 "Noch nichts. Mutig. Wir bewundern die Hingabe zur Muße.",
 "Ancora niente. Audace. Ammiriamo la dedizione all'ozio.",
 "Nada aún. Atrevido. Admiramos esa entrega al ocio.",
-"Ei vielä mitään. Rohkeaa. Ihailemme omistautumista joutenoloon."
+"Ei vielä mitään. Rohkeaa. Ihailemme omistautumista joutenoloon.",
+"还什么都没有。真大胆。我们佩服你对休闲的投入。",
+"還什麼都沒有。真大膽。我們佩服你對休閒的投入。"
 ],
 "A start. The blobs are cautiously optimistic.": [
 "Un début. Les blobs sont prudemment optimistes.",
 "Ein Anfang. Die Blobs sind vorsichtig optimistisch.",
 "Un inizio. I blob sono cautamente ottimisti.",
 "Un comienzo. Los blobs están cautelosamente optimistas.",
-"Alku. Blobit ovat varovaisen toiveikkaita."
+"Alku. Blobit ovat varovaisen toiveikkaita.",
+"开了个头。小滴们谨慎地乐观着。",
+"開了個頭。小滴們謹慎地樂觀著。"
 ],
 "Some progress. Steady on, hero.": [
 "Un peu de progrès. Doucement, héros.",
 "Etwas Fortschritt. Immer mit der Ruhe, Held.",
 "Qualche progresso. Piano, eroe.",
 "Algo de progreso. Con calma, héroe.",
-"Vähän edistystä. Rauhassa, sankari."
+"Vähän edistystä. Rauhassa, sankari.",
+"有点进展。稳住,英雄。",
+"有點進展。穩住,英雄。"
 ],
 "Not bad. The zoo noticed and will deny it later.": [
 "Pas mal. Le zoo l'a remarqué et le niera plus tard.",
 "Nicht schlecht. Der Zoo hat's bemerkt und wird's später leugnen.",
 "Niente male. Lo zoo l'ha notato e più tardi lo negherà.",
 "Nada mal. El zoo se dio cuenta y luego lo negará.",
-"Ei hassumpaa. Eläintarha huomasi ja kiistää sen myöhemmin."
+"Ei hassumpaa. Eläintarha huomasi ja kiistää sen myöhemmin.",
+"还不错。动物园注意到了,回头还会不承认。",
+"還不錯。動物園注意到了,回頭還會不承認。"
 ],
 "Look at you. Insufferable, honestly.": [
 "Regarde-toi. Insupportable, franchement.",
 "Sieh dich an. Unerträglich, ehrlich.",
 "Ma guardati. Insopportabile, davvero.",
 "Mírate. Insufrible, la verdad.",
-"Katsopa itseäsi. Sietämätöntä, rehellisesti."
+"Katsopa itseäsi. Sietämätöntä, rehellisesti.",
+"瞧瞧你。说实话,有点讨人嫌。",
+"瞧瞧你。說實話,有點討人嫌。"
 ],
 "Fully productive. The blobs are a little intimidated.": [
 "Totalement productif. Les blobs sont un peu intimidés.",
 "Voll produktiv. Die Blobs sind etwas eingeschüchtert.",
 "Del tutto produttivo. I blob sono un po' intimiditi.",
 "Totalmente productivo. Los blobs están un poco intimidados.",
-"Täysin tuottelias. Blobit ovat vähän hämillään."
+"Täysin tuottelias. Blobit ovat vähän hämillään.",
+"效率拉满。小滴们都有点被震住了。",
+"效率拉滿。小滴們都有點被震住了。"
 ],
 "All done. Please leave some ambition for tomorrow.": [
 "Tout est fait. Garde un peu d'ambition pour demain.",
 "Alles erledigt. Lass etwas Ehrgeiz für morgen übrig.",
 "Tutto fatto. Lascia un po' di ambizione per domani.",
 "Todo hecho. Deja algo de ambición para mañana.",
-"Kaikki tehty. Jätä hieman kunnianhimoa huomiseksi."
+"Kaikki tehty. Jätä hieman kunnianhimoa huomiseksi.",
+"全部完成。请给明天留点野心。",
+"全部完成。請給明天留點野心。"
 ],
 "Volunteer": [
 "Bénévole",
 "Freiwilliger",
 "Volontario",
 "Voluntario",
-"Vapaaehtoinen"
+"Vapaaehtoinen",
+"志愿者",
+"志願者"
 ],
 "Junior Keeper": [
 "Gardien junior",
 "Junior-Wärter",
 "Custode junior",
 "Guardián júnior",
-"Nuorempi hoitaja"
+"Nuorempi hoitaja",
+"初级饲养员",
+"初級飼養員"
 ],
 "Head Keeper": [
 "Gardien en chef",
 "Oberwärter",
 "Custode capo",
 "Guardián jefe",
-"Ylihoitaja"
+"Ylihoitaja",
+"首席饲养员",
+"首席飼養員"
 ],
 "Curator": [
 "Conservateur",
 "Kurator",
 "Curatore",
 "Conservador",
-"Intendentti"
+"Intendentti",
+"馆长",
+"館長"
 ],
 "Director": [
 "Directeur",
 "Direktor",
 "Direttore",
 "Director",
-"Johtaja"
+"Johtaja",
+"园长",
+"園長"
 ],
 "Legendary Director": [
 "Directeur légendaire",
 "Legendärer Direktor",
 "Direttore leggendario",
 "Director legendario",
-"Legendaarinen johtaja"
+"Legendaarinen johtaja",
+"传奇园长",
+"傳奇園長"
 ],
 "A Suspicious Rock": [
 "Un caillou suspect",
 "Ein verdächtiger Stein",
 "Un sasso sospetto",
 "Una piedra sospechosa",
-"Epäilyttävä kivi"
+"Epäilyttävä kivi",
+"一块可疑的石头",
+"一塊可疑的石頭"
 ],
 "A Resilient Fern": [
 "Une fougère résiliente",
 "Ein zäher Farn",
 "Una felce resiliente",
 "Un helecho resistente",
-"Sitkeä saniainen"
+"Sitkeä saniainen",
+"一株坚韧的蕨类",
+"一株堅韌的蕨類"
 ],
 "A Passive-Aggressive Sign": [
 "Un panneau passif-agressif",
 "Ein passiv-aggressives Schild",
 "Un cartello passivo-aggressivo",
 "Un cartel pasivo-agresivo",
-"Passiivis-aggressiivinen kyltti"
+"Passiivis-aggressiivinen kyltti",
+"一块阴阳怪气的告示牌",
+"一塊陰陽怪氣的告示牌"
 ],
 "A Moody Lamp": [
 "Une lampe d'humeur",
 "Eine launische Lampe",
 "Una lampada lunatica",
 "Una lámpara temperamental",
-"Oikukas lamppu"
+"Oikukas lamppu",
+"一盏情绪化的灯",
+"一盞情緒化的燈"
 ],
 "A Modest Pond": [
 "Un étang modeste",
 "Ein bescheidener Teich",
 "Uno stagno modesto",
 "Un estanque modesto",
-"Vaatimaton lampi"
+"Vaatimaton lampi",
+"一汪朴素的池塘",
+"一汪樸素的池塘"
 ],
 "An Unnecessary Archway": [
 "Une arche superflue",
 "Ein überflüssiger Torbogen",
 "Un arco superfluo",
 "Un arco innecesario",
-"Tarpeeton holvikaari"
+"Tarpeeton holvikaari",
+"一座多余的拱门",
+"一座多餘的拱門"
 ],
 "A Statue of Nobody": [
 "Une statue de personne",
 "Eine Statue von niemandem",
 "Una statua di nessuno",
 "Una estatua de nadie",
-"Ei-kenenkään patsas"
+"Ei-kenenkään patsas",
+"一座谁都不是的雕像",
+"一座誰都不是的雕像"
 ],
 "A Single Sad Balloon": [
 "Un unique ballon triste",
 "Ein einzelner trauriger Luftballon",
 "Un solo palloncino triste",
 "Un único globo triste",
-"Yksi surullinen ilmapallo"
+"Yksi surullinen ilmapallo",
+"一个孤独伤心的气球",
+"一個孤獨傷心的氣球"
 ],
 "An Off-Duty Gnome": [
 "Un nain de jardin en congé",
 "Ein Gartenzwerg im Feierabend",
 "Uno gnomo fuori servizio",
 "Un enano de jardín libre",
-"Vapaavuorolla oleva tonttu"
+"Vapaavuorolla oleva tonttu",
+"一个下班的地精",
+"一個下班的地精"
 ],
 "A Creaky Swing": [
 "Une balançoire grinçante",
 "Eine quietschende Schaukel",
 "Un'altalena cigolante",
 "Un columpio chirriante",
-"Natiseva keinu"
+"Natiseva keinu",
+"一个吱呀作响的秋千",
+"一個吱呀作響的鞦韆"
 ],
 "A Totem of Mild Power": [
 "Un totem de pouvoir modéré",
 "Ein Totem milder Macht",
 "Un totem di modico potere",
 "Un tótem de poder moderado",
-"Kohtalaisen voiman toteemi"
+"Kohtalaisen voiman toteemi",
+"一座法力平平的图腾",
+"一座法力平平的圖騰"
 ],
 "A Fountain, Allegedly": [
 "Une fontaine, paraît-il",
 "Ein Brunnen, angeblich",
 "Una fontana, a quanto pare",
 "Una fuente, supuestamente",
-"Suihkulähde, kuulemma"
+"Suihkulähde, kuulemma",
+"一座「据说是」喷泉的东西",
+"一座「據說是」噴泉的東西"
 ],
 "Night (default)": [
 "Nuit (par défaut)",
 "Nacht (Standard)",
 "Notte (predefinito)",
 "Noche (predeterminado)",
-"Yö (oletus)"
+"Yö (oletus)",
+"夜晚(默认)",
+"夜晚(預設)"
 ],
 "Meadow": [
 "Prairie",
 "Wiese",
 "Prato",
 "Pradera",
-"Niitty"
+"Niitty",
+"草甸",
+"草甸"
 ],
 "Desert": [
 "Désert",
 "Wüste",
 "Deserto",
 "Desierto",
-"Aavikko"
+"Aavikko",
+"沙漠",
+"沙漠"
 ],
 "Far West": [
 "Far West",
 "Wilder Westen",
 "Far West",
 "Lejano Oeste",
-"Villi länsi"
+"Villi länsi",
+"西部荒野",
+"西部荒野"
 ],
 "Neon City": [
 "Cité néon",
 "Neonstadt",
 "Città al neon",
 "Ciudad de neón",
-"Neonkaupunki"
+"Neonkaupunki",
+"霓虹都市",
+"霓虹都市"
 ],
 "Quiet Snow": [
 "Neige tranquille",
 "Stiller Schnee",
 "Neve silenziosa",
 "Nieve tranquila",
-"Hiljainen lumi"
+"Hiljainen lumi",
+"静谧雪境",
+"靜謐雪境"
 ],
 "Hatchling": [
 "Nouveau-né",
 "Frischling",
 "Neonato",
 "Recién nacido",
-"Kuoriutunut"
+"Kuoriutunut",
+"初生幼崽",
+"初生幼崽"
 ],
 "Menagerie": [
 "Ménagerie",
 "Menagerie",
 "Serraglio",
 "Colección",
-"Eläinkokoelma"
+"Eläinkokoelma",
+"小型动物园",
+"小型動物園"
 ],
 "Consistent-ish": [
 "Presque régulier",
 "So halbwegs beständig",
 "Quasi costante",
 "Casi constante",
-"Suunnilleen johdonmukainen"
+"Suunnilleen johdonmukainen",
+"算是坚持",
+"算是堅持"
 ],
 "Regular": [
 "Régulier",
 "Beständig",
 "Costante",
 "Constante",
-"Säännöllinen"
+"Säännöllinen",
+"常客",
+"常客"
 ],
 "Creature of Habit": [
 "Créature d'habitudes",
 "Gewohnheitstier",
 "Abitudinario",
 "Animal de costumbres",
-"Tottumusten orja"
+"Tottumusten orja",
+"习惯的生物",
+"習慣的生物"
 ],
 "Quest Cleared": [
 "Quête accomplie",
 "Auftrag erledigt",
 "Missione completata",
 "Misión superada",
-"Tehtävä suoritettu"
+"Tehtävä suoritettu",
+"任务达成",
+"任務達成"
 ],
 "Interior Decorator": [
 "Décorateur d'intérieur",
 "Innenausstatter",
 "Arredatore",
 "Decorador de interiores",
-"Sisustaja"
+"Sisustaja",
+"室内设计师",
+"室內設計師"
 ],
 "Impossible Colour": [
 "Couleur impossible",
 "Unmögliche Farbe",
 "Colore impossibile",
 "Color imposible",
-"Mahdoton väri"
+"Mahdoton väri",
+"不可能的颜色",
+"不可能的顏色"
 ],
 "Small Hours": [
 "Petites heures",
 "Frühe Stunden",
 "Ore piccole",
 "De madrugada",
-"Pikkutunnit"
+"Pikkutunnit",
+"深夜时分",
+"深夜時分"
 ],
 "Regular Attender": [
 "Habitué",
 "Stammgast",
 "Frequentatore abituale",
 "Asiduo",
-"Vakiokävijä"
+"Vakiokävijä",
+"常来常往",
+"常來常往"
 ],
 "Devotee": [
 "Fervent",
 "Anhänger",
 "Devoto",
 "Devoto",
-"Harras"
+"Harras",
+"忠实信徒",
+"忠實信徒"
 ],
 "Fortnight": [
 "Quinzaine",
 "Zwei Wochen",
 "Quindicina",
 "Quincena",
-"Kaksi viikkoa"
+"Kaksi viikkoa",
+"整整两周",
+"整整兩週"
 ],
 "Full House": [
 "Maison comble",
 "Volles Haus",
 "Tutto esaurito",
 "Lleno total",
-"Täysi talo"
+"Täysi talo",
+"座无虚席",
+"座無虛席"
 ],
 "Quest Master": [
 "Maître des quêtes",
 "Auftragsmeister",
 "Maestro delle missioni",
 "Maestro de misiones",
-"Tehtävämestari"
+"Tehtävämestari",
+"任务大师",
+"任務大師"
 ],
 "Landscaper": [
 "Paysagiste",
 "Landschaftsgärtner",
 "Paesaggista",
 "Paisajista",
-"Maisemoija"
+"Maisemoija",
+"造景师",
+"造景師"
 ],
 "Ritualist": [
 "Ritualiste",
 "Ritualist",
 "Ritualista",
 "Ritualista",
-"Rituaalien harjoittaja"
+"Rituaalien harjoittaja",
+"仪式感十足",
+"儀式感十足"
 ],
 "Focused": [
 "Concentré",
 "Fokussiert",
 "Concentrato",
 "Concentrado",
-"Keskittynyt"
+"Keskittynyt",
+"专注达人",
+"專注達人"
 ],
 "Well-Tended": [
 "Bien entretenu",
 "Gut umsorgt",
 "Ben curato",
 "Bien cuidado",
-"Hyvin hoidettu"
+"Hyvin hoidettu",
+"悉心照料",
+"悉心照料"
 ],
 "Hatch your first blob.": [
 "Fais éclore ton premier blob.",
 "Brüte deinen ersten Blob aus.",
 "Fai schiudere il tuo primo blob.",
 "Incuba tu primer blob.",
-"Kuori ensimmäinen blobisi."
+"Kuori ensimmäinen blobisi.",
+"孵化你的第一只小滴。",
+"孵化你的第一隻小滴。"
 ],
 "Five residents.": [
 "Cinq résidents.",
 "Fünf Bewohner.",
 "Cinque residenti.",
 "Cinco residentes.",
-"Viisi asukasta."
+"Viisi asukasta.",
+"五位住户。",
+"五位住戶。"
 ],
 "A 3-day streak.": [
 "Une série de 3 jours.",
 "Eine 3-Tage-Serie.",
 "Una serie di 3 giorni.",
 "Una racha de 3 días.",
-"Kolmen päivän putki."
+"Kolmen päivän putki.",
+"连续3天。",
+"連續3天。"
 ],
 "A 7-day streak.": [
 "Une série de 7 jours.",
 "Eine 7-Tage-Serie.",
 "Una serie di 7 giorni.",
 "Una racha de 7 días.",
-"Seitsemän päivän putki."
+"Seitsemän päivän putki.",
+"连续7天。",
+"連續7天。"
 ],
 "Ten habit check-ins.": [
 "Dix validations d'habitudes.",
 "Zehn Gewohnheits-Häkchen.",
 "Dieci spunte di abitudini.",
 "Diez registros de hábitos.",
-"Kymmenen tapakirjausta."
+"Kymmenen tapakirjausta.",
+"十次习惯打卡。",
+"十次習慣打卡。"
 ],
 "Finish five quests.": [
 "Termine cinq quêtes.",
 "Schließe fünf Aufträge ab.",
 "Completa cinque missioni.",
 "Termina cinco misiones.",
-"Suorita viisi tehtävää."
+"Suorita viisi tehtävää.",
+"完成五个任务。",
+"完成五個任務。"
 ],
 "Own three objects.": [
 "Possède trois objets.",
 "Besitze drei Objekte.",
 "Possiedi tre oggetti.",
 "Ten tres objetos.",
-"Omista kolme esinettä."
+"Omista kolme esinettä.",
+"拥有三件物件。",
+"擁有三件物件。"
 ],
 "Hatch a mythic blob.": [
 "Fais éclore un blob mythique.",
 "Brüte einen mythischen Blob aus.",
 "Fai schiudere un blob mitico.",
 "Incuba un blob mítico.",
-"Kuori myyttinen blob."
+"Kuori myyttinen blob.",
+"孵化一只神话级小滴。",
+"孵化一隻神話級小滴。"
 ],
 "A challenge before 5am.": [
 "Un défi avant 5 h du matin.",
 "Eine Aufgabe vor 5 Uhr morgens.",
 "Una sfida prima delle 5 del mattino.",
 "Un reto antes de las 5 de la mañana.",
-"Haaste ennen kello viittä aamulla."
+"Haaste ennen kello viittä aamulla.",
+"凌晨5点前完成一次挑战。",
+"凌晨5點前完成一次挑戰。"
 ],
 "25 useful things done.": [
 "25 choses utiles faites.",
 "25 nützliche Dinge getan.",
 "25 cose utili fatte.",
 "25 cosas útiles hechas.",
-"25 hyödyllistä tehtynä."
+"25 hyödyllistä tehtynä.",
+"完成25件有用的事。",
+"完成25件有用的事。"
 ],
 "100 useful things done.": [
 "100 choses utiles faites.",
 "100 nützliche Dinge getan.",
 "100 cose utili fatte.",
 "100 cosas útiles hechas.",
-"100 hyödyllistä tehtynä."
+"100 hyödyllistä tehtynä.",
+"完成100件有用的事。",
+"完成100件有用的事。"
 ],
 "A 14-day streak.": [
 "Une série de 14 jours.",
 "Eine 14-Tage-Serie.",
 "Una serie di 14 giorni.",
 "Una racha de 14 días.",
-"14 päivän putki."
+"14 päivän putki.",
+"连续14天。",
+"連續14天。"
 ],
 "Ten residents.": [
 "Dix résidents.",
 "Zehn Bewohner.",
 "Dieci residenti.",
 "Diez residentes.",
-"Kymmenen asukasta."
+"Kymmenen asukasta.",
+"十位住户。",
+"十位住戶。"
 ],
 "Finish ten quests.": [
 "Termine dix quêtes.",
 "Schließe zehn Aufträge ab.",
 "Completa dieci missioni.",
 "Termina diez misiones.",
-"Suorita kymmenen tehtävää."
+"Suorita kymmenen tehtävää.",
+"完成十个任务。",
+"完成十個任務。"
 ],
 "Own three biomes.": [
 "Possède trois biomes.",
 "Besitze drei Biome.",
 "Possiedi tre biomi.",
 "Ten tres biomas.",
-"Omista kolme biomia."
+"Omista kolme biomia.",
+"拥有三个生态区。",
+"擁有三個生態區。"
 ],
 "Thirty habit check-ins.": [
 "Trente validations d'habitudes.",
 "Dreißig Gewohnheits-Häkchen.",
 "Trenta spunte di abitudini.",
 "Treinta registros de hábitos.",
-"Kolmekymmentä tapakirjausta."
+"Kolmekymmentä tapakirjausta.",
+"三十次习惯打卡。",
+"三十次習慣打卡。"
 ],
 "Five focus sessions.": [
 "Cinq séances de concentration.",
 "Fünf Fokus-Sitzungen.",
 "Cinque sessioni di concentrazione.",
 "Cinco sesiones de concentración.",
-"Viisi keskittymisjaksoa."
+"Viisi keskittymisjaksoa.",
+"五次专注时段。",
+"五次專注時段。"
 ],
 "A 7-day streak with 20 habits. You are being looked after.": [
 "Une série de 7 jours avec 20 habitudes. On prend soin de toi.",
 "Eine 7-Tage-Serie mit 20 Gewohnheiten. Man kümmert sich um dich.",
 "Una serie di 7 giorni con 20 abitudini. Qualcuno si prende cura di te.",
 "Una racha de 7 días con 20 hábitos. Te están cuidando.",
-"Seitsemän päivän putki ja 20 tapaa. Sinusta pidetään huolta."
+"Seitsemän päivän putki ja 20 tapaa. Sinusta pidetään huolta.",
+"连续7天,20次习惯。有人在好好照顾你。",
+"連續7天,20次習慣。有人在好好照顧你。"
 ],
 "Every creature here is a day you showed up.": [
 "Chaque créature ici, c'est un jour où tu étais là.",
 "Jede Kreatur hier ist ein Tag, an dem du da warst.",
 "Ogni creatura qui è un giorno in cui c'eri.",
 "Cada criatura de aquí es un día que apareciste.",
-"Jokainen olento täällä on päivä, jona olit paikalla."
+"Jokainen olento täällä on päivä, jona olit paikalla.",
+"这里的每一只生物,都是你出现过的一天。",
+"這裡的每一隻生物,都是你出現過的一天。"
 ],
 "The zoo fills as you do the small things. Funny, that.": [
 "Le zoo se remplit à mesure que tu fais les petites choses. Marrant, ça.",
 "Der Zoo füllt sich, während du die kleinen Dinge tust. Komisch, oder?",
 "Lo zoo si riempie mentre fai le piccole cose. Buffo, no?",
 "El zoo se llena mientras haces las cosas pequeñas. Curioso, ¿eh?",
-"Eläintarha täyttyy, kun teet pieniä asioita. Hassua, eikö?"
+"Eläintarha täyttyy, kun teet pieniä asioita. Hassua, eikö?",
+"你做的每件小事,都在填满这座动物园。说来也怪。",
+"你做的每件小事,都在填滿這座動物園。說來也怪。"
 ],
 "A collection of ordinary days, quietly kept.": [
 "Une collection de jours ordinaires, gardée en silence.",
 "Eine Sammlung gewöhnlicher Tage, still bewahrt.",
 "Una collezione di giorni ordinari, custodita in silenzio.",
 "Una colección de días corrientes, guardada en silencio.",
-"Kokoelma tavallisia päiviä, hiljaa talletettuna."
+"Kokoelma tavallisia päiviä, hiljaa talletettuna.",
+"一份平凡日子的收藏,静静保存着。",
+"一份平凡日子的收藏,靜靜儲存著。"
 ],
 "Turns out this is what looking after yourself looks like.": [
 "Il s'avère que prendre soin de soi, ça ressemble à ça.",
 "Es stellt sich heraus: So sieht Selbstfürsorge aus.",
 "A quanto pare, prendersi cura di sé è questo.",
 "Resulta que cuidarse tiene esta pinta.",
-"Kävi ilmi, että tältä itsestä huolehtiminen näyttää."
+"Kävi ilmi, että tältä itsestä huolehtiminen näyttää.",
+"原来,好好照顾自己就是这个样子。",
+"原來,好好照顧自己就是這個樣子。"
 ],
 "A whole zoo, built from Tuesdays. You did that. On purpose, even.": [
 "Tout un zoo, bâti à partir de mardis. C'est toi qui as fait ça. Exprès, en plus.",
 "Ein ganzer Zoo, aus Dienstagen gebaut. Das hast du getan. Sogar absichtlich.",
 "Uno zoo intero, costruito coi martedì. L'hai fatto tu. E pure apposta.",
 "Todo un zoo, hecho de martes. Lo hiciste tú. Y a propósito, además.",
-"Kokonainen eläintarha, rakennettu tiistaista. Sinä teit sen. Vielä tarkoituksella."
+"Kokonainen eläintarha, rakennettu tiistaista. Sinä teit sen. Vielä tarkoituksella.",
+"一整座动物园,是用一个个周二建成的。是你做到的。甚至还是故意的。",
+"一整座動物園,是用一個個週二建成的。是你做到的。甚至還是故意的。"
 ],
 "The Quest Beast": [
 "La Bête des quêtes",
 "Das Auftragsbiest",
 "La Bestia delle missioni",
 "La Bestia de las misiones",
-"Tehtäväpeto"
+"Tehtäväpeto",
+"任务巨兽",
+"任務巨獸"
 ],
 "A blob grew up and set off to live its own life. Not because you failed it, because it was ready. The zoo remembers.": [
 "Un blob a grandi et est parti vivre sa vie. Pas parce que tu l'as raté, parce qu'il était prêt. Le zoo s'en souvient.",
 "Ein Blob wurde groß und zog los, um sein eigenes Leben zu leben. Nicht weil du versagt hast, weil er bereit war. Der Zoo erinnert sich.",
 "Un blob è cresciuto ed è partito per vivere la sua vita. Non perché tu abbia fallito, perché era pronto. Lo zoo ricorda.",
 "Un blob creció y se marchó a vivir su propia vida. No porque le fallaras, porque estaba listo. El zoo lo recuerda.",
-"Blob kasvoi ja lähti elämään omaa elämäänsä. Ei siksi, että petit sen, vaan koska se oli valmis. Eläintarha muistaa."
+"Blob kasvoi ja lähti elämään omaa elämäänsä. Ei siksi, että petit sen, vaan koska se oli valmis. Eläintarha muistaa.",
+"一只小滴长大了,启程去过自己的生活。不是因为你辜负了它,而是因为它准备好了。动物园会记得。",
+"一隻小滴長大了,啟程去過自己的生活。不是因為你辜負了它,而是因為它準備好了。動物園會記得。"
 ],
 "The Keeper's Almanac": [
 "L'Almanach du gardien",
 "Almanach des Wärters",
 "L'Almanacco del custode",
 "El Almanaque del guardián",
-"Hoitajan almanakka"
+"Hoitajan almanakka",
+"饲养员年鉴",
+"飼養員年鑑"
 ],
 "The zoo remembers. Read on when a page is ready.": [
 "Le zoo se souvient. Lis la suite quand une page est prête.",
 "Der Zoo erinnert sich. Lies weiter, wenn eine Seite bereit ist.",
 "Lo zoo ricorda. Continua a leggere quando una pagina è pronta.",
 "El zoo recuerda. Sigue leyendo cuando una página esté lista.",
-"Eläintarha muistaa. Jatka lukemista, kun sivu on valmis."
+"Eläintarha muistaa. Jatka lukemista, kun sivu on valmis.",
+"动物园会记得。等新的一页准备好了,再继续读。",
+"動物園會記得。等新的一頁準備好了,再繼續讀。"
 ],
 "Chapter %1": [
 "Chapitre %1",
 "Kapitel %1",
 "Capitolo %1",
 "Capítulo %1",
-"Luku %1"
+"Luku %1",
+"第 %1 章",
+"第 %1 章"
 ],
 "A new page is waiting to be read.": [
 "Une nouvelle page attend d'être lue.",
 "Eine neue Seite wartet darauf, gelesen zu werden.",
 "Una nuova pagina aspetta di essere letta.",
 "Una nueva página espera a ser leída.",
-"Uusi sivu odottaa lukemista."
+"Uusi sivu odottaa lukemista.",
+"新的一页正等着被读到。",
+"新的一頁正等著被讀到。"
 ],
 "The story of the zoo, and of you.": [
 "L'histoire du zoo, et la tienne.",
 "Die Geschichte des Zoos, und deine.",
 "La storia dello zoo, e la tua.",
 "La historia del zoo, y la tuya.",
-"Eläintarhan tarina, ja sinun."
+"Eläintarhan tarina, ja sinun.",
+"动物园的故事,也是你的故事。",
+"動物園的故事,也是你的故事。"
 ],
 "Not yet written": [
 "Pas encore écrit",
 "Noch nicht geschrieben",
 "Non ancora scritto",
 "Aún sin escribir",
-"Vielä kirjoittamatta"
+"Vielä kirjoittamatta",
+"尚未写就",
+"尚未寫就"
 ],
 "The Almanac keeps this page blank, for now. Keep showing up.": [
 "L'Almanach laisse cette page blanche, pour l'instant. Continue de te présenter.",
 "Der Almanach lässt diese Seite vorerst leer. Tauch weiter auf.",
 "L'Almanacco tiene questa pagina in bianco, per ora. Continua a presentarti.",
 "El Almanaque deja esta página en blanco, por ahora. Sigue apareciendo.",
-"Almanakka pitää tämän sivun tyhjänä toistaiseksi. Tule yhä paikalle."
+"Almanakka pitää tämän sivun tyhjänä toistaiseksi. Tule yhä paikalle.",
+"年鉴暂时把这一页留白。继续出现就好。",
+"年鑑暫時把這一頁留白。繼續出現就好。"
 ],
 "How are you, right now?": [
 "Comment vas-tu, là, maintenant ?",
 "Wie geht es dir gerade?",
 "Come stai, proprio adesso?",
 "¿Cómo estás, ahora mismo?",
-"Miten voit juuri nyt?"
+"Miten voit juuri nyt?",
+"你现在,还好吗?",
+"你現在,還好嗎?"
 ],
 "Rough one today. Then today we go tiny: one small thing, and that fully counts.": [
 "Journée rude. Alors aujourd'hui on fait minuscule : un petit truc, et ça compte à fond.",
 "Harter Tag heute. Dann machen wir es heute winzig: eine Kleinigkeit, und die zählt voll.",
 "Giornata dura oggi. Allora oggi si fa piccolo: una cosina, e conta eccome.",
 "Día duro hoy. Entonces hoy vamos a lo minúsculo: una cosita, y cuenta del todo.",
-"Rankka päivä tänään. Tehdään sitten tänään pikkiriikkistä: yksi pieni juttu, ja se riittää täysin."
+"Rankka päivä tänään. Tehdään sitten tänään pikkiriikkistä: yksi pieni juttu, ja se riittää täysin.",
+"今天不太好过。那今天就做小小的:一件小事,也完全算数。",
+"今天不太好過。那今天就做小小的:一件小事,也完全算數。"
 ],
 "Low tank. Pick the easiest habit and let that be plenty. Gentle is still forward.": [
 "Réservoir bas. Choisis l'habitude la plus facile et que ça suffise. Doucement, c'est quand même avancer.",
 "Wenig im Tank. Nimm die leichteste Gewohnheit, und das reicht völlig. Sanft ist trotzdem vorwärts.",
 "Serbatoio basso. Scegli l'abitudine più facile e che basti. Piano è comunque avanti.",
 "Poco en el depósito. Elige el hábito más fácil y que baste. Despacio también es avanzar.",
-"Tankki vähissä. Valitse helpoin tapa ja anna sen riittää. Lempeästikin mennään eteenpäin."
+"Tankki vähissä. Valitse helpoin tapa ja anna sen riittää. Lempeästikin mennään eteenpäin.",
+"油箱见底。挑最容易的那个习惯,做到就够了。温柔地做,也是在前进。",
+"油箱見底。挑最容易的那個習慣,做到就夠了。溫柔地做,也是在前進。"
 ],
 "Steady. A fine day to keep the thread going, nothing heroic required.": [
 "Stable. Une bonne journée pour garder le fil, rien d'héroïque requis.",
 "Stabil. Ein guter Tag, um den Faden zu halten, nichts Heroisches nötig.",
 "Stabile. Una buona giornata per tenere il filo, niente di eroico.",
 "Estable. Un buen día para mantener el hilo, nada heroico hace falta.",
-"Vakaa. Hyvä päivä pitää lanka käsissä, mitään sankarillista ei tarvita."
+"Vakaa. Hyvä päivä pitää lanka käsissä, mitään sankarillista ei tarvita.",
+"稳稳当当。今天很适合延续下去,不需要什么英雄事迹。",
+"穩穩當當。今天很適合延續下去,不需要什麼英雄事蹟。"
 ],
 "Good energy. This is a nice day to start something you've been circling.": [
 "Bonne énergie. Belle journée pour lancer un truc autour duquel tu tournes.",
 "Gute Energie. Ein schöner Tag, um etwas anzufangen, um das du schon kreist.",
 "Bella energia. Una buona giornata per iniziare qualcosa attorno a cui giri da un po'.",
 "Buena energía. Un buen día para empezar algo que llevas rondando.",
-"Hyvää energiaa. Mukava päivä aloittaa jotain, jota olet kierrellyt."
+"Hyvää energiaa. Mukava päivä aloittaa jotain, jota olet kierrellyt.",
+"状态不错。今天很适合开始那件你一直在犹豫的事。",
+"狀態不錯。今天很適合開始那件你一直在猶豫的事。"
 ],
 "Flying. Ride it, start the thing, stack a habit. The blobs are excited.": [
 "Au top. Profites-en, lance le truc, empile une habitude. Les blobs sont tout excités.",
 "Voll im Flow. Nutz es, fang die Sache an, stapel eine Gewohnheit. Die Blobs sind ganz aufgeregt.",
 "In volo. Approfittane, inizia la cosa, impila un'abitudine. I blob sono elettrizzati.",
 "Por las nubes. Aprovéchalo, empieza eso, apila un hábito. Los blobs están emocionados.",
-"Lentää. Käytä se, aloita se juttu, pinoa tapa. Blobit ovat innoissaan."
+"Lentää. Käytä se, aloita se juttu, pinoa tapa. Blobit ovat innoissaan.",
+"状态爆棚。趁势而为,开始那件事,再叠加一个习惯。小滴们都很兴奋。",
+"狀態爆棚。趁勢而為,開始那件事,再疊加一個習慣。小滴們都很興奮。"
 ],
 "Yesterday slipped by. Today is the one that keeps the thread, one small thing does it.": [
 "Hier a filé. C'est aujourd'hui qui garde le fil, un petit truc suffit.",
 "Gestern ist entwischt. Heute ist der Tag, der den Faden hält, eine Kleinigkeit reicht.",
 "Ieri è scivolato via. È oggi che tiene il filo, basta una cosina.",
 "Ayer se escapó. Hoy es el que mantiene el hilo, basta con una cosita.",
-"Eilinen livahti ohi. Tänään on se päivä, joka pitää langan, yksi pieni juttu riittää."
+"Eilinen livahti ohi. Tänään on se päivä, joka pitää langan, yksi pieni juttu riittää.",
+"昨天悄悄溜走了。今天才是能延续下去的那天,一件小事就够了。",
+"昨天悄悄溜走了。今天才是能延續下去的那天,一件小事就夠了。"
 ],
 "The gate's still open, no clock running. Pick it back up whenever you like.": [
 "La porte est encore ouverte, aucun chrono. Reprends quand tu veux.",
 "Das Tor ist noch offen, keine Uhr läuft. Nimm es wieder auf, wann du magst.",
 "Il cancello è ancora aperto, nessun cronometro. Riprendi quando vuoi.",
 "La puerta sigue abierta, sin reloj en marcha. Retómalo cuando quieras.",
-"Portti on yhä auki, mikään kello ei käy. Jatka milloin haluat."
+"Portti on yhä auki, mikään kello ei käy. Jatka milloin haluat.",
+"大门还开着,没有计时器在跑。想什么时候捡起来都可以。",
+"大門還開著,沒有計時器在跑。想什麼時候撿起來都可以。"
 ],
 "A new month, a clean page. A good moment to swap or renegotiate one habit.": [
 "Un nouveau mois, page blanche. Bon moment pour changer ou renégocier une habitude.",
 "Ein neuer Monat, ein leeres Blatt. Ein guter Moment, eine Gewohnheit zu tauschen oder neu auszuhandeln.",
 "Un mese nuovo, pagina bianca. Un buon momento per cambiare o rinegoziare un'abitudine.",
 "Un mes nuevo, página en blanco. Buen momento para cambiar o renegociar un hábito.",
-"Uusi kuukausi, puhdas sivu. Hyvä hetki vaihtaa tai neuvotella tapa uusiksi."
+"Uusi kuukausi, puhdas sivu. Hyvä hetki vaihtaa tai neuvotella tapa uusiksi.",
+"新的一个月,干净的一页。正好可以换掉或者重新商量一个习惯。",
+"新的一個月,乾淨的一頁。正好可以換掉或者重新商量一個習慣。"
 ],
 "New week, fresh page. Want to renegotiate one habit while it's easy?": [
 "Nouvelle semaine, page neuve. Envie de renégocier une habitude tant que c'est facile ?",
 "Neue Woche, frische Seite. Lust, eine Gewohnheit neu auszuhandeln, solange es leicht ist?",
 "Settimana nuova, pagina fresca. Voglia di rinegoziare un'abitudine finché è facile?",
 "Semana nueva, página fresca. ¿Renegociamos un hábito mientras es fácil?",
-"Uusi viikko, tuore sivu. Haluatko neuvotella tavan uusiksi, kun se on helppoa?"
+"Uusi viikko, tuore sivu. Haluatko neuvotella tavan uusiksi, kun se on helppoa?",
+"新的一周,崭新一页。趁现在轻松,要不要重新商量一个习惯?",
+"新的一週,嶄新一頁。趁現在輕鬆,要不要重新商量一個習慣?"
 ],
 "When? e.g. after my morning coffee": [
 "Quand ? p. ex. après mon café du matin",
 "Wann? z. B. nach meinem Morgenkaffee",
 "Quando? es. dopo il caffè del mattino",
 "¿Cuándo? p. ej. después del café de la mañana",
-"Milloin? esim. aamukahvin jälkeen"
+"Milloin? esim. aamukahvin jälkeen",
+"什么时候?比如喝完晨间咖啡后",
+"什麼時候?比如喝完晨間咖啡後"
 ],
 "Cue (optional)": [
 "Déclencheur (facultatif)",
 "Auslöser (optional)",
 "Innesco (facoltativo)",
 "Señal (opcional)",
-"Vihje (valinnainen)"
+"Vihje (valinnainen)",
+"触发提示(可选)",
+"觸發提示(可選)"
 ],
 "Instead, I'll… (same payoff, kinder)": [
 "À la place, je… (même bénéfice, en plus doux)",
 "Stattdessen … (gleicher Gewinn, sanfter)",
 "Invece, io… (stesso beneficio, più gentile)",
 "En su lugar, yo… (mismo beneficio, más amable)",
-"Sen sijaan minä… (sama hyöty, lempeämmin)"
+"Sen sijaan minä… (sama hyöty, lempeämmin)",
+"取而代之,我会…(同样的回报,更温和)",
+"取而代之,我會…(同樣的回報,更溫和)"
 ],
 "Replacement (optional)": [
 "Remplacement (facultatif)",
 "Ersatz (optional)",
 "Sostituzione (facoltativa)",
 "Sustituto (opcional)",
-"Korvaaja (valinnainen)"
+"Korvaaja (valinnainen)",
+"替代做法(可选)",
+"替代做法(可選)"
 ],
 "tolerated": [
 "toléré",
 "geduldet",
 "tollerato",
 "tolerado",
-"siedetty"
+"siedetty",
+"容忍中",
+"容忍中"
 ],
 "tighten": [
 "resserrer",
 "straffen",
 "stringi",
 "apretar",
-"tiukenna"
+"tiukenna",
+"收紧",
+"收緊"
 ],
 "ok for now": [
 "ok pour l'instant",
 "ok fürs Erste",
 "ok per ora",
 "vale por ahora",
-"ok toistaiseksi"
+"ok toistaiseksi",
+"暂时还行",
+"暫時還行"
 ],
 "↪ instead: %1": [
 "↪ à la place : %1",
 "↪ stattdessen: %1",
 "↪ invece: %1",
 "↪ en su lugar: %1",
-"↪ sen sijaan: %1"
+"↪ sen sijaan: %1",
+"↪ 改为:%1",
+"↪ 改為:%1"
 ],
 "missed yesterday, today's the one that keeps it": [
 "raté hier, c'est aujourd'hui qui compte",
 "gestern verpasst, heute zählt",
 "saltato ieri, è oggi che conta",
 "ayer fallaste, hoy es el que cuenta",
-"eilen jäi väliin, tänään ratkaisee"
+"eilen jäi väliin, tänään ratkaisee",
+"昨天错过了,今天才是保住记录的那天",
+"昨天錯過了,今天才是保住記錄的那天"
 ],
 "Your 'ok for now' window closed. Extend it, or let it count again?": [
 "Ta fenêtre « ok pour l'instant » est terminée. La prolonger, ou la laisser recompter ?",
 "Dein „ok fürs Erste“-Fenster ist zu. Verlängern oder wieder zählen lassen?",
 "La tua finestra «ok per ora» è chiusa. Prolungarla o lasciarla contare di nuovo?",
 "Tu ventana de «vale por ahora» se cerró. ¿La amplías o dejas que vuelva a contar?",
-"”Ok toistaiseksi” -ikkunasi sulkeutui. Jatketaanko vai annetaanko sen taas laskea?"
+"”Ok toistaiseksi” -ikkunasi sulkeutui. Jatketaanko vai annetaanko sen taas laskea?",
+"你的「暂时还行」期限到了。要延长,还是让它重新计数?",
+"你的「暫時還行」期限到了。要延長,還是讓它重新計數?"
 ],
 "Two more weeks": [
 "Deux semaines de plus",
 "Zwei weitere Wochen",
 "Altre due settimane",
 "Dos semanas más",
-"Kaksi viikkoa lisää"
+"Kaksi viikkoa lisää",
+"再宽限两周",
+"再寬限兩週"
 ],
 "Let it count": [
 "Laisser compter",
 "Zählen lassen",
 "Lascia contare",
 "Que cuente",
-"Anna laskea"
+"Anna laskea",
+"让它重新计数",
+"讓它重新計數"
 ],
 "Almanac": [
 "Almanach",
 "Almanach",
 "Almanacco",
 "Almanaque",
-"Almanakka"
+"Almanakka",
+"年鉴",
+"年鑑"
 ],
 "Almanac •": [
 "Almanach •",
 "Almanach •",
 "Almanacco •",
 "Almanaque •",
-"Almanakka •"
+"Almanakka •",
+"年鉴 •",
+"年鑑 •"
 ],
 "A new page appeared in the Almanac.": [
 "Une nouvelle page est apparue dans l'Almanach.",
 "Im Almanach ist eine neue Seite aufgetaucht.",
 "È comparsa una nuova pagina nell'Almanacco.",
 "Apareció una nueva página en el Almanaque.",
-"Almanakkaan ilmestyi uusi sivu."
+"Almanakkaan ilmestyi uusi sivu.",
+"年鉴里出现了新的一页。",
+"年鑑裡出現了新的一頁。"
 ],
 "Continue": [
 "Continuer",
 "Weiter",
 "Continua",
 "Continuar",
-"Jatka"
+"Jatka",
+"继续",
+"繼續"
 ],
 "Data": [
 "Données",
 "Daten",
 "Dati",
 "Datos",
-"Tiedot"
+"Tiedot",
+"数据",
+"資料"
 ],
 "Add your own": [
 "Ajoute la tienne",
 "Eigene hinzufügen",
 "Aggiungi la tua",
 "Añade el tuyo",
-"Lisää omasi"
+"Lisää omasi",
+"添加你自己的",
+"新增你自己的"
 ],
 "This is your zoo. Currently empty, faintly judgemental. Let's fix that.": [
 "Voici ton zoo. Vide pour l'instant, et un peu moqueur. Réglons ça.",
 "Das ist dein Zoo. Momentan leer und leicht spöttisch. Ändern wir das.",
 "Questo è il tuo zoo. Per ora vuoto e un po' giudicante. Rimediamo.",
 "Este es tu zoo. De momento vacío y algo juzgón. Vamos a arreglarlo.",
-"Tässä on eläintarhasi. Toistaiseksi tyhjä ja hieman tuomitseva. Korjataan se."
+"Tässä on eläintarhasi. Toistaiseksi tyhjä ja hieman tuomitseva. Korjataan se.",
+"这是你的动物园。目前空空如也,还带着点嫌弃的眼神。我们来解决它。",
+"這是你的動物園。目前空空如也,還帶著點嫌棄的眼神。我們來解決它。"
 ],
 "Do one small thing a day, earn crumbs, and odd little creatures move in. That is the entire game.": [
 "Fais un petit truc par jour, gagne des miettes, et de drôles de créatures emménagent. C'est tout le jeu.",
 "Tu jeden Tag eine Kleinigkeit, verdien Krümel, und schräge kleine Kreaturen ziehen ein. Das ist das ganze Spiel.",
 "Fai una piccola cosa al giorno, guadagna briciole, e buffe creaturine si trasferiscono. È tutto qui il gioco.",
 "Haz una cosita al día, gana migas, y criaturitas raras se mudan aquí. Ese es todo el juego.",
-"Tee yksi pieni asia päivässä, ansaitse muruja, ja kummalliset pikkuolennot muuttavat sisään. Siinä koko peli."
+"Tee yksi pieni asia päivässä, ansaitse muruja, ja kummalliset pikkuolennot muuttavat sisään. Siinä koko peli.",
+"每天做一件小事,赚点面包屑,古怪的小生物就会搬进来。游戏规则就这么简单。",
+"每天做一件小事,賺點麵包屑,古怪的小生物就會搬進來。遊戲規則就這麼簡單。"
 ],
 "Pick a habit or two": [
 "Choisis une habitude ou deux",
 "Wähl eine Gewohnheit oder zwei",
 "Scegli un'abitudine o due",
 "Elige un hábito o dos",
-"Valitse tapa tai kaksi"
+"Valitse tapa tai kaksi",
+"选一两个习惯",
+"選一兩個習慣"
 ],
 "The zoo runs on these. Tap a few, or bring your own.": [
 "Le zoo tourne là-dessus. Touches-en quelques-unes, ou apporte les tiennes.",
 "Der Zoo läuft damit. Tipp ein paar an, oder bring eigene mit.",
 "Lo zoo va avanti con queste. Toccane alcune, o porta le tue.",
 "El zoo funciona con esto. Toca algunas, o trae las tuyas.",
-"Eläintarha pyörii näillä. Napauta muutamaa, tai tuo omasi."
+"Eläintarha pyörii näillä. Napauta muutamaa, tai tuo omasi.",
+"动物园就靠这些运转。点几个,或者带上你自己的。",
+"動物園就靠這些運轉。點幾個,或者帶上你自己的。"
 ],
 "Your blobs' look": [
 "Le look de tes blobs",
 "Der Look deiner Blobs",
 "L'aspetto dei tuoi blob",
 "El look de tus blobs",
-"Blobiesi ulkonäkö"
+"Blobiesi ulkonäkö",
+"你的小滴长什么样",
+"你的小滴長什麼樣"
 ],
 "Purely cosmetic. Pick a vibe, or Mix and let chaos decide.": [
 "Purement cosmétique. Choisis une ambiance, ou Mélange et laisse le chaos décider.",
 "Rein kosmetisch. Wähl eine Stimmung, oder Mix und lass das Chaos entscheiden.",
 "Puramente estetico. Scegli un'atmosfera, o Mix e lascia decidere al caos.",
 "Puramente cosmético. Elige un rollo, o Mezcla y deja que decida el caos.",
-"Puhtaasti kosmeettista. Valitse tunnelma, tai Sekoitus ja anna kaaoksen päättää."
+"Puhtaasti kosmeettista. Valitse tunnelma, tai Sekoitus ja anna kaaoksen päättää.",
+"纯粹是外观。选一种风格,或者选混合,让混沌来决定。",
+"純粹是外觀。選一種風格,或者選混合,讓混沌來決定。"
 ],
 "A quest? (optional)": [
 "Une quête ? (facultatif)",
 "Ein Auftrag? (optional)",
 "Una missione? (facoltativa)",
 "¿Una misión? (opcional)",
-"Tehtävä? (valinnainen)"
+"Tehtävä? (valinnainen)",
+"来个任务?(可选)",
+"來個任務?(可選)"
 ],
 "Step inside and we'll hand you your first creature. Free. Because we're generous, apparently.": [
 "Entre, et on te file ta première créature. Gratuite. Parce qu'on est généreux, paraît-il.",
 "Tritt ein, und wir drücken dir deine erste Kreatur in die Hand. Gratis. Weil wir angeblich großzügig sind.",
 "Entra e ti mettiamo in mano la tua prima creatura. Gratis. Perché siamo generosi, a quanto pare.",
 "Entra y te damos tu primera criatura. Gratis. Porque somos generosos, por lo visto.",
-"Astu sisään, niin ojennamme sinulle ensimmäisen olentosi. Ilmaiseksi. Koska olemme kuulemma anteliaita."
+"Astu sisään, niin ojennamme sinulle ensimmäisen olentosi. Ilmaiseksi. Koska olemme kuulemma anteliaita.",
+"走进来,我们就把你的第一只生物交给你。免费的。因为我们显然很大方。",
+"走進來,我們就把你的第一隻生物交給你。免費的。因為我們顯然很大方。"
 ],
 "Wipes the lot and starts over. No undo, no hard feelings.": [
 "Efface tout et repart de zéro. Pas de retour en arrière, sans rancune.",
 "Löscht alles und fängt neu an. Kein Zurück, nichts für ungut.",
 "Cancella tutto e ricomincia. Nessun ripensamento, senza rancore.",
 "Borra todo y empieza de cero. Sin deshacer, sin rencores.",
-"Pyyhkii kaiken ja aloittaa alusta. Ei paluuta, ei kaunaa."
+"Pyyhkii kaiken ja aloittaa alusta. Ei paluuta, ei kaunaa.",
+"清空一切,重新开始。无法撤销,也没有芥蒂。",
+"清空一切,重新開始。無法撤銷,也沒有芥蒂。"
 ],
 "How are you bearing up?": [
 "Tu tiens le coup ?",
 "Wie hältst du dich so?",
 "Come reggi?",
 "¿Cómo lo llevas?",
-"Miten jaksat?"
+"Miten jaksat?",
+"你撑得住吗?",
+"你撐得住嗎?"
 ],
 "A small promise to future-you. Future-you is unreliable, but we press on regardless.": [
 "Une petite promesse au toi de demain. Le toi de demain n'est pas fiable, mais on persévère quand même.",
 "Ein kleines Versprechen an das Zukunfts-Du. Das Zukunfts-Du ist unzuverlässig, aber wir machen trotzdem weiter.",
 "Una piccola promessa al te-del-futuro. Il te-del-futuro è inaffidabile, ma andiamo avanti lo stesso.",
 "Una pequeña promesa a tu yo del futuro. Tu yo del futuro es poco fiable, pero seguimos igualmente.",
-"Pieni lupaus tulevalle sinulle. Tuleva sinä on epäluotettava, mutta jatketaan silti."
+"Pieni lupaus tulevalle sinulle. Tuleva sinä on epäluotettava, mutta jatketaan silti.",
+"给未来的你一个小小的承诺。未来的你不太靠谱,但我们还是要继续。",
+"給未來的你一個小小的承諾。未來的你不太靠譜,但我們還是要繼續。"
 ],
 "The habit": [
 "L'habitude",
 "Die Gewohnheit",
 "L'abitudine",
 "El hábito",
-"Tapa"
+"Tapa",
+"这个习惯",
+"這個習慣"
 ],
 "Something you'll actually do. In theory.": [
 "Un truc que tu feras vraiment. En théorie.",
 "Etwas, das du wirklich tun wirst. Theoretisch.",
 "Qualcosa che farai davvero. In teoria.",
 "Algo que harás de verdad. En teoría.",
-"Jotain, minkä oikeasti teet. Teoriassa."
+"Jotain, minkä oikeasti teet. Teoriassa.",
+"一件你真的会做的事。理论上。",
+"一件你真的會做的事。理論上。"
 ],
 "Sort": [
 "Genre",
 "Art",
 "Tipo",
 "Tipo",
-"Laji"
+"Laji",
+"类型",
+"型別"
 ],
 "One to keep": [
 "À garder",
 "Eine zum Behalten",
 "Da tenere",
 "Uno para mantener",
-"Pidettävä"
+"Pidettävä",
+"要坚持的",
+"要堅持的"
 ],
 "One to quit": [
 "À arrêter",
 "Eine zum Aufgeben",
 "Da smettere",
 "Uno para dejar",
-"Lopetettava"
+"Lopetettava",
+"要戒掉的",
+"要戒掉的"
 ],
 "When, exactly?": [
 "Quand, précisément ?",
 "Wann genau?",
 "Quando, di preciso?",
 "¿Cuándo, exactamente?",
-"Milloin, tarkalleen?"
+"Milloin, tarkalleen?",
+"具体是什么时候?",
+"具體是什麼時候?"
 ],
 "after my morning coffee (anchors work; willpower sulks)": [
 "après mon café du matin (les ancres marchent ; la volonté boude)",
 "nach meinem Morgenkaffee (Anker wirken; Willenskraft schmollt)",
 "dopo il caffè del mattino (gli ancoraggi funzionano; la forza di volontà fa il broncio)",
 "después del café de la mañana (los anclajes funcionan; la fuerza de voluntad se enfurruña)",
-"aamukahvin jälkeen (ankkurit toimivat; tahdonvoima mököttää)"
+"aamukahvin jälkeen (ankkurit toimivat; tahdonvoima mököttää)",
+"晨间咖啡之后(锚点管用;意志力总是闹脾气)",
+"晨間咖啡之後(錨點管用;意志力總是鬧脾氣)"
 ],
 "How many times a day?": [
 "Combien de fois par jour ?",
 "Wie oft am Tag?",
 "Quante volte al giorno?",
 "¿Cuántas veces al día?",
-"Montako kertaa päivässä?"
+"Montako kertaa päivässä?",
+"一天几次?",
+"一天幾次?"
 ],
 "Do this instead": [
 "Fais plutôt ça",
 "Mach stattdessen das",
 "Fai invece questo",
 "Haz esto en su lugar",
-"Tee tämä sen sijaan"
+"Tee tämä sen sijaan",
+"改做这个",
+"改做這個"
 ],
 "same payoff, fewer regrets": [
 "même bénéfice, moins de regrets",
 "gleicher Gewinn, weniger Reue",
 "stesso beneficio, meno rimpianti",
 "mismo beneficio, menos arrepentimientos",
-"sama hyöty, vähemmän katumusta"
+"sama hyöty, vähemmän katumusta",
+"同样的回报,更少的后悔",
+"同樣的回報,更少的後悔"
 ],
 "Tolerate it, for now": [
 "Le tolérer, pour l'instant",
 "Vorerst dulden",
 "Tollerarla, per ora",
 "Tolerarlo, por ahora",
-"Siedä sitä, toistaiseksi"
+"Siedä sitä, toistaiseksi",
+"先容忍它一下",
+"先容忍它一下"
 ],
 "Slips won't sour the zoo. Two weeks' grace, then it quietly counts again.": [
 "Les écarts ne gâcheront pas le zoo. Deux semaines de répit, puis ça recompte discrètement.",
 "Ausrutscher trüben den Zoo nicht. Zwei Wochen Gnade, dann zählt es leise wieder.",
 "Le ricadute non guasteranno lo zoo. Due settimane di tregua, poi conta di nuovo, in sordina.",
 "Los deslices no amargarán el zoo. Dos semanas de gracia, y luego vuelve a contar sin ruido.",
-"Lipsahdukset eivät happamoita eläintarhaa. Kaksi viikkoa armoa, sitten se laskee taas hiljaa."
+"Lipsahdukset eivät happamoita eläintarhaa. Kaksi viikkoa armoa, sitten se laskee taas hiljaa.",
+"偶尔失手不会让动物园变脸。两周宽限期,之后它会悄悄重新计数。",
+"偶爾失手不會讓動物園變臉。兩週寬限期,之後它會悄悄重新計數。"
 ],
 "Add it to the pile": [
 "Ajoute-la à la pile",
 "Auf den Stapel damit",
 "Aggiungila al mucchio",
 "Añádelo al montón",
-"Lisää se pinoon"
+"Lisää se pinoon",
+"加进这堆里",
+"加進這堆裡"
 ],
 "A one-off thing. The blobs will pretend to be impressed.": [
 "Un truc ponctuel. Les blobs feront semblant d'être impressionnés.",
 "Eine einmalige Sache. Die Blobs tun so, als wären sie beeindruckt.",
 "Una cosa una tantum. I blob faranno finta di essere colpiti.",
 "Algo puntual. Los blobs fingirán estar impresionados.",
-"Kertaluontoinen juttu. Blobit teeskentelevät olevansa vaikuttuneita."
+"Kertaluontoinen juttu. Blobit teeskentelevät olevansa vaikuttuneita.",
+"一次性的事。小滴们会假装印象深刻。",
+"一次性的事。小滴們會假裝印象深刻。"
 ],
 "The quest": [
 "La quête",
 "Der Auftrag",
 "La missione",
 "La misión",
-"Tehtävä"
+"Tehtävä",
+"这个任务",
+"這個任務"
 ],
 "That thing you keep not doing": [
 "Ce truc que tu continues de ne pas faire",
 "Das Ding, das du ständig nicht tust",
 "Quella cosa che continui a non fare",
 "Esa cosa que sigues sin hacer",
-"Se juttu, jota jatkuvasti jätät tekemättä"
+"Se juttu, jota jatkuvasti jätät tekemättä",
+"你一直没做的那件事",
+"你一直沒做的那件事"
 ],
 "Deadline": [
 "Échéance",
 "Frist",
 "Scadenza",
 "Fecha límite",
-"Määräaika"
+"Määräaika",
+"截止日期",
+"截止日期"
 ],
 "none, live dangerously": [
 "aucune, vis dangereusement",
 "keine, leb gefährlich",
 "nessuna, vivi pericolosamente",
 "ninguna, vive peligrosamente",
-"ei mitään, elä vaarallisesti"
+"ei mitään, elä vaarallisesti",
+"没有,活得刺激点",
+"沒有,活得刺激點"
 ],
 "Set it in motion": [
 "Lance-la",
 "In Gang bringen",
 "Mettila in moto",
 "Ponla en marcha",
-"Pane liikkeelle"
+"Pane liikkeelle",
+"让它动起来",
+"讓它動起來"
 ],
 "The Quest Beast ate %1. Overdue quests have consequences. Mild ones.": [
 "La Bête des quêtes a mangé %1. Les quêtes en retard ont des conséquences. Modérées.",
 "Das Auftragsbiest hat %1 gefressen. Überfällige Aufträge haben Folgen. Milde.",
 "La Bestia delle missioni ha mangiato %1. Le missioni in ritardo hanno conseguenze. Lievi.",
 "La Bestia de las misiones se comió %1. Las misiones atrasadas tienen consecuencias. Leves.",
-"Tehtäväpeto söi %1. Myöhässä olevilla tehtävillä on seurauksia. Lieviä."
+"Tehtäväpeto söi %1. Myöhässä olevilla tehtävillä on seurauksia. Lieviä.",
+"任务巨兽吃掉了 %1。逾期的任务是有后果的。不严重的那种。",
+"任務巨獸吃掉了 %1。逾期的任務是有後果的。不嚴重的那種。"
 ],
 "a blob": [
 "un blob",
 "einen Blob",
 "un blob",
 "un blob",
-"blobin"
+"blobin",
+"一只小滴",
+"一隻小滴"
 ],
 "%1 blobs": [
 "%1 blobs",
 "%1 Blobs",
 "%1 blob",
 "%1 blobs",
-"%1 blobia"
+"%1 blobia",
+"%1 只小滴",
+"%1 只小滴"
 ],
 "NOM": [
 "MIAM",
 "MAMPF",
 "GNAM",
 "ÑAM",
-"NAM"
+"NAM",
+"咔嚓",
+"咔嚓"
 ],
 "focusing": [
 "concentration",
 "Fokus läuft",
 "in concentrazione",
 "concentrándose",
-"keskitytään"
+"keskitytään",
+"专注中",
+"專注中"
 ],
 "No habits yet": [
 "Pas encore d'habitudes",
 "Noch keine Gewohnheiten",
 "Ancora nessuna abitudine",
 "Aún no hay hábitos",
-"Ei vielä tapoja"
+"Ei vielä tapoja",
+"还没有习惯",
+"還沒有習慣"
 ],
 " today": [
 " aujourd'hui",
 " heute",
 " oggi",
 " hoy",
-" tänään"
+" tänään",
+" 今天",
+" 今天"
 ],
 "done today": [
 "fait aujourd'hui",
 "heute erledigt",
 "fatto oggi",
 "hecho hoy",
-"tehty tänään"
+"tehty tänään",
+"今天已完成",
+"今天已完成"
 ],
 "to do": [
 "à faire",
 "zu tun",
 "da fare",
 "por hacer",
-"tehtävää"
+"tehtävää",
+"待完成",
+"待完成"
 ],
 "Focus done": [
 "Concentration terminée",
 "Fokus fertig",
 "Concentrazione finita",
 "Concentración lista",
-"Keskittyminen valmis"
+"Keskittyminen valmis",
+"专注完成",
+"專注完成"
 ],
 "Time's up. Well done, allegedly.": [
 "Temps écoulé. Bien joué, paraît-il.",
 "Zeit ist um. Gut gemacht, angeblich.",
 "Tempo scaduto. Ben fatto, a quanto pare.",
 "Se acabó el tiempo. Bien hecho, supuestamente.",
-"Aika loppui. Hyvin tehty, kuulemma."
+"Aika loppui. Hyvin tehty, kuulemma.",
+"时间到。干得不错,大概吧。",
+"時間到。幹得不錯,大概吧。"
 ],
 "Every resident is a day you looked after yourself. The habits are the point; the zoo just makes it visible.": [
 "Chaque résident est un jour où tu as pris soin de toi. Les habitudes sont l'essentiel ; le zoo ne fait que le rendre visible.",
 "Jeder Bewohner ist ein Tag, an dem du auf dich geachtet hast. Die Gewohnheiten sind der Punkt; der Zoo macht es nur sichtbar.",
 "Ogni residente è un giorno in cui ti sei preso cura di te. Le abitudini sono il punto; lo zoo le rende solo visibili.",
 "Cada residente es un día que te cuidaste. Los hábitos son lo importante; el zoo solo lo hace visible.",
-"Jokainen asukas on päivä, jona pidit itsestäsi huolta. Tavat ovat pointti; eläintarha vain tekee sen näkyväksi."
+"Jokainen asukas on päivä, jona pidit itsestäsi huolta. Tavat ovat pointti; eläintarha vain tekee sen näkyväksi.",
+"每位住户,都是你照顾自己的一天。重点是那些习惯;动物园只是让它看得见。",
+"每位住戶,都是你照顧自己的一天。重點是那些習慣;動物園只是讓它看得見。"
 ],
 "useful things this week": [
 "choses utiles cette semaine",
 "nützliche Dinge diese Woche",
 "cose utili questa settimana",
 "cosas útiles esta semana",
-"hyödyllistä tällä viikolla"
+"hyödyllistä tällä viikolla",
+"本周有用的事",
+"本週有用的事"
 ],
 "this month": [
 "ce mois-ci",
 "diesen Monat",
 "questo mese",
 "este mes",
-"tässä kuussa"
+"tässä kuussa",
+"本月",
+"本月"
 ],
 "Mix": [
 "Mélange",
 "Mix",
 "Mix",
 "Mezcla",
-"Sekoitus"
+"Sekoitus",
+"混合",
+"混合"
 ],
 "Drink water": [
 "Boire de l'eau",
 "Wasser trinken",
 "Bere acqua",
 "Beber agua",
-"Juo vettä"
+"Juo vettä",
+"喝水",
+"喝水"
 ],
 "Read": [
 "Lire",
 "Lesen",
 "Leggere",
 "Leer",
-"Lue"
+"Lue",
+"阅读",
+"閱讀"
 ],
 "Move a bit": [
 "Bouger un peu",
 "Etwas bewegen",
 "Muoversi un po'",
 "Moverse un poco",
-"Liiku vähän"
+"Liiku vähän",
+"活动一下",
+"活動一下"
 ],
 "Breathe": [
 "Respirer",
 "Atmen",
 "Respirare",
 "Respirar",
-"Hengitä"
+"Hengitä",
+"深呼吸",
+"深呼吸"
 ],
 "Welcome": [
 "Bienvenue",
 "Willkommen",
 "Benvenuto",
 "Bienvenido",
-"Tervetuloa"
+"Tervetuloa",
+"欢迎",
+"歡迎"
 ],
 "A zoo of odd little creatures, fed by the useful things you do. Two minutes to set up, then it's yours.": [
 "Un zoo de petites créatures bizarres, nourri par les choses utiles que tu fais. Deux minutes pour le configurer, puis il est à toi.",
 "Ein Zoo schräger kleiner Kreaturen, genährt von den nützlichen Dingen, die du tust. Zwei Minuten zum Einrichten, dann gehört er dir.",
 "Uno zoo di buffe creaturine, nutrito dalle cose utili che fai. Due minuti per configurarlo, poi è tuo.",
 "Un zoo de criaturitas raras, alimentado por las cosas útiles que haces. Dos minutos para configurarlo, y es tuyo.",
-"Eläintarha kummallisia pikkuolentoja, jota ruokkivat hyödylliset tekosi. Kaksi minuuttia pystytykseen, sitten se on sinun."
+"Eläintarha kummallisia pikkuolentoja, jota ruokkivat hyödylliset tekosi. Kaksi minuuttia pystytykseen, sitten se on sinun.",
+"一座由古怪小生物组成的动物园,靠你做的有用的事来喂养。两分钟设置好,之后就是你的了。",
+"一座由古怪小生物組成的動物園,靠你做的有用的事來餵養。兩分鐘設定好,之後就是你的了。"
 ],
 "Your name": [
 "Ton prénom",
 "Dein Name",
 "Il tuo nome",
 "Tu nombre",
-"Nimesi"
+"Nimesi",
+"你的名字",
+"你的名字"
 ],
 "Optional. So the creatures can shout it.": [
 "Facultatif. Pour que les créatures le crient.",
 "Optional. Damit die Kreaturen ihn rufen.",
 "Facoltativo. Così le creature lo urlano.",
 "Opcional. Para que las criaturas lo griten.",
-"Valinnainen. Jotta oliot voivat huutaa sen."
+"Valinnainen. Jotta oliot voivat huutaa sen.",
+"可选。好让生物们喊出来。",
+"可選。好讓生物們喊出來。"
 ],
 "Blob style": [
 "Style de blob",
 "Blob-Stil",
 "Stile del blob",
 "Estilo de blob",
-"Blobin tyyli"
+"Blobin tyyli",
+"小滴风格",
+"小滴風格"
 ],
 "Pick one style, or Mix for a bit of everything.": [
 "Choisis un style, ou Mélange pour un peu de tout.",
 "Wähl einen Stil, oder Mix für etwas von allem.",
 "Scegli uno stile, o Mix per un po' di tutto.",
 "Elige un estilo, o Mezcla para un poco de todo.",
-"Valitse yksi tyyli, tai Sekoitus vähän kaikkea."
+"Valitse yksi tyyli, tai Sekoitus vähän kaikkea.",
+"选一种风格,或者选混合,各来一点。",
+"選一種風格,或者選混合,各來一點。"
 ],
 "Tap a few to add them. Or your own below. You can change these anytime.": [
 "Touches-en quelques-unes pour les ajouter. Ou les tiennes en dessous. Tu peux changer quand tu veux.",
 "Tipp ein paar an, um sie hinzuzufügen. Oder eigene unten. Du kannst das jederzeit ändern.",
 "Toccane alcune per aggiungerle. O le tue qui sotto. Puoi cambiarle quando vuoi.",
 "Toca algunas para añadirlas. O las tuyas abajo. Puedes cambiarlas cuando quieras.",
-"Napauta muutamaa lisätäksesi ne. Tai omasi alle. Voit muuttaa näitä milloin vain."
+"Napauta muutamaa lisätäksesi ne. Tai omasi alle. Voit muuttaa näitä milloin vain.",
+"点几个把它们加进来。或者在下面写你自己的。你随时都可以改。",
+"點幾個把它們加進來。或者在下面寫你自己的。你隨時都可以改。"
 ],
 "Custom habit": [
 "Habitude perso",
 "Eigene Gewohnheit",
 "Abitudine personalizzata",
 "Hábito propio",
-"Oma tapa"
+"Oma tapa",
+"自定义习惯",
+"自定義習慣"
 ],
 "%1 habit(s) lined up": [
 "%1 habitude(s) en file",
 "%1 Gewohnheit(en) bereit",
 "%1 abitudine/i pronte",
 "%1 hábito(s) listos",
-"%1 tapa(a) jonossa"
+"%1 tapa(a) jonossa",
+"已排好 %1 个习惯",
+"已排好 %1 個習慣"
 ],
 "A quest (optional)": [
 "Une quête (facultatif)",
 "Ein Auftrag (optional)",
 "Una missione (facoltativa)",
 "Una misión (opcional)",
-"Tehtävä (valinnainen)"
+"Tehtävä (valinnainen)",
+"一个任务(可选)",
+"一個任務(可選)"
 ],
 "Something one-off": [
 "Un truc ponctuel",
 "Etwas Einmaliges",
 "Qualcosa di una tantum",
 "Algo puntual",
-"Jokin kertaluontoinen"
+"Jokin kertaluontoinen",
+"一件一次性的事",
+"一件一次性的事"
 ],
 "Into the zoo": [
 "Vers le zoo",
 "Ab in den Zoo",
 "Nello zoo",
 "Al zoo",
-"Eläintarhaan"
+"Eläintarhaan",
+"进入动物园",
+"進入動物園"
 ],
 "Birthday: %1": [
 "Anniversaire : %1",
 "Geburtstag: %1",
 "Compleanno: %1",
 "Cumpleaños: %1",
-"Syntymäpäivä: %1"
+"Syntymäpäivä: %1",
+"生日:%1",
+"生日:%1"
 ],
 "Set birthday (optional)": [
 "Définir l'anniversaire (facultatif)",
 "Geburtstag festlegen (optional)",
 "Imposta compleanno (facoltativo)",
 "Poner cumpleaños (opcional)",
-"Aseta syntymäpäivä (valinnainen)"
+"Aseta syntymäpäivä (valinnainen)",
+"设置生日(可选)",
+"設定生日(可選)"
 ],
 "Blobs": [
 "Blobs",
 "Blobs",
 "Blob",
 "Blobs",
-"Blobit"
+"Blobit",
+"小滴",
+"小滴"
 ],
 "Mix of all styles": [
 "Mélange de tous les styles",
 "Mix aller Stile",
 "Mix di tutti gli stili",
 "Mezcla de todos los estilos",
-"Kaikkien tyylien sekoitus"
+"Kaikkien tyylien sekoitus",
+"所有风格混合",
+"所有風格混合"
 ],
 "Blob size": [
 "Taille de blob",
 "Blob-Größe",
 "Dimensione del blob",
 "Tamaño de blob",
-"Blobin koko"
+"Blobin koko",
+"小滴大小",
+"小滴大小"
 ],
 "Small": [
 "Petit",
 "Klein",
 "Piccolo",
 "Pequeño",
-"Pieni"
+"Pieni",
+"小",
+"小"
 ],
 "Medium": [
 "Moyen",
 "Mittel",
 "Medio",
 "Mediano",
-"Keskikoko"
+"Keskikoko",
+"中",
+"中"
 ],
 "Large": [
 "Grand",
 "Groß",
 "Grande",
 "Grande",
-"Suuri"
+"Suuri",
+"大",
+"大"
 ],
 "Enormous": [
 "Énorme",
 "Riesig",
 "Enorme",
 "Enorme",
-"Valtava"
+"Valtava",
+"巨大",
+"巨大"
 ],
 "Testing": [
 "Test",
 "Test",
 "Test",
 "Pruebas",
-"Testaus"
+"Testaus",
+"测试",
+"測試"
 ],
 "Give me 1000 🍞 (testing)": [
 "Donne-moi 1000 🍞 (test)",
 "Gib mir 1000 🍞 (Test)",
 "Dammi 1000 🍞 (test)",
 "Dame 1000 🍞 (prueba)",
-"Anna 1000 🍞 (testi)"
+"Anna 1000 🍞 (testi)",
+"给我1000个🍞(测试用)",
+"給我1000個🍞(測試用)"
 ],
 "Hatch a blob (free)": [
 "Faire éclore un blob (gratuit)",
 "Einen Blob ausbrüten (gratis)",
 "Fai schiudere un blob (gratis)",
 "Incubar un blob (gratis)",
-"Kuori blob (ilmainen)"
+"Kuori blob (ilmainen)",
+"孵化一只小滴(免费)",
+"孵化一隻小滴(免費)"
 ],
 "Send oldest blob off 👋": [
 "Faire partir le plus vieux blob 👋",
 "Ältesten Blob verabschieden 👋",
 "Congeda il blob più vecchio 👋",
 "Despedir al blob más viejo 👋",
-"Hyvästele vanhin blob 👋"
+"Hyvästele vanhin blob 👋",
+"送走最老的小滴 👋",
+"送走最老的小滴 👋"
 ],
 "Feed the Quest Beast 🦖": [
 "Nourrir la Bête des quêtes 🦖",
 "Das Auftragsbiest füttern 🦖",
 "Nutri la Bestia delle missioni 🦖",
 "Alimentar a la Bestia de las misiones 🦖",
-"Ruoki Tehtäväpetoa 🦖"
+"Ruoki Tehtäväpetoa 🦖",
+"喂食任务巨兽 🦖",
+"餵食任務巨獸 🦖"
 ],
 "Trigger birthday 🎂": [
 "Déclencher l'anniversaire 🎂",
 "Geburtstag auslösen 🎂",
 "Attiva il compleanno 🎂",
 "Activar cumpleaños 🎂",
-"Laukaise syntymäpäivä 🎂"
+"Laukaise syntymäpäivä 🎂",
+"触发生日 🎂",
+"觸發生日 🎂"
 ],
 "Farewells, the beast and birthdays play out on the zoo page. Go home to watch.": [
 "Les adieux, la bête et les anniversaires se jouent sur la page du zoo. Rentre pour regarder.",
 "Abschiede, das Biest und Geburtstage spielen sich auf der Zoo-Seite ab. Geh nach Hause zum Zuschauen.",
 "Addii, la bestia e i compleanni si svolgono sulla pagina dello zoo. Torna a casa per guardare.",
 "Las despedidas, la bestia y los cumpleaños ocurren en la página del zoo. Vuelve a casa para verlo.",
-"Jäähyväiset, peto ja syntymäpäivät tapahtuvat eläintarhasivulla. Mene kotiin katsomaan."
+"Jäähyväiset, peto ja syntymäpäivät tapahtuvat eläintarhasivulla. Mene kotiin katsomaan.",
+"告别、巨兽和生日,都会在动物园页面上演。回去看看吧。",
+"告別、巨獸和生日,都會在動物園頁面上演。回去看看吧。"
 ],
 "Erase all data": [
 "Effacer toutes les données",
 "Alle Daten löschen",
 "Cancella tutti i dati",
 "Borrar todos los datos",
-"Poista kaikki tiedot"
+"Poista kaikki tiedot",
+"清除所有数据",
+"清除所有資料"
 ],
 "Erasing everything": [
 "Tout effacer",
 "Alles wird gelöscht",
 "Cancellare tutto",
 "Borrando todo",
-"Poistetaan kaikki"
+"Poistetaan kaikki",
+"正在清除一切",
+"正在清除一切"
 ],
 "For trying things out. No judgement. Well, a little.": [
 "Pour faire des essais. Aucun jugement. Bon, un peu.",
 "Zum Ausprobieren. Kein Urteil. Na ja, ein bisschen.",
 "Per fare prove. Nessun giudizio. Beh, un po'.",
 "Para hacer pruebas. Sin juzgar. Bueno, un poco.",
-"Kokeilua varten. Ei tuomiota. No, vähän."
+"Kokeilua varten. Ei tuomiota. No, vähän.",
+"用来试试手感。不做评判。好吧,一点点。",
+"用來試試手感。不做評判。好吧,一點點。"
 ],
 "avoid": [
 "à éviter",
 "meiden",
 "evita",
 "evitar",
-"vältä"
+"vältä",
+"戒除",
+"戒除"
 ],
 "slipped %1 today": [
 "craqué %1 fois aujourd'hui",
 "heute %1 mal ausgerutscht",
 "ceduto %1 volte oggi",
 "caíste %1 veces hoy",
-"lipsahti %1 kertaa tänään"
+"lipsahti %1 kertaa tänään",
+"今天失手了 %1 次",
+"今天失手了 %1 次"
 ],
 "clean today, nice": [
 "clean aujourd'hui, bravo",
 "heute sauber, schön",
 "pulito oggi, bene",
 "limpio hoy, bien",
-"puhdas tänään, hienoa"
+"puhdas tänään, hienoa",
+"今天很干净,真棒",
+"今天很乾淨,真棒"
 ],
 "%1 / %2 today": [
 "%1 / %2 aujourd'hui",
 "%1 / %2 heute",
 "%1 / %2 oggi",
 "%1 / %2 hoy",
-"%1 / %2 tänään"
+"%1 / %2 tänään",
+"今天 %1 / %2",
+"今天 %1 / %2"
 ],
 "New habit": [
 "Nouvelle habitude",
 "Neue Gewohnheit",
 "Nuova abitudine",
 "Nuevo hábito",
-"Uusi tapa"
+"Uusi tapa",
+"新习惯",
+"新習慣"
 ],
 "times/day": [
 "fois/jour",
 "Mal/Tag",
 "volte/giorno",
 "veces/día",
-"kertaa/päivä"
+"kertaa/päivä",
+"次/天",
+"次/天"
 ],
 "avoid this one": [
 "à éviter, celle-ci",
 "diese meiden",
 "evita questa",
 "evita este",
-"vältä tätä"
+"vältä tätä",
+"戒掉这个",
+"戒掉這個"
 ],
 "New quest": [
 "Nouvelle quête",
 "Neuer Auftrag",
 "Nuova missione",
 "Nueva misión",
-"Uusi tehtävä"
+"Uusi tehtävä",
+"新任务",
+"新任務"
 ],
 "no deadline": [
 "sans échéance",
 "keine Frist",
 "nessuna scadenza",
 "sin fecha límite",
-"ei määräaikaa"
+"ei määräaikaa",
+"没有截止日期",
+"沒有截止日期"
 ],
 "Today's tasks": [
 "Tâches du jour",
 "Heutige Aufgaben",
 "Compiti di oggi",
 "Tareas de hoy",
-"Tämän päivän tehtävät"
+"Tämän päivän tehtävät",
+"今日事项",
+"今日事項"
 ],
 "Tokyo Street": [
 "Rue de Tokyo",
 "Tokio-Straße",
 "Strada di Tokyo",
 "Calle de Tokio",
-"Tokion katu"
+"Tokion katu",
+"东京街道",
+"東京街道"
 ],
 "A fond farewell": [
 "Un tendre au revoir",
 "Ein herzlicher Abschied",
 "Un affettuoso addio",
 "Una cariñosa despedida",
-"Lämpimät jäähyväiset"
+"Lämpimät jäähyväiset",
+"一场温情的告别",
+"一場溫情的告別"
 ],
 "Well kept": [
 "Bien tenu",
 "Gut gepflegt",
 "Ben tenuto",
 "Bien cuidado",
-"Hyvin hoidettu"
+"Hyvin hoidettu",
+"悉心保持",
+"悉心保持"
 ],
 "%1 habit check-ins. The blobs are quietly proud, and a little competitive.": [
 "%1 validations d'habitudes. Les blobs sont discrètement fiers, et un peu compétitifs.",
 "%1 Gewohnheits-Häkchen. Die Blobs sind still stolz und ein bisschen ehrgeizig.",
 "%1 spunte di abitudini. I blob sono silenziosamente orgogliosi, e un po' competitivi.",
 "%1 registros de hábitos. Los blobs están calladamente orgullosos, y algo competitivos.",
-"%1 tapakirjausta. Blobit ovat hiljaa ylpeitä ja hieman kilpailuhenkisiä."
+"%1 tapakirjausta. Blobit ovat hiljaa ylpeitä ja hieman kilpailuhenkisiä.",
+"%1 次习惯打卡。小滴们默默地骄傲着,还带点好胜心。",
+"%1 次習慣打卡。小滴們默默地驕傲著,還帶點好勝心。"
 ],
 "Happy birthday": [
 "Joyeux anniversaire",
 "Alles Gute zum Geburtstag",
 "Buon compleanno",
 "Feliz cumpleaños",
-"Hyvää syntymäpäivää"
+"Hyvää syntymäpäivää",
+"生日快乐",
+"生日快樂"
 ],
 "The whole zoo made you something. It's a blob. It's always a blob.": [
 "Tout le zoo t'a fait un cadeau. C'est un blob. C'est toujours un blob.",
 "Der ganze Zoo hat dir etwas gebastelt. Es ist ein Blob. Es ist immer ein Blob.",
 "Tutto lo zoo ti ha fatto una cosa. È un blob. È sempre un blob.",
 "Todo el zoo te hizo algo. Es un blob. Siempre es un blob.",
-"Koko eläintarha teki sinulle jotain. Se on blob. Se on aina blob."
+"Koko eläintarha teki sinulle jotain. Se on blob. Se on aina blob.",
+"整座动物园给你做了点东西。是一只小滴。永远都是小滴。",
+"整座動物園給你做了點東西。是一隻小滴。永遠都是小滴。"
 ],
 "The zoo is closed for celebrations. The blobs are wearing tiny hats.": [
 "Le zoo est fermé pour cause de fête. Les blobs portent de petits chapeaux.",
 "Der Zoo ist wegen Feierlichkeiten geschlossen. Die Blobs tragen winzige Hüte.",
 "Lo zoo è chiuso per festeggiamenti. I blob indossano cappellini.",
 "El zoo está cerrado por celebraciones. Los blobs llevan sombreritos.",
-"Eläintarha on suljettu juhlien vuoksi. Blobeilla on pienet hatut."
+"Eläintarha on suljettu juhlien vuoksi. Blobeilla on pienet hatut.",
+"动物园因庆祝活动暂停开放。小滴们戴上了小帽子。",
+"動物園因慶祝活動暫停開放。小滴們戴上了小帽子。"
 ]
 }
