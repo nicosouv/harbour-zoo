@@ -1,13 +1,14 @@
 ---
 name: zoo-i18n
-description: Translation and internationalisation for harbour-zoo — the 6 target locales (en/fr/de/it/es/fi), the qmake sailfishapp_i18n setup, the lupdate/lrelease workflow, and the rule that the Keeper's voice must survive translation. Use when adding user-visible strings, updating .ts files, or reviewing translations.
+description: Translation and internationalisation for harbour-zoo — the 8 target locales (en/fr/de/it/es/fi/zh_CN/zh_TW), the qmake sailfishapp_i18n setup, the lupdate/lrelease workflow, and the rule that the Keeper's voice must survive translation. Use when adding user-visible strings, updating .ts files, or reviewing translations.
 ---
 
 # Internationalising the Zoo
 
-The app ships in **six languages**: **English (source)**, **French**, **German**, **Italian**,
-**Spanish**, **Finnish**. Zoo is a copy-heavy app — the Keeper's warmth and absurdity *are* the
-product — so translation is a first-class feature, not a bolt-on.
+The app ships in **eight languages**: **English (source)**, **French**, **German**, **Italian**,
+**Spanish**, **Finnish**, **Chinese (Simplified)**, **Chinese (Traditional)**. Zoo is a copy-heavy
+app — the Keeper's warmth and absurdity *are* the product — so translation is a first-class
+feature, not a bolt-on.
 
 ## The prime rule: translate the feeling, not the words
 
@@ -39,7 +40,9 @@ TRANSLATIONS += translations/harbour-zoo-en.ts \
                 translations/harbour-zoo-de.ts \
                 translations/harbour-zoo-it.ts \
                 translations/harbour-zoo-es.ts \
-                translations/harbour-zoo-fi.ts
+                translations/harbour-zoo-fi.ts \
+                translations/harbour-zoo-zh_CN.ts \
+                translations/harbour-zoo-zh_TW.ts
 ```
 
 `sailfishapp_i18n` compiles the `.ts` → `.qm` at build and installs them; the app picks the locale
@@ -64,9 +67,9 @@ in `scripts/translations/` — this is the canonical workflow. Never hand-edit t
 never hand-add `<message>` blocks; regenerate them.
 
 The four files (`scripts/translations/`):
-- **`maketrans.py`** — the master table `T = { source: [fr, de, it, es, fi] }`. **Edit this** to add
-  or fix a translation. Running it writes `translations.json`.
-- **`gen_ts.py`** — emits `translations/harbour-zoo-{fr,de,it,es,fi}.ts`. QML contexts come from
+- **`maketrans.py`** — the master table `T = { source: [fr, de, it, es, fi, zh_CN, zh_TW] }`. **Edit
+  this** to add or fix a translation. Running it writes `translations.json`.
+- **`gen_ts.py`** — emits `translations/harbour-zoo-{fr,de,it,es,fi,zh_CN,zh_TW}.ts`. QML contexts come from
   `qml_strings.json`; **C++ (`tr()`) source strings are listed by hand in its `zc_src` array**
   under the `zoo::ZooController` context (the metaobject className includes the namespace). Add any
   new C++ user-facing string to `zc_src`.
@@ -79,20 +82,20 @@ The four files (`scripts/translations/`):
 python3 scripts/translations/extract.py        # refresh qml_strings.json + list MISSING sources
 #   → add new C++ strings to gen_ts.py `zc_src`; add every MISSING source to maketrans.py `T`
 python3 scripts/translations/maketrans.py       # rebuild translations.json from the table
-python3 scripts/translations/gen_ts.py          # rebuild the 5 .ts; prints "OK, all translated." or MISSING
+python3 scripts/translations/gen_ts.py          # rebuild the 7 .ts; prints "OK, all translated." or MISSING
 ```
 
 Iterate until `gen_ts.py` prints **`OK, all translated.`** (zero MISSING). `lrelease` (→ `.qm`)
 runs automatically via `sailfishapp_i18n` at RPM build; you don't run it locally.
 
 - `-en.ts` stays the source-locale baseline (strings == source, Qt falls back to source); `gen_ts.py`
-  only writes the other five.
+  only writes the other seven.
 - **No em-dashes (`—`) or en-dashes (`–`) in any user-facing copy** — the owner's house style.
   Use a comma, colon, or full stop. This holds for the English source *and* every translation.
 
 ## Definition of done for i18n
 
-- All six `.ts` files present and non-empty; no `type="unfinished"` left for a shipped release.
+- All eight `.ts` files present and non-empty; no `type="unfinished"` left for a shipped release.
 - Voice preserved per locale (a native-ish reader smiles, not cringes).
 - No truncation/overflow in DE/FI on cover, pills, buttons.
-- App runs and reads correctly with device language set to each of the six.
+- App runs and reads correctly with device language set to each of the eight.

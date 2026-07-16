@@ -31,7 +31,7 @@ decoupled from QML.**
 - **zoo-specimen** — authoring specimens/archetypes to the quality bar.
 - **zoo-silica** — Silica/QML UI conventions and the gentle-never-shaming presentation.
 - **zoo-voice** — the narrator's voice for all copy and flavor.
-- **zoo-i18n** — translation to the 6 locales (en/fr/de/it/es/fi), preserving the voice.
+- **zoo-i18n** — translation to the 8 locales (en/fr/de/it/es/fi/zh_CN/zh_TW), preserving the voice.
 - **zoo-release** — commit/tag/release conventions and CI.
 
 ## Architecture (one line)
