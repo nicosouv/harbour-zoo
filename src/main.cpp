@@ -24,10 +24,20 @@ int main(int argc, char* argv[])
 
     QTranslator translator;
     const QString trDir = SailfishApp::pathTo(QStringLiteral("translations")).toLocalFile();
-    if (translator.load(QStringLiteral("harbour-zoo-") + locale, trDir)
-        || translator.load(QStringLiteral("harbour-zoo-") + locale.left(2), trDir)) {
-        app->installTranslator(&translator);
+    bool loaded = translator.load(QStringLiteral("harbour-zoo-") + locale, trDir)
+               || translator.load(QStringLiteral("harbour-zoo-") + locale.left(2), trDir);
+    if (!loaded && locale.startsWith(QStringLiteral("zh"), Qt::CaseInsensitive)) {
+        // System Chinese locales come in several shapes (zh_CN, zh_Hans, zh_SG, zh_TW, zh_HK,
+        // zh_Hant_TW...); neither exact nor two-letter match above catches those, so fall back to
+        // simplified/traditional by looking for a Hant/TW/HK/MO marker.
+        const bool traditional = locale.contains(QStringLiteral("TW"), Qt::CaseInsensitive)
+                               || locale.contains(QStringLiteral("HK"), Qt::CaseInsensitive)
+                               || locale.contains(QStringLiteral("MO"), Qt::CaseInsensitive)
+                               || locale.contains(QStringLiteral("Hant"), Qt::CaseInsensitive);
+        loaded = translator.load(traditional ? QStringLiteral("harbour-zoo-zh_TW")
+                                              : QStringLiteral("harbour-zoo-zh_CN"), trDir);
     }
+    if (loaded) app->installTranslator(&translator);
 
     zoo::ZooController controller;
 

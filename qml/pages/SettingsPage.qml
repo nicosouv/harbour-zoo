@@ -49,7 +49,7 @@ Page {
 
             ComboBox {
                 id: langCombo
-                property var codes: ["", "en", "fr", "de", "it", "es", "fi"]
+                property var codes: ["", "en", "fr", "de", "it", "es", "fi", "zh_CN", "zh_TW"]
                 label: qsTr("Language")
                 currentIndex: Math.max(0, codes.indexOf(Zoo.language))
                 menu: ContextMenu {
@@ -60,6 +60,8 @@ Page {
                     MenuItem { text: "Italiano" }
                     MenuItem { text: "Español" }
                     MenuItem { text: "Suomi" }
+                    MenuItem { text: "简体中文" }
+                    MenuItem { text: "繁體中文" }
                 }
                 onCurrentIndexChanged: {
                     var c = codes[currentIndex]

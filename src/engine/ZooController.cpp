@@ -119,6 +119,8 @@ static const Holiday kHolidays[] = {
     { "es", "10-12", "Fiesta Nacional" }, { "es", "12-25", "Navidad" },
     { "fi", "12-06", "itsenäisyyspäivä" }, { "fi", "12-25", "joulu" },
     { "en", "12-25", "Christmas" }, { "en", "01-01", "New Year's Day" }, { "en", "10-31", "Halloween" },
+    { "zh_CN", "01-01", "元旦" }, { "zh_CN", "12-25", "圣诞节" },
+    { "zh_TW", "01-01", "元旦" }, { "zh_TW", "12-25", "聖誕節" },
     { "",   "12-25", "Christmas" }, { "",   "01-01", "New Year's Day" }
 };
 static const int kHolidayCount = int(sizeof(kHolidays) / sizeof(kHolidays[0]));
